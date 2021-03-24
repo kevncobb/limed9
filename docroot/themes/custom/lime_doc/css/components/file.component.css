@@ -70,3 +70,71 @@
 .file--image {
   background-image: url(../../images/icons/image-x-generic.png);
 }
+
+.file {
+  display: table;
+  width: 100%;
+  margin: 5px 0;
+  font-size: 75%;
+  font-weight: 700;
+}
+
+.file > span {
+  color: #0038a5;
+  border-top: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
+  background: #fff;
+}
+
+.file > span:first-child {
+  border-left: 1px solid #ced4da;
+}
+
+.file > span:last-child {
+  border-right: 1px solid #ced4da;
+}
+
+.file > .tabledrag-changed {
+  top: 0;
+  display: table-cell;
+  padding: 0 1em;
+  vertical-align: middle;
+  color: #0038a5;
+  border-left: 1px solid inherit;
+  border-radius: 0;
+  background: inherit;
+}
+
+.file > .tabledrag-changed,
+.file > .tabledrag-changed:last-child {
+  border: 1px solid #bfc7cf;
+}
+
+.file-icon {
+  display: table-cell;
+  padding: 0.25em 0.5em;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 150%;
+}
+
+.file-link {
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.file-link a,
+.file-link a:hover,
+.file-link a:focus,
+.file-link a:active {
+  color: inherit;
+}
+
+.file-size {
+  display: table-cell;
+  padding: 0 1em;
+  text-align: right;
+  vertical-align: middle;
+  white-space: pre;
+}
