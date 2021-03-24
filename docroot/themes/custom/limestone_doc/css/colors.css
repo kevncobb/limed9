@@ -22,16 +22,16 @@ body {
 }
 
 #navbar-top {
-  background-color: #055a8e;
+  background-color: #010101;
 }
 
 #navbar-main {
-  background-color: #1d84c3;
+  background-color: #0038a5;
 }
 
 a,
 .link {
-  color: #0071b3;
+  color: #072e7b;
 }
 
 a:hover,
