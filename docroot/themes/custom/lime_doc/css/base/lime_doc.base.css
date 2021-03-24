@@ -22,10 +22,10 @@ h1.title {
   font-weight: 100;
 }
 
-.view-chapters .view-display-id-block_1 h3,
-.view-chapters .view-display-id-block_2 h3,
-.view-chapters .view-display-id-block_3 h3,
-.view-chapters .view-display-id-block_4 h3 {
+.view-chapters .view-display-id-block_1 .view-content > h3,
+.view-chapters .view-display-id-block_2 .view-content > h3,
+.view-chapters .view-display-id-block_3 .view-content > h3,
+.view-chapters .view-display-id-block_4 .view-content > h3 {
   margin-top: 1rem;
   padding: 15px;
   text-transform: uppercase;

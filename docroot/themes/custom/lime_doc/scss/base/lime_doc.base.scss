@@ -34,7 +34,7 @@ h1.title {
   .view-display-id-block_2,
   .view-display-id-block_3,
   .view-display-id-block_4 {
-    h3 {
+    .view-content > h3 {
       color: white;
       background: $primary;
       text-transform: uppercase;
