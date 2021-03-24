@@ -14,8 +14,10 @@ install:
   - length_indicator
   - advanced_text_formatter
   - maxlength
+  - varbase_layout_builder
+  - vlplb
 
-# Information added by Drupal.org packaging script on 2020-12-01
-version: '9.0.0-alpha2'
+# Information added by Drupal.org packaging script on 2021-03-21
+version: '9.0.0-beta1'
 project: 'varbase_blog'
-datestamp: 1606832918
+datestamp: 1616290146

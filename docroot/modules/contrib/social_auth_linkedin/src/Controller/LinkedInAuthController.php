@@ -83,7 +83,7 @@ class LinkedInAuthController extends OAuth2ControllerBase {
       return $redirect;
     }
 
-    /* @var \League\OAuth2\Client\Provider\LinkedInResourceOwner|null $profile */
+    /** @var \League\OAuth2\Client\Provider\LinkedInResourceOwner|null $profile */
     $profile = $this->processCallback();
 
     // If authentication was successful.

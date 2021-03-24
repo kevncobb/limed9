@@ -14,6 +14,7 @@ use Drupal\varbase\Form\AssemblerForm;
 use Drupal\varbase\Form\DevelopmentToolsAssemblerForm;
 use Drupal\varbase\Entity\VarbaseEntityDefinitionUpdateManager;
 use Drupal\node\Entity\Node;
+use Drupal\path_alias\Entity\PathAlias;
 
 /**
  * Implements hook_form_FORM_ID_alter() for install_configure_form().
@@ -237,8 +238,14 @@ function varbase_assemble_extra_components(array &$install_state) {
   }
 
   // Reset timestamp for nodes.
-  $node_ids = [1];
-  $batch['operations'][] = ['varbase_reset_timestamp_for_nodes', (array) $node_ids];
+  $node_ids = \Drupal::entityQuery('node')->execute();
+  if (isset($node_ids)
+    && is_array($node_ids)
+    && count($node_ids) > 0) {
+
+    $batch['operations'][] = ['varbase_reset_timestamp_for_nodes', $node_ids];
+  }
+
 
   if (count($uninstall_components) > 0) {
     foreach ($uninstall_components as $uninstall_component) {
@@ -460,14 +467,16 @@ function varbase_uninstall_component($uninstall_component) {
 /**
  * Batch to reset timestamp for selected nodes.
  *
- * @param int|array $nid
- *   The Node ID.
+ * @param array $node_ids
+ *   The Node IDs.
  */
-function varbase_reset_timestamp_for_nodes($nid) {
-  $node = Node::load($nid);
-  if (isset($node)) {
-    $node->created = \Drupal::time()->getCurrentTime();
-    $node->save();
+function varbase_reset_timestamp_for_nodes($node_ids) {
+  foreach($node_ids as $nid) {
+    $node = Node::load($nid);
+    if (isset($node)) {
+      $node->created = \Drupal::time()->getCurrentTime();
+      $node->save();
+    }
   }
 }
 
@@ -519,6 +528,35 @@ function varbase_after_install_finished(array &$install_state) {
   // * Clear all plugin caches.
   // * Rebuild the menu router based on all rebuilt data.
   drupal_flush_all_caches();
+
+  // Set front page to "/node".
+  // Issue #3188641: Change the set front page to "/node" process from
+  // using static node id to front page path by the alias.
+  // https://www.drupal.org/project/varbase_core/issues/3188641
+  try {
+    $path_alias_query = \Drupal::entityQuery('path_alias');
+    $path_alias_query->condition('alias', '/node', '=');
+    $alias_ids = $path_alias_query->execute();
+
+    if (count($alias_ids) > 0) {
+      foreach ($alias_ids as $alias_id) {
+
+        if (!(end($alias_ids))) {
+          $path_alias = PathAlias::load($alias_id);
+          $path_alias->delete();
+        }
+        else {
+          $page_front_path = PathAlias::load($alias_id)->getPath();
+
+          \Drupal::configFactory()->getEditable('system.site')
+          ->set('page.front', $page_front_path)
+          ->save();
+        }
+      }
+    }
+  } catch (\Exception $e) {
+    \Drupal::messenger()->addError($e->getMessage());
+  }
 
   global $base_url;
 

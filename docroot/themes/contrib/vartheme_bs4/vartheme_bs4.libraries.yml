@@ -27,6 +27,7 @@ bootstrap-styles:
   css:
     base:
       css/base/bootstrap.base.css: {}
+      css/base/bootstrap5-utilities.base.css: {}
     component:
       css/components/affix.component.css: {}
       css/components/alerts.component.css: {}
@@ -178,12 +179,6 @@ vbp-colors:
     theme:
       css/theme/vbp-colors.theme.css: {}
 
-# Vartheme BS4 Varbase Layout Builder colors.
-vlb-colors:
-  css:
-    theme:
-      css/theme/vlb-colors.theme.css: {}
-
 # Vartheme BS4 better login theme.
 betterlogin:
   css:
@@ -287,4 +282,4 @@ material_design_icons:
 fontawesome:
   css:
     component:
-      //use.fontawesome.com/releases/v5.0.13/css/all.css: {}
+      //use.fontawesome.com/releases/v5.15.2/css/all.css: {}

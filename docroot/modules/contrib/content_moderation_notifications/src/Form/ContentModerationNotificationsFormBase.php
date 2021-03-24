@@ -193,6 +193,7 @@ class ContentModerationNotificationsFormBase extends EntityForm {
       '#title' => $this->t('Email Subject'),
       '#default_value' => $content_moderation_notification->getSubject(),
       '#required' => TRUE,
+      '#maxlength' => 1024,
     ];
 
     // Email body content.

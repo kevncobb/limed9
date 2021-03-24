@@ -42,8 +42,9 @@ install:
   - views_bulk_edit
   - blazy
   - slick
+  - webp
 
-# Information added by Drupal.org packaging script on 2020-12-01
-version: '9.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2021-03-16
+version: '9.0.0-rc3'
 project: 'varbase_media'
-datestamp: 1606831541
+datestamp: 1615898659

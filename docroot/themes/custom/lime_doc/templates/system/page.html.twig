@@ -172,8 +172,10 @@
 
         {# Content #}
         {% block content %}
+        <div class="{{ container }}">
           <a id="main-content"></a>
           {{ page.content }}
+        </div>
         {% endblock %}
       </section>
 

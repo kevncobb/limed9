@@ -8,7 +8,7 @@ dependencies:
   - drupal:block
   - social_auth:social_auth
 
-# Information added by Drupal.org packaging script on 2020-12-01
-version: '9.0.0-alpha2'
+# Information added by Drupal.org packaging script on 2021-03-01
+version: '9.0.0-rc2'
 project: 'varbase_auth'
-datestamp: 1606830306
+datestamp: 1614632864

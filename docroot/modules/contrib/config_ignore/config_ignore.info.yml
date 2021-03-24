@@ -7,7 +7,7 @@ configure: config_ignore.settings
 dependencies:
   - config_filter:config_filter
 
-# Information added by Drupal.org packaging script on 2020-12-03
-version: '8.x-2.3-rc1'
+# Information added by Drupal.org packaging script on 2020-12-18
+version: '8.x-2.3'
 project: 'config_ignore'
-datestamp: 1607033838
+datestamp: 1608306492

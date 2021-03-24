@@ -34,52 +34,36 @@ class Chartjs extends ChartBase {
             ->toString(),
         ]),
     ];
+    $xaxis_configuration = $this->configuration['xaxis'] ?? [];
+    $form['xaxis'] = [
+      '#title' => $this->t('X-Axis Settings'),
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+    ];
+    $form['xaxis']['autoskip'] = [
+      '#title' => $this->t('Enable autoskip'),
+      '#type' => 'checkbox',
+      '#default_value' => $xaxis_configuration['autoskip'] ?? 1,
+    ];
 
     return $form;
   }
 
   /**
-   * Outputs a type that can be used by Chart.js.
+   * Build configurations.
    *
-   * @param array $options
-   *   The options.
-   *
-   * @return string
-   *   The generated type.
+   * @param array $form
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
-  protected function buildChartType(array $options) {
-    switch ($options['type']) {
-      case 'bar':
-        $type = 'horizontalBar';
-        break;
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
 
-      case 'column':
-        $type = 'bar';
-        break;
-
-      case 'area':
-      case 'spline':
-        $type = 'line';
-        break;
-
-      case 'donut':
-        $type = 'doughnut';
-        break;
-
-      case 'gauge':
-        // Setting this, but gauge is currently not supported by Chart.js.
-        $type = 'gauge';
-        break;
-
-      default:
-        $type = $options['type'];
-        break;
+    if (!$form_state->getErrors()) {
+      $values = $form_state->getValue($form['#parents']);
+      $this->configuration['xaxis'] = $values['xaxis'];
     }
-    if (isset($options['display']['polar']) && $options['display']['polar'] == 1) {
-      $type = 'radar';
-    }
-
-    return $type;
   }
 
   /**
@@ -110,53 +94,6 @@ class Chartjs extends ChartBase {
     $scaleColorRanges[2]->color = '#008000';
 
     return $scaleColorRanges;
-  }
-
-  /**
-   * Builds legend.
-   *
-   * @param array $options
-   *   The options.
-   *
-   * @return object
-   *   The legend object.
-   */
-  protected function buildLegend(array $options) {
-    $legend = new \stdClass();
-
-    if (!empty($options['display']['legend_position'])) {
-      $legend->display = TRUE;
-      $legend->position = $options['display']['legend_position'];
-    }
-    else {
-      $legend->display = FALSE;
-    }
-
-    return $legend;
-  }
-
-  /**
-   * Builds title based on options.
-   *
-   * @param array $options
-   *   The options.
-   *
-   * @return object
-   *   The title objects.
-   */
-  protected function buildTitle(array $options) {
-    $title = new \stdClass();
-
-    if (!empty($options['display']['title_position']) && !empty($options['display']['title'])) {
-      $title->display = TRUE;
-      $title->position = $options['display']['title_position'];
-      $title->text = $options['display']['title'];
-    }
-    else {
-      $title->display = FALSE;
-    }
-
-    return $title;
   }
 
   /**
@@ -194,6 +131,8 @@ class Chartjs extends ChartBase {
   private function populateOptions(array $element, array $chart_definition) {
     $chart_type = $this->populateChartType($element);
     $chart_definition['type'] = $chart_type;
+    $xaxis_configuration = isset($this->configuration['xaxis']) ? $this->configuration['xaxis'] : [];
+
     if (!in_array($chart_type, ['pie', 'doughnut'])) {
       if (!empty($element['#stacking']) && $element['#stacking'] == 1) {
         $stacking = TRUE;
@@ -201,42 +140,42 @@ class Chartjs extends ChartBase {
       else {
         $stacking = FALSE;
       }
-      $chart_definition['options']['scales']['xAxes'][] = [
-        'stacked' => $stacking,
-      ];
-      $chart_definition['options']['scales']['yAxes'][] = [
-        'ticks' => [
-          'beginAtZero' => NULL,
-        ],
-        'maxTicksLimit' => 11,
-        'precision' => NULL,
-        'stepSize' => NULL,
-        'suggestedMax' => NULL,
-        'suggestedMin' => NULL,
-        'stacked' => $stacking,
-      ];
+      if ($chart_type !== 'radar') {
+        $chart_definition['options']['scales']['xAxes'][] = [
+          'stacked' => $stacking,
+          'ticks' => [
+            'autoSkip' => isset($xaxis_configuration['autoskip']) ? $xaxis_configuration['autoskip'] : 1,
+            'maxRotation' => $element['xaxis']['#labels_rotation'],
+            'minRotation' => $element['xaxis']['#labels_rotation'],
+          ]
+        ];
+        $chart_definition['options']['scales']['yAxes'][] = [
+          'ticks' => [
+            'beginAtZero' => NULL,
+            'maxRotation' => $element['yaxis']['#labels_rotation'],
+            'minRotation' => $element['yaxis']['#labels_rotation'],
+          ],
+          'maxTicksLimit' => 11,
+          'precision' => NULL,
+          'stepSize' => NULL,
+          'suggestedMax' => NULL,
+          'suggestedMin' => NULL,
+          'stacked' => $stacking,
+        ];
+      }
     }
 
-    $chart_definition['tooltips'] = [
-      'enabled' => TRUE,
-    ];
-    $chart_definition['legend'] = [
-      'display' => TRUE,
-      'position' => 'right',
-    ];
-    $chart_definition['title'] = [
-      'display' => TRUE,
-      'position' => 'out',
-      'text' => 'Weekly project usage',
-    ];
+    $chart_definition['options']['title'] = $this->buildTitle($element);
+    $chart_definition['options']['tooltips']['enabled'] = $element['#tooltips'];
+    $chart_definition['options']['legend'] = $this->buildLegend($element);
     $chart_definition['scaleColorRanges'] = NULL;
     $chart_definition['range'] = NULL;
 
     // Merge in chart raw options.
     if (!empty($element['#raw_options'])) {
       $chart_definition = NestedArray::mergeDeepArray([
-        $element['#raw_options'],
         $chart_definition,
+        $element['#raw_options'],
       ]);
     }
 
@@ -391,11 +330,74 @@ class Chartjs extends ChartBase {
         $type = $element['#chart_type'];
         break;
     }
-    if (isset($element['display']['polar']) && $element['display']['polar'] == 1) {
+    if (isset($element['#polar']) && $element['#polar'] == 1) {
       $type = 'radar';
     }
 
     return $type;
+  }
+
+  /**
+   * Builds legend based on element properties.
+   *
+   * @param array $element
+   *   The element.
+   *
+   * @return array
+   *   The legend array.
+   */
+  protected function buildLegend(array $element) {
+    $legend = [];
+    if (!empty($element['#legend_position'])) {
+      $legend['display'] = TRUE;
+      $legend['position'] = $element['#legend_position'];
+      if (!empty($element['#legend_font_style'])) {
+        $legend['labels']['fontStyle'] = $element['#legend_font_style'];
+      }
+      if (!empty($element['#legend_font_size'])) {
+        $legend['labels']['fontSize'] = $element['#legend_font_size'];
+      }
+    }
+
+    return $legend;
+  }
+
+  /**
+   * Builds title based on element properties.
+   *
+   * @param array $element
+   *   The element.
+   *
+   * @return array
+   *   The title array.
+   */
+  protected function buildTitle(array $element) {
+    $title = [];
+    if (!empty($element['#title'])) {
+      $title = [
+        'display' => TRUE,
+        'text' => $element['#title'],
+      ];
+      if (!empty($element['#title_position'])) {
+        if (in_array($element['#title_position'], ['in', 'out'])) {
+          $title['position'] = 'top';
+        }
+        else {
+          $title['position'] = $element['#title_position'];
+        }
+      }
+      if (!empty($element['#title_color'])) {
+        $title['fontColor'] = $element['#title_color'];
+      }
+      if (!empty($element['#title_font_style'])) {
+        $title['fontStyle'] = $element['#title_font_style'];
+      }
+      if (!empty($element['#title_font_size'])) {
+        $title['fontSize'] = $element['#title_font_size'];
+      }
+    }
+
+    return $title;
   }
 
   /**

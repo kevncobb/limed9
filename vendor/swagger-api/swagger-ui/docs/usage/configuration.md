@@ -64,6 +64,9 @@ Parameter name | Docker variable | Description
 <a name="syntaxHighlight"></a>`syntaxHighlight` | _Unavailable_ | Set to `false` to deactivate syntax highlighting of payloads and cURL command, can be otherwise an object with the `activate` and `theme` properties.
 <a name="syntaxHighlight.activate"></a>`syntaxHighlight.activate` | _Unavailable_ | `Boolean=true`. Whether syntax highlighting should be activated or not.
 <a name="syntaxHighlight.theme"></a>`syntaxHighlight.theme` | _Unavailable_ | `String=["agate"*, "arta", "monokai", "nord", "obsidian", "tomorrow-night"]`. [Highlight.js](https://highlightjs.org/static/demo/) syntax coloring theme to use. (Only these 6 styles are available.)
+<a name="tryItOutEnabled"></a>`tryItOutEnabled` | `TRY_IT_OUT_ENABLED` | `Boolean=false`. Controls whether the "Try it out" section should be enabled by default.
+<a name="requestSnippets"></a>`requestSnippets` | _Unavailable_ | `Object`. This is the default configuration section for the the requestSnippets plugin.<br>requestSnippets: {<br>&nbsp;&nbsp;generators: {<br>&nbsp;&nbsp;&nbsp;&nbsp;"curl_bash": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title: "cURL (bash)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;syntax: "bash"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;"curl_powershell": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title: "cURL (PowerShell)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;syntax: "powershell"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;"curl_cmd": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title: "cURL (CMD)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;syntax: "bash"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;"node_native": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title: "Node.js (Native)",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;syntax: "javascript"<br>&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;defaultExpanded: true,<br>&nbsp;&nbsp;languagesMask: null, // e.g. only show curl bash = \["curl_bash"\]<br>},
+
 
 ##### Network
 
@@ -89,7 +92,7 @@ Parameter name | Docker variable | Description
 
 Parameter name | Docker variable | Description
 --- | --- | -----
-<a name="persistAuthorization"></a>`persistAuthorization` | _Unavailable_ | `Boolean=false`. If set to `true`, it persists authorization data and it would not be lost on browser close/refresh
+<a name="persistAuthorization"></a>`persistAuthorization` | `PERSIST_AUTHORIZATION` | `Boolean=false`. If set to `true`, it persists authorization data and it would not be lost on browser close/refresh
 
 ### Instance methods
 

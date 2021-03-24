@@ -43,7 +43,7 @@ class LinkedInAuth extends NetworkBase implements LinkedInAuthInterface {
       throw new SocialApiException(sprintf('The LinkedIn library for PHP League OAuth2 not found. Class: %s.', $class_name));
     }
 
-    /* @var \Drupal\social_auth_linkedin\Settings\LinkedInAuthSettings $settings */
+    /** @var \Drupal\social_auth_linkedin\Settings\LinkedInAuthSettings $settings */
     $settings = $this->settings;
 
     if ($this->validateConfig($settings)) {
