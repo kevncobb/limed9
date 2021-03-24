@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '23a4ca82af9575a88e5dac3f9987429f76e0f1e4',
+    'reference' => '053c7cd407737f7acb0f4a9902fbf6227271816c',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -1768,12 +1768,13 @@
     ),
     'drupal/mysql56' => 
     array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
+      'pretty_version' => 'dev-1.x',
+      'version' => 'dev-1.x',
       'aliases' => 
       array (
+        0 => '1.x-dev',
       ),
-      'reference' => '8.x-1.1',
+      'reference' => '69457e2b682acc52b21ebb52d0fa408139b230d5',
     ),
     'drupal/node' => 
     array (
@@ -3739,7 +3740,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '23a4ca82af9575a88e5dac3f9987429f76e0f1e4',
+      'reference' => '053c7cd407737f7acb0f4a9902fbf6227271816c',
     ),
     'vardot/varbase-updater' => 
     array (
