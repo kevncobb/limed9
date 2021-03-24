@@ -11,3 +11,8 @@
 h1.title {
 	padding: 1.5rem 0;
 }
+
+.view-chapters.view-display-id-block_4 .view-content > h3 {
+	padding-right: 15px;
+    padding-left: 15px;	
+}
