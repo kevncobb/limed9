@@ -12,6 +12,13 @@
   display: block;
   max-width: 300px;
 }
+.block-page-title-block {
+  background-color: $gray-100;
+}
+h1.title {
+  padding: 2rem 0;
+  margin-bottom: 0;
+}
 
 .bar-header {
   color: white;

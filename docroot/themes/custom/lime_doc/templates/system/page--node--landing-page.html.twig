@@ -108,7 +108,7 @@
 
 {# Main #}
 {% block main %}
-  <div role="main" class="main-container js-quickedit-main-content">
+  <div role="main" class="main-container {{ container }} js-quickedit-main-content">
     <div class="row">
 
       {# Header #}
@@ -143,9 +143,7 @@
         {# Highlighted #}
         {% if page.highlighted %}
           {% block highlighted %}
-            <div class="highlighted">
-              {{ page.highlighted }}
-            </div>
+            <div class="highlighted">{{ page.highlighted }}</div>
           {% endblock %}
         {% endif %}
 

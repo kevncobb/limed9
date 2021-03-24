@@ -4,6 +4,15 @@
   max-width: 300px;
 }
 
+.block-page-title-block {
+  background-color: #f8f9fa;
+}
+
+h1.title {
+  margin-bottom: 0;
+  padding: 2rem 0;
+}
+
 .bar-header {
   margin: 0 0 3rem;
   padding: 15px;
