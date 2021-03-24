@@ -1,4 +1,0 @@
-# Schema for the configuration files of the limestone_doc.
-limestone_doc.settings:
-  type: bootstrap_barrio.settings
-  label: 'limestone_doc settings'
