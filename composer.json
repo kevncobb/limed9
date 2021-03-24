@@ -40,7 +40,8 @@
     "vardot/varbase-updater": "~2.0",
     "drupal/mysql56": "1.x-dev@dev",
     "drupal/feeds": "^3.0@alpha",
-    "drupal/feeds_ex": "^1.0@alpha"
+    "drupal/feeds_ex": "^1.0@alpha",
+    "drupal/weight": "^3.3"
   },
   "config": {
     "bin-dir": "bin/",
