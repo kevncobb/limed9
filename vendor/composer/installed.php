@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '053c7cd407737f7acb0f4a9902fbf6227271816c',
+    'reference' => 'f77a50b57cc02823ee0aafcd59a87ee6940d0aff',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -1159,6 +1159,24 @@
         0 => '2.x-dev',
       ),
       'reference' => '5382a99335ee466f8261dc1774a3d56f1699da81',
+    ),
+    'drupal/feeds' => 
+    array (
+      'pretty_version' => '3.0.0-alpha10',
+      'version' => '3.0.0.0-alpha10',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-3.0-alpha10',
+    ),
+    'drupal/feeds_ex' => 
+    array (
+      'pretty_version' => '1.0.0-alpha4',
+      'version' => '1.0.0.0-alpha4',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0-alpha4',
     ),
     'drupal/field' => 
     array (
@@ -2852,6 +2870,15 @@
       ),
       'reference' => '3a0ddb71f06d8fb3f84f0a3c45348af81803b16d',
     ),
+    'flow/jsonpath' => 
+    array (
+      'pretty_version' => '0.5.0',
+      'version' => '0.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b9738858c75d008c1211612b973e9510f8b7f8ea',
+    ),
     'google/recaptcha' => 
     array (
       'pretty_version' => '1.2.4',
@@ -3072,6 +3099,15 @@
       array (
       ),
       'reference' => '3a714b48c9c3d3730baaf6d3949691e654cd37c9',
+    ),
+    'mtdowling/jmespath.php' => 
+    array (
+      'pretty_version' => '2.6.0',
+      'version' => '2.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '42dae2cbd13154083ca6d70099692fef8ca84bfb',
     ),
     'neilime/php-css-lint' => 
     array (
@@ -3314,6 +3350,15 @@
       array (
         0 => '1.0',
       ),
+    ),
+    'querypath/querypath' => 
+    array (
+      'pretty_version' => '3.0.5',
+      'version' => '3.0.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6b8e2395fac61fac25bbe962f94def556cb85f7d',
     ),
     'ralouphie/getallheaders' => 
     array (
@@ -3740,7 +3785,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '053c7cd407737f7acb0f4a9902fbf6227271816c',
+      'reference' => 'f77a50b57cc02823ee0aafcd59a87ee6940d0aff',
     ),
     'vardot/varbase-updater' => 
     array (

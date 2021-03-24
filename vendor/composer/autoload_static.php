@@ -47,6 +47,8 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         '0d273777b2b0d96e49fb3d800c6b0e81' => __DIR__ . '/..' . '/lcobucci/jwt/compat/json-exception-polyfill.php',
         'd6b246ac924292702635bb2349f4a64b' => __DIR__ . '/..' . '/lcobucci/jwt/compat/lcobucci-clock-polyfill.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
+        'e9b046393eb3376a21bcc1a30bd2fe64' => __DIR__ . '/..' . '/querypath/querypath/src/qp_functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -146,6 +148,7 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'J' => 
         array (
             'JsonSchema\\' => 11,
+            'JmesPath\\' => 9,
         ),
         'H' => 
         array (
@@ -437,6 +440,10 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
+        'JmesPath\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
+        ),
         'Html2Text\\' => 
         array (
             0 => __DIR__ . '/..' . '/html2text/html2text/src',
@@ -578,6 +585,13 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
                 0 => __DIR__ . '/..' . '/stack/builder/src',
             ),
         ),
+        'Q' => 
+        array (
+            'QueryPath' => 
+            array (
+                0 => __DIR__ . '/..' . '/querypath/querypath/src',
+            ),
+        ),
         'K' => 
         array (
             'KubAT\\PhpSimple\\HtmlDomParser' => 
@@ -590,6 +604,17 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
             'HTMLPurifier' => 
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
+            ),
+        ),
+        'F' => 
+        array (
+            'Flow\\JSONPath\\Test' => 
+            array (
+                0 => __DIR__ . '/..' . '/flow/jsonpath/tests',
+            ),
+            'Flow\\JSONPath' => 
+            array (
+                0 => __DIR__ . '/..' . '/flow/jsonpath/src',
             ),
         ),
         'C' => 
@@ -2924,6 +2949,18 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'FileEye\\MimeMap\\TypeParameter' => __DIR__ . '/..' . '/fileeye/mimemap/src/TypeParameter.php',
         'FileEye\\MimeMap\\TypeParser' => __DIR__ . '/..' . '/fileeye/mimemap/src/TypeParser.php',
         'FileEye\\MimeMap\\Version' => __DIR__ . '/..' . '/fileeye/mimemap/src/Version.php',
+        'Flow\\JSONPath\\AccessHelper' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/AccessHelper.php',
+        'Flow\\JSONPath\\Filters\\AbstractFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/AbstractFilter.php',
+        'Flow\\JSONPath\\Filters\\IndexFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/IndexFilter.php',
+        'Flow\\JSONPath\\Filters\\IndexesFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/IndexesFilter.php',
+        'Flow\\JSONPath\\Filters\\QueryMatchFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/QueryMatchFilter.php',
+        'Flow\\JSONPath\\Filters\\QueryResultFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/QueryResultFilter.php',
+        'Flow\\JSONPath\\Filters\\RecursiveFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/RecursiveFilter.php',
+        'Flow\\JSONPath\\Filters\\SliceFilter' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/Filters/SliceFilter.php',
+        'Flow\\JSONPath\\JSONPath' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/JSONPath.php',
+        'Flow\\JSONPath\\JSONPathException' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/JSONPathException.php',
+        'Flow\\JSONPath\\JSONPathLexer' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/JSONPathLexer.php',
+        'Flow\\JSONPath\\JSONPathToken' => __DIR__ . '/..' . '/flow/jsonpath/src/Flow/JSONPath/JSONPathToken.php',
         'FontLib\\AdobeFontMetrics' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',
         'FontLib\\Autoloader' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Autoloader.php',
         'FontLib\\BinaryStream' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/BinaryStream.php',
@@ -3287,6 +3324,17 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'Html2Text\\SpanTest' => __DIR__ . '/..' . '/html2text/html2text/test/SpanTest.php',
         'Html2Text\\StrToUpperTest' => __DIR__ . '/..' . '/html2text/html2text/test/StrToUpperTest.php',
         'Html2Text\\TableTest' => __DIR__ . '/..' . '/html2text/html2text/test/TableTest.php',
+        'JmesPath\\AstRuntime' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/AstRuntime.php',
+        'JmesPath\\CompilerRuntime' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/CompilerRuntime.php',
+        'JmesPath\\DebugRuntime' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/DebugRuntime.php',
+        'JmesPath\\Env' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/Env.php',
+        'JmesPath\\FnDispatcher' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/FnDispatcher.php',
+        'JmesPath\\Lexer' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/Lexer.php',
+        'JmesPath\\Parser' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/Parser.php',
+        'JmesPath\\SyntaxErrorException' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/SyntaxErrorException.php',
+        'JmesPath\\TreeCompiler' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/TreeCompiler.php',
+        'JmesPath\\TreeInterpreter' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/TreeInterpreter.php',
+        'JmesPath\\Utils' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/Utils.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'JsonSchema\\Constraints\\BaseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
         'JsonSchema\\Constraints\\CollectionConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
@@ -3769,6 +3817,33 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/DummyTest.php',
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
+        'QueryPath' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath.php',
+        'QueryPath\\CSS\\DOMTraverser' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/DOMTraverser.php',
+        'QueryPath\\CSS\\DOMTraverser\\PseudoClass' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/DOMTraverser/PseudoClass.php',
+        'QueryPath\\CSS\\DOMTraverser\\Util' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/DOMTraverser/Util.php',
+        'QueryPath\\CSS\\EventHandler' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/EventHandler.php',
+        'QueryPath\\CSS\\InputStream' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/InputStream.php',
+        'QueryPath\\CSS\\NotImplementedException' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/NotImplementedException.php',
+        'QueryPath\\CSS\\ParseException' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/ParseException.php',
+        'QueryPath\\CSS\\Parser' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/Parser.php',
+        'QueryPath\\CSS\\QueryPathEventHandler' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/QueryPathEventHandler.php',
+        'QueryPath\\CSS\\Scanner' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/Scanner.php',
+        'QueryPath\\CSS\\Selector' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/Selector.php',
+        'QueryPath\\CSS\\SimpleSelector' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/SimpleSelector.php',
+        'QueryPath\\CSS\\Token' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/Token.php',
+        'QueryPath\\CSS\\Traverser' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/CSS/Traverser.php',
+        'QueryPath\\DOMQuery' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/DOMQuery.php',
+        'QueryPath\\Entities' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Entities.php',
+        'QueryPath\\Exception' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Exception.php',
+        'QueryPath\\Extension' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Extension.php',
+        'QueryPath\\ExtensionRegistry' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/ExtensionRegistry.php',
+        'QueryPath\\Extension\\QPXML' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Extension/QPXML.php',
+        'QueryPath\\Extension\\QPXSL' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Extension/QPXSL.php',
+        'QueryPath\\IOException' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/IOException.php',
+        'QueryPath\\Options' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Options.php',
+        'QueryPath\\ParseException' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/ParseException.php',
+        'QueryPath\\Query' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/Query.php',
+        'QueryPath\\QueryPathIterator' => __DIR__ . '/..' . '/querypath/querypath/src/QueryPath/QueryPathIterator.php',
         'ReCaptcha\\ReCaptcha' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/ReCaptcha.php',
         'ReCaptcha\\RequestMethod' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/RequestMethod.php',
         'ReCaptcha\\RequestMethod\\Curl' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/RequestMethod/Curl.php',
