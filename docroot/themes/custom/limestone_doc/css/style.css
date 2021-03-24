@@ -5,3 +5,9 @@
 .navbar-brand img {
     max-width: 330px;
 }
+.highlighted {
+	background-color: #e0e0e0;
+}
+h1.title {
+	padding: 1.5rem 0;
+}
