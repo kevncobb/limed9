@@ -21,3 +21,10 @@ h1.title {
   background: #0038a5;
   font-weight: 100;
 }
+
+.view-chapters .view-display-id-block_1 h3,
+.view-chapters .view-display-id-block_2 h3,
+.view-chapters .view-display-id-block_3 h3,
+.view-chapters .view-display-id-block_4 h3 {
+  margin-top: 1rem;
+}
