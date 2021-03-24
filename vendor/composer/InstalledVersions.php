@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '7c92ae1ae91558caa4d7b992378b47526bea8b54',
+    'reference' => 'd934b796498be64c08ff9cb8d79304b0970ca114',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -2293,6 +2293,15 @@ private static $installed = array (
       ),
       'reference' => '8.x-1.3',
     ),
+    'drupal/smtp' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0',
+    ),
     'drupal/social_api' => 
     array (
       'pretty_version' => '2.0.0-rc3',
@@ -3313,6 +3322,15 @@ private static $installed = array (
       ),
       'reference' => 'ca6ad461f032145fff5971b5985e5af9e7fa88d8',
     ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.3.0',
+      'version' => '6.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4a08cf4cdd2c38d12ee2b9fa69e5d235f37a6dcb',
+    ),
     'psr/container' => 
     array (
       'pretty_version' => '1.0.0',
@@ -3818,7 +3836,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '7c92ae1ae91558caa4d7b992378b47526bea8b54',
+      'reference' => 'd934b796498be64c08ff9cb8d79304b0970ca114',
     ),
     'vardot/varbase-updater' => 
     array (
