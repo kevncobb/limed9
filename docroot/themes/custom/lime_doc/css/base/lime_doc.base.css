@@ -1,0 +1,9 @@
+/* Insert your lime_doc base overrides over Vartheme BS4 and Bootstrap */
+.bar-header {
+  margin: 0 0 3rem;
+  padding: 15px;
+  text-transform: uppercase;
+  color: white;
+  background: #0038a5;
+  font-weight: 100;
+}
