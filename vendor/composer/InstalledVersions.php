@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'e02ca5e3eb3b2ddf56df93a52d7802ba5dbb5469',
+    'reference' => 'a4ae28c3494ffb25cd792baa16b106e5f0f66e96',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -574,6 +574,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '8.x-1.1',
+    ),
+    'drupal/coffee_mediteran' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2.0.0',
     ),
     'drupal/color' => 
     array (
@@ -3896,7 +3905,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'e02ca5e3eb3b2ddf56df93a52d7802ba5dbb5469',
+      'reference' => 'a4ae28c3494ffb25cd792baa16b106e5f0f66e96',
     ),
     'vardot/varbase-updater' => 
     array (

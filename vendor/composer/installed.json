@@ -3117,6 +3117,59 @@
             "install-path": "../../docroot/modules/contrib/coffee"
         },
         {
+            "name": "drupal/coffee_mediteran",
+            "version": "2.0.0",
+            "version_normalized": "2.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/coffee_mediteran.git",
+                "reference": "2.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/coffee_mediteran-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "227c4c69be38bffffbd8fe15db6e99e4101d4764"
+            },
+            "require": {
+                "drupal/coffee": "*",
+                "drupal/core": "^8.8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0",
+                    "datestamp": "1601580454",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sohail Lajevardi",
+                    "homepage": "https://www.drupal.org/u/doxigo"
+                },
+                {
+                    "name": "doxigo",
+                    "homepage": "https://www.drupal.org/user/1331334"
+                }
+            ],
+            "description": "Improves and fixes minor UI issues in coffee module based on Mediteran admin theme.",
+            "homepage": "https://www.drupal.org/project/coffee_mediteran",
+            "support": {
+                "source": "http://cgit.drupalcode.org/coffee_mediteran",
+                "issues": "https://www.drupal.org/project/issues/coffee_mediteran"
+            },
+            "install-path": "../../docroot/modules/contrib/coffee_mediteran"
+        },
+        {
             "name": "drupal/config_filter",
             "version": "2.2.0",
             "version_normalized": "2.2.0.0",
