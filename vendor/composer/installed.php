@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '6f9986cc205cac75de86c0c9bfa31ab233c74f77',
+    'reference' => 'ace75e2794c9cbe0c5778f95ea571d1b052f9a04',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -1265,6 +1265,15 @@
       array (
       ),
       'reference' => '8.x-1.5',
+    ),
+    'drupal/fontyourface' => 
+    array (
+      'pretty_version' => '3.6.0',
+      'version' => '3.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-3.6',
     ),
     'drupal/forum' => 
     array (
@@ -3853,7 +3862,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '6f9986cc205cac75de86c0c9bfa31ab233c74f77',
+      'reference' => 'ace75e2794c9cbe0c5778f95ea571d1b052f9a04',
     ),
     'vardot/varbase-updater' => 
     array (
