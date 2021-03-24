@@ -6,9 +6,9 @@ dependencies:
   module:
     - system
   theme:
-    - VARTHEME_BS4_SUBTHEME
-id: VARTHEME_BS4_SUBTHEME_footer
-theme: VARTHEME_BS4_SUBTHEME
+    - lime_doc
+id: lime_doc_footer
+theme: lime_doc
 region: footer
 weight: -5
 provider: null

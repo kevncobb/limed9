@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - VARTHEME_BS4_SUBTHEME
-id: VARTHEME_BS4_SUBTHEME_page_title
-theme: VARTHEME_BS4_SUBTHEME
+    - lime_doc
+id: lime_doc_page_title
+theme: lime_doc
 region: header
 weight: -1
 provider: null

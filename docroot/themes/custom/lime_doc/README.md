@@ -1,4 +1,4 @@
-# VARTHEME_BS4_SUBTHEME - Subtheme of Vartheme (Bootstrap 4 - SASS)
+# lime_doc - Subtheme of Vartheme (Bootstrap 4 - SASS)
 ---
 
 Based on Bootstrap 4 framework using SASS, and extending [Vartheme](https://github.com/Vardot/vartheme_bs4) (Bootstrap 4 - SASS).

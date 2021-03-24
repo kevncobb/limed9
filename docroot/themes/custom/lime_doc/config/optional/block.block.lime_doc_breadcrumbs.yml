@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - VARTHEME_BS4_SUBTHEME
-id: VARTHEME_BS4_SUBTHEME_breadcrumbs
-theme: VARTHEME_BS4_SUBTHEME
+    - lime_doc
+id: lime_doc_breadcrumbs
+theme: lime_doc
 region: header
 weight: -4
 provider: null

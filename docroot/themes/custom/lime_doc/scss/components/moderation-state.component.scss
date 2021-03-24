@@ -2,8 +2,8 @@
 // -----------------------------------------------------------------------------
 @import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
 @import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
-@import "../variables";                   // VARTHEME_BS4_SUBTHEME variables.
-@import "../mixins";                      // VARTHEME_BS4_SUBTHEME mixins.
+@import "../variables";                   // lime_doc variables.
+@import "../mixins";                      // lime_doc mixins.
 // -----------------------------------------------------------------------------
 
 #edit-moderation-state-wrapper,
@@ -12,13 +12,13 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    
+
     fieldset {
       label {
         font-weight: bold;
         float: left;
         width: fit-content;
-        @include margin(0 0.5rem 0 0); 
+        @include margin(0 0.5rem 0 0);
       }
     }
   }
@@ -34,7 +34,7 @@
 
   .entity-moderation-form__item {
     @include margin-top(1rem);
- 
+
     &:first-child {
       margin-top: 0;
     }
@@ -51,12 +51,12 @@
     .entity-moderation-form__item {
       button {
         width: 100%;
-      } 
+      }
     }
   }
 }
 
-@media (min-width: map-get($grid-breakpoints, "md")) { 
+@media (min-width: map-get($grid-breakpoints, "md")) {
   #edit-moderation-state-wrapper,
   #content-moderation-entity-moderation-form {
     > div {
@@ -148,7 +148,7 @@
   }
 }
 
-@media (min-width: map-get($grid-breakpoints, "lg")) { 
+@media (min-width: map-get($grid-breakpoints, "lg")) {
   #edit-moderation-state-wrapper,
   #content-moderation-entity-moderation-form {
     .entity-moderation-form__item {

@@ -7,12 +7,12 @@ dependencies:
     - block_class
     - block_content
   theme:
-    - VARTHEME_BS4_SUBTHEME
+    - lime_doc
 third_party_settings:
   block_class:
     classes: ''
-id: VARTHEME_BS4_SUBTHEME_copyright
-theme: VARTHEME_BS4_SUBTHEME
+id: lime_doc_copyright
+theme: lime_doc
 region: footer
 weight: -5
 provider: null

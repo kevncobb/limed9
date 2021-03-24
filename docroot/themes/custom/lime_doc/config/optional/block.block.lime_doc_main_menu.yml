@@ -6,9 +6,9 @@ dependencies:
   module:
     - system
   theme:
-    - VARTHEME_BS4_SUBTHEME
-id: VARTHEME_BS4_SUBTHEME_main_menu
-theme: VARTHEME_BS4_SUBTHEME
+    - lime_doc
+id: lime_doc_main_menu
+theme: lime_doc
 region: navigation_collapsible
 weight: -5
 provider: null

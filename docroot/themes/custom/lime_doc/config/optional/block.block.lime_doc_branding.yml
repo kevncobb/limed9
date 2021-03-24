@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - VARTHEME_BS4_SUBTHEME
-id: VARTHEME_BS4_SUBTHEME_branding
-theme: VARTHEME_BS4_SUBTHEME
+    - lime_doc
+id: lime_doc_branding
+theme: lime_doc
 region: navigation
 weight: -5
 provider: null

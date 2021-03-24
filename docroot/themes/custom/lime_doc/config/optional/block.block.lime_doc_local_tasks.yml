@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - VARTHEME_BS4_SUBTHEME
-id: VARTHEME_BS4_SUBTHEME_local_tasks
-theme: VARTHEME_BS4_SUBTHEME
+    - lime_doc
+id: lime_doc_local_tasks
+theme: lime_doc
 region: header
 weight: 0
 provider: null

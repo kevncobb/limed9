@@ -1,12 +1,12 @@
 /**
  * @file
- * Behaviors for the VARTHEME_BS4_SUBTHEME theme.
+ * Behaviors for the lime_doc theme.
  */
 
 (function($, _, Drupal) {
-  Drupal.behaviors.VARTHEME_BS4_SUBTHEME = {
+  Drupal.behaviors.lime_doc = {
     attach: function() {
-      // VARTHEME_BS4_SUBTHEME JavaScript behaviors goes here.
+      // lime_doc JavaScript behaviors goes here.
     }
   };
 })(window.jQuery, window._, window.Drupal);
