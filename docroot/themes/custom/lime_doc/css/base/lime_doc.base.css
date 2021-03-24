@@ -1,4 +1,9 @@
 /* Insert your lime_doc base overrides over Vartheme BS4 and Bootstrap */
+.navbar-brand {
+  display: block;
+  max-width: 300px;
+}
+
 .bar-header {
   margin: 0 0 3rem;
   padding: 15px;
