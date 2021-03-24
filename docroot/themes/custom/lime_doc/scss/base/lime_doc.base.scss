@@ -35,27 +35,22 @@ h1.title {
   margin: 0 0 3rem;
 }
 
-.view.view-chapters {
-  .view-display-id-block_1,
-  .view-display-id-block_2,
-  .view-display-id-block_3,
-  .view-display-id-block_4 {
-    .view-content > h3 {
+.group-headers-bar {
+  h3 {
       color: white;
       background: $primary;
       text-transform: uppercase;
       padding: 15px;
       font-weight: 300;
       margin-top: 1rem;
-    }
   }
 }
 
 button.moderation-sidebar-link[value="Publish"] {
-  background-color: #4CAF50;
-  border-color: #4CAF50;
+  background-color: #4CAF50 !important;
+  border-color: #4CAF50 !important;
 }
 button.moderation-sidebar-link[value="Reject Review"] {
-  background-color: #e28007;
-  border-color: #e28007;
+  background-color: #e28007 !important;
+  border-color: #e28007 !important;
 }
