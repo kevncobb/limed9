@@ -12,6 +12,12 @@
   display: block;
   max-width: 300px;
 }
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,0.7);
+  &:focus, &:hover {
+    color: rgba(255,255,255,1);
+  }
+}
 .highlighted {
   background-color: $gray-100;
 }
