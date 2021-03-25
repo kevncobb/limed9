@@ -35,6 +35,11 @@ h1.title {
   font-weight: 100;
 }
 
+.view-gray-background .view-content {
+  padding-bottom: 1rem;
+  background-color: #e9ecef;
+}
+
 .group-headers-bar h3 {
   margin-top: 1rem;
   padding: 15px;
@@ -88,11 +93,11 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 
 .field--name-field-comments.comment-wrapper h2.title {
-  margin: 2rem 0 0;
+  margin: 2rem 0 0.5rem !important;
   padding: 15px;
   text-transform: uppercase;
-  color: white;
-  background: #616365;
+  color: #2f3b44;
+  background: #dee2e5;
   font-size: 1rem;
 }
 
@@ -100,8 +105,8 @@ button.moderation-sidebar-link[value="Reject Review"] {
   margin: 1rem 0 0 !important;
   padding: 15px;
   text-transform: uppercase;
-  color: #222629;
-  background: #dee2e5;
+  color: #f7f7f7;
+  background: #2aa745;
   font-size: 1rem;
 }
 

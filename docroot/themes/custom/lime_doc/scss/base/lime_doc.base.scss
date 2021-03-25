@@ -37,7 +37,12 @@ h1.title {
   font-weight: 100;
   margin: 0 0 3rem;
 }
-
+.view-gray-background {
+  .view-content {
+    background-color: #e9ecef;
+    padding-bottom: 1rem;
+  }
+}
 .group-headers-bar {
   h3 {
       color: white;
@@ -86,19 +91,21 @@ button.moderation-sidebar-link[value="Reject Review"] {
 
 .field--name-field-comments.comment-wrapper {
   h2.title {
-    margin: 2rem 0 0;
+    margin: 2rem 0 0.5rem !important;
     padding: 15px;
     text-transform: uppercase;
-    color: white;
-    background: #616365;
+    color: #2f3b44;
+    background: #dee2e5;
     font-size: 1rem;
   }
   h2.title.comment-form__title {
     margin: 1rem 0 0 !important;
     padding: 15px;
     text-transform: uppercase;
-    color: #222629;
-    background: #dee2e5;
+    //color: #222629;
+    //background: #dee2e5;
+    color: #f7f7f7;
+    background: #2aa745;
     font-size: 1rem;
   }
   fieldset.js-form-type-textarea {
