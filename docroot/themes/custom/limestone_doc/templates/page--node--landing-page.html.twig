@@ -68,7 +68,11 @@
  * @see html.html.twig
  */
 #}
-
+{% if top_menu_bar %}
+  <section class="top-menu-bar">
+    {{ page.top_menu_bar }}
+  </section>
+{% endif %}
 {% block head %}
         {% if page.secondary_menu or page.top_header or page.top_header_form %}
           <nav{{ navbar_top_attributes }}>

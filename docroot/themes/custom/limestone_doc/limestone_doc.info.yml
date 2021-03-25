@@ -10,6 +10,7 @@ libraries:
   - limestone_doc/global-styling
 
 regions:
+  top_menu_bar: 'Top Menu Bar'
   top_header: 'Top header'
   top_header_form: 'Top header form'
   header: Header
