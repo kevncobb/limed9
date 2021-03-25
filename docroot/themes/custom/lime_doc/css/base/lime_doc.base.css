@@ -49,13 +49,18 @@ h1.title {
 }
 
 .group-headers-bar h3 {
+  max-width: 750px;
   margin-top: 1rem;
-  padding: 15px;
+  padding: 7px 15px;
   text-transform: uppercase;
   color: white;
-  background: #0038a5;
-  font-size: 1.5rem;
+  background: #435f7b;
+  font-size: 1.4rem;
   font-weight: 300;
+}
+
+.book-navigation {
+  display: none !important;
 }
 
 .field--name-field-media-file {
@@ -80,6 +85,11 @@ h1.title {
 button.moderation-sidebar-link[value="Publish"] {
   border-color: #4caf50 !important;
   background-color: #4caf50 !important;
+}
+
+button.moderation-sidebar-link[value="Send to review"] {
+  border-color: #ffae00 !important;
+  background-color: #ffae00 !important;
 }
 
 button.moderation-sidebar-link[value="Reject Review"] {

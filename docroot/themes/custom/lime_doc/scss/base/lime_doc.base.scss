@@ -52,13 +52,19 @@ h1.title {
 .group-headers-bar {
   h3 {
       color: white;
-      background: $primary;
+      background: #435f7b;
       text-transform: uppercase;
-      padding: 15px;
+      padding: 7px 15px;
       font-weight: 300;
       margin-top: 1rem;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
+      max-width: 750px;
   }
+}
+
+//Book Navigation Hidden
+.book-navigation {
+  display: none !important;
 }
 
 // PDF Files
@@ -83,6 +89,10 @@ h1.title {
 button.moderation-sidebar-link[value="Publish"] {
   background-color: #4CAF50 !important;
   border-color: #4CAF50 !important;
+}
+button.moderation-sidebar-link[value="Send to review"] {
+  background-color: #ffae00 !important;
+  border-color: #ffae00 !important;
 }
 button.moderation-sidebar-link[value="Reject Review"] {
   background-color: #e28007 !important;
