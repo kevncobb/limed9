@@ -94,12 +94,6 @@
       {% endif %}
       <div class="navbar-brand mr-md-auto">
         {{ page.navigation }}
-        {% if page.top_menu_bar %}
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
-        {% endif %}
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -110,6 +104,12 @@
         <div id="navbar-collapse" class="navbar-collapse collapse">
           <div class="navbar-nav ml-auto">
             {{ page.navigation_collapsible }}
+            {% if page.top_menu_bar %}
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            {% endif %}
           </div>
         </div>
       {% endif %}

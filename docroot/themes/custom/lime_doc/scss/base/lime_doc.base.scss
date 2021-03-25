@@ -19,7 +19,7 @@
   }
 }
 .highlighted {
-  background-color: $gray-100;
+  background-color: $gray-300;
 }
 h1.title {
   padding: 2rem 0 1.5rem;
@@ -53,4 +53,13 @@ button.moderation-sidebar-link[value="Publish"] {
 button.moderation-sidebar-link[value="Reject Review"] {
   background-color: #e28007 !important;
   border-color: #e28007 !important;
+}
+.modal-body {
+  .content.container-inline {
+    width: 100%;
+  }
+  fieldset.form-type-search {
+    width: 80%;
+    margin-left: 15px;
+  }
 }
