@@ -1,0 +1,11 @@
+name: 'Media File Formatters'
+type: module
+description: 'Display formatters for file media entities.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'Media'
+
+# Information added by Drupal.org packaging script on 2021-02-22
+version: '8.x-1.x-dev'
+project: 'mff'
+datestamp: 1614036487

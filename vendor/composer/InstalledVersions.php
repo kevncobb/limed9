@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '16baf69603aa6e902b0594c2e7723ea6916aee3d',
+    'reference' => '43fba2fa993597776cbc726e5d50ec8ca5ba4385',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -3961,7 +3961,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '16baf69603aa6e902b0594c2e7723ea6916aee3d',
+      'reference' => '43fba2fa993597776cbc726e5d50ec8ca5ba4385',
     ),
     'vardot/varbase-updater' => 
     array (
