@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '03a28858c5e06e4391212ffdae87431ba1d85275',
+    'reference' => 'b5dcb0674ef2b30cf54626f72f49088c2d25adbe',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -3954,7 +3954,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '03a28858c5e06e4391212ffdae87431ba1d85275',
+      'reference' => 'b5dcb0674ef2b30cf54626f72f49088c2d25adbe',
     ),
     'vardot/varbase-updater' => 
     array (
