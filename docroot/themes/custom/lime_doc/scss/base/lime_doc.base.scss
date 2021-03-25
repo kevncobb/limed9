@@ -21,6 +21,9 @@
 .highlighted {
   background-color: $gray-300;
 }
+.alert-wrapper .alert {
+  margin-bottom: 0;
+}
 h1.title {
   padding: 2rem 0 1.5rem;
   margin-bottom: 0;
@@ -78,5 +81,24 @@ button.moderation-sidebar-link[value="Reject Review"] {
   button.js-form-submit {
     height: 60px;
     margin-left: 2px;
+  }
+}
+
+.field--name-field-comments.comment-wrapper {
+  h2.title {
+    margin: 2rem 0 0;
+    padding: 15px;
+    text-transform: uppercase;
+    color: white;
+    background: $primary;
+    font-size: 1rem;
+  }
+  h2.title.comment-form__title {
+    margin: 1rem 0 0;
+    padding: 15px;
+    text-transform: uppercase;
+    color: #222629;
+    background: #dee2e5;
+    font-size: 1rem;
   }
 }
