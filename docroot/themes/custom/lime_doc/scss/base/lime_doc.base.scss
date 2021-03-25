@@ -51,9 +51,29 @@ h1.title {
       padding: 15px;
       font-weight: 300;
       margin-top: 1rem;
+      font-size: 1.5rem;
   }
 }
 
+// PDF Files
+.field--name-field-media-file {
+  width: 100%;
+  max-width: 600px;
+}
+.file-link {
+  padding: 4px 0;
+  padding: 4px 0;
+}
+.file-icon {
+  font-size: 1rem;
+}
+.file--application-pdf {
+  background-image: none !important;
+  padding-left: 0;
+}
+
+
+// Custom Moderation buttons
 button.moderation-sidebar-link[value="Publish"] {
   background-color: #4CAF50 !important;
   border-color: #4CAF50 !important;
@@ -62,6 +82,9 @@ button.moderation-sidebar-link[value="Reject Review"] {
   background-color: #e28007 !important;
   border-color: #e28007 !important;
 }
+
+
+//Search bar
 #searchModal {
   background-color: rgba(16, 16, 16, 0.67) !important;
   .modal-content {
@@ -92,6 +115,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
   }
 }
 
+// Comments
 .field--name-field-comments.comment-wrapper {
   h2.title {
     margin: 2rem 0 0.5rem !important;
