@@ -49,7 +49,8 @@
     "drupal/tvi": "1.x-dev@dev",
     "drupal/pdf": "1.x-dev@dev",
     "drupal/book_pdf": "^1.0@alpha",
-    "drupal/pantheon_advanced_page_cache": "^1.2"
+    "drupal/pantheon_advanced_page_cache": "^1.2",
+    "drupal/devel_entity_updates": "^3.0"
   },
   "config": {
     "bin-dir": "bin/",

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c7335d4058c7267fee4b2455b3c6c5a83601fce6',
+    'reference' => 'b16d712ec28baccf6b3ae8d09a48200ba4a02e24',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -983,6 +983,15 @@
       array (
       ),
       'reference' => '4.1.1',
+    ),
+    'drupal/devel_entity_updates' => 
+    array (
+      'pretty_version' => '3.0.1',
+      'version' => '3.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3.0.1',
     ),
     'drupal/diff' => 
     array (
@@ -3946,7 +3955,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c7335d4058c7267fee4b2455b3c6c5a83601fce6',
+      'reference' => 'b16d712ec28baccf6b3ae8d09a48200ba4a02e24',
     ),
     'vardot/varbase-updater' => 
     array (
