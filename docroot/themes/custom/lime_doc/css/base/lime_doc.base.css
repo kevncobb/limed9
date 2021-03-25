@@ -97,10 +97,49 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 
 .field--name-field-comments.comment-wrapper h2.title.comment-form__title {
-  margin: 1rem 0 0;
+  margin: 1rem 0 0 !important;
   padding: 15px;
   text-transform: uppercase;
   color: #222629;
   background: #dee2e5;
   font-size: 1rem;
+}
+
+.field--name-field-comments.comment-wrapper fieldset.js-form-type-textarea label {
+  display: none;
+}
+
+.field--name-field-comments.comment-wrapper .js-filter-wrapper.js-form-wrapper.form-group {
+  font-size: 0.8rem;
+}
+
+.comment {
+  display: block;
+  margin: 0 -0.1rem 1rem;
+  padding: 0.5rem;
+  border: thin solid #e4e4e4;
+  border-radius: 0.5rem;
+  background-color: #f7f7f7;
+}
+
+.comment .field--name-user-picture img {
+  max-width: 30px;
+  border-radius: 50%;
+}
+
+.field--name-user-picture {
+  float: left;
+}
+
+.field--name-username {
+  float: left;
+  margin-left: 5px;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+.field--name-comment-post-date {
+  color: #636363;
+  font-size: 0.8rem;
+  font-style: italic;
 }
