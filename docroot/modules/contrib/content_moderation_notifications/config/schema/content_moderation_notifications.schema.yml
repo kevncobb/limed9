@@ -24,7 +24,10 @@ content_moderation_notifications.content_moderation_notification.*:
         label: 'Roles'
     author:
       type: boolean
-      label: 'Author'
+      label: 'Original Author'
+    revision_author:
+      type: boolean
+      label: 'Revision Author'
     site_mail:
       type: boolean
       label: Disable site mail

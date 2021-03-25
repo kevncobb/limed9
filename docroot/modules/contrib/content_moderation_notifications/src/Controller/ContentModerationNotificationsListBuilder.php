@@ -42,7 +42,8 @@ class ContentModerationNotificationsListBuilder extends ConfigEntityListBuilder 
     $header['status'] = $this->t('Status');
     $header['transition'] = $this->t('Transitions');
     $header['roles'] = $this->t('Email Roles');
-    $header['author'] = $this->t('Email Author');
+    $header['author'] = $this->t('Original Author');
+    $header['revision_author'] = $this->t('Revision Author');
     $header['emails'] = $this->t('Adhoc Emails');
     return $header + parent::buildHeader();
   }
@@ -94,6 +95,7 @@ class ContentModerationNotificationsListBuilder extends ConfigEntityListBuilder 
 
     $row['roles'] = implode(', ', $roles);
     $row['author'] = $entity->author ? $this->t('Yes') : $this->t('No');
+    $row['revision_author'] = $entity->revision_author ? $this->t('Yes') : $this->t('No');
     $row['emails'] = $entity->emails;
     return $row + parent::buildRow($entity);
   }

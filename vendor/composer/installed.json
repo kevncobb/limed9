@@ -3634,9 +3634,12 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Add option to email revision author": "https://www.drupal.org/files/issues/2021-03-09/content-moderation-notifications-3133940-5.patch"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
                 "GPL-2.0+"

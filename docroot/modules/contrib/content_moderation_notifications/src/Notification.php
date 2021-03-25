@@ -124,12 +124,28 @@ class Notification implements NotificationInterface {
 
       // Figure out who the email should be going to.
       $data['to'] = [];
-
       // Authors.
-      if ($notification->author and ($entity instanceof EntityOwnerInterface)) {
-        $data['to'][] = $entity->getOwner()->getEmail();
+       if ($notification->author and ($entity instanceof EntityOwnerInterface)) {
+        $author = $entity->getOwner()->getEmail();
+        $data['to'][] = $author;
       }
 
+
+      if ($notification->revision_author and ($entity instanceof EntityOwnerInterface)) {
+        if (!$entity->getOwner()->isAnonymous()) {
+          $revisionListIds = $this->entityTypeManager->getStorage($entity->getEntityTypeId())->revisionIds($entity);
+          // Sort $revisionListIds current revision to oldest.
+          $revisionListIds = array_reverse($revisionListIds);
+          if (isset($revisionListIds[1])) {
+          // Load the previous revision.
+            $revision = $this->entityTypeManager->getStorage('node')->loadRevision($revisionListIds[1]);
+          }
+          else {
+            $revision = $this->entityTypeManager->getStorage('node')->loadRevision($revisionListIds[0]);
+          }
+          $data['to'][] = $revision->getRevisionUser()->getEmail();
+        }
+      }
       // Roles.
       foreach ($notification->getRoleIds() as $role) {
         /** @var \Drupal\Core\Entity\EntityStorageInterface $user_storage */
@@ -168,7 +184,6 @@ class Notification implements NotificationInterface {
 
       // Force to BCC.
       $data['params']['headers']['Bcc'] = implode(',', $data['to']);
-
       $recipient = '';
       if (!$notification->disableSiteMail()) {
         $recipient = \Drupal::config('system.site')->get('mail');

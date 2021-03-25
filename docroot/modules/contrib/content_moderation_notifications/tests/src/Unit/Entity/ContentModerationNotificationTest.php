@@ -48,6 +48,7 @@ class ContentModerationNotificationTest extends UnitTestCase {
       'format' => 'test_format',
     ],
     'author' => TRUE,
+    'revision_author' => TRUE,
     'emails' => 'foo@example.com',
   ];
 
@@ -65,6 +66,13 @@ class ContentModerationNotificationTest extends UnitTestCase {
    */
   public function testSendToAuthor() {
     $this->assertEquals(TRUE, $this->notification->sendToAuthor());
+  }
+
+  /**
+   * @covers ::sendToRevisionAuthor
+   */
+  public function testSendToRevisionAuthor() {
+    $this->assertEquals(TRUE, $this->notification->sendToRevisionAuthor());
   }
 
   /**

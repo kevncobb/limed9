@@ -11,3 +11,8 @@ dependencies:
   - drupal:workflows
 test_dependencies:
   - drupal:token
+
+# Information added by Drupal.org packaging script on 2021-02-25
+version: '8.x-3.3'
+project: 'content_moderation_notifications'
+datestamp: 1614276461
