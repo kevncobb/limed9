@@ -47,7 +47,8 @@
     "drupal/menu_breadcrumb": "1.x-dev@dev",
     "drupal/coffee_mediteran": "^2.0",
     "drupal/tvi": "1.x-dev@dev",
-    "drupal/pdf": "1.x-dev@dev"
+    "drupal/pdf": "1.x-dev@dev",
+    "drupal/book_pdf": "^1.0@alpha"
   },
   "config": {
     "bin-dir": "bin/",

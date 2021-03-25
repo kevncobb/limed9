@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'bc68540109ef92a6db70c1123cac23c693bd75f4',
+    'reference' => '16baf69603aa6e902b0594c2e7723ea6916aee3d',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -456,6 +456,15 @@ private static $installed = array (
       array (
         0 => '9.1.5',
       ),
+    ),
+    'drupal/book_pdf' => 
+    array (
+      'pretty_version' => '1.0.0-alpha3',
+      'version' => '1.0.0.0-alpha3',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1.0.0-alpha3',
     ),
     'drupal/bootstrap_barrio' => 
     array (
@@ -3222,6 +3231,33 @@ private static $installed = array (
       ),
       'reference' => '9227822783c75406cfe400984b2f095cdf03d417',
     ),
+    'mikehaertl/php-shellcommand' => 
+    array (
+      'pretty_version' => '1.6.4',
+      'version' => '1.6.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3488d7803df1e8f1a343d3d0ca452d527ad8d5e5',
+    ),
+    'mikehaertl/php-tmpfile' => 
+    array (
+      'pretty_version' => '1.2.1',
+      'version' => '1.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '70a5b70b17bc0d9666388e6a551ecc93d0b40a10',
+    ),
+    'mikehaertl/phpwkhtmltopdf' => 
+    array (
+      'pretty_version' => '2.4.0',
+      'version' => '2.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dcd1236026e8bec9e429308e867c26cd1f941e0a',
+    ),
     'mkalkbrenner/php-htmldiff-advanced' => 
     array (
       'pretty_version' => '0.0.8',
@@ -3925,7 +3961,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'bc68540109ef92a6db70c1123cac23c693bd75f4',
+      'reference' => '16baf69603aa6e902b0594c2e7723ea6916aee3d',
     ),
     'vardot/varbase-updater' => 
     array (

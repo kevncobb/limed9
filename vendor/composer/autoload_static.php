@@ -56,6 +56,12 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         array (
             'vardot\\Composer\\' => 16,
         ),
+        'm' => 
+        array (
+            'mikehaertl\\wkhtmlto\\' => 20,
+            'mikehaertl\\tmp\\' => 15,
+            'mikehaertl\\shellcommand\\' => 24,
+        ),
         'l' => 
         array (
             'lsolesen\\pel\\' => 13,
@@ -208,6 +214,18 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'vardot\\Composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/vardot/varbase-updater/src',
+        ),
+        'mikehaertl\\wkhtmlto\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mikehaertl/phpwkhtmltopdf/src',
+        ),
+        'mikehaertl\\tmp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mikehaertl/php-tmpfile/src',
+        ),
+        'mikehaertl\\shellcommand\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mikehaertl/php-shellcommand/src',
         ),
         'lsolesen\\pel\\' => 
         array (
@@ -5553,6 +5571,11 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'lsolesen\\pel\\PelTiff' => __DIR__ . '/..' . '/lsolesen/pel/src/PelTiff.php',
         'lsolesen\\pel\\PelUnexpectedFormatException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelUnexpectedFormatException.php',
         'lsolesen\\pel\\PelWrongComponentCountException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelWrongComponentCountException.php',
+        'mikehaertl\\shellcommand\\Command' => __DIR__ . '/..' . '/mikehaertl/php-shellcommand/src/Command.php',
+        'mikehaertl\\tmp\\File' => __DIR__ . '/..' . '/mikehaertl/php-tmpfile/src/File.php',
+        'mikehaertl\\wkhtmlto\\Command' => __DIR__ . '/..' . '/mikehaertl/phpwkhtmltopdf/src/Command.php',
+        'mikehaertl\\wkhtmlto\\Image' => __DIR__ . '/..' . '/mikehaertl/phpwkhtmltopdf/src/Image.php',
+        'mikehaertl\\wkhtmlto\\Pdf' => __DIR__ . '/..' . '/mikehaertl/phpwkhtmltopdf/src/Pdf.php',
         'vardot\\Composer\\Commands\\CommandsProvider' => __DIR__ . '/..' . '/vardot/varbase-updater/src/Commands/CommandsProvider.php',
         'vardot\\Composer\\Commands\\RefactorComposerCommand' => __DIR__ . '/..' . '/vardot/varbase-updater/src/Commands/RefactorComposerCommand.php',
         'vardot\\Composer\\Commands\\VersionCheckComposerCommand' => __DIR__ . '/..' . '/vardot/varbase-updater/src/Commands/VersionCheckComposerCommand.php',
