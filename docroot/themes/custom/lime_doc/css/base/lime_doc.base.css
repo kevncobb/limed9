@@ -14,7 +14,7 @@
 }
 
 .highlighted {
-  background-color: #f8f9fa;
+  background-color: #dee2e6;
 }
 
 h1.title {
@@ -48,4 +48,13 @@ button.moderation-sidebar-link[value="Publish"] {
 button.moderation-sidebar-link[value="Reject Review"] {
   border-color: #e28007 !important;
   background-color: #e28007 !important;
+}
+
+.modal-body .content.container-inline {
+  width: 100%;
+}
+
+.modal-body fieldset.form-type-search {
+  width: 80%;
+  margin-left: 15px;
 }
