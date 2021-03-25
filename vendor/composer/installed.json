@@ -9427,27 +9427,30 @@
         },
         {
             "name": "drupal/mysql56",
-            "version": "dev-1.x",
-            "version_normalized": "dev-1.x",
+            "version": "1.2.0-beta1",
+            "version_normalized": "1.2.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/mysql56.git",
-                "reference": "69457e2b682acc52b21ebb52d0fa408139b230d5"
+                "reference": "8.x-1.2-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mysql56-8.x-1.2-beta1.zip",
+                "reference": "8.x-1.2-beta1",
+                "shasum": "0bd9ffea083e89fa8e89541f57cbb58486811dde"
             },
             "require": {
                 "drupal/core": "~9.0.0-beta3 || 9.1.* || 9.2.*"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.1+4-dev",
-                    "datestamp": "1614368794",
+                    "version": "8.x-1.2-beta1",
+                    "datestamp": "1614369426",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 },
                 "installer-name": "mysql"

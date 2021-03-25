@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb3aa145a192a2d18f48b456b9f9303d",
+    "content-hash": "4bfe9520025e62a65922c9556812eb0b",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -9011,26 +9011,29 @@
         },
         {
             "name": "drupal/mysql56",
-            "version": "dev-1.x",
+            "version": "1.2.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/mysql56.git",
-                "reference": "69457e2b682acc52b21ebb52d0fa408139b230d5"
+                "reference": "8.x-1.2-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mysql56-8.x-1.2-beta1.zip",
+                "reference": "8.x-1.2-beta1",
+                "shasum": "0bd9ffea083e89fa8e89541f57cbb58486811dde"
             },
             "require": {
                 "drupal/core": "~9.0.0-beta3 || 9.1.* || 9.2.*"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.1+4-dev",
-                    "datestamp": "1614368794",
+                    "version": "8.x-1.2-beta1",
+                    "datestamp": "1614369426",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 },
                 "installer-name": "mysql"
@@ -21796,7 +21799,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/mysql56": 20,
+        "drupal/mysql56": 10,
         "drupal/feeds": 15,
         "drupal/feeds_ex": 15,
         "drupal/menu_breadcrumb": 20,

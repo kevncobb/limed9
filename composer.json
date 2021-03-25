@@ -38,7 +38,7 @@
     "webmozart/path-util": "~2.0",
     "vardot/varbase": "~9.0.0",
     "vardot/varbase-updater": "~2.0",
-    "drupal/mysql56": "1.x-dev@dev",
+    "drupal/mysql56": "^1.2@beta",
     "drupal/feeds": "^3.0@alpha",
     "drupal/feeds_ex": "^1.0@alpha",
     "drupal/weight": "^3.3",
