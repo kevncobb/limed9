@@ -54,12 +54,34 @@ button.moderation-sidebar-link[value="Reject Review"] {
   background-color: #e28007 !important;
   border-color: #e28007 !important;
 }
-.modal-body {
+#searchModal {
+  .modal-content {
+    background-color: #2f2f2f;
+    .modal-header {
+      border-color: #656565;
+      color: #e2e2e2;
+      button.close {
+        color: white;
+      }
+    }
+    .modal-footer {
+      border-color: #656565;
+    }
+  }
   .content.container-inline {
     width: 100%;
   }
   fieldset.form-type-search {
     width: 80%;
     margin-left: 15px;
+    input.form-control {
+      height: 60px;
+      font-size: 30px;
+      padding-top: 4px;
+    }
+  }
+  button.js-form-submit {
+    height: 60px;
+    margin-left: 2px;
   }
 }
