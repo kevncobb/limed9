@@ -5,6 +5,7 @@ description: 'Based on Bootstrap 4 framework using SASS, and extending Vartheme 
 project: vartheme_bs4
 core_version_requirement: ^9
 regions:
+  top_menu_bar: 'Top Menu Bar'
   navigation: 'Navigation'
   navigation_collapsible: 'Navigation Collapsible'
   header: 'Top Bar'

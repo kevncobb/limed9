@@ -56,6 +56,11 @@
  * @see html.html.twig
  */
 #}
+{% if top_menu_bar %}
+  <section class="top-menu-bar">
+    {{ page.top_menu_bar }}
+  </section>
+{% endif %}
 {% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
 {% set header_container = theme.settings.header_container ? 'container-fluid header-margin' : 'container' %}
 {# Navbar #}
