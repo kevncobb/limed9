@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5fba586395a61dbc87b11fea995ba2a",
+    "content-hash": "468b848bc1676f8ffb9c762e0beb3f8e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -9985,6 +9985,67 @@
             "homepage": "https://www.drupal.org/project/pathologic",
             "support": {
                 "source": "https://git.drupalcode.org/project/pathologic"
+            }
+        },
+        {
+            "name": "drupal/pdf",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/pdf.git",
+                "reference": "1e33fbf7013df3998dd4f1375889a2df93156a0e"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0+2-dev",
+                    "datestamp": "1593167028",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "DanielFbrg",
+                    "homepage": "https://www.drupal.org/user/884704"
+                },
+                {
+                    "name": "JMOmandown",
+                    "homepage": "https://www.drupal.org/user/1844552"
+                },
+                {
+                    "name": "alextataurov",
+                    "homepage": "https://www.drupal.org/user/957718"
+                },
+                {
+                    "name": "axelm",
+                    "homepage": "https://www.drupal.org/user/1065700"
+                },
+                {
+                    "name": "ram4nd",
+                    "homepage": "https://www.drupal.org/user/601534"
+                },
+                {
+                    "name": "shenzhuxi",
+                    "homepage": "https://www.drupal.org/user/193802"
+                }
+            ],
+            "description": "Display PDF file in Drupal without external readers and plugins.",
+            "homepage": "https://www.drupal.org/project/pdf",
+            "support": {
+                "source": "https://git.drupalcode.org/project/pdf"
             }
         },
         {
@@ -21405,7 +21466,8 @@
         "drupal/feeds": 15,
         "drupal/feeds_ex": 15,
         "drupal/menu_breadcrumb": 20,
-        "drupal/tvi": 20
+        "drupal/tvi": 20,
+        "drupal/pdf": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

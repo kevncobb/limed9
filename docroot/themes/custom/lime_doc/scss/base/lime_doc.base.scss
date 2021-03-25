@@ -69,6 +69,9 @@ button.moderation-sidebar-link[value="Reject Review"] {
     border: none;
     button.close {
       color: white;
+      position: absolute;
+      top: -1rem;
+      right: 0;
     }
   }
   .content.container-inline {

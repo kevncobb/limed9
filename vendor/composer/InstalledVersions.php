@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b3acbcf5985061f4176a94fa755bb9a0c2e9ab4a',
+    'reference' => 'bc68540109ef92a6db70c1123cac23c693bd75f4',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -2075,6 +2075,16 @@ private static $installed = array (
       ),
       'reference' => '8.x-1.0-alpha2',
     ),
+    'drupal/pdf' => 
+    array (
+      'pretty_version' => 'dev-1.x',
+      'version' => 'dev-1.x',
+      'aliases' => 
+      array (
+        0 => '1.x-dev',
+      ),
+      'reference' => '1e33fbf7013df3998dd4f1375889a2df93156a0e',
+    ),
     'drupal/persistent_login' => 
     array (
       'pretty_version' => '1.3.0',
@@ -3915,7 +3925,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b3acbcf5985061f4176a94fa755bb9a0c2e9ab4a',
+      'reference' => 'bc68540109ef92a6db70c1123cac23c693bd75f4',
     ),
     'vardot/varbase-updater' => 
     array (
