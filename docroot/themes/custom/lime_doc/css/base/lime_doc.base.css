@@ -50,21 +50,17 @@ button.moderation-sidebar-link[value="Reject Review"] {
   background-color: #e28007 !important;
 }
 
+#searchModal {
+  background-color: rgba(16, 16, 16, 0.67) !important;
+}
+
 #searchModal .modal-content {
-  background-color: #2f2f2f;
+  border: none;
+  background-color: transparent;
 }
 
-#searchModal .modal-content .modal-header {
-  color: #e2e2e2;
-  border-color: #656565;
-}
-
-#searchModal .modal-content .modal-header button.close {
+#searchModal .modal-content button.close {
   color: white;
-}
-
-#searchModal .modal-content .modal-footer {
-  border-color: #656565;
 }
 
 #searchModal .content.container-inline {
