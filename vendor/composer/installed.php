@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '43fba2fa993597776cbc726e5d50ec8ca5ba4385',
+    'reference' => 'c7335d4058c7267fee4b2455b3c6c5a83601fce6',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -1974,6 +1974,15 @@
       ),
       'reference' => '8.x-4.6',
     ),
+    'drupal/pantheon_advanced_page_cache' => 
+    array (
+      'pretty_version' => '1.2.0',
+      'version' => '1.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.2',
+    ),
     'drupal/paragraphs' => 
     array (
       'pretty_version' => '1.12.0',
@@ -3937,7 +3946,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '43fba2fa993597776cbc726e5d50ec8ca5ba4385',
+      'reference' => 'c7335d4058c7267fee4b2455b3c6c5a83601fce6',
     ),
     'vardot/varbase-updater' => 
     array (

@@ -130,6 +130,7 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'PantheonSystems\\CDNBehatHelpers\\' => 32,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
@@ -407,6 +408,10 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PantheonSystems\\CDNBehatHelpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/docroot/modules/contrib/pantheon_advanced_page_cache/tests/behat/helper_classes',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (
@@ -3818,6 +3823,9 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
         'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
         'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
+        'PantheonSystems\\CDNBehatHelpers\\AgeTracker' => __DIR__ . '/../..' . '/docroot/modules/contrib/pantheon_advanced_page_cache/tests/behat/helper_classes/AgeTracker.php',
+        'PantheonSystems\\CDNBehatHelpers\\Contexts\\FeatureContext' => __DIR__ . '/../..' . '/docroot/modules/contrib/pantheon_advanced_page_cache/tests/behat/helper_classes/Contexts/FeatureContext.php',
+        'PantheonSystems\\CDNBehatHelpers\\tests\\AgeTrackerTest' => __DIR__ . '/../..' . '/docroot/modules/contrib/pantheon_advanced_page_cache/tests/behat/helper_classes/tests/AgeTrackerTest.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
