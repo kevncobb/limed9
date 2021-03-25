@@ -45,7 +45,8 @@
     "drupal/smtp": "^1.0",
     "drupal/fontyourface": "^3.6",
     "drupal/menu_breadcrumb": "1.x-dev@dev",
-    "drupal/coffee_mediteran": "^2.0"
+    "drupal/coffee_mediteran": "^2.0",
+    "drupal/tvi": "1.x-dev@dev"
   },
   "config": {
     "bin-dir": "bin/",

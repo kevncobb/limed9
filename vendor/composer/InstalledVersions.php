@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1bbc8d75ba6571b3f5223504b458c8595ff715d6',
+    'reference' => 'b3acbcf5985061f4176a94fa755bb9a0c2e9ab4a',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -2597,6 +2597,16 @@ private static $installed = array (
         0 => '9.1.5',
       ),
     ),
+    'drupal/tvi' => 
+    array (
+      'pretty_version' => 'dev-1.x',
+      'version' => 'dev-1.x',
+      'aliases' => 
+      array (
+        0 => '1.x-dev',
+      ),
+      'reference' => '0a37c5b96abe97257ed4fbcc3c9a8399367a85ab',
+    ),
     'drupal/ultimate_cron' => 
     array (
       'pretty_version' => '2.0.0-alpha5',
@@ -3905,7 +3915,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1bbc8d75ba6571b3f5223504b458c8595ff715d6',
+      'reference' => 'b3acbcf5985061f4176a94fa755bb9a0c2e9ab4a',
     ),
     'vardot/varbase-updater' => 
     array (
