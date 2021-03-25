@@ -8,6 +8,12 @@
 
 /* Insert your lime_doc base overrides over Vartheme BS4 and Bootstrap */
 
+.col-sm-8.bs-region.bs-region--left {
+  font-size: 1.1rem;
+}
+P + div.media.media--type-file {
+  margin-top: -1rem;
+}
 .navbar-brand {
   display: block;
   max-width: 300px;
@@ -69,7 +75,7 @@ h1.title {
 }
 .file.file--mime-application-pdf.file--application-pdf {
   background-image: none !important;
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 
 
@@ -105,7 +111,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
     margin-left: 15px;
     input.form-control {
       height: 60px;
-      font-size: 30px;
+      font-size: 20px;
       padding-top: 4px;
     }
   }
