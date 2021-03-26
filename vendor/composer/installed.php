@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4090b39110d0d920aa7e20063da8a1cefd12991f',
+    'reference' => '66893abf3d4739610d02b806a821f36e567bef29',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -484,6 +484,15 @@
       array (
         0 => '9.1.5',
       ),
+    ),
+    'drupal/cache_control_override' => 
+    array (
+      'pretty_version' => '1.0.0-alpha2',
+      'version' => '1.0.0.0-alpha2',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0-alpha2',
     ),
     'drupal/captcha' => 
     array (
@@ -3963,7 +3972,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4090b39110d0d920aa7e20063da8a1cefd12991f',
+      'reference' => '66893abf3d4739610d02b806a821f36e567bef29',
     ),
     'vardot/varbase-updater' => 
     array (
