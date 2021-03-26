@@ -50,7 +50,8 @@
     "drupal/pdf": "1.x-dev@dev",
     "drupal/book_pdf": "^1.0@alpha",
     "drupal/pantheon_advanced_page_cache": "^1.2",
-    "drupal/devel_entity_updates": "^3.0"
+    "drupal/devel_entity_updates": "^3.0",
+    "drupal/views_entity_form_field": "^1.0@beta"
   },
   "config": {
     "bin-dir": "bin/",

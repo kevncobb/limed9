@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '71dfc0ebf34f4c383732dd924f1d7431566bc12c',
+    'reference' => '4090b39110d0d920aa7e20063da8a1cefd12991f',
     'name' => 'vardot/varbase-project',
   ),
   'versions' => 
@@ -2907,6 +2907,15 @@ private static $installed = array (
       ),
       'reference' => '8.x-3.12',
     ),
+    'drupal/views_entity_form_field' => 
+    array (
+      'pretty_version' => '1.0.0-beta9',
+      'version' => '1.0.0.0-beta9',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.0-beta9',
+    ),
     'drupal/views_infinite_scroll' => 
     array (
       'pretty_version' => '1.8.0',
@@ -3978,7 +3987,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '71dfc0ebf34f4c383732dd924f1d7431566bc12c',
+      'reference' => '4090b39110d0d920aa7e20063da8a1cefd12991f',
     ),
     'vardot/varbase-updater' => 
     array (
