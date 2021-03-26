@@ -121,7 +121,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
     button.close {
       color: white;
       position: absolute;
-      top: -1rem;
+      top: 0rem;
       right: 0;
     }
   }
@@ -129,17 +129,28 @@ button.moderation-sidebar-link[value="Reject Review"] {
     width: 100%;
   }
   fieldset.form-type-search {
-    width: 80%;
-    margin-left: 15px;
-    input.form-control {
-      height: 60px;
-      font-size: 20px;
-      padding-top: 4px;
-    }
+    width: 75%;
+    margin-left: 7px;
   }
-  button.js-form-submit {
-    height: 60px;
-    margin-left: 2px;
+  @media screen and (min-width: 465px) {
+    .modal-content {
+      button.close {
+        top: -1rem;
+      }
+    }
+    fieldset.form-type-search {
+      width: 80%;
+      margin-left: 15px;
+      input.form-control {
+        height: 60px;
+        font-size: 20px;
+        padding-top: 4px;
+      }
+    }
+    button.js-form-submit {
+      height: 60px;
+      margin-left: 2px;
+    }
   }
 }
 

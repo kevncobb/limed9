@@ -125,7 +125,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
 
 #searchModal .modal-content button.close {
   position: absolute;
-  top: -1rem;
+  top: 0rem;
   right: 0;
   color: white;
 }
@@ -135,19 +135,27 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 
 #searchModal fieldset.form-type-search {
-  width: 80%;
-  margin-left: 15px;
+  width: 75%;
+  margin-left: 7px;
 }
 
-#searchModal fieldset.form-type-search input.form-control {
-  height: 60px;
-  padding-top: 4px;
-  font-size: 20px;
-}
-
-#searchModal button.js-form-submit {
-  height: 60px;
-  margin-left: 2px;
+@media screen and (min-width: 465px) {
+  #searchModal .modal-content button.close {
+    top: -1rem;
+  }
+  #searchModal fieldset.form-type-search {
+    width: 80%;
+    margin-left: 15px;
+  }
+  #searchModal fieldset.form-type-search input.form-control {
+    height: 60px;
+    padding-top: 4px;
+    font-size: 20px;
+  }
+  #searchModal button.js-form-submit {
+    height: 60px;
+    margin-left: 2px;
+  }
 }
 
 .field--name-field-comments.comment-wrapper h2.title {
