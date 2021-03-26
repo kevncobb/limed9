@@ -24,6 +24,18 @@ P + div.media.media--type-file {
     color: rgba(255,255,255,1);
   }
 }
+#navbar-main {
+  @media screen and (min-width: 992px) {
+    font-size: 0.88rem;
+  }
+  @media screen and (min-width: 1200px) {
+    font-size: 1rem;
+  }
+}
+button.search-button {
+  margin-left: 15px;
+  margin-right: -15px;
+}
 .highlighted {
   background-color: $gray-300;
 }
@@ -148,7 +160,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
     //color: #222629;
     //background: #dee2e5;
     color: #f7f7f7;
-    background: #2aa745;
+    background: #e1ebf3;
     font-size: 1rem;
   }
   fieldset.js-form-type-textarea {
@@ -160,8 +172,8 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 .comment {
   padding: 0.5rem;
-  border: thin solid #e4e4e4;
-  background-color: #f7f7f7;
+  border: thin solid #f1f0f0;
+  background-color: #fdfdfd;
   border-radius: 0.5rem;
   margin: 0 -0.1rem 1rem;
   .field--name-user-picture img {

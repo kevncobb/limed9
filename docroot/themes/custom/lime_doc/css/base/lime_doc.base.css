@@ -21,6 +21,23 @@ p + div.media.media--type-file {
   color: white;
 }
 
+@media screen and (min-width: 992px) {
+  #navbar-main {
+    font-size: 0.88rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #navbar-main {
+    font-size: 1rem;
+  }
+}
+
+button.search-button {
+  margin-right: -15px;
+  margin-left: 15px;
+}
+
 .highlighted {
   background-color: #dee2e6;
 }
@@ -147,7 +164,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
   padding: 15px;
   text-transform: uppercase;
   color: #f7f7f7;
-  background: #2aa745;
+  background: #e1ebf3;
   font-size: 1rem;
 }
 
@@ -162,9 +179,9 @@ button.moderation-sidebar-link[value="Reject Review"] {
 .comment {
   margin: 0 -0.1rem 1rem;
   padding: 0.5rem;
-  border: thin solid #e4e4e4;
+  border: thin solid #f1f0f0;
   border-radius: 0.5rem;
-  background-color: #f7f7f7;
+  background-color: #fdfdfd;
 }
 
 .comment .field--name-user-picture img {
