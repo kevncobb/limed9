@@ -14,6 +14,10 @@
 P + div.media.media--type-file {
   margin-top: -1rem;
 }
+
+
+
+// Navbar Styling
 .navbar-brand {
   display: block;
   max-width: 300px;
@@ -23,6 +27,9 @@ P + div.media.media--type-file {
   &:focus, &:hover {
     color: rgba(255,255,255,1);
   }
+}
+.navbar-collapse.collapse.show .row {
+  margin: 0 !important;
 }
 #navbar-main {
   @media screen and (min-width: 992px) {
@@ -36,6 +43,10 @@ button.search-button {
   margin-left: 15px;
   margin-right: -15px;
 }
+
+
+
+
 .highlighted {
   background-color: $gray-300;
 }

@@ -21,6 +21,10 @@ p + div.media.media--type-file {
   color: white;
 }
 
+.navbar-collapse.collapse.show .row {
+  margin: 0 !important;
+}
+
 @media screen and (min-width: 992px) {
   #navbar-main {
     font-size: 0.88rem;
