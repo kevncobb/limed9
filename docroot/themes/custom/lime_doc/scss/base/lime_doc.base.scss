@@ -86,8 +86,8 @@ h1.title {
 }
 
 //Book Navigation Hidden
-.book-navigation {
-  //display: none !important;
+.page-node-type-landing-page-lb .book-navigation {
+  display: none !important;
 }
 
 // PDF Files
@@ -182,7 +182,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
     //color: #222629;
     //background: #dee2e5;
     color: #f7f7f7;
-    background: #e1ebf3;
+    background: #5dab60;
     font-size: 1rem;
   }
   fieldset.js-form-type-textarea {

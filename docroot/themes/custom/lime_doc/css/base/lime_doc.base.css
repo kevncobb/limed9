@@ -80,6 +80,10 @@ h1.title {
   font-weight: 300;
 }
 
+.page-node-type-landing-page-lb .book-navigation {
+  display: none !important;
+}
+
 .field--name-field-media-file {
   width: 100%;
   max-width: 600px;
@@ -172,7 +176,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
   padding: 15px;
   text-transform: uppercase;
   color: #f7f7f7;
-  background: #e1ebf3;
+  background: #5dab60;
   font-size: 1rem;
 }
 
