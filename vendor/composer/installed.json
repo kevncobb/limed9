@@ -1652,6 +1652,9 @@
                             "package": "npm-asset/ace-builds"
                         }
                     ]
+                },
+                "patches_applied": {
+                    "Regex in ace_editor_lib_path is too greedy cuasing warnings when installed alongside C3 library": "https://www.drupal.org/files/issues/2021-03-22/3204896.patch"
                 }
             },
             "installation-source": "dist",
