@@ -18,7 +18,7 @@
 
   .title {
     margin: 0;
-    @include padding(0 0 0.9375rem);
+    //@include padding(0 0 0.9375rem);
     @include font-size(2rem);
   }
 

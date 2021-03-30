@@ -73,6 +73,7 @@ h1.title {
   max-width: 750px;
   margin-top: 1rem;
   padding: 7px 15px;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: white;
   background: #435f7b;
