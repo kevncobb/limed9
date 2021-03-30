@@ -36,3 +36,22 @@
 [dir="rtl"] .item-list .item-list__comma-list li {
   padding: 0;
 }
+
+ol {
+  margin-bottom: 1rem;
+  li {
+    margin-bottom: 1rem;
+  }
+  ol {
+    margin-bottom: 1rem;
+  }
+  li ol {
+    list-style-type:lower-alpha;
+    li ol {
+      list-style-type:lower-roman;
+      li ol {
+        list-style-type:lower-alpha;
+      }
+    }
+  }
+}
