@@ -23,13 +23,16 @@
     attach: function (context, settings) {
       $(context).find('button.btn.expand-main-content').on('click touchstart', function () {
         var mainContent =  $('.node--type-page.node--view-mode-full').find('.bs-region.bs-region--left');
+        var mainContentBody =  $('.node--type-page.node--view-mode-full').find('.bs-region.bs-region--left .field--name-body');
         var sideBar =  $('.node--type-page.node--view-mode-full').find('.bs-region.bs-region--right');
         if (mainContent.hasClass( "col-sm-12" ) ) {
           mainContent.removeClass('animated slideInLeft col-sm-12');
+          mainContentBody.removeClass('lead');
           sideBar.removeClass('animated fadeInDownBig col-sm-8');
           $(this).removeClass('expanded');
         } else {
           mainContent.addClass('animated slideInLeft col-sm-12');
+          mainContentBody.addClass('lead');
           sideBar.addClass('animated fadeInDownBig col-sm-8');
           $(this).addClass('expanded');
         }
