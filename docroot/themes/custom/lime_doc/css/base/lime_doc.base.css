@@ -7,6 +7,10 @@ p + div.media.media--type-file {
   margin-top: -1rem;
 }
 
+.lead {
+  font-weight: 500 !important;
+}
+
 .navbar-brand {
   display: block;
   max-width: 300px;
