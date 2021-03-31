@@ -232,6 +232,17 @@ button.moderation-sidebar-link[value="Reject Review"] {
   content: none;
 }
 
+button.expand-main-content {
+  display: inline-block;
+  float: right;
+  margin: 0 -9px 0 0;
+  padding: 0;
+}
+
+button.expand-main-content i {
+  color: #435f7b;
+}
+
 button.expand-main-content i::before {
   content: "\f0fe";
 }
