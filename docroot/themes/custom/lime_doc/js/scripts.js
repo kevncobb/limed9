@@ -22,7 +22,17 @@
   Drupal.behaviors.expand_content_full_width = {
     attach: function (context, settings) {
       $(context).find('button.btn.expand-main-content').on('click touchstart', function () {
-        $('.node--type-page.node--view-mode-full').find('.col-sm-8.bs-region.bs-region--left').removeClass('col-sm-8');
+        var mainContent =  $('.node--type-page.node--view-mode-full').find('.bs-region.bs-region--left');
+        var sideBar =  $('.node--type-page.node--view-mode-full').find('.bs-region.bs-region--right');
+        if (mainContent.hasClass( "col-sm-12" ) ) {
+          $(mainContent).removeClass('animated slideInLeft col-sm-12');
+          $(sideBar).removeClass('animated fadeInDownBig col-sm-8');
+
+        } else {
+          $(mainContent).addClass('animated slideInLeft col-sm-12');
+          $(sideBar).addClass('animated fadeInDownBig col-sm-8');
+
+        }
       });
     }
   };

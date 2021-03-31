@@ -218,3 +218,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
   font-size: 0.8rem;
   font-style: italic;
 }
+
+button.expand-main-content {
+  margin-top: 1rem;
+}
