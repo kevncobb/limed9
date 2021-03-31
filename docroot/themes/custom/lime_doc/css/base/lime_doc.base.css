@@ -55,6 +55,10 @@ h1.title {
   padding: 1rem 0.4rem 0.9rem;
 }
 
+.breadcrumb-item {
+  margin: 0;
+}
+
 .bar-header {
   margin: 0 0 3rem;
   padding: 15px;
