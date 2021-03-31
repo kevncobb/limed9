@@ -219,6 +219,23 @@ button.moderation-sidebar-link[value="Reject Review"] {
   font-style: italic;
 }
 
-button.expand-main-content {
-  margin-top: 1rem;
+.block-block-content5c584adb-051d-4519-adc5-bc7287ff7812 {
+  display: inline;
+}
+
+.block-block-content5c584adb-051d-4519-adc5-bc7287ff7812 .content {
+  display: inline;
+}
+
+.block-block-content5c584adb-051d-4519-adc5-bc7287ff7812 .content .clearfix::after {
+  display: none;
+  content: none;
+}
+
+button.expand-main-content i::before {
+  content: "\f0fe";
+}
+
+button.expand-main-content.expanded i::before {
+  content: "\f146";
 }

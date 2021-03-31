@@ -27,9 +27,11 @@
         if (mainContent.hasClass( "col-sm-12" ) ) {
           mainContent.removeClass('animated slideInLeft col-sm-12');
           sideBar.removeClass('animated fadeInDownBig col-sm-8');
+          $(this).removeClass('expanded');
         } else {
           mainContent.addClass('animated slideInLeft col-sm-12');
           sideBar.addClass('animated fadeInDownBig col-sm-8');
+          $(this).addClass('expanded');
         }
       });
     }
