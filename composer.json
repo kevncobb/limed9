@@ -54,7 +54,9 @@
     "drupal/views_entity_form_field": "^1.0@beta",
     "drupal/cache_control_override": "^1.0@alpha",
     "drupal/ds": "^3.12",
-    "drush/drush": "^10.4"
+    "drush/drush": "^10.4",
+    "drupal/ckeditor_templates": "^1.2",
+    "drupal/ckeditor_templates_ui": "^1.4"
   },
   "config": {
     "bin-dir": "bin/",
