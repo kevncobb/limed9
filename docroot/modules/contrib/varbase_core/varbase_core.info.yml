@@ -89,7 +89,7 @@ install:
   - jquery_ui_accordion
   - varbase_update_helper
 
-# Information added by Drupal.org packaging script on 2021-03-21
-version: '9.0.0-rc2'
+# Information added by Drupal.org packaging script on 2021-04-17
+version: '9.0.0-rc4'
 project: 'varbase_core'
-datestamp: 1616301088
+datestamp: 1618702596

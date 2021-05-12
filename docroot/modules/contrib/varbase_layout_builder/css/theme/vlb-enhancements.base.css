@@ -60,7 +60,7 @@ body .layout-builder .layout-builder__link--import-from-library:focus {
 }
 
 body .layout-builder .layout-builder__add-block {
-  width: 9.1rem;
+  width: 9.5rem;
   margin: 10px auto;
   text-align: center;
   color: #007bff;
@@ -246,4 +246,38 @@ body .layout-builder .layout-builder__actions__block {
 #drupal-off-canvas .field-text-alignment .fieldset-wrapper > div > div input + label .input-icon[class*="justify"],
 #layout-builder-modal .field-text-alignment .fieldset-wrapper > div > div input + label .input-icon[class*="justify"] {
   background-image: url("../../images/plugins/text-alignment/text-justify.svg");
+}
+
+#drupal-off-canvas .fieldgroup.form-composite.form-wrapper,
+#layout-builder-modal .fieldgroup.form-composite.form-wrapper {
+  width: 100%;
+}
+
+#drupal-off-canvas button.button--primary,
+#drupal-off-canvas input[type="submit"].button--primary,
+#layout-builder-modal button.button--primary,
+#layout-builder-modal input[type="submit"].button--primary {
+  text-align: center;
+}
+
+#layout-builder-modal .form-item--editor-format .form-element--editor-format {
+  width: auto;
+  min-height: 1.5rem;
+  padding: calc(0.15rem - 1px) calc(0.5rem - 1px);
+  padding-right: calc(1.5rem - 1px);
+  color: #222330;
+  border: 2px solid #727579;
+  border-radius: inherit;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 9'%3E%3Cpath fill='none' stroke-width='1.5' d='M1 1L7 7L13 1' stroke='%23545560'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: 1.75rem 0.4375rem;
+  font-size: 0.889rem;
+  line-height: 1.2rem;
+}
+
+#layout-builder-modal .form-item--editor-format .form-element--editor-format:hover #layout-builder-modal .form-item--editor-format .form-element--editor-format:active,
+#layout-builder-modal .form-item--editor-format .form-element--editor-format:focus {
+  background-color: #fff;
 }

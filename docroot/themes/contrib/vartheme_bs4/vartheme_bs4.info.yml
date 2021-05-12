@@ -23,10 +23,6 @@ libraries:
   - vartheme_bs4/global-styles
   - vartheme_bs4/global-scripts
   - vartheme_bs4/framework
-  # Vartheme BS4 Varbase Bootstrap Paragraphs colors theme.
-  - vartheme_bs4/vbp-colors
-  # Vartheme BS4 Better Login theme.
-  - vartheme_bs4/betterlogin
   # Vartheme BS4 Varbase Media Hero Slider style.
   # Heroslider: Uncomment the following to use varbase heroslider styling.
   #- vartheme_bs4/heroslider
@@ -47,6 +43,7 @@ libraries-override:
   bootstrap_barrio/indented: vartheme_bs4/indented
   bootstrap_barrio/form: vartheme_bs4/form
   bootstrap_barrio/file: vartheme_bs4/file
+  bootstrap_barrio/breadcrumb: vartheme_bs4/breadcrumb
   bootstrap_barrio/dropbutton: vartheme_bs4/dropbutton
   bootstrap_barrio/book-navigation: vartheme_bs4/book-navigation
   bootstrap_barrio/affix: vartheme_bs4/affix
@@ -63,45 +60,42 @@ libraries-override:
   # Heroslider: Uncomment the following to use varbase heroslider styling.
   #  varbase_heroslider_media/general-styling: vartheme_bs4/heroslider
 
+  # Change the default social auth style and icons.
+  social_auth/auth-icons: vartheme_bs4/auth-icons 
+
+libraries-extend:
+  node/drupal.node.preview:
+    - vartheme_bs4/drupal.node.preview
+  toolbar/toolbar:
+    - vartheme_bs4/navbar.admin
+
 ckeditor_stylesheets:
   # Base
   - css/base/bootstrap.base.css
   - css/base/bootstrap5-utilities.base.css
   - css/base/vartheme_bs4.base.css
   # Components
-  - css/components/affix.component.css
   - css/components/ajax.component.css
   - css/components/alerts.component.css
   - css/components/autocomplete.component.css
-  - css/components/book.component.css
-  - css/components/book-navigation.component.css
-  - css/components/breadcrumb.component.css
   - css/components/bs-callouts.component.css
-  - css/components/comments.component.css
   - css/components/contextual.component.css
   - css/components/details.component.css
-  - css/components/dropbutton.component.css
   - css/components/feed-icon.component.css
   - css/components/field.component.css
   - css/components/file.component.css
-  - css/components/form.component.css
   - css/components/header.component.css
   - css/components/help.component.css
   - css/components/icons.component.css
   - css/components/image-button.component.css
-  - css/components/indented.component.css
   - css/components/item-list.component.css
   - css/components/list-group.component.css
-  - css/components/navbar.admin.component.css
   - css/components/navbar.component.css
   - css/components/node.component.css
-  - css/components/node-preview.component.css
   - css/components/page.component.css
   - css/components/progress-bar.component.css
-  - css/components/search-form.component.css
   - css/components/shortcut.component.css
   - css/components/sidebar.component.css
-  - css/components/sidebar-collapse.component.css
   - css/components/site-footer.component.css
   - css/components/skip-link.component.css
   - css/components/table.component.css
@@ -109,24 +103,21 @@ ckeditor_stylesheets:
   - css/components/tableselect.component.css
   - css/components/tablesort.component.css
   - css/components/tablesort-indicator.component.css
-  - css/components/tabs.component.css
   - css/components/textarea.component.css
   - css/components/ui-dialog.component.css
   - css/components/ui-widget.component.css
   - css/components/user.component.css
   - css/components/varicons.component.css
   - css/components/vb-tags.component.css
-  - css/components/vertical-tabs.component.css
   - css/components/views.component.css
+  - fonts/fontawesome-free/css/all.min.css
   # Layout
   - css/layout/edge2edge.layout.css
   - css/layout/equal-height.layout.css
   # Theme
   - css/theme/content.theme.css
-  - css/theme/vbp-colors.theme.css
 
-
-# Information added by Drupal.org packaging script on 2021-03-21
-version: '9.0.0-rc1'
+# Information added by Drupal.org packaging script on 2021-05-08
+version: '9.0.1'
 project: 'vartheme_bs4'
-datestamp: 1616337798
+datestamp: 1620479210

@@ -36,6 +36,7 @@ dependencies:
   - focal_point:focal_point
   - views_infinite_scroll:views_infinite_scroll
 install:
+  - media_bulk_upload
   - media_library_edit
   - media_revisions_ui
   - views_bulk_operations
@@ -44,7 +45,7 @@ install:
   - slick
   - webp
 
-# Information added by Drupal.org packaging script on 2021-03-16
-version: '9.0.0-rc3'
+# Information added by Drupal.org packaging script on 2021-04-26
+version: '9.0.1'
 project: 'varbase_media'
-datestamp: 1615898659
+datestamp: 1619420431
