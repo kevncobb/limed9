@@ -135,6 +135,7 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
             'PantheonSystems\\CDNBehatHelpers\\' => 32,
             'PHPMailer\\PHPMailer\\' => 20,
@@ -447,6 +448,10 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
         'PhpParser\\' => 
         array (
@@ -1181,6 +1186,7 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'Doctrine\\Common\\Annotations\\IndexedReader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php',
         'Doctrine\\Common\\Annotations\\NamedArgumentConstructorAnnotation' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/NamedArgumentConstructorAnnotation.php',
         'Doctrine\\Common\\Annotations\\PhpParser' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/PhpParser.php',
+        'Doctrine\\Common\\Annotations\\PsrCachedReader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/PsrCachedReader.php',
         'Doctrine\\Common\\Annotations\\Reader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Reader.php',
         'Doctrine\\Common\\Annotations\\SimpleAnnotationReader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/SimpleAnnotationReader.php',
         'Doctrine\\Common\\Annotations\\TokenParser' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/TokenParser.php',
@@ -4637,6 +4643,10 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'PhpParser\\Parser\\Tokens' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Parser/Tokens.php',
         'PhpParser\\PrettyPrinterAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php',
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
+        'Psr\\Cache\\CacheException' => __DIR__ . '/..' . '/psr/cache/src/CacheException.php',
+        'Psr\\Cache\\CacheItemInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemInterface.php',
+        'Psr\\Cache\\CacheItemPoolInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemPoolInterface.php',
+        'Psr\\Cache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/cache/src/InvalidArgumentException.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -5029,13 +5039,13 @@ class ComposerStaticInit62807a911cbec0876e032954c8234e58
         'Shaper\\DataAdaptor\\ReversibleTransformationInterface' => __DIR__ . '/..' . '/e0ipso/shaper/src/DataAdaptor/ReversibleTransformationInterface.php',
         'Shaper\\DataAdaptor\\ReversibleTransformationValidationInterface' => __DIR__ . '/..' . '/e0ipso/shaper/src/DataAdaptor/ReversibleTransformationValidationInterface.php',
         'Shaper\\Tests\\DataAdaptor\\DataAdaptorBaseTest' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorBaseTest.php',
-        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorBaseTest.php',
-        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake2' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorBaseTest.php',
-        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake3' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorBaseTest.php',
-        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake4' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorBaseTest.php',
+        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorFake.php',
+        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake2' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorFake2.php',
+        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake3' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorFake3.php',
+        'Shaper\\Tests\\DataAdaptor\\DataAdaptorFake4' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/DataAdaptor/DataAdaptorFake4.php',
         'Shaper\\Tests\\Transformation\\TransformationBaseTest' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationBaseTest.php',
-        'Shaper\\Tests\\Transformation\\TransformationFail' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationBaseTest.php',
-        'Shaper\\Tests\\Transformation\\TransformationFake' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationBaseTest.php',
+        'Shaper\\Tests\\Transformation\\TransformationFail' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationFail.php',
+        'Shaper\\Tests\\Transformation\\TransformationFake' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationFake.php',
         'Shaper\\Tests\\Transformation\\TransformationFake2' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationsQueueTest.php',
         'Shaper\\Tests\\Transformation\\TransformationsQueueTest' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Transformation/TransformationsQueueTest.php',
         'Shaper\\Tests\\Validator\\AcceptValidatorTest' => __DIR__ . '/..' . '/e0ipso/shaper/tests/src/Validator/AcceptValidatorTest.php',
