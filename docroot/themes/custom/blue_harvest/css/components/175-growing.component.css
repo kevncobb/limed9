@@ -6,27 +6,8 @@
   backface-visibility: hidden;
 }
 
-.pillars-custom {
-  margin-top: 0;
-  padding: 0 200px 3000px 600px;
-  -webkit-transform: skew(0deg, 60deg);
-  -o-transform: skew(0deg, 60deg);
-  transform: skew(0deg, 60deg);
-  background: rgba(0, 56, 165, 0.4);
-}
-
-#pillars-custom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-transform: skew(0deg, -60deg);
-  -o-transform: skew(0deg, -60deg);
-  transform: skew(0deg, -60deg);
-}
-
 .home_pillars {
   position: relative;
-  height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 }
 

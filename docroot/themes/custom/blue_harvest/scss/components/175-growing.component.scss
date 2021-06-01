@@ -14,20 +14,20 @@
   backface-visibility: hidden;
 }
 .pillars-custom {
-  background: rgba($blue, 0.4);
-  padding: 0px 200px 3000px 600px;
-  transform: skew(0deg, 60deg);
-  margin-top: 0px;
+  //background: rgba($blue, 0.4);
+  //padding: 0px 200px 3000px 600px;
+  //transform: skew(0deg, 60deg);
+  //margin-top: 0px;
   //max-height: 100vh !important;
 }
 #pillars-custom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: skew(0deg, -60deg);
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+  //transform: skew(0deg, -60deg);
 }
 .home_pillars {
-  height: 100vh;
+  //height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   position: relative;
 }
