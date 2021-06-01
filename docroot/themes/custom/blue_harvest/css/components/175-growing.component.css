@@ -29,6 +29,27 @@
   justify-content: flex-end;
 }
 
+.logo_icon .logo_link_label {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.logo_icon .logo_link_label.focusable:active,
+.logo_icon .logo_link_label.focusable:focus {
+  position: static;
+  overflow: visible;
+  clip: auto;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
 @media screen and (min-width: 980px) {
   .home_pillars_inner {
     -ms-flex-pack: justify;
