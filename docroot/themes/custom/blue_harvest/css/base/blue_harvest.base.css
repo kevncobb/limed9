@@ -7,6 +7,46 @@ p + div.media.media--type-file {
   margin-top: -1rem;
 }
 
+.mw-600 {
+  max-width: 600px;
+}
+
+.mw-700 {
+  max-width: 700px;
+}
+
+.mw-800 {
+  max-width: 800px;
+}
+
+.mw-900 {
+  max-width: 900px;
+}
+
+.mw-1000 {
+  max-width: 1000px;
+}
+
+.mh-600 {
+  max-height: 600px;
+}
+
+.mh-700 {
+  max-height: 700px;
+}
+
+.mh-800 {
+  max-height: 800px;
+}
+
+.mh-900 {
+  max-height: 900px;
+}
+
+.mh-1000 {
+  max-height: 1000px;
+}
+
 .navbar-brand {
   display: block;
   max-width: 300px;
