@@ -115,17 +115,6 @@
 
         }
 
-        function toggleVideo() {
-          if ($(".home_pillars_media").hasClass("paused")) {
-            $(".home_pillars_media").background("play").removeClass("paused");
-            $(".video_pause_label").text("Pause Background Video");
-            $(".video_pause").removeClass("paused");
-          } else {
-            $(".home_pillars_media").background("pause").addClass("paused");
-            $(".video_pause_label").text("Resume Background Video");
-            $(".video_pause").addClass("paused");
-          }
-        }
 
         function setPillarPosition(pillar) {
           if (pillar.hasClass("pillar_section_1")) {
