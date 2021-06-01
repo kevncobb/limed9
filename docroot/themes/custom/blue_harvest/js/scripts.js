@@ -21,7 +21,7 @@
   };
   Drupal.behaviors.one_seven_five_growing = {
     attach: function(context, settings) {
-      $(context).find('.home_pillars').each(function() {
+      $(context).find('.pillars-custom').each(function() {
 
         var $homePillars = $(".js-home-pillars"),
           $homePillarNav,
