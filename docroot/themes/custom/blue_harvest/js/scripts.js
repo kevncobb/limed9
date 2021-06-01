@@ -155,8 +155,8 @@
           document.documentElement.style.setProperty('--vh', viewportHeight + 'px');
         }
 
-        Site.onInit.push(init);
-        Site.onResize.push(updateVH);
+        init();
+        updateVH();
 
         return {};
 
