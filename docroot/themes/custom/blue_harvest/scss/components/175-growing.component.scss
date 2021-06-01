@@ -15,6 +15,7 @@
 }
 
 .pillars-custom {
+  position: relative;
   &::before {
     background: rgba($blue, 0.4);
     padding: 0px 200px 5000px 600px;

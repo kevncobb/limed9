@@ -6,6 +6,10 @@
   backface-visibility: hidden;
 }
 
+.pillars-custom {
+  position: relative;
+}
+
 .pillars-custom::before {
   position: absolute;
   left: -40%;
