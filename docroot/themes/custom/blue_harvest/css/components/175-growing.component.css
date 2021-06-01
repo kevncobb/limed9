@@ -6,10 +6,22 @@
   backface-visibility: hidden;
 }
 
+.pillars-custom {
+  margin-top: -200px;
+  padding: 200px 200px 1200px 400px;
+  -webkit-transform: skew(0deg, 40deg);
+  -o-transform: skew(0deg, 40deg);
+  transform: skew(0deg, 40deg);
+  background: #0038a5;
+}
+
 .home_pillars {
   position: relative;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
+  -webkit-transform: skew(0deg, -40deg);
+  -o-transform: skew(0deg, -40deg);
+  transform: skew(0deg, -40deg);
 }
 
 .home_pillars_media,

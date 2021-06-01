@@ -1,15 +1,30 @@
 /* ==========================================================================
 	Home Pillars
 ============================================================================= */
+
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // lime_doc variables.
+@import "../mixins";                      // lime_doc mixins.
+// -----------------------------------------------------------------------------
+
 .page_layout_home {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+.pillars-custom {
+  background: $blue;
+  padding: 200px 200px 1200px 400px;
+  transform: skew(0deg, 40deg);
+  margin-top: -200px;
 }
 
 .home_pillars {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   position: relative;
+  transform: skew(0deg, -40deg);
 }
 
 .home_pillars_media,
