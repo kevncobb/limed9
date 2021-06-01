@@ -3,26 +3,36 @@
 ============================================================================= */
 
 // -----------------------------------------------------------------------------
-@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
-@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
-@import "../variables";                   // lime_doc variables.
-@import "../mixins";                      // lime_doc mixins.
+@import "../../node_modules/bootstrap/scss/functions"; // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins"; // Bootstrap mixins.
+@import "../variables"; // lime_doc variables.
+@import "../mixins"; // lime_doc mixins.
 // -----------------------------------------------------------------------------
 
 .page_layout_home {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
 .pillars-custom {
-  background: rgba($blue, 0.3);
-  padding: 0px 200px 1200px 600px;
-  transform: skew(0deg, 60deg);
-  margin-top: 0px;
-  max-height: 100vh !important;
+  &::before {
+    background: rgba($blue, 0.4);
+    padding: 0px 200px 5000px 600px;
+    transform: skew(0deg, 60deg);
+    margin-top: 0px;
+    max-height: 100vh !important;
+    position: absolute;
+    left: -40%;
+  }
 }
+
 #pillars-custom {
-  transform: skew(0deg, -60deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  //transform: skew(0deg, -60deg);
 }
+
 .home_pillars {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
