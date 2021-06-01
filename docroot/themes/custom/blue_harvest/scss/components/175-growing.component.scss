@@ -14,17 +14,17 @@
   backface-visibility: hidden;
 }
 .pillars-custom {
-  background: $blue;
-  padding: 200px 200px 1200px 400px;
-  transform: skew(0deg, 40deg);
-  margin-top: -200px;
+  background: rgba($blue, 0.3);
+  padding: 0px 200px 1200px 600px;
+  transform: skew(0deg, 60deg);
+  margin-top: 0px;
 }
 
 .home_pillars {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   position: relative;
-  transform: skew(0deg, -40deg);
+  transform: skew(0deg, -60deg);
 }
 
 .home_pillars_media,

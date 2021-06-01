@@ -7,21 +7,21 @@
 }
 
 .pillars-custom {
-  margin-top: -200px;
-  padding: 200px 200px 1200px 400px;
-  -webkit-transform: skew(0deg, 40deg);
-  -o-transform: skew(0deg, 40deg);
-  transform: skew(0deg, 40deg);
-  background: #0038a5;
+  margin-top: 0;
+  padding: 0 200px 1200px 600px;
+  -webkit-transform: skew(0deg, 60deg);
+  -o-transform: skew(0deg, 60deg);
+  transform: skew(0deg, 60deg);
+  background: rgba(0, 56, 165, 0.3);
 }
 
 .home_pillars {
   position: relative;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
-  -webkit-transform: skew(0deg, -40deg);
-  -o-transform: skew(0deg, -40deg);
-  transform: skew(0deg, -40deg);
+  -webkit-transform: skew(0deg, -60deg);
+  -o-transform: skew(0deg, -60deg);
+  transform: skew(0deg, -60deg);
 }
 
 .home_pillars_media,
