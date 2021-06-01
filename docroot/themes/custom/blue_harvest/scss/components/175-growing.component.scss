@@ -14,17 +14,15 @@
   backface-visibility: hidden;
 }
 .pillars-custom {
-  //background: rgba($blue, 0.4);
-  //padding: 0px 200px 3000px 600px;
-  //transform: skew(0deg, 60deg);
-  //margin-top: 0px;
-  //max-height: 100vh !important;
-}
-#pillars-custom {
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //transform: skew(0deg, -60deg);
+  &::before {
+    content: '';
+    background: rgba($blue, 0.4);
+    padding: 0px 200px 3000px 600px;
+    transform: skew(0deg, 60deg);
+    margin-top: 0px;
+    max-height: 100vh !important;
+  }
+
 }
 .home_pillars {
   //height: 100vh;
@@ -66,7 +64,7 @@
 }
 @media screen and (min-width: 980px) {
   .home_pillars_inner {
-    height: 100vh;
+    height: 75vh;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
