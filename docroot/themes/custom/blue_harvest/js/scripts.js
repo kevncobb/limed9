@@ -25,7 +25,6 @@
 
         var $homePillars = $(".js-home-pillars"),
           $homePillarNav,
-          $homeVideoControl,
           $homePillarContent,
           $pillarSection,
           $pillarTitleLink,
@@ -45,7 +44,6 @@
             $pillarTitleLink = $(".js-pillar-title-link");
             $homePillarContent = $(".js-pillar-content");
             $homePillarNav = $(".js-home-pillar-nav");
-            $homeVideoControl = $(".js-video-play-pause");
             $pageContent = $(".page_content");
             transitioned = false;
 
@@ -74,10 +72,6 @@
               }
             });
 
-            $homeVideoControl.click(function(event) {
-              event.preventDefault();
-              toggleVideo();
-            });
 
             $(window).on("scroll", function() {
 
@@ -89,13 +83,12 @@
 
                   if ($("body").hasClass("full-nav")) {
                     $("body").removeClass("full-nav");
-                    toggleVideo();
                   }
 
                 } else {
 
                   if (!$("body").hasClass("full-nav")) {
-                    toggleVideo();
+
                     $("body").addClass("full-nav");
                   }
 
