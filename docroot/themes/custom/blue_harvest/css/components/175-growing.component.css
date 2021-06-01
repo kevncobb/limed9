@@ -7,7 +7,6 @@
 }
 
 .pillars-custom {
-  max-height: 100vh !important;
   margin-top: 0;
   padding: 0 200px 3000px 600px;
   -webkit-transform: skew(0deg, 60deg);
