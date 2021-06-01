@@ -76,6 +76,7 @@ ckeditor_stylesheets:
   - css/base/vartheme_bs4.base.css
   - css/base/blue_harvest.base.css
   # Components
+  - css/components/175-growing.component.css
   - css/components/affix.component.css
   - css/components/ajax.component.css
   - css/components/alerts.component.css

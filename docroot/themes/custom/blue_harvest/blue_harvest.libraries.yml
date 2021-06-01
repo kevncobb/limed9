@@ -127,6 +127,7 @@ global-styles:
       css/base/vartheme_bs4.base.css: {}
       css/base/blue_harvest.base.css: {}
     component:
+      css/components/175-growing.component.css: {}
       css/components/ajax.component.css: {}
       css/components/autocomplete.component.css: {}
       css/components/bs-callouts.component.css: {}
