@@ -23,8 +23,13 @@
 .navbar-overlay-dark {
   background-color: transparent;
   background: rgba(0,0,0,0.5);
+  z-index: 5;
+  position: absolute;
   a {
     color: white;
+  }
+  ul.navbar-nav {
+    @include make-container();
   }
 }
 .large-menu {

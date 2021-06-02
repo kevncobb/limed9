@@ -17,12 +17,22 @@
 }
 
 .navbar-overlay-dark {
+  position: absolute;
+  z-index: 5;
   background: rgba(0, 0, 0, 0.5);
   background-color: transparent;
 }
 
 .navbar-overlay-dark a {
   color: white;
+}
+
+.navbar-overlay-dark ul.navbar-nav {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .large-menu li.nav-item {
