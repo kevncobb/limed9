@@ -19,10 +19,11 @@
       });
     }
   };
+
   Drupal.behaviors.one_seven_five_growing = {
     attach: function(context, settings) {
       $(context).find('.pillars-custom').each(function() {
-
+        $("header.navbar").hide();
         var $homePillars = $(".js-home-pillars"),
           $homePillarNav,
           $homePillarContent,
