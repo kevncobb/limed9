@@ -112,10 +112,13 @@
         function setPillarPosition(pillar) {
           if (pillar.hasClass("pillar_section_1")) {
             $homePillars.attr("data-position", "one");
+            $(".pillars-custom").addClass("column-one-active");
           } else if (pillar.hasClass("pillar_section_2")) {
             $homePillars.attr("data-position", "two");
+            $(".pillars-custom").addClass("column-two-active");
           } else if (pillar.hasClass("pillar_section_3")) {
             $homePillars.attr("data-position", "three");
+            $(".pillars-custom").addClass("column-three-active");
           } else {
             $homePillars.attr("data-position", "one");
           }

@@ -14,7 +14,7 @@
   backface-visibility: hidden;
 }
 .pillars-custom {
-  &::after {
+  &::before {
     content: '';
     background: rgba($blue, 0.4);
     padding: 0px 1000px 3000px 600px;
@@ -27,17 +27,17 @@
     width: 5000px;
   }
   &.column-one-active {
-    &::after {
+    &::before {
       left: -133%;
     }
   }
   &.column-two-active {
-    &::after {
+    &::before {
       left: -100%;
     }
   }
   &.column-three-active {
-    &::after {
+    &::before {
       left: -59%;
     }
   }

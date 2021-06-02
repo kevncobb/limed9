@@ -6,7 +6,7 @@
   backface-visibility: hidden;
 }
 
-.pillars-custom::after {
+.pillars-custom::before {
   position: absolute;
   z-index: 1;
   left: -36%;
@@ -21,15 +21,15 @@
   background: rgba(0, 56, 165, 0.4);
 }
 
-.pillars-custom.column-one-active::after {
+.pillars-custom.column-one-active::before {
   left: -133%;
 }
 
-.pillars-custom.column-two-active::after {
+.pillars-custom.column-two-active::before {
   left: -100%;
 }
 
-.pillars-custom.column-three-active::after {
+.pillars-custom.column-three-active::before {
   left: -59%;
 }
 
