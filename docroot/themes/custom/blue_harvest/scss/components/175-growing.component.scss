@@ -18,7 +18,7 @@
 }
 .pillars-custom {
   &::before {
-    content: '';
+    //content: '';
     background: rgba($blue, 0.4);
     padding: 0px 1000px 3000px 600px;
     transform: skew(0deg, 70deg);
@@ -51,7 +51,9 @@
 }
 
 body.full-nav .pillars-custom::before {
-  transform: skew(0deg, 0deg);
+  //transform: skew(0deg, 0deg);
+  //left: -59%;
+  //transition: all 0ms;
 }
 .home_pillars {
   //height: 100vh;
