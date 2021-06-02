@@ -47,6 +47,22 @@ p + div.media.media--type-file {
   max-height: 1000px;
 }
 
+.z-1 {
+  z-index: 1;
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.p-absolute {
+  position: absolute;
+}
+
 .navbar-brand {
   display: block;
   max-width: 300px;

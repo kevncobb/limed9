@@ -17,12 +17,14 @@
   &::before {
     content: '';
     background: rgba($blue, 0.4);
-    padding: 0px 200px 3000px 600px;
-    transform: skew(0deg, 60deg);
+    padding: 0px 1000px 3000px 600px;
+    transform: skew(0deg, 70deg);
     margin-top: 0px;
     max-height: 100vh !important;
+    position: absolute;
+    left: -36%;
+    z-index: 1;
   }
-
 }
 .home_pillars {
   //height: 100vh;
@@ -64,7 +66,7 @@
 }
 @media screen and (min-width: 980px) {
   .home_pillars_inner {
-    height: 75vh;
+    height: 60vh;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;

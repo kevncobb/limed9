@@ -7,13 +7,16 @@
 }
 
 .pillars-custom::before {
+  position: absolute;
+  z-index: 1;
+  left: -36%;
   max-height: 100vh !important;
   margin-top: 0;
-  padding: 0 200px 3000px 600px;
+  padding: 0 1000px 3000px 600px;
   content: "";
-  -webkit-transform: skew(0deg, 60deg);
-  -o-transform: skew(0deg, 60deg);
-  transform: skew(0deg, 60deg);
+  -webkit-transform: skew(0deg, 70deg);
+  -o-transform: skew(0deg, 70deg);
+  transform: skew(0deg, 70deg);
   background: rgba(0, 56, 165, 0.4);
 }
 
@@ -67,7 +70,7 @@
     -webkit-justify-content: space-between;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    height: 75vh;
+    height: 60vh;
     padding: 150px 0 70px;
   }
 }
