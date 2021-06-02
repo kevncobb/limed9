@@ -80,7 +80,7 @@
               if ($(window).width() >= 980) {
 
                 if (scrollPos <= ($homePillars.outerHeight() * 0.25)) {
-
+                  $("header.navbar").hide();
                   if ($("body").hasClass("full-nav")) {
                     $("body").removeClass("full-nav");
                   }
@@ -93,6 +93,7 @@
                   }
 
                   if (transitioned === false) {
+                    $("header.navbar").fadeIn();
                     transitionPoint = scrollPos;
                     opacityRate = 1 / ($(".home_pillars_logo").outerHeight() + $(".home_pillars_sections").outerHeight() + 100);
                     transitioned = true;

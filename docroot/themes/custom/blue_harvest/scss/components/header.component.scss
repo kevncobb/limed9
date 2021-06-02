@@ -20,6 +20,13 @@
 #navbar-main {
   z-index: 2 !important;
 }
+.navbar-overlay-dark {
+  background-color: transparent;
+  background: rgba(0,0,0,0.5);
+  a {
+    color: white;
+  }
+}
 .large-menu {
   li.nav-item {
     margin-right: 60px;
