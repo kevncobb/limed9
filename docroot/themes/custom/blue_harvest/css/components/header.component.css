@@ -2,6 +2,16 @@
   width: 300px;
 }
 
+.navigation.menu--main,
+.navigation.menu--_75-and-growing {
+  width: 100%;
+}
+
+.navigation.menu--main ul.nav,
+.navigation.menu--_75-and-growing ul.nav {
+  float: right;
+}
+
 .large-menu li.nav-item {
   position: relative;
   margin-right: 80px;
