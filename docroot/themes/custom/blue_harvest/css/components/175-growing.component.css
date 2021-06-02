@@ -187,11 +187,11 @@
   display: none;
 }
 
-.page-node-3 .full-nav header.navbar {
-  display: block;
+.page-node-3 .full-nav.page-node-3 header.navbar {
+  display: block !important;
 }
 
-.page-node-3 .full-nav .home_pillars_logo {
+.page-node-3 .full-nav.page-node-3 .home_pillars_logo {
   opacity: 0;
 }
 

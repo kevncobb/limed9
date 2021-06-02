@@ -188,9 +188,9 @@
   header.navbar {
     display: none;
 }
-.full-nav {
+.full-nav.page-node-3 {
   header.navbar {
-    display: block;
+    display: block !important;
   }
   .home_pillars_logo {
     opacity: 0;
