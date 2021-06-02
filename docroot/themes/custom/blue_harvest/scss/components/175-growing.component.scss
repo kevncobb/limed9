@@ -20,6 +20,9 @@
   }
 }
 .pillars-custom {
+  box-shadow: 10px 10px 400px 200px rgba(0,0,0,0.16) inset;
+  -webkit-box-shadow: 10px 10px 400px 200px rgba(0,0,0,0.16) inset;
+  -moz-box-shadow: 10px 10px 400px 200px rgba(0,0,0,0.16) inset;
   &::before {
     //content: '';
     background: rgba($blue, 0.4);
@@ -61,9 +64,8 @@ body.full-nav .home_pillars_background {
   //height: 100vh;
   //height: calc(var(--vh, 1vh) * 100);
   position: relative;
-  box-shadow: 10px 10px 400px 200px rgba(0,0,0,0.16) inset;
-  -webkit-box-shadow: 10px 10px 400px 200px rgba(0,0,0,0.16) inset;
-  -moz-box-shadow: 10px 10px 400px 200px rgba(0,0,0,0.16) inset;
+  @include make-container();
+  max-width: 1140px;
 }
 
 .home_pillars_inner {

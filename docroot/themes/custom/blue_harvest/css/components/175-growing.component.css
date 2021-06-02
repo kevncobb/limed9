@@ -10,6 +10,12 @@
   margin-top: 0;
 }
 
+.pillars-custom {
+  -webkit-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
+  -moz-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
+  box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
+}
+
 .pillars-custom::before {
   position: absolute;
   z-index: 1;
@@ -45,9 +51,12 @@ body.full-nav .home_pillars_background {
 
 .home_pillars {
   position: relative;
-  -webkit-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
-  -moz-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
-  box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
+  width: 100%;
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .home_pillars_inner {
