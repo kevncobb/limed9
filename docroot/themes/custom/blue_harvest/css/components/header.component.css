@@ -19,8 +19,54 @@
 .navbar-overlay-dark {
   position: absolute;
   z-index: 5;
+  left: 0;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (min-width: 375px) {
+  .navbar-overlay-dark nav {
+    width: 375px;
+    -webkit-transform: translate(50%, 50%);
+    -o-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
+  }
+}
+
+@media screen and (min-width: 580px) {
+  .navbar-overlay-dark nav {
+    width: 580px;
+    -webkit-transform: translate(50%, 50%);
+    -o-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
+  }
+}
+
+@media screen and (min-width: 780px) {
+  .navbar-overlay-dark nav {
+    width: 780px;
+    -webkit-transform: translate(50%, 50%);
+    -o-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .navbar-overlay-dark nav {
+    width: 980px;
+    -webkit-transform: translate(50%, 50%);
+    -o-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
+  }
+}
+
+@media screen and (min-width: 1140px) {
+  .navbar-overlay-dark nav {
+    width: 1140px;
+    -webkit-transform: translate(50%, 50%);
+    -o-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
+  }
 }
 
 .navbar-overlay-dark a {

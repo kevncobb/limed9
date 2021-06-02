@@ -24,9 +24,37 @@
   background: rgba(0,0,0,0.3);
   z-index: 5;
   position: absolute;
+  left: 0;
   width: 100%;
+  @media screen and (min-width: 375px) {
+    nav {
+      transform: translate(50%, 50%);
+      width: 375px;
+    }
+  }
+  @media screen and (min-width: 580px) {
+    nav {
+      transform: translate(50%, 50%);
+      width: 580px;
+    }
+  }
+  @media screen and (min-width: 780px) {
+    nav {
+      transform: translate(50%, 50%);
+      width: 780px;
+    }
+  }
   @media screen and (min-width: 980px) {
-
+    nav {
+      transform: translate(50%, 50%);
+      width: 980px;
+    }
+  }
+  @media screen and (min-width: 1140px) {
+    nav {
+      transform: translate(50%, 50%);
+      width: 1140px;
+    }
   }
   a {
     color: white;
