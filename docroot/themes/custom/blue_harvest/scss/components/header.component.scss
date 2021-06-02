@@ -17,17 +17,19 @@
     float: right;
   }
 }
-
+#navbar-main {
+  z-index: 2;
+}
 .large-menu {
   li.nav-item {
-    margin-right: 80px;
+    margin-right: 60px;
     position: relative;
     &::after {
       width: 3px;
       height: 43px;
       position: absolute;
-      top: 0;
-      right: -40px;
+      top: 9px;
+      right: -33px;
       display: block;
       background: rgba(167, 169, 172, 0.3);
       content: '';
@@ -52,6 +54,7 @@
       transition: color 0.325s ease;
       @media screen and (min-width: 980px) {
         padding-bottom: 20px;
+        padding-top: 0;
       }
 
       &::after {

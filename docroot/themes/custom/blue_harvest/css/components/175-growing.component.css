@@ -36,6 +36,12 @@
   left: -59%;
 }
 
+body.full-nav .pillars-custom::before {
+  -webkit-transform: skew(0deg, 0deg);
+  -o-transform: skew(0deg, 0deg);
+  transform: skew(0deg, 0deg);
+}
+
 .home_pillars {
   position: relative;
 }
@@ -237,26 +243,6 @@
   .full-nav [data-position=three] .home_pillars_sections {
     -webkit-transform: translate3d(-150px, -70%, 0);
     transform: translate3d(-150px, -70%, 0);
-  }
-  .home_pillars_sections:before {
-    position: absolute;
-    top: 90px;
-    left: -1000px;
-    display: block;
-    width: 1000px;
-    height: 1px;
-    content: "";
-    background: rgba(255, 255, 255, 0.5);
-  }
-  .home_pillars_sections:after {
-    position: absolute;
-    top: 90px;
-    right: -1000px;
-    display: block;
-    width: 1000px;
-    height: 1px;
-    content: "";
-    background: rgba(255, 255, 255, 0.5);
   }
 }
 

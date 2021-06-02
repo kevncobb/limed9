@@ -12,15 +12,19 @@
   float: right;
 }
 
+#navbar-main {
+  z-index: 2;
+}
+
 .large-menu li.nav-item {
   position: relative;
-  margin-right: 80px;
+  margin-right: 60px;
 }
 
 .large-menu li.nav-item::after {
   position: absolute;
-  top: 0;
-  right: -40px;
+  top: 9px;
+  right: -33px;
   display: block;
   width: 3px;
   height: 43px;
@@ -54,6 +58,7 @@
 
 @media screen and (min-width: 980px) {
   .large-menu li.nav-item a.nav-link {
+    padding-top: 0;
     padding-bottom: 20px;
   }
 }
