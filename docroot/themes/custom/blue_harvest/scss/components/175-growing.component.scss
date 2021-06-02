@@ -20,7 +20,7 @@
     padding: 0px 1000px 3000px 600px;
     transform: skew(0deg, 70deg);
     margin-top: 0px;
-    max-height: 100vh !important;
+    height: 5000px;
     position: absolute;
     left: -140%;
     z-index: 1;
@@ -86,11 +86,10 @@
 }
 @media screen and (min-width: 980px) {
   .home_pillars_inner {
-    height: 60vh;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 150px 0 70px;
+    padding: 70px 30px 70px;
   }
 }
 
@@ -218,6 +217,7 @@
 @media screen and (min-width: 980px) {
   .home_pillars_sections {
     width: calc(100% + 140px);
+    padding-top: 150px;
     position: relative;
     -webkit-transition: -webkit-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     transition: -webkit-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
@@ -411,6 +411,10 @@
 .pillar_title_link {
   display: block;
   width: 100%;
+  &:focus, &:hover {
+    text-decoration: none;
+    color: white;
+  }
 }
 
 .pillar_icon {

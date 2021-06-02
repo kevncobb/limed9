@@ -11,7 +11,7 @@
   z-index: 1;
   left: -140%;
   width: 5000px;
-  max-height: 100vh !important;
+  height: 5000px;
   margin-top: 0;
   padding: 0 1000px 3000px 600px;
   content: "";
@@ -85,8 +85,7 @@
     -webkit-justify-content: space-between;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    height: 60vh;
-    padding: 150px 0 70px;
+    padding: 70px 30px 70px;
   }
 }
 
@@ -223,6 +222,7 @@
   .home_pillars_sections {
     position: relative;
     width: calc(100% + 140px);
+    padding-top: 150px;
     -webkit-transition: -webkit-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     -o-transition: -o-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     transition: -webkit-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
@@ -415,6 +415,12 @@
 .pillar_title_link {
   display: block;
   width: 100%;
+}
+
+.pillar_title_link:focus,
+.pillar_title_link:hover {
+  text-decoration: none;
+  color: white;
 }
 
 .pillar_icon {
