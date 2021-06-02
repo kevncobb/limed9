@@ -31,6 +31,14 @@
   background: rgba(167, 169, 172, 0.3);
 }
 
+.large-menu li.nav-item:last-child {
+  margin-right: 0;
+}
+
+.large-menu li.nav-item:last-child::after {
+  display: none;
+}
+
 .large-menu li.nav-item a.nav-link {
   position: relative;
   display: inline-block;

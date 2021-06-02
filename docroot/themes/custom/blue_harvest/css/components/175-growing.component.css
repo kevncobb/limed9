@@ -850,7 +850,7 @@
   transform: translate3d(-99vw, -50%, 0);
   opacity: 0.8;
   background: rgba(75, 46, 132, 0.9);
-  background: transparent url("../images/pillars_bg.svg") no-repeat;
+  background: transparent url("/themes/custom/blue_harvest/images/pillars_bg.svg") no-repeat;
   background-position: right center;
   -webkit-background-size: cover;
   background-size: cover;

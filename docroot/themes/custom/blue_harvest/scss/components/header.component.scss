@@ -34,6 +34,12 @@
       -webkit-transform: rotate(-25deg);
       transform: rotate(-25deg);
     }
+    &:last-child {
+      margin-right: 0;
+      &::after {
+        display: none;
+      }
+    }
     a.nav-link {
       display: inline-block;
       vertical-align: top;
