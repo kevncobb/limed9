@@ -10,12 +10,11 @@
 // -----------------------------------------------------------------------------
 
 
-
-
 .page_layout_home {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
 .pillars-custom {
   &::before {
     //content: '';
@@ -50,11 +49,10 @@
   }
 }
 
-body.full-nav .pillars-custom::before {
-  //transform: skew(0deg, 0deg);
-  //left: -59%;
-  //transition: all 0ms;
+body.full-nav .home_pillars_background {
+  position: absolute !important;
 }
+
 .home_pillars {
   //height: 100vh;
   //height: calc(var(--vh, 1vh) * 100);

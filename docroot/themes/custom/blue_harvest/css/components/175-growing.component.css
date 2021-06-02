@@ -35,6 +35,10 @@
   left: -59%;
 }
 
+body.full-nav .home_pillars_background {
+  position: absolute !important;
+}
+
 .home_pillars {
   position: relative;
 }
