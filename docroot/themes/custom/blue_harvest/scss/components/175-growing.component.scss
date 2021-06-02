@@ -14,7 +14,11 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
+.page-node-3 {
+  .node__content {
+    margin-top: 0;
+  }
+}
 .pillars-custom {
   &::before {
     //content: '';

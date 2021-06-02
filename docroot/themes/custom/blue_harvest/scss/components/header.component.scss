@@ -21,10 +21,12 @@
   z-index: 2 !important;
 }
 .navbar-overlay-dark {
-  background-color: transparent;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.3);
   z-index: 5;
   position: absolute;
+  @media screen and (min-width: 980px) {
+
+  }
   a {
     color: white;
   }
