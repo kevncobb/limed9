@@ -490,6 +490,7 @@
 
 @media screen and (min-width: 980px) {
   .home_pillar_goal {
+    margin-top: 35px;
     -webkit-transition: opacity 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     -o-transition: opacity 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     transition: opacity 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
