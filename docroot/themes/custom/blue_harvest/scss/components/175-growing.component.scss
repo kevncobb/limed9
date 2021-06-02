@@ -22,9 +22,13 @@
     margin-top: 0px;
     max-height: 100vh !important;
     position: absolute;
-    left: -36%;
+    left: -140%;
     z-index: 1;
     width: 5000px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
   }
   &.column-one-active {
     &::before {
