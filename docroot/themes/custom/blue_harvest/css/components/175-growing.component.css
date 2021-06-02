@@ -41,6 +41,9 @@ body.full-nav .home_pillars_background {
 
 .home_pillars {
   position: relative;
+  -webkit-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
+  -moz-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
+  box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
 }
 
 .home_pillars_inner {
@@ -419,9 +422,10 @@ body.full-nav .home_pillars_background {
   pointer-events: none;
 }
 
-.pillar_icon .icon_caret_right {
-  width: 16px;
-  height: 13px;
+.pillar_icon .bi-caret-right-fill {
+  display: block;
+  width: 22px;
+  height: 22px;
 }
 
 @media screen and (max-width: 979px) {
