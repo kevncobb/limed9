@@ -21,7 +21,7 @@
   z-index: 2 !important;
 }
 .navbar-overlay-dark {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.5);
   z-index: 5;
   position: absolute;
   left: 0;
@@ -34,6 +34,8 @@
     nav {
       //transform: translate(50%, 50%);
       width: 375px !important;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
   @media screen and (min-width: 580px) {
@@ -62,6 +64,7 @@
   }
   a {
     color: white;
+    padding: 10px !important;
   }
   ul.navbar-nav {
     @include make-container();
