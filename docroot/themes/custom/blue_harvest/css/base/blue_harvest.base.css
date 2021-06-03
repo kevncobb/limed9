@@ -60,6 +60,10 @@ p + div.media.media--type-file {
   z-index: 2;
 }
 
+.bg-white {
+  background-color: white;
+}
+
 .p-relative {
   position: relative;
 }
