@@ -125,7 +125,7 @@ body.full-nav .home_pillars_background {
   }
 }
 
-#pillars-custom {
+.pillars-custom {
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -137,7 +137,7 @@ body.full-nav .home_pillars_background {
 }
 
 @supports ((-webkit-clip-path: polygon(0 50px, 100% 0, 100% 100%, 0% 100%)) or (clip-path: polygon(0 50px, 100% 0, 100% 100%, 0% 100%))) {
-  #pillars-custom {
+  .pillars-custom {
     -webkit-clip-path: polygon(0 50px, 100% 0, 100% 100%, 0% 100%);
     clip-path: polygon(0 50px, 100% 0, 100% 100%, 0% 100%);
     padding-top: 50px;
@@ -146,7 +146,7 @@ body.full-nav .home_pillars_background {
 
 @media screen and (min-width: 500px) {
   @supports ((-webkit-clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%)) or (clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%))) {
-    #pillars-custom {
+    .pillars-custom {
       -webkit-clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%);
       clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%);
       padding-top: 100px;
@@ -155,7 +155,7 @@ body.full-nav .home_pillars_background {
 }
 
 @media screen and (min-width: 980px) {
-  #pillars-custom {
+  .pillars-custom {
     position: fixed;
     bottom: auto;
     background: transparent;
