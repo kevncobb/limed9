@@ -8,7 +8,10 @@
   Drupal.behaviors.one_seven_five_growing_banner = {
     attach: function(context, settings) {
       $(context).find('.pillars-custom').each(function() {
-        $("header.navbar").hide();
+
+        if ($(window).width() >= 980) {
+          $("header.navbar").show();
+        }
         var $homePillars = $(".js-home-pillars"),
           $homePillarNav,
           $homePillarContent,

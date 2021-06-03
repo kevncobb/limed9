@@ -134,7 +134,7 @@ body.full-nav .home_pillars_background {
   -webkit-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: rgba(75, 46, 132, 0.8);
+  background: rgba(0, 56, 165, 0.8);
 }
 
 @supports ((-webkit-clip-path: polygon(0 50px, 100% 0, 100% 100%, 0% 100%)) or (clip-path: polygon(0 50px, 100% 0, 100% 100%, 0% 100%))) {
