@@ -26,6 +26,7 @@
 
 .navbar-overlay-dark .col-12 {
   width: 100%;
+  width: 1140px !important;
   margin-right: auto;
   margin-left: auto;
   padding-right: 15px;
@@ -34,46 +35,31 @@
 
 @media screen and (min-width: 375px) {
   .navbar-overlay-dark nav {
-    width: 375px;
-    -webkit-transform: translate(50%, 50%);
-    -o-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
+    width: 375px !important;
   }
 }
 
 @media screen and (min-width: 580px) {
   .navbar-overlay-dark nav {
-    width: 580px;
-    -webkit-transform: translate(50%, 50%);
-    -o-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
+    width: 580px !important;
   }
 }
 
 @media screen and (min-width: 780px) {
   .navbar-overlay-dark nav {
-    width: 780px;
-    -webkit-transform: translate(50%, 50%);
-    -o-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
+    width: 780px !important;
   }
 }
 
 @media screen and (min-width: 980px) {
   .navbar-overlay-dark nav {
-    width: 980px;
-    -webkit-transform: translate(50%, 50%);
-    -o-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
+    width: 980px !important;
   }
 }
 
 @media screen and (min-width: 1140px) {
   .navbar-overlay-dark nav {
-    width: 1140px;
-    -webkit-transform: translate(50%, 50%);
-    -o-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
+    width: 1140px !important;
   }
 }
 

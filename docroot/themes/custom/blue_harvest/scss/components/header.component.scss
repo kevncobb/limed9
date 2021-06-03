@@ -28,35 +28,36 @@
   width: 100%;
   .col-12 {
     @include make-container();
+    width: 1140px !important;
   }
   @media screen and (min-width: 375px) {
     nav {
-      transform: translate(50%, 50%);
-      width: 375px;
+      //transform: translate(50%, 50%);
+      width: 375px !important;
     }
   }
   @media screen and (min-width: 580px) {
     nav {
-      transform: translate(50%, 50%);
-      width: 580px;
+      //transform: translate(50%, 50%);
+      width: 580px !important;
     }
   }
   @media screen and (min-width: 780px) {
     nav {
-      transform: translate(50%, 50%);
-      width: 780px;
+      //transform: translate(50%, 50%);
+      width: 780px !important;
     }
   }
   @media screen and (min-width: 980px) {
     nav {
-      transform: translate(50%, 50%);
-      width: 980px;
+      //transform: translate(50%, 50%);
+      width: 980px !important;
     }
   }
   @media screen and (min-width: 1140px) {
     nav {
-      transform: translate(50%, 50%);
-      width: 1140px;
+      //transform: translate(50%, 50%);
+      width: 1140px !important;
     }
   }
   a {
