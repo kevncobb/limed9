@@ -9,7 +9,7 @@
     attach: function(context, settings) {
       $(context).find('.pillars-custom').each(function() {
 
-        if ($(window).width() >= 980) {
+        if ($(window).width() < 980) {
           $("header.navbar").show();
         }
         var $homePillars = $(".js-home-pillars"),
