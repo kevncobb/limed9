@@ -146,7 +146,7 @@
         }
 
         init();
-        updateVH();
+        //updateVH();
 
         return {};
 
