@@ -116,7 +116,7 @@
   letter-spacing: 0.0625rem;
   text-transform: uppercase;
   color: #fff;
-  background: #0038a5;
+  background: #4b2e84;
   font-size: 14px;
   font-size: 0.875rem;
   font-weight: 700;
@@ -173,7 +173,7 @@
   letter-spacing: 0.0625rem;
   text-transform: uppercase;
   color: #fff;
-  background: #0038a5;
+  background: #4b2e84;
   font-size: 14px;
   font-size: 0.875rem;
   font-weight: 700;
@@ -194,11 +194,11 @@
 }
 
 .bar_graph.color_purple .bar_graph_value {
-  background: #0038a5;
+  background: #4b2e84;
 }
 
 .bar_graph.color_purple .bar_graph_value_label.small_value {
-  color: #0038a5;
+  color: #4b2e84;
 }
 
 .bar_graph.color_orange .bar_graph_button_link {
@@ -255,7 +255,7 @@
   letter-spacing: 0.0625rem;
   text-transform: uppercase;
   color: #000;
-  background: #00afd7;
+  background: #0038a5;
   font-size: 14px;
   font-size: 0.875rem;
   font-weight: 700;
@@ -276,11 +276,11 @@
 }
 
 .bar_graph.color_blue .bar_graph_value {
-  background: #00afd7;
+  background: #0038a5;
 }
 
 .bar_graph.color_blue .bar_graph_value_label.small_value {
-  color: #00afd7;
+  color: #0038a5;
 }
 
 .bar_graph.color_green .bar_graph_button_link {
@@ -399,7 +399,7 @@
   margin-top: 40px;
   border: 4px solid #fff;
   border-radius: 100px;
-  background: #fff url("../images/bargraph_bg.png") repeat-x;
+  background: #fff url("/themes/custom/blue_harvest/images/bargraph_bg.png") repeat-x;
   -webkit-background-size: auto 100%;
   background-size: auto 100%;
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -416,7 +416,7 @@
   vertical-align: top;
   border-top-left-radius: 60px;
   border-bottom-left-radius: 60px;
-  background: #0038a5;
+  background: #4b2e84;
 }
 
 .bar_graph_value_label {
