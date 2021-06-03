@@ -47,6 +47,7 @@
 
 body.full-nav .home_pillars_background {
   position: absolute !important;
+  left: -50%;
 }
 
 .home_pillars {
