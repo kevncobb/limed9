@@ -1,4 +1,8 @@
 /* Insert your blue_harvest base overrides over Vartheme BS4 and Bootstrap */
+.node__content {
+  margin-top: 0;
+}
+
 .col-sm-8.bs-region.bs-region--left {
   font-size: 1.1rem;
 }

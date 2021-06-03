@@ -888,7 +888,11 @@ body.full-nav .home_pillars_background {
     transform: translate3d(-93vw, -50%, 0);
   }
 }
-
+@media only screen and (min-width: 2250px) {
+  [data-position=one] .home_pillars_background {
+    transform: translate3d(-90vw, -50%, 0);
+  }
+}
 .full-nav [data-position=one] .home_pillars_background {
   transform: translate3d(0vw, -50%, 0);
 }
@@ -919,6 +923,11 @@ body.full-nav .home_pillars_background {
   }
 }
 
+@media only screen and (min-width: 2250px) {
+  [data-position=two] .home_pillars_background {
+    transform: translate3d(-72vw, -50%, 0);
+  }
+}
 .full-nav [data-position=two] .home_pillars_background {
   transform: translate3d(0vw, -50%, 0);
 }
