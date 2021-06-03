@@ -20,12 +20,15 @@
 #navbar-main {
   z-index: 2 !important;
 }
-.__navbar-overlay-dark {
+.navbar-overlay-dark {
   background: rgba(0,0,0,0.3);
   z-index: 5;
   position: absolute;
   left: 0;
   width: 100%;
+  .col-12 {
+    @include make-container();
+  }
   @media screen and (min-width: 375px) {
     nav {
       transform: translate(50%, 50%);
