@@ -138,8 +138,11 @@
         }
 
         function updateVH() {
-          viewportHeight = window.innerHeight * 0.01;
-          document.documentElement.style.setProperty('--vh', viewportHeight + 'px');
+          if (!$("body").hasClass("page-node-3")) {
+            viewportHeight = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', viewportHeight + 'px');
+          }
+
         }
 
         init();
