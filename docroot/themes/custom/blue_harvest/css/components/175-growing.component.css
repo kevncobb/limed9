@@ -10,6 +10,10 @@
   margin-top: 0;
 }
 
+.page-node-3 .dialog-off-canvas-main-canvas > div:first-child {
+  display: none;
+}
+
 .pillars-custom {
   -webkit-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
   -moz-box-shadow: 10px 10px 400px 200px rgba(0, 0, 0, 0.16) inset;
