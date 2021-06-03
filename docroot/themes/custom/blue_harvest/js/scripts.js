@@ -89,7 +89,7 @@
                 } else {
 
                   if (!$("body").hasClass("full-nav")) {
-
+                    $("header.navbar").fadeIn();
                     $("body").addClass("full-nav");
                   }
 
