@@ -198,7 +198,7 @@ heroslider:
 # blue_harvest Varbase Media Hero Slider theme.
 175_growing:
   js:
-    js/17-growing.js: { }
+    js/175-growing.js: { }
   css:
     theme:
       css/components/175-growing.component.css: {}

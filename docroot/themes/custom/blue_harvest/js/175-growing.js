@@ -5,7 +5,7 @@
 
 (function($, _, Drupal) {
 
-  Drupal.behaviors.one_seven_five_growing = {
+  Drupal.behaviors.one_seven_five_growing_banner = {
     attach: function(context, settings) {
       $(context).find('.pillars-custom').each(function() {
         $("header.navbar").hide();
@@ -140,7 +140,7 @@
   };
 
 
-  Drupal.behaviors.one_seven_five_growing = {
+  Drupal.behaviors.one_seven_five_growing_bar_graph = {
     attach: function(context, settings) {
       $(context).find('.js-bar-graph').each(function() {
 
