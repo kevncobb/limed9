@@ -26,6 +26,7 @@
   position: absolute;
   left: 0;
   width: 100%;
+  display: none;
   .col-12 {
     @include make-container();
     width: 1140px !important;
@@ -54,6 +55,7 @@
     nav {
       //transform: translate(50%, 50%);
       width: 980px !important;
+      display: block;
     }
   }
   @media screen and (min-width: 1140px) {
