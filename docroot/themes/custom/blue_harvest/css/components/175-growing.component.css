@@ -15,7 +15,7 @@
 }
 
 .page-node-3 .mh-1000 .background-local-video {
-  height: 615px !important;
+  min-height: 615px !important;
 }
 
 .pillars-custom {
