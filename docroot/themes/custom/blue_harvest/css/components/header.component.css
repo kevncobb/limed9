@@ -158,6 +158,9 @@
     transform: rotate(-25deg);
     background: rgba(167, 169, 172, 0.3);
   }
+  .large-menu li.nav-item:last-child::after {
+    display: none;
+  }
   .large-menu li.nav-item a.nav-link {
     position: relative;
     display: inline-block;
@@ -264,8 +267,14 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
 }
 
 @media screen and (min-width: 980px) {
-  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
+  header.navbar .navbar-collapse nav.menu--main {
     position: absolute;
+  }
+  header.navbar .navbar-collapse nav.menu--main > ul {
+    float: right;
+  }
+  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
+    position: static;
     top: auto;
     right: 0;
     width: 100%;
