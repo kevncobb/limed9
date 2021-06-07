@@ -81,68 +81,68 @@
   padding-left: 15px;
 }
 
-.large-menu li.nav-item {
-  position: relative;
-  margin-right: 60px;
-}
-
-.large-menu li.nav-item::after {
-  position: absolute;
-  top: 9px;
-  right: -33px;
-  display: block;
-  width: 3px;
-  height: 43px;
-  content: "";
-  -webkit-transform: rotate(-25deg);
-  -o-transform: rotate(-25deg);
-  transform: rotate(-25deg);
-  background: rgba(167, 169, 172, 0.3);
-}
-
-.large-menu li.nav-item:last-child {
-  margin-right: 0;
-}
-
-.large-menu li.nav-item:last-child::after {
-  display: none;
-}
-
-.large-menu li.nav-item a.nav-link {
-  position: relative;
-  display: inline-block;
-  -webkit-transition: color 0.325s ease;
-  -o-transition: color 0.325s ease;
-  transition: color 0.325s ease;
-  vertical-align: top;
-  color: #000;
-  font-size: 40px;
-  font-size: 2.5rem;
-  font-weight: 300;
-}
-
 @media screen and (min-width: 980px) {
+  .large-menu li.nav-item {
+    position: relative;
+    margin-right: 60px;
+  }
+  .large-menu li.nav-item::after {
+    position: absolute;
+    top: 9px;
+    right: -33px;
+    display: block;
+    width: 3px;
+    height: 43px;
+    content: "";
+    -webkit-transform: rotate(-25deg);
+    -o-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+    background: rgba(167, 169, 172, 0.3);
+  }
+  .large-menu li.nav-item:last-child {
+    margin-right: 0;
+  }
+  .large-menu li.nav-item:last-child::after {
+    display: none;
+  }
+  .large-menu li.nav-item a.nav-link {
+    position: relative;
+    display: inline-block;
+    -webkit-transition: color 0.325s ease;
+    -o-transition: color 0.325s ease;
+    transition: color 0.325s ease;
+    vertical-align: top;
+    color: #000;
+    font-size: 40px;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+}
+
+@media screen and (min-width: 980px) and (min-width: 980px) {
   .large-menu li.nav-item a.nav-link {
     padding-top: 0;
     padding-bottom: 20px;
   }
 }
 
-.large-menu li.nav-item a.nav-link::after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: block;
-  width: 0;
-  height: 2px;
-  content: "";
-  -webkit-transition: width 0.325s ease;
-  -o-transition: width 0.325s ease;
-  transition: width 0.325s ease;
-  background: #0038a5;
+@media screen and (min-width: 980px) {
+  .large-menu li.nav-item a.nav-link::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 0;
+    height: 2px;
+    content: "";
+    -webkit-transition: width 0.325s ease;
+    -o-transition: width 0.325s ease;
+    transition: width 0.325s ease;
+    background: #0038a5;
+  }
 }
 
-@media screen and (min-width: 980px) {
+@media screen and (min-width: 980px) and (min-width: 980px) {
   .large-menu li.nav-item a.nav-link::after {
     bottom: 16px;
   }
