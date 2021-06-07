@@ -157,8 +157,8 @@
             var valueLabel = $barGraph.find(".bar_graph_value_label").attr("data-value");
             var denominator = $barGraph.find(".bar_graph_denominator").attr("data-value");
 
-            valueNum = stripValues(valueLabel);
-            denominatorNum = stripValues(denominator);
+            var valueNum = stripValues(valueLabel);
+            var denominatorNum = stripValues(denominator);
             var barWidth = barGraphFull.width();
             var percent = valueNum / denominatorNum * 100;
 
