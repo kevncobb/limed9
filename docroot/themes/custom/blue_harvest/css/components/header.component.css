@@ -273,11 +273,14 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
   header.navbar .navbar-collapse nav.menu--main > ul {
     float: right;
   }
-  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
-    position: static;
+  header.navbar .navbar-collapse > .navbar-nav nav.menu--main {
     top: auto;
     right: 0;
     width: 100%;
+  }
+  header.navbar .navbar-collapse > .navbar-nav nav.menu--main ul.navbar-nav {
+    position: static;
+    float: right;
   }
   header.navbar .navbar-collapse .navigation.menu--_75-and-growing ul.nav {
     float: right;
