@@ -20,7 +20,6 @@
   position: absolute;
   z-index: 5;
   left: 0;
-  display: none;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
@@ -81,13 +80,16 @@
   padding-left: 15px;
 }
 
+.large-menu a.nav-link {
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
 @media screen and (min-width: 780px) {
   .large-menu li.nav-item {
     position: relative;
     margin-right: 60px;
-  }
-  .large-menu a.nav-link {
-    font-size: 1.5rem;
+    border-bottom: thin solid gray;
   }
 }
 
@@ -158,23 +160,55 @@
   }
 }
 
-header.navbar .navbar-collapse > .navbar-nav {
-  position: relative;
+header.navbar {
+  padding: 0;
+}
+
+header.navbar .navbar-collapse navigation.menu--_75-and-growing ul.nav {
+  float: none;
+}
+
+header.navbar .navbar-collapse navigation.menu--_75-and-growing ul.nav li.nav-item {
   width: 100%;
 }
 
-header.navbar .navbar-collapse > .navbar-nav .large-menu {
-  -ms-flex-order: 2;
-  -webkit-order: 2;
-  -webkit-box-ordinal-group: 3;
-  order: 2;
-  width: 100%;
-  padding-top: 35px;
+header.navbar .navbar-collapse .secondary-menu {
+  background-color: #0038a5;
 }
 
-header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
-  position: absolute;
-  right: 0;
+header.navbar .navbar-collapse .secondary-menu a {
+  color: white;
+}
+
+@media screen and (min-width: 768px) {
+  header.navbar .navbar-collapse .secondary-menu {
+    background-color: transparent;
+  }
+  header.navbar .navbar-collapse .secondary-menu a {
+    color: inherit;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  header.navbar .navbar-collapse > .navbar-nav {
+    position: relative;
+    width: 100%;
+  }
+  header.navbar .navbar-collapse > .navbar-nav .large-menu {
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    -webkit-box-ordinal-group: 3;
+    order: 2;
+    width: 100%;
+    padding-top: 35px;
+  }
+  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
+    position: absolute;
+    right: 0;
+  }
+  header.navbar .navbar-collapse .navigation.menu--_75-and-growing ul.nav {
+    float: right;
+  }
 }
 
 #navbar-top {
