@@ -7,11 +7,6 @@
   width: 100%;
 }
 
-.navigation.menu--main ul.nav,
-.navigation.menu--_75-and-growing ul.nav {
-  float: right;
-}
-
 #navbar-main {
   z-index: 3 !important;
 }
@@ -86,7 +81,13 @@
   padding-left: 15px;
 }
 
+.large-menu ul {
+  float: left;
+  width: 100%;
+}
+
 .large-menu li.nav-item {
+  width: 100%;
   margin-right: 30px;
   border-bottom: thin solid gray;
 }
@@ -98,6 +99,13 @@
 .large-menu a.nav-link {
   padding: 10px;
   font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .large-menu ul {
+    float: none;
+    width: auto;
+  }
 }
 
 @media screen and (min-width: 780px) {
