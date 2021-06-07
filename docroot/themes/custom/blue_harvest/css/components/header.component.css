@@ -106,6 +106,9 @@
     float: none;
     width: auto;
   }
+  .large-menu ul li.nav-item {
+    width: auto;
+  }
 }
 
 @media screen and (min-width: 780px) {
