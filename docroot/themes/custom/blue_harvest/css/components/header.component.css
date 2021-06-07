@@ -73,6 +73,7 @@
 }
 
 .navbar-overlay-dark ul.navbar-nav {
+  float: right;
   width: 100%;
   width: auto;
   margin-right: auto;
@@ -187,6 +188,12 @@
 
 header.navbar {
   padding: 0;
+}
+
+header.navbar nav.navigation a.highlighted-link {
+  text-transform: uppercase;
+  color: #0038a5;
+  font-weight: bold;
 }
 
 header.navbar .navbar-collapse navigation.menu--_75-and-growing ul.nav {

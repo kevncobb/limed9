@@ -75,6 +75,7 @@
   ul.navbar-nav {
     @include make-container();
     width: auto;
+    float: right;
   }
 }
 .large-menu {
@@ -170,6 +171,13 @@
 
 header.navbar {
   padding: 0;
+  nav.navigation {
+    a.highlighted-link {
+      text-transform: uppercase;
+      color: $blue;
+      font-weight: bold;
+    }
+  }
   .navbar-collapse {
     navigation.menu--_75-and-growing ul.nav {
       float: none;
