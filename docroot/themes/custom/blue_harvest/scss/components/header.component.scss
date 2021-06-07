@@ -9,6 +9,12 @@
 .navbar-brand {
   img {
     width: 300px;
+    @media screen and (min-width: 768px) {
+      margin-top: 45px;
+    }
+    @media screen and (min-width: 980px) {
+      margin-top: 45px;
+    }
   }
 }
 .navigation.menu--main, .navigation.menu--_75-and-growing {
@@ -99,7 +105,7 @@
   @media screen and (min-width: 768px) {
     ul {
       width: auto;
-      float: none;
+      float: right;
       li.nav-item {
         width: auto;
       }
@@ -111,8 +117,17 @@
       position: relative;
       border-bottom: none;
     }
+    &:last-child {
+      margin-right: 0;
+      a {
+        padding-right: 0;
+      }
+      &::after {
+        display: none;
+      }
+    }
   }
-  @media screen and (min-width: 980px) {
+  @media screen and (min-width: 992px) {
     li.nav-item {
       margin-right: 60px;
       position: relative;
@@ -128,12 +143,7 @@
         -webkit-transform: rotate(-25deg);
         transform: rotate(-25deg);
       }
-      &:last-child {
-        margin-right: 0;
-        &::after {
-          display: none;
-        }
-      }
+
       a.nav-link {
         display: inline-block;
         vertical-align: top;
@@ -187,12 +197,24 @@ header.navbar {
     }
     .secondary-menu {
       background-color: $blue;
-      a { color: white; }
+      a {
+        color: white;
+        padding-left: 14px;
+        &.highlighted-link {
+          color: white;
+        }
+      }
     }
     @media screen and (min-width: 768px) {
       .secondary-menu {
         background-color: transparent;
-        a { color: inherit; }
+        font-size: 12px;
+        a {
+          color: inherit;
+          &.highlighted-link {
+            color: inherit;
+          }
+        }
       }
       > .navbar-nav {
         width: 100%;
@@ -203,13 +225,24 @@ header.navbar {
           padding-top: 35px;
         }
         #block-blue-harvest-main-menu {
+          //hacking top bar
           position: absolute;
+          width: 133%;
           right: 0;
+          top: -13px;
         }
       }
     }
     @media screen and (min-width: 980px) {
-
+      > .navbar-nav {
+        #block-blue-harvest-main-menu {
+          //hacking top bar
+          position: absolute;
+          width: 100%;
+          right: 0;
+          top: auto;
+        }
+      }
       .navigation.menu--_75-and-growing ul.nav {
         float: right;
       }
