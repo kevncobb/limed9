@@ -26,7 +26,6 @@
   position: absolute;
   left: 0;
   width: 100%;
-  //display: none;
   .col-12 {
     @include make-container();
     width: 1140px !important;
@@ -49,6 +48,7 @@
     nav {
       //transform: translate(50%, 50%);
       width: 780px !important;
+      display: none;
     }
   }
   @media screen and (min-width: 980px) {
@@ -160,8 +160,6 @@ header.navbar {
         background-color: transparent;
         a { color: inherit; }
       }
-    }
-    @media screen and (min-width: 980px) {
       > .navbar-nav {
         width: 100%;
         position: relative;
@@ -175,6 +173,9 @@ header.navbar {
           right: 0;
         }
       }
+    }
+    @media screen and (min-width: 980px) {
+
       .navigation.menu--_75-and-growing ul.nav {
         float: right;
       }

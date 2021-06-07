@@ -49,6 +49,7 @@
 
 @media screen and (min-width: 780px) {
   .navbar-overlay-dark nav {
+    display: none;
     width: 780px !important;
   }
 }
@@ -187,9 +188,6 @@ header.navbar .navbar-collapse .secondary-menu a {
   header.navbar .navbar-collapse .secondary-menu a {
     color: inherit;
   }
-}
-
-@media screen and (min-width: 980px) {
   header.navbar .navbar-collapse > .navbar-nav {
     position: relative;
     width: 100%;
@@ -206,6 +204,9 @@ header.navbar .navbar-collapse .secondary-menu a {
     position: absolute;
     right: 0;
   }
+}
+
+@media screen and (min-width: 980px) {
   header.navbar .navbar-collapse .navigation.menu--_75-and-growing ul.nav {
     float: right;
   }
