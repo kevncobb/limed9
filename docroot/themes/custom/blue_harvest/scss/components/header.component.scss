@@ -26,6 +26,7 @@
   position: absolute;
   left: 0;
   width: 100%;
+  display: none;
   .col-12 {
     @include make-container();
     width: 1140px !important;
@@ -44,18 +45,21 @@
       width: 580px !important;
     }
   }
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
   @media screen and (min-width: 780px) {
     nav {
       //transform: translate(50%, 50%);
       width: 780px !important;
-      display: none;
+
     }
   }
   @media screen and (min-width: 980px) {
     nav {
       //transform: translate(50%, 50%);
       width: 980px !important;
-      display: block;
+
     }
   }
   @media screen and (min-width: 1140px) {
@@ -74,15 +78,21 @@
   }
 }
 .large-menu {
+  li.nav-item {
+    border-bottom: thin solid gray;
+    margin-right: 30px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
   a.nav-link {
     font-size: 1.5rem;
     padding: 10px;
   }
   @media screen and (min-width: 780px) {
     li.nav-item {
-      margin-right: 60px;
       position: relative;
-      border-bottom: thin solid gray;
+      border-bottom: none;
     }
   }
   @media screen and (min-width: 980px) {
