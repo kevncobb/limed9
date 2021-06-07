@@ -11,6 +11,8 @@
 
         if ($(window).width() < 980) {
           $("header.navbar").show();
+        } else {
+          $("header.navbar").hide();
         }
         var $homePillars = $(".js-home-pillars"),
           $homePillarNav,
