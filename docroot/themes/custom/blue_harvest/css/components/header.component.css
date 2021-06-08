@@ -10,7 +10,7 @@
 
 @media screen and (min-width: 980px) {
   .navbar-brand img {
-    margin-top: 45px;
+    margin-top: 0;
   }
 }
 
@@ -279,8 +279,16 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
     width: 100%;
   }
   header.navbar .navbar-collapse > .navbar-nav nav.menu--main ul.navbar-nav {
-    position: static;
-    float: right;
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    float: right !important;
+    width: auto !important;
+  }
+  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
   }
   header.navbar .navbar-collapse .navigation.menu--_75-and-growing ul.nav {
     float: right;
