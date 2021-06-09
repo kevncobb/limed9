@@ -8,7 +8,7 @@
   }
 }
 
-@media screen and (min-width: 980px) {
+@media screen and (min-width: 992px) {
   .navbar-brand img {
     margin-top: 0;
   }
@@ -67,7 +67,7 @@
   }
 }
 
-@media screen and (min-width: 980px) {
+@media screen and (min-width: 992px) {
   .navbar-overlay-dark nav {
     width: 980px !important;
   }
@@ -175,7 +175,7 @@
   }
 }
 
-@media screen and (min-width: 992px) and (min-width: 980px) {
+@media screen and (min-width: 992px) and (min-width: 992px) {
   .large-menu li.nav-item a.nav-link {
     padding-top: 0;
     padding-bottom: 20px;
@@ -198,7 +198,7 @@
   }
 }
 
-@media screen and (min-width: 992px) and (min-width: 980px) {
+@media screen and (min-width: 992px) and (min-width: 992px) {
   .large-menu li.nav-item a.nav-link::after {
     bottom: 16px;
   }
@@ -266,7 +266,7 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
   }
 }
 
-@media screen and (min-width: 980px) {
+@media screen and (min-width: 991px) {
   header.navbar .navbar-collapse nav.menu--main {
     position: absolute;
   }
@@ -284,11 +284,6 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
     right: auto !important;
     float: right !important;
     width: auto !important;
-  }
-  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
-    top: auto !important;
-    right: auto !important;
-    width: 100% !important;
   }
   header.navbar .navbar-collapse .navigation.menu--_75-and-growing ul.nav {
     float: right;
