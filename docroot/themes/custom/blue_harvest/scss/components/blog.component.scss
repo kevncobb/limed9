@@ -97,7 +97,7 @@
   transition: background .25s, border .25s, color .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
-  background: #4B2E84;
+  background: $blue;
   color: #ffffff;
   display: inline-block;
   -webkit-transform: translate(0, 50%);
@@ -243,7 +243,7 @@
   position: absolute;
   left: -9px;
   top: -4px;
-  background: #4B2E84;
+  background: $blue;
   content: '';
   -webkit-transform: skew(25deg);
   transform: skew(25deg);
@@ -262,7 +262,7 @@
   font-size: 1.375rem;
   font-weight: 900;
   line-height: 1.33333;
-  color: #4B2E84;
+  color: $blue;
   margin: 0; }
 @media screen and (min-width: 740px) {
   .topic_title {
@@ -301,8 +301,8 @@
   transition: background .25s, border .25s, color .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
-  background: #ffffff;
-  color: #000000;
+  background: $blue;
+  color: #fff;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;

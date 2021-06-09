@@ -118,7 +118,7 @@
   transition: background .25s, border .25s, color .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
-  background: #4B2E84;
+  background: $blue;
   color: #ffffff;
   display: inline-block;
   &:focus {
@@ -248,7 +248,7 @@
     transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
     transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
     background: $blue;
-    color: #000000;
+    color: #fff;
     &:focus {
       background: #000000;
       color: #ffffff;
