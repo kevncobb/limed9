@@ -81,6 +81,7 @@ ckeditor_stylesheets:
   - css/components/ajax.component.css
   - css/components/alerts.component.css
   - css/components/autocomplete.component.css
+  - css/components/blog.component.css
   - css/components/book.component.css
   - css/components/book-navigation.component.css
   - css/components/breadcrumb.component.css

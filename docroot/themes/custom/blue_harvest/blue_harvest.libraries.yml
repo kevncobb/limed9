@@ -35,6 +35,7 @@ bootstrap-styles:
       css/components/alerts.component.css: {}
       css/components/book-navigation.component.css: {}
       css/components/book.component.css: {}
+      css/components/blog.component.css: {}
       css/components/breadcrumb.component.css: {}
       css/components/comments.component.css: {}
       css/components/contextual.component.css: {}
