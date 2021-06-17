@@ -64,6 +64,10 @@ P + div.media.media--type-file {
 }
 .bg-blue {
   background-color: $blue;
+  color: white;
+  a {
+    color: white;
+  }
 }
 .bg-light {
   background-color: #e4e4e0;
