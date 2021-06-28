@@ -2,7 +2,7 @@
 
 namespace Drupal\media_library\Plugin\views\field;
 
-use Drupal\Core\Ajax\CloseModalDialogCommand;
+use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -90,7 +90,7 @@ class MediaLibrarySelectForm extends FieldPluginBase {
         'query' => $query,
       ],
       'callback' => [static::class, 'updateWidget'],
-      // The AJAX system automatically moves focus to the first :tabbable
+      // The AJAX system automatically moves focus to the first tabbable
       // element of the modal, so we need to disable refocus on the button.
       'disable-refocus' => TRUE,
     ];
@@ -124,7 +124,7 @@ class MediaLibrarySelectForm extends FieldPluginBase {
     return \Drupal::service('media_library.opener_resolver')
       ->get($state)
       ->getSelectionResponse($state, $selected_ids)
-      ->addCommand(new CloseModalDialogCommand(FALSE, '#modal-media-library'));
+      ->addCommand(new CloseDialogCommand());
   }
 
   /**

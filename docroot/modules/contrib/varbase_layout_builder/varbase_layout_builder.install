@@ -66,18 +66,6 @@ function varbase_layout_builder_install() {
         $config_factory->setData($settings_config_file_data)->save(TRUE);
       }
     }
-
-    // Have the list of layout builder style options configs into active config.
-    $layout_builder_style_options_config_files = \Drupal::service('file_system')->scanDirectory($optional_install_path, '/^layout_builder.style.options.*\\.(yml)$/i');
-    if (isset($layout_builder_style_options_config_files)
-      && is_array($layout_builder_style_options_config_files)) {
-      foreach ($layout_builder_style_options_config_files as $layout_builder_style_options_config_file) {
-        $layout_builder_style_options_config_file_content = file_get_contents(DRUPAL_ROOT . '/' . $layout_builder_style_options_config_file->uri);
-        $layout_builder_style_options_config_file_data = (array) Yaml::parse($layout_builder_style_options_config_file_content);
-        $layout_builder_style_options_config_file_config_factory = \Drupal::configFactory()->getEditable($layout_builder_style_options_config_file->name);
-        $layout_builder_style_options_config_file_config_factory->setData($layout_builder_style_options_config_file_data)->save(TRUE);
-      }
-    }
   }
   // ------------------------------------------------------------------------.
 }
@@ -121,4 +109,42 @@ function varbase_layout_builder_update_8103() {
   if (!\Drupal::moduleHandler()->moduleExists('layout_builder_component_attributes')) {
     \Drupal::service('module_installer')->install(['layout_builder_component_attributes'], FALSE);
   }
+}
+
+/**
+ * Issue #3210657: Add Boxed options ( Wide, Medium, Narrow, Tiny )
+ */
+function varbase_layout_builder_update_10001() {
+  $module_path = Drupal::service('module_handler')->getModule('varbase_layout_builder')->getPath();
+
+  // Install configs path.
+  $install_path = $module_path . '/' . InstallStorage::CONFIG_INSTALL_DIRECTORY;
+  if (is_dir($install_path)) {
+
+    // Have forced configs import.
+    $forced_configs_import = [
+      'varbase_layout_builder.layout_defaults',
+    ];
+
+    foreach ($forced_configs_import as $config_name) {
+
+      $config_path = $install_path . '/' . $config_name . '.yml';
+      if (file_exists($config_path)) {
+        $config_content = file_get_contents($config_path);
+        $config_data = (array) Yaml::parse($config_content);
+        $config_factory = \Drupal::configFactory()->getEditable($config_name);
+        $config_factory->setData($config_data)->save(TRUE);
+      }
+    }
+  }
+}
+
+/**
+ * Issue #3218194: Add Vertical and Horizontal alignments to section styling settings
+ */
+function varbase_layout_builder_update_10002() {
+  $config_factory = \Drupal::configFactory()->getEditable('bootstrap_styles.settings');
+  $config_factory->set('horizontal_alignment', "justify-content-start|Align start\r\njustify-content-center|Align center\r\njustify-content-end|Align end");
+  $config_factory->set('vertical_alignment', "align-items-start|Align top\r\nalign-items-center|Align middle\r\nalign-items-end|Align bottom");
+  $config_factory->save();
 }

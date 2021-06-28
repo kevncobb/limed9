@@ -5,10 +5,40 @@
  * Contains varbase_layout_builder.module.
  */
 
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\varbase_layout_builder\Element\VarbaseLayoutBuilderUX;
+
+/**
+ * Implements hook_entity_operation().
+ */
+function varbase_layout_builder_entity_operation(EntityInterface $entity) {
+  $account = \Drupal::currentUser();
+  $entity_type_id = $entity->getEntityTypeId();
+
+  $route_name = "layout_builder.overrides.$entity_type_id.view";
+  $route_parameters = [
+    $entity_type_id => $entity->id(),
+  ];
+
+  // If current user has access to route, then add the operation link. The
+  // access check will only return TRUE if the bundle is Layout Builder-
+  // enabled, overrides are allowed, and user has necessary permissions.
+  $access_manager = \Drupal::service('access_manager');
+  if (!$access_manager->checkNamedRoute($route_name, $route_parameters, $account)) {
+    return;
+  }
+
+  $operations['layout'] = [
+    'title' => t('Layout'),
+    'url' => Url::fromRoute($route_name, $route_parameters),
+    'weight' => 50,
+  ];
+  return $operations;
+}
 
 /**
  * Implements hook_form_alter().
@@ -214,5 +244,51 @@ function varbase_layout_builder_preprocess_blb_section(&$variables) {
 
   if (isset($variables['content']['section_header']['#attributes'])) {
     $variables['region_attributes']['section_header'] = new Attribute($variables['content']['section_header']['#attributes']);
+  }
+
+  if (isset($variables['content']['#settings']['container_width'])
+   && $variables['content']['#settings']['container_width'] !== '') {
+
+    // VLB layout defaults.
+    $vlb_layout_defaults = \Drupal::config('varbase_layout_builder.layout_defaults');
+
+    // Container width layout configs.
+    $container_width_layout_options = $vlb_layout_defaults->get('container_width');
+    $container_widths = [];
+    if (isset($container_width_layout_options['build_options'])) {
+      $container_widths = $container_width_layout_options['build_options'];
+    }
+
+    if (isset($container_widths[$variables['content']['#settings']['container_width']])) {
+      $variables['content']['#settings']['container_width_classes'] = $container_widths[$variables['content']['#settings']['container_width']];
+    }
+
+  }
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function varbase_layout_builder_library_info_alter(&$libraries, $extension) {
+
+  if ($extension == 'bootstrap_layout_builder'
+     && isset($libraries['layout_builder_form_style'])) {
+
+    $new_path = '/' . drupal_get_path('module', 'varbase_layout_builder') . '/js';
+    $new_js = [];
+    $replacements = [
+      'js/layout-tab-scripts.js' => $new_path . '/vlb-layout-tab-scripts.js',
+    ];
+
+    foreach ($libraries['layout_builder_form_style']['js'] as $source => $options) {
+      if (isset($replacements[$source])) {
+        $new_js[$replacements[$source]] = $options;
+      }
+      else {
+        $new_js[$source] = $options;
+      }
+    }
+
+    $libraries['layout_builder_form_style']['js'] = $new_js;
   }
 }

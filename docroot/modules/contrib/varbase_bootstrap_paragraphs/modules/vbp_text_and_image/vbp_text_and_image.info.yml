@@ -8,7 +8,7 @@ dependencies:
 install:
   - varbase_landing
 
-# Information added by Drupal.org packaging script on 2020-12-01
-version: '9.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2021-06-20
+version: '9.0.0'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1606834870
+datestamp: 1624176627

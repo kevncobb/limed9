@@ -9,6 +9,6 @@ dependencies:
   - drupal:text
 
 # Information added by Drupal.org packaging script on 2020-12-26
-version: '8.x-5.0-beta12'
+version: '6.0.0-beta2'
 project: 'linkit'
-datestamp: 1608957627
+datestamp: 1608957498

@@ -6,7 +6,7 @@ core_version_requirement: ^9
 dependencies:
   - swiftmailer:swiftmailer
 
-# Information added by Drupal.org packaging script on 2021-02-03
-version: '9.0.0-beta1'
+# Information added by Drupal.org packaging script on 2021-06-20
+version: '9.0.0'
 project: 'varbase_email'
-datestamp: 1612371670
+datestamp: 1624181979

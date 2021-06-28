@@ -16,12 +16,13 @@ install:
   - image_resize_filter
   - extlink
   - linkit
+  - editor_advanced_link
   - anchor_link
   - pathologic
   - token
   - token_filter
 
-# Information added by Drupal.org packaging script on 2020-12-01
-version: '9.0.0-alpha4'
+# Information added by Drupal.org packaging script on 2021-06-23
+version: '9.0.1'
 project: 'varbase_editor'
-datestamp: 1606837592
+datestamp: 1624415193

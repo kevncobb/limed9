@@ -66,11 +66,11 @@
     "drupal/config_perms": "~2.0",
     "drupal/roleassign": "~1.0",
     "drupal/prevent_homepage_deletion": "~1.0",
-    "drupal/admin_toolbar": "~2.0",
-    "drupal/tour_ui": "1.x-dev",
+    "drupal/admin_toolbar": "~3.0",
+    "drupal/tour_ui": "~1.0",
     "drupal/coffee": "~1.0",
     "drupal/responsive_preview": "~1.0",
-    "drupal/views_bulk_operations": "~3.3",
+    "drupal/views_bulk_operations": "~4.0",
     "drupal/views_bulk_edit": "~2.0",
     "drupal/revision_log_default": "~1.0",
     "drupal/webform": "~6.0",
@@ -138,8 +138,6 @@
       "drupal/core": {
         "Issue #2869592: Disabled update module shouldn't produce a status report warning":
         "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
-        "Issue #2815221: Add quickedit to the latest-revision route":
-        "https://www.drupal.org/files/issues/2020-10-29/2815221-135.patch",
         "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal":
         "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch",
         "Issue #3044656: Add a helper method to strip subdirectories from URL paths":
@@ -149,13 +147,13 @@
         "Issue #2985882: Fix Error: Call to a member function getLabel() after enabling layout_builder":
         "https://www.drupal.org/files/issues/2020-01-20/2985882-53.patch",
         "Issue #2741877: Nested modals don't work: opening a modal from a modal closes the original":
-        "https://www.drupal.org/files/issues/2020-04-20/2741877-48.patch",
+        "https://www.drupal.org/files/issues/2021-04-29/2741877-77.patch",
         "Issue #3165435: Fix tour <front> route as route name when a selected node had been set as the front page for the site":
         "https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch"
       },
       "drupal/default_content": {
         "Issue #3160146: Add Layout Builder Normalizer and Denormalize":
-        "https://www.drupal.org/files/issues/2020-08-24/default_content-add-normalizer-denormalizer-for-layout-builder-3160146-25.patch"
+        "https://www.drupal.org/files/issues/2021-04-07/3160146-37.patch"
       },
       "drupal/persistent_login": {
         "Issue #2899530: Hide user^s local task":
@@ -167,7 +165,7 @@
       },
       "drupal/update_helper": {
         "Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install":
-        "https://www.drupal.org/files/issues/2020-10-31/3024165-44.patch"
+        "https://www.drupal.org/files/issues/2021-06-22/3024165-45.patch"
       },
       "drupal/bootstrap_layouts": {
         "Issue #3018633: Fix Incompatible with Layout builder drag and drop":

@@ -11,7 +11,7 @@ install:
   - charts
   - charts_c3
 
-# Information added by Drupal.org packaging script on 2021-02-03
-version: '9.0.0-beta1'
+# Information added by Drupal.org packaging script on 2021-06-19
+version: '9.0.0'
 project: 'varbase_total_control'
-datestamp: 1612352283
+datestamp: 1624103808

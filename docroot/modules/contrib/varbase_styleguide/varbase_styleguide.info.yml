@@ -8,7 +8,7 @@ dependencies:
 install:
   - vmi
 
-# Information added by Drupal.org packaging script on 2020-12-01
-version: '9.0.0-alpha5'
+# Information added by Drupal.org packaging script on 2021-06-20
+version: '9.0.0'
 project: 'varbase_styleguide'
-datestamp: 1606841687
+datestamp: 1624184227
