@@ -329,7 +329,7 @@
   margin-right: -50vw !important;
   margin-left: -50vw !important;
   .vlb-section-header {
-    padding: 2rem 0 0;
+    padding: 2rem 0;
     @include make-container();
     max-width: 1110px;
   }
@@ -364,6 +364,11 @@
       &::after {
         background: rgba(34, 34, 34, 0.5) !important;
       }
+    }
+  }
+  .block-addtoany {
+    .content {
+      float: right;
     }
   }
 }

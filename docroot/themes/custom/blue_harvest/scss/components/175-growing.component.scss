@@ -159,7 +159,7 @@ body.full-nav .home_pillars_background {
 
 @media screen and (min-width: 980px) {
   .pillars-custom {
-    position: fixed;
+    position: relative;
     bottom: auto;
     background: transparent;
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.494835)), color-stop(10%, rgba(0, 0, 0, 0.225928)), to(rgba(0, 0, 0, 0)));

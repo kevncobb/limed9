@@ -471,7 +471,7 @@
   max-width: 1110px;
   margin-right: auto;
   margin-left: auto;
-  padding: 2rem 0 0;
+  padding: 2rem 0;
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -513,4 +513,8 @@
 .blog-header .block-field-blocknodevarbase-blogfield-blog-categories:focus::after,
 .blog-header .block-field-blocknodevarbase-blogfield-blog-categories:hover::after {
   background: rgba(34, 34, 34, 0.5) !important;
+}
+
+.blog-header .block-addtoany .content {
+  float: right;
 }

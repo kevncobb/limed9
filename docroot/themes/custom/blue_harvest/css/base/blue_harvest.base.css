@@ -82,6 +82,7 @@ p + div.media.media--type-file {
 }
 
 .bg-dark {
+  color: white;
   background-color: #2c3e50;
 }
 

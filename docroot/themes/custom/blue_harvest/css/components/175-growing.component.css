@@ -163,7 +163,7 @@ body.full-nav .home_pillars_background {
 
 @media screen and (min-width: 980px) {
   .pillars-custom {
-    position: fixed;
+    position: relative;
     bottom: auto;
     padding-top: 0;
     background: transparent;
