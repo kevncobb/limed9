@@ -56,7 +56,8 @@
     "drupal/ds": "^3.12",
     "drush/drush": "^10.4",
     "drupal/ckeditor_templates": "^1.2",
-    "drupal/ckeditor_templates_ui": "^1.4"
+    "drupal/ckeditor_templates_ui": "^1.4",
+    "drupal/layout_builder_component_attributes": "1.2.x-dev@dev"
   },
   "config": {
     "bin-dir": "bin/",

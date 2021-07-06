@@ -7,7 +7,7 @@ use Drupal\Tests\block\Traits\BlockCreationTrait;
 use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
 
 /**
- * Class ComponentAttributeTest.
+ * Tests UI and rendering of component attributes.
  *
  * @group layout_builder_component_attributes
  */
