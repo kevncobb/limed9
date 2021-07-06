@@ -136,6 +136,7 @@ global-styles:
       css/components/progress-bar.component.css: { weight: -10 }
       css/components/varicons.component.css: {}
       css/components/vb-tags.component.css: {}
+      css/components/timeline.component.css: {}
     layout:
       css/layout/edge2edge.layout.css: {}
       css/layout/equal-height.layout.css: {}

@@ -1,9 +1,9 @@
 .font-size-lg {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
 }
 
 .font-size-sm {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 #content .comment-wrapper h2 {
@@ -15,7 +15,7 @@
 }
 
 .field-node--comment {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .comment {
@@ -31,7 +31,7 @@
 .comment__meta {
   padding: 0 30px 0 0;
   /* LTR */
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 [dir="rtl"] .comment__meta {
@@ -67,7 +67,7 @@
   margin-bottom: 0.25rem;
   padding: 0 0.5em 0 0;
   color: #68696b;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.2;
   /* LTR */
 }
@@ -78,7 +78,7 @@
 }
 
 .comment__permalink {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.2rem;
 }
 
@@ -127,7 +127,13 @@
 .comment__content h3 {
   margin-top: 0.94em;
   margin-bottom: 0.45em;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
+}
+
+@media (min-width: 1200px) {
+  .comment__content h3 {
+    font-size: 1.375rem;
+  }
 }
 
 .comment__content nav {
@@ -163,7 +169,7 @@
 .comment .links-inline span {
   padding: 0 0.5em 0 0;
   /* LTR */
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 [dir="rtl"] .comment .links-inline span {

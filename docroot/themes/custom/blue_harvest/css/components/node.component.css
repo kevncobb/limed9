@@ -1,14 +1,14 @@
 .font-size-lg {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
 }
 
 .font-size-sm {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .node__content {
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .node--view-mode-teaser {
@@ -31,13 +31,13 @@
 
 .node--view-mode-teaser .node__content {
   clear: none;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.5;
 }
 
 .node__meta {
   margin-bottom: -0.3125;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .node__meta .field--name-field-user-picture img {
@@ -56,7 +56,7 @@
 .node__links {
   text-align: right;
   /* LTR */
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 [dir="rtl"] .node__links {

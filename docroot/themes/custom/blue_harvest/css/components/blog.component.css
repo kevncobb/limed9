@@ -1,9 +1,9 @@
 .font-size-lg {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
 }
 
 .font-size-sm {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 /* ==========================================================================
@@ -490,13 +490,13 @@
 
 @media screen and (min-width: 768px) {
   .blog-header .vlb-section-header .field--name-body {
-    font-size: calc(1.26rem + 0.12vw);
+    font-size: calc(1.2735rem + 0.282vw);
   }
 }
 
 @media screen and (min-width: 768px) and (min-width: 1200px) {
   .blog-header .vlb-section-header .field--name-body {
-    font-size: 1.35rem;
+    font-size: 1.485rem;
   }
 }
 

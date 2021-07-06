@@ -17,6 +17,7 @@ regions:
   footer: 'Footer'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
+  layout_blocks: 'Blocks to be used in Layouts'
 libraries:
   # Bootstrap styles and scripts libraries.
   - blue_harvest/bootstrap-styles

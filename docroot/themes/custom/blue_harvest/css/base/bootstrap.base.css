@@ -1,9 +1,9 @@
 .font-size-lg {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
 }
 
 .font-size-sm {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 :root {
@@ -70,7 +70,7 @@ body {
   color: #212529;
   background-color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -397,65 +397,78 @@ h6,
 
 h1,
 .h1 {
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(1.4rem + 1.8vw);
 }
 
 @media (min-width: 1200px) {
   h1,
   .h1 {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 }
 
 h2,
 .h2 {
-  font-size: calc(1.325rem + 0.9vw);
+  font-size: calc(1.345rem + 1.14vw);
 }
 
 @media (min-width: 1200px) {
   h2,
   .h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 }
 
 h3,
 .h3 {
-  font-size: calc(1.3rem + 0.6vw);
+  font-size: calc(1.3175rem + 0.81vw);
 }
 
 @media (min-width: 1200px) {
   h3,
   .h3 {
-    font-size: 1.75rem;
+    font-size: 1.925rem;
   }
 }
 
 h4,
 .h4 {
-  font-size: calc(1.275rem + 0.3vw);
+  font-size: calc(1.29rem + 0.48vw);
 }
 
 @media (min-width: 1200px) {
   h4,
   .h4 {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
   }
 }
 
 h5,
 .h5 {
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
+}
+
+@media (min-width: 1200px) {
+  h5,
+  .h5 {
+    font-size: 1.375rem;
+  }
 }
 
 h6,
 .h6 {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .lead {
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   font-weight: 300;
+}
+
+@media (min-width: 1200px) {
+  .lead {
+    font-size: 1.375rem;
+  }
 }
 
 .display-1 {
@@ -550,7 +563,13 @@ mark,
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
+}
+
+@media (min-width: 1200px) {
+  .blockquote {
+    font-size: 1.375rem;
+  }
 }
 
 .blockquote-footer {
@@ -2541,7 +2560,7 @@ pre code {
   border-radius: 0.25rem;
   background-color: #fff;
   background-clip: padding-box;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -2635,14 +2654,20 @@ select.form-control:focus::-ms-value {
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: 1.5;
+}
+
+@media (min-width: 1200px) {
+  .col-form-label-lg {
+    font-size: 1.375rem;
+  }
 }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -2655,7 +2680,7 @@ select.form-control:focus::-ms-value {
   border: solid transparent;
   border-width: 1px 0;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.5;
 }
 
@@ -2669,7 +2694,7 @@ select.form-control:focus::-ms-value {
   height: calc(1.5em + 0.5rem + 2px);
   padding: 0.25rem 0.5rem;
   border-radius: 0.2rem;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -2677,8 +2702,14 @@ select.form-control:focus::-ms-value {
   height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
   border-radius: 0.3rem;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: 1.5;
+}
+
+@media (min-width: 1200px) {
+  .form-control-lg {
+    font-size: 1.375rem;
+  }
 }
 
 select.form-control[size],
@@ -2778,7 +2809,7 @@ textarea.form-control {
   color: #fff;
   border-radius: 0.25rem;
   background-color: rgba(40, 167, 69, 0.9);
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -2903,7 +2934,7 @@ textarea.form-control.is-valid {
   color: #fff;
   border-radius: 0.25rem;
   background-color: rgba(220, 53, 69, 0.9);
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -3134,7 +3165,7 @@ textarea.form-control.is-invalid {
   border: 1px solid transparent;
   border-radius: 0.25rem;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -3847,15 +3878,22 @@ fieldset:disabled a.btn {
 .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
   border-radius: 0.3rem;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: 1.5;
+}
+
+@media (min-width: 1200px) {
+  .btn-lg,
+  .btn-group-lg > .btn {
+    font-size: 1.375rem;
+  }
 }
 
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
   border-radius: 0.2rem;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -3956,7 +3994,7 @@ input[type="button"].btn-block {
   border-radius: 0.25rem;
   background-color: #fff;
   background-clip: padding-box;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .dropdown-menu-left {
@@ -4158,7 +4196,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 1.5rem;
   white-space: nowrap;
   color: #6c757d;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .dropdown-item-text {
@@ -4461,7 +4499,7 @@ input[type="button"].btn-block {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   background-color: #e9ecef;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -4484,8 +4522,19 @@ input[type="button"].btn-block {
 .input-group-lg > .input-group-append > .btn {
   padding: 0.5rem 1rem;
   border-radius: 0.3rem;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: 1.5;
+}
+
+@media (min-width: 1200px) {
+  .input-group-lg > .form-control,
+  .input-group-lg > .custom-select,
+  .input-group-lg > .input-group-prepend > .input-group-text,
+  .input-group-lg > .input-group-append > .input-group-text,
+  .input-group-lg > .input-group-prepend > .btn,
+  .input-group-lg > .input-group-append > .btn {
+    font-size: 1.375rem;
+  }
 }
 
 .input-group-sm > .form-control:not(textarea),
@@ -4501,7 +4550,7 @@ input[type="button"].btn-block {
 .input-group-sm > .input-group-append > .btn {
   padding: 0.25rem 0.5rem;
   border-radius: 0.2rem;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -4536,7 +4585,7 @@ input[type="button"].btn-block {
   position: relative;
   z-index: 1;
   display: block;
-  min-height: 1.5rem;
+  min-height: 1.65rem;
   padding-left: 1.5rem;
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
@@ -4555,7 +4604,7 @@ input[type="button"].btn-block {
   z-index: -1;
   left: 0;
   width: 1rem;
-  height: 1.25rem;
+  height: 1.325rem;
   opacity: 0;
 }
 
@@ -4598,7 +4647,7 @@ input[type="button"].btn-block {
 
 .custom-control-label::before {
   position: absolute;
-  top: 0.25rem;
+  top: 0.325rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -4611,7 +4660,7 @@ input[type="button"].btn-block {
 
 .custom-control-label::after {
   position: absolute;
-  top: 0.25rem;
+  top: 0.325rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -4669,7 +4718,7 @@ input[type="button"].btn-block {
 }
 
 .custom-switch .custom-control-label::after {
-  top: calc(0.25rem + 2px);
+  top: calc(0.325rem + 2px);
   left: calc(-2.25rem + 2px);
   width: calc(1rem - 4px);
   height: calc(1rem - 4px);
@@ -4714,7 +4763,7 @@ input[type="button"].btn-block {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -4757,7 +4806,7 @@ input[type="button"].btn-block {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .custom-select-lg {
@@ -4765,7 +4814,13 @@ input[type="button"].btn-block {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
+}
+
+@media (min-width: 1200px) {
+  .custom-select-lg {
+    font-size: 1.375rem;
+  }
 }
 
 .custom-file {
@@ -5174,11 +5229,17 @@ input[type="button"].btn-block {
 .navbar-brand {
   display: inline-block;
   margin-right: 1rem;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
+  padding-top: 0.29375rem;
+  padding-bottom: 0.29375rem;
   white-space: nowrap;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: inherit;
+}
+
+@media (min-width: 1200px) {
+  .navbar-brand {
+    font-size: 1.375rem;
+  }
 }
 
 .navbar-brand:hover,
@@ -5236,8 +5297,14 @@ input[type="button"].btn-block {
   border: 1px solid transparent;
   border-radius: 0.25rem;
   background-color: transparent;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: 1;
+}
+
+@media (min-width: 1200px) {
+  .navbar-toggler {
+    font-size: 1.375rem;
+  }
 }
 
 .navbar-toggler:hover,
@@ -5256,7 +5323,7 @@ input[type="button"].btn-block {
 
 .navbar-nav-scroll {
   overflow-y: auto;
-  max-height: 1.875rem;
+  max-height: 2.0625rem;
 }
 
 @media (max-width: 575.98px) {
@@ -6058,8 +6125,14 @@ input[type="button"].btn-block {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1.25rem;
+  font-size: calc(1.2625rem + 0.15vw);
   line-height: 1.5;
+}
+
+@media (min-width: 1200px) {
+  .pagination-lg .page-link {
+    font-size: 1.375rem;
+  }
 }
 
 .pagination-lg .page-item:first-child .page-link {
@@ -6074,7 +6147,7 @@ input[type="button"].btn-block {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   line-height: 1.5;
 }
 
@@ -6313,7 +6386,7 @@ a.badge-dark.focus {
 }
 
 .alert-dismissible {
-  padding-right: 4rem;
+  padding-right: 4.15rem;
 }
 
 .alert-dismissible .close {
@@ -6473,7 +6546,7 @@ a.badge-dark.focus {
   height: 1rem;
   border-radius: 0.25rem;
   background-color: #e9ecef;
-  font-size: 0.75rem;
+  font-size: 0.825rem;
   line-height: 0;
 }
 
@@ -6925,14 +6998,14 @@ a.badge-dark.focus {
   opacity: 0.5;
   color: #000;
   text-shadow: 0 1px 0 #fff;
-  font-size: calc(1.275rem + 0.3vw);
+  font-size: calc(1.29rem + 0.48vw);
   font-weight: 700;
   line-height: 1;
 }
 
 @media (min-width: 1200px) {
   .close {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
   }
 }
 
@@ -7300,7 +7373,7 @@ a.close.disabled {
   opacity: 0;
   text-shadow: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   font-weight: 400;
   font-style: normal;
   line-height: 1.5;
@@ -7428,7 +7501,7 @@ a.close.disabled {
   background-clip: padding-box;
   text-shadow: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
   font-weight: 400;
   font-style: normal;
   line-height: 1.5;
@@ -7573,7 +7646,7 @@ a.close.disabled {
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
   background-color: #f7f7f7;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .popover-header:empty {

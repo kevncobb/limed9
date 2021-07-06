@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Layout Builder Save And Edit module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_form_alter().
+ */
+function layout_builder_save_and_edit_form_alter(&$form, FormStateInterface $formState) {
+  if ($form['#form_id'] === 'entity_view_display_layout_builder_form') {
+    $form['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+    $form['actions']['layout_builder_save_and_edit_layout'] = $form['actions']['submit'];
+    $form['actions']['layout_builder_save_and_edit_layout']['#value'] = t('Save and edit layout');
+    \Drupal::request()->query->remove('destination');
+    $form['actions']['layout_builder_save_and_edit_layout']['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+  }
+  $current_path = explode("/", \Drupal::service('path.current')->getPath());
+  if (!empty($current_path[2])) {
+    $contentID = $current_path[2];
+    if (strpos(\Drupal::service('path.current')->getPath(), '/node/' . $contentID . '/layout') !== FALSE) {
+      $form['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+      $form['actions']['layout_builder_save_and_edit_layout'] = $form['actions']['submit'];
+      $form['actions']['layout_builder_save_and_edit_layout']['#value'] = t('Save and edit layout');
+      \Drupal::request()->query->remove('destination');
+      $form['actions']['layout_builder_save_and_edit_layout']['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+    }
+    if (strpos(\Drupal::service('path.current')->getPath(), '/user/' . $contentID . '/layout') !== FALSE) {
+      $form['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+      $form['actions']['layout_builder_save_and_edit_layout'] = $form['actions']['submit'];
+      $form['actions']['layout_builder_save_and_edit_layout']['#value'] = t('Save and edit layout');
+      \Drupal::request()->query->remove('destination');
+      $form['actions']['layout_builder_save_and_edit_layout']['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+    }
+    if (strpos(\Drupal::service('path.current')->getPath(), '/block/' . $contentID . '/layout') !== FALSE) {
+      $form['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+      $form['actions']['layout_builder_save_and_edit_layout'] = $form['actions']['submit'];
+      $form['actions']['layout_builder_save_and_edit_layout']['#value'] = t('Save and edit layout');
+      \Drupal::request()->query->remove('destination');
+      $form['actions']['layout_builder_save_and_edit_layout']['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+    }
+  }
+  if (!empty($current_path[3])) {
+    $contentID = $current_path[3];
+    if (strpos(\Drupal::service('path.current')->getPath(), '/taxonomy/term/' . $contentID . '/layout') !== FALSE) {
+      $form['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+      $form['actions']['layout_builder_save_and_edit_layout'] = $form['actions']['submit'];
+      $form['actions']['layout_builder_save_and_edit_layout']['#value'] = t('Save and edit layout');
+      \Drupal::request()->query->remove('destination');
+      $form['actions']['layout_builder_save_and_edit_layout']['#submit'][] = 'layout_builder_save_and_edit_layout_submit_handler';
+    }
+  }
+}
+
+/**
+ * Submit callback to set the redirect for layout builder save and edit.
+ */
+function layout_builder_save_and_edit_layout_submit_handler(array &$form, FormStateInterface $form_state) {
+  $trigger = $form_state->getTriggeringElement();
+  if (isset($trigger['#id']) && $trigger['#id'] == 'edit-layout-builder-save-and-edit-layout') {
+    $current_path = \Drupal::service('path.current')->getPath();
+    $form_state->setRedirectUrl(Url::fromUserInput($current_path));
+  }
+}

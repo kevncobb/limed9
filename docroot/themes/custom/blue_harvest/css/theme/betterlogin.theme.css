@@ -1,18 +1,18 @@
 .font-size-lg {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
 }
 
 .font-size-sm {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 #auth-box {
-  padding: calc(1.3125rem + 0.75vw) 0 0;
+  padding: calc(1.33125rem + 0.975vw) 0 0;
 }
 
 @media (min-width: 1200px) {
   #auth-box {
-    padding: 1.875rem 0 0;
+    padding: 2.0625rem 0 0;
   }
 }
 
@@ -100,7 +100,7 @@
 }
 
 #auth-box .user-login-form .option {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 #auth-box .form-actions {

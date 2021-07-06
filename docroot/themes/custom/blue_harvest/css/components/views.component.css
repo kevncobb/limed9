@@ -1,9 +1,9 @@
 .font-size-lg {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
 }
 
 .font-size-sm {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .views-displays .tabs .open > a {
@@ -20,7 +20,7 @@
 }
 
 .views-displays .secondary .form-submit {
-  font-size: 0.875rem;
+  font-size: 0.9625rem;
 }
 
 .views-filterable-options .filterable-option:nth-of-type(even) .form-type-checkbox {
