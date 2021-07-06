@@ -468,8 +468,10 @@
 
 .blog-header .vlb-section-header {
   width: 100%;
+  max-width: 1110px;
   margin-right: auto;
   margin-left: auto;
+  padding: 2rem 0 0;
   padding-right: 15px;
   padding-left: 15px;
 }
