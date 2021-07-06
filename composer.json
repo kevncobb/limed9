@@ -61,7 +61,8 @@
     "drupal/addtoany": "^1.15",
     "drupal/layout_builder_operation_link": "^1.0",
     "drupal/layout_builder_save_and_edit": "^1.0",
-    "drupal/replicate": "^1.0"
+    "drupal/replicate": "^1.0",
+    "drupal/replicate_ui": "^1.0"
   },
   "config": {
     "bin-dir": "bin/",
