@@ -12,8 +12,13 @@
   background-color: #0038a5;
 }
 
+.footer-wrapper .footer_copyright {
+  display: inline-block;
+  padding-right: 1rem;
+  border-right: thin solid white;
+}
+
 .footer-wrapper .footer {
-  margin-top: 5rem;
   padding-top: 0;
   padding-bottom: 0;
   border: 0;
