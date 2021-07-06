@@ -1,6 +1,14 @@
 /* ==========================================================================
 	Home Pillars
 ============================================================================= */
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .page_layout_home {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

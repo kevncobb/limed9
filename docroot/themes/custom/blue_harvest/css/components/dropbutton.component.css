@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .js .dropbutton-wrapper .dropbutton-widget {
   /* This is required to win over specifity of .js td .dropbutton-widget */
   position: relative;

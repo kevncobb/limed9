@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 /* Insert your blue_harvest footer custom SASS styling. */
 .footer-wrapper {
   background-color: #f2f2f2;

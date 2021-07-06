@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .shortcut-wrapper {
   margin: 2.2em 0 1.1em 0;
   /* Same as usual .page-title margin. */

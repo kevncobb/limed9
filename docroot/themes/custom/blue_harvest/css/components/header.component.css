@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .navbar-brand img {
   width: 215px;
 }
@@ -330,4 +338,12 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
     float: none;
     margin-left: 0;
   }
+}
+
+hr.short-green {
+  display: block;
+  width: 67px;
+  height: 5px;
+  border-top: 0;
+  background-color: #73ab42;
 }

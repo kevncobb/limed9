@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .image-button.is-disabled:hover,
 .image-button.is-disabled:active,
 .image-button.is-disabled:focus,

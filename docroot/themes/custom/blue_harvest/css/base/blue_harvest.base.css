@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 /* Insert your blue_harvest base overrides over Vartheme BS4 and Bootstrap */
 .node__content {
   margin-top: 0;

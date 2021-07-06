@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .password-strength__meter {
   margin-top: 0.5em;
   background-color: #e9ecef;

@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .views-displays .tabs .open > a {
   border-radius: 0.3rem 0.3rem 0 0;
 }

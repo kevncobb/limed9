@@ -313,6 +313,14 @@
   background: #000000;
   color: #ffffff; }
 
+// Blog Page
+
+.node--type-varbase-blog.node--view-mode-full {
+  .field--name-field-media {
+    margin: -50px -50px 25px -50px;
+  }
+}
+
 
 .blog-header {
   background-color: $blue;
@@ -329,9 +337,15 @@
   margin-right: -50vw !important;
   margin-left: -50vw !important;
   .vlb-section-header {
-    padding: 2rem 0;
+    padding: 2rem 0 60px;
     @include make-container();
     max-width: 1110px;
+    .field--name-body {
+      @media screen and (min-width: map-get($grid-breakpoints, "md")) {
+        @include font-size($font-size-base * 1.35);
+      }
+    }
+
   }
   a {
     color: white;

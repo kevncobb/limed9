@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 /* ==========================================================================
    Topic Row
 ============================================================================= */
@@ -450,6 +458,10 @@
   background: #000;
 }
 
+.node--type-varbase-blog.node--view-mode-full .field--name-field-media {
+  margin: -50px -50px 25px -50px;
+}
+
 .blog-header {
   position: relative;
   right: 50%;
@@ -471,9 +483,21 @@
   max-width: 1110px;
   margin-right: auto;
   margin-left: auto;
-  padding: 2rem 0;
+  padding: 2rem 0 60px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .blog-header .vlb-section-header .field--name-body {
+    font-size: calc(1.26rem + 0.12vw);
+  }
+}
+
+@media screen and (min-width: 768px) and (min-width: 1200px) {
+  .blog-header .vlb-section-header .field--name-body {
+    font-size: 1.35rem;
+  }
 }
 
 .blog-header a {

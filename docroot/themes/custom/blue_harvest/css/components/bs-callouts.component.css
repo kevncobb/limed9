@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .bs-callout {
   margin: 1.25rem 0;
   padding: 1.25rem;

@@ -1,3 +1,11 @@
+.font-size-lg {
+  font-size: 1.25rem;
+}
+
+.font-size-sm {
+  font-size: 0.875rem;
+}
+
 .list-group__link {
   padding: 0.75rem 0 0;
   border-top: 1px solid #dee2e6;
