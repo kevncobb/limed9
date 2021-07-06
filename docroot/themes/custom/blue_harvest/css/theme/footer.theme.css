@@ -8,7 +8,8 @@
 
 /* Insert your blue_harvest footer custom SASS styling. */
 .footer-wrapper {
-  background-color: #f2f2f2;
+  color: white;
+  background-color: #0038a5;
 }
 
 .footer-wrapper .footer {
@@ -102,4 +103,8 @@
 
 .footer-wrapper .footer section.region-footer .menu--footer ul.nav li {
   padding: 0 1rem;
+}
+
+.footer-wrapper .footer section.region-footer .menu--footer ul.nav li a {
+  color: white;
 }

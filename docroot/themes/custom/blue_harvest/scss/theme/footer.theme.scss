@@ -10,7 +10,7 @@
 
 .footer-wrapper {
   background-color: $footer-wrapper-bg;
-
+  color: white;
   .footer {
     border: 0;
     padding-top: 0;
@@ -50,6 +50,9 @@
 
           li {
             @include padding(0 $spacer);
+            a {
+              color: white;
+            }
           }
         }
       }
