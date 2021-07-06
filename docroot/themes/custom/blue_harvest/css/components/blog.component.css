@@ -481,6 +481,7 @@
 .blog-header .block-field-blocknodevarbase-blogfield-blog-categories {
   position: relative;
   z-index: 1;
+  display: inline-block;
   margin-right: 24px;
   -webkit-transition: color 0.25s ease;
   -o-transition: color 0.25s ease;

@@ -330,6 +330,13 @@
   margin-left: -50vw !important;
   .vlb-section-header {
     @include make-container();
+    $container-max-widths: (
+      sm: 540px,
+      md: 720px,
+      lg: 960px,
+      xl: 1140px,
+      xxl: 1320px
+    );
   }
   a {
     color: white;
@@ -341,6 +348,7 @@
     -webkit-transition: color 0.25s ease;
     transition: color 0.25s ease;
     z-index: 1;
+    display: inline-block;
     &::after {
       width: calc(100% + 18px);
       height: calc(100% + 8px);
