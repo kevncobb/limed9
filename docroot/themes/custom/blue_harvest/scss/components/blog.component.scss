@@ -312,3 +312,55 @@
 .topic_link:focus, .topic_link:hover {
   background: #000000;
   color: #ffffff; }
+
+
+.blog-header {
+  background-color: $blue;
+  color: white;
+  position: relative;
+  right: 50%;
+  left: 50%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100vw;
+  -ms-flex: 0 0 100vw;
+  flex: 0 0 100vw;
+  width: 100vw;
+  max-width: none;
+  margin-right: -50vw !important;
+  margin-left: -50vw !important;
+  .vlb-section-header {
+    @include make-container();
+  }
+  a {
+    color: white;
+  }
+  .block-field-blocknodevarbase-blogfield-blog-categories {
+    position: relative;
+    color: #ffffff;
+    margin-right: 24px;
+    -webkit-transition: color 0.25s ease;
+    transition: color 0.25s ease;
+    z-index: 1;
+    &::after {
+      width: calc(100% + 18px);
+      height: calc(100% + 8px);
+      display: block;
+      position: absolute;
+      left: -9px;
+      top: -4px;
+      background: #222;
+      content: '';
+      -webkit-transform: skew(25deg);
+      transform: skew(25deg);
+      -webkit-transition: color 0.25s ease, background-color 0.25s ease;
+      transition: color 0.25s ease, background-color 0.25s ease;
+      will-change: transform;
+      z-index: -1;
+    }
+    &:focus, &:hover {
+      &::after {
+        background: rgba(34, 34, 34, 0.5) !important;
+      }
+    }
+  }
+}
