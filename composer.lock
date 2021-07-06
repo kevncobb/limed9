@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cfc3890b46d7e7889e7fbb355e14bff",
+    "content-hash": "83c610fd44236d6b402d7a54499b5943",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5088,7 +5088,7 @@
                     }
                 },
                 "patches_applied": {
-                    "Issue #3160146: Add Layout Builder Normalizer and Denormalize": "https://www.drupal.org/files/issues/2020-08-24/default_content-add-normalizer-denormalizer-for-layout-builder-3160146-25.patch"
+                    "Issue #3160146: Add Layout Builder Normalizer and Denormalize": "https://www.drupal.org/files/issues/2021-04-07/3160146-37.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5129,7 +5129,8 @@
             "homepage": "https://www.drupal.org/project/default_content",
             "support": {
                 "source": "https://git.drupalcode.org/project/default_content"
-            }
+            },
+            "time": "2021-02-05T01:01:50+00:00"
         },
         {
             "name": "drupal/devel",
@@ -8414,8 +8415,7 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/layout_builder_component_attributes",
                 "issues": "https://drupal.org/project/issues/layout_builder_component_attributes"
-            },
-            "time": "2021-07-01T18:58:05+00:00"
+            }
         },
         {
             "name": "drupal/layout_builder_modal",
