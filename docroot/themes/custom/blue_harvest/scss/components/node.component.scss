@@ -8,7 +8,10 @@
 
 .node__content {
   @include font-size($font-size-base);
-  @include margin-top($spacer);
+  //@include margin-top($spacer);
+  @media screen and (min-width: map-get($grid-breakpoints, "lg")) {
+    @include font-size($font-size-base * 1.1);
+  }
 }
 
 // View mode teaser styles.

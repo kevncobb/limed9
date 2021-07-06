@@ -7,8 +7,13 @@
 }
 
 .node__content {
-  margin-top: 1rem;
   font-size: 1.1rem;
+}
+
+@media screen and (min-width: 992px) {
+  .node__content {
+    font-size: 1.21rem;
+  }
 }
 
 .node--view-mode-teaser {
