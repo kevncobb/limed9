@@ -160,7 +160,8 @@
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
   float: right;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+}
 @media screen and (min-width: 980px) {
   .topic_media {
     -webkit-clip-path: polygon(0 0, 70% 0, 100% 100%, 0 100%);
@@ -321,7 +322,7 @@
   }
 }
 
-.blog-listing {
+.topic_items {
   .video-player-icon.js-video-player-icon {
     cursor: inherit !important;
     display: block !important;

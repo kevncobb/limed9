@@ -462,12 +462,12 @@
   margin: -50px -50px 25px -50px;
 }
 
-.blog-listing .video-player-icon.js-video-player-icon {
+.topic_items .video-player-icon.js-video-player-icon {
   display: block !important;
   cursor: inherit !important;
 }
 
-.blog-listing .video-player-icon:after {
+.topic_items .video-player-icon:after {
   display: none;
 }
 
