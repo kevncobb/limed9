@@ -51,5 +51,13 @@
       left: 5%;
     }
   }
+  .caption-orange {
+    .slide__caption {
+      background-color: rgba(255, 109, 44, 0.9);
+      .topic_link {
+        background: $blue;
+      }
+    }
+  }
 }
 

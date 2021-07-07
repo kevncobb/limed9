@@ -50,3 +50,11 @@
   right: auto;
   left: 5%;
 }
+
+.facts-and-stats-view .caption-orange .slide__caption {
+  background-color: rgba(255, 109, 44, 0.9);
+}
+
+.facts-and-stats-view .caption-orange .slide__caption .topic_link {
+  background: #0038a5;
+}
