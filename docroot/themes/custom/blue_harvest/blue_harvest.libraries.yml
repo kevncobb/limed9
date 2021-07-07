@@ -137,6 +137,7 @@ global-styles:
       css/components/varicons.component.css: {}
       css/components/vb-tags.component.css: {}
       css/components/timeline.component.css: {}
+      css/components/slick.component.css: {}
     layout:
       css/layout/edge2edge.layout.css: {}
       css/layout/equal-height.layout.css: {}
