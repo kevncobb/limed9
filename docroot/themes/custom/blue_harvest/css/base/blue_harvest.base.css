@@ -339,3 +339,27 @@ button.moderation-sidebar-link[value="Reject Review"] {
 .typography a:hover {
   color: #0038a5;
 }
+
+.typography p {
+  margin: 34px 0;
+}
+
+.typography h2,
+.typography h3,
+.typography h4,
+.typography h5,
+.typography h6 {
+  margin: 40px 0 20px;
+}
+
+.typography h2 + *,
+.typography h3 + *,
+.typography h4 + *,
+.typography h5 + *,
+.typography h6 + * {
+  margin-top: 0;
+}
+
+.typography:first-child h2:first-child {
+  margin-top: 25px;
+}
