@@ -308,6 +308,9 @@ button.moderation-sidebar-link[value="Reject Review"] {
     &:focus, &:hover {
       color: $blue;
     }
+    &.btn {
+      border: none;
+    }
   }
   p {
     margin: 34px 0;
