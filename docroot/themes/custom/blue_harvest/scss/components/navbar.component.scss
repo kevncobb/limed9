@@ -36,32 +36,30 @@
 #navbar-main {
   z-index: 1;
 }
-
-.nav-item {
-  .nav-link {
-    position: relative;
-    -webkit-transition: color 0.325s ease;
-    transition: color 0.325s ease;
-  }
-  &::after {
-    width: 0px;
-    height: 2px;
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    background: $blue;
-    content: '';
-    -webkit-transition: width 0.325s ease;
-    transition: width 0.325s ease;
-    @media screen and (min-width: 980px) {
-      bottom: 16px;
-    }
-  }
-  &:focus, &:hover {
+@media screen and (min-width: 980px) {
+  .nav-item {
     .nav-link {
-      color: $blue;
+      position: relative;
+      -webkit-transition: color 0.325s ease;
+      transition: color 0.325s ease;
+      &::after {
+        width: 0px;
+        height: 2px;
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: $blue;
+        content: '';
+        -webkit-transition: width 0.325s ease;
+        transition: width 0.325s ease;
+      }
+      &:focus, &:hover {
+        color: $blue;
+        &::after {
+          width: 100%;
+        }
+      }
     }
   }
-
 }

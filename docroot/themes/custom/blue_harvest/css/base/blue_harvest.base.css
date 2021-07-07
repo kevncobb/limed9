@@ -337,6 +337,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
 
 .typography a:focus,
 .typography a:hover {
+  text-decoration: none;
   color: #0038a5;
 }
 

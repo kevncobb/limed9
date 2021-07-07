@@ -307,6 +307,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
     transition: color 0.25s;
     &:focus, &:hover {
       color: $blue;
+      text-decoration: none;
     }
     &.btn {
       border: none;
