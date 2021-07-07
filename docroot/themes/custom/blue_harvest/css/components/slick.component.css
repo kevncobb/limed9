@@ -38,6 +38,14 @@
   background: #ff6d2c;
 }
 
+.facts-and-stats-view .caption-top .slide__caption {
+  top: 4%;
+  bottom: auto;
+  left: 5%;
+  width: 90%;
+  height: 39%;
+}
+
 .facts-and-stats-view .caption-bottom .slide__caption {
   top: auto;
   bottom: 4%;
@@ -49,6 +57,20 @@
 .facts-and-stats-view .caption-left .slide__caption {
   right: auto;
   left: 5%;
+}
+
+.facts-and-stats-view .caption-top-left .slide__caption {
+  top: 5%;
+  bottom: auto;
+  width: 70%;
+}
+
+.facts-and-stats-view .caption-top-right .slide__caption {
+  top: 5%;
+  right: 5%;
+  bottom: auto;
+  left: auto;
+  width: 70%;
 }
 
 .facts-and-stats-view .caption-orange .slide__caption {

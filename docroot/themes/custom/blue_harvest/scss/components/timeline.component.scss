@@ -248,6 +248,7 @@
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
   display: inline-block;
+  border-bottom: none;
   margin-top: 22px; }
 .large .timeline_link {
   padding: 11px 32px 12px; }

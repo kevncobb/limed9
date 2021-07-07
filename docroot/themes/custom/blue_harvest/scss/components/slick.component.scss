@@ -36,6 +36,15 @@
       }
     }
   }
+  .caption-top {
+    .slide__caption {
+      width: 90%;
+      height: 39%;
+      left: 5%;
+      top: 4%;
+      bottom: auto;
+    }
+  }
   .caption-bottom {
     .slide__caption {
       width: 90%;
@@ -49,6 +58,22 @@
     .slide__caption {
       right: auto;
       left: 5%;
+    }
+  }
+  .caption-top-left {
+    .slide__caption {
+      width: 70%;
+      bottom: auto;
+      top: 5%;
+    }
+  }
+  .caption-top-right {
+    .slide__caption {
+      width: 70%;
+      bottom: auto;
+      top: 5%;
+      left: auto;
+      right: 5%;
     }
   }
   .caption-orange {
