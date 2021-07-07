@@ -7,6 +7,12 @@
 // -----------------------------------------------------------------------------
 
 /* Insert your blue_harvest base overrides over Vartheme BS4 and Bootstrap */
+body {
+  font-family: futura-pt, sans-serif;
+  h1, h2, h3, h4, h5, h6 {
+
+  }
+}
 
 .node__content {
   margin-top: 0;
