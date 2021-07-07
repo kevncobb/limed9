@@ -8,11 +8,11 @@
 
 .facts-and-stats-view .slide__caption {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5%;
+  right: 5%;
   left: auto;
-  width: 50%;
-  height: 100%;
+  width: 40%;
+  height: 90%;
   cursor: text;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -36,4 +36,17 @@
 
 .facts-and-stats-view .slide__caption .slide__description .topic_link {
   background: #ff6d2c;
+}
+
+.facts-and-stats-view .caption-bottom .slide__caption {
+  top: auto;
+  bottom: 4%;
+  left: 5%;
+  width: 90%;
+  height: 39%;
+}
+
+.facts-and-stats-view .caption-left .slide__caption {
+  right: auto;
+  left: 5%;
 }

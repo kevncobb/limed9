@@ -7,6 +7,9 @@
 // -----------------------------------------------------------------------------
 
 .facts-and-stats-view {
+  .slide__media {
+    //width: 50%;
+  }
   .slide__caption {
     cursor: text;
     -moz-user-select: text;
@@ -15,11 +18,11 @@
     -webkit-user-select: text;
     user-select: text;
     position: absolute;
-    width: 50%;
-    right: 0;
+    top: 5%;
+    right: 5%;
     left: auto;
-    height: 100%;
-    top: 0;
+    width: 40%;
+    height: 90%;
     color: white;
     background-color: rgba(0, 56, 165, 0.9);
     .slide__description {
@@ -31,6 +34,21 @@
       .topic_link {
         background: #ff6d2c;
       }
+    }
+  }
+  .caption-bottom {
+    .slide__caption {
+      width: 90%;
+      height: 39%;
+      left: 5%;
+      top: auto;
+      bottom: 4%;
+    }
+  }
+  .caption-left {
+    .slide__caption {
+      right: auto;
+      left: 5%;
     }
   }
 }
