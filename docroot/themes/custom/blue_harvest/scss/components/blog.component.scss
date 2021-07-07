@@ -321,6 +321,15 @@
   }
 }
 
+.blog-listing {
+  .video-player-icon.js-video-player-icon {
+    cursor: inherit !important;
+    display: block !important;
+  }
+  .video-player-icon:after {
+    display: none;
+  }
+}
 
 .blog-header {
   background-color: $blue;
