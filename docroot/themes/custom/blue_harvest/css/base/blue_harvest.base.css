@@ -320,3 +320,18 @@ button.moderation-sidebar-link[value="Reject Review"] {
   font-size: 0.8rem;
   font-style: italic;
 }
+
+.typography a {
+  position: relative;
+  -webkit-transition: color 0.25s;
+  -o-transition: color 0.25s;
+  transition: color 0.25s;
+  color: #222;
+  border-bottom: 2px solid #0038a5;
+  font-weight: 400;
+}
+
+.typography a:focus,
+.typography a:hover {
+  color: #0038a5;
+}
