@@ -164,6 +164,7 @@
     -webkit-transform: rotate(-25deg);
     -o-transform: rotate(-25deg);
     transform: rotate(-25deg);
+    border: none;
     background: rgba(167, 169, 172, 0.3);
   }
   .large-menu li.nav-item:last-child::after {
@@ -214,10 +215,10 @@
 
 @media screen and (min-width: 768px) {
   .overlapping-header {
-    min-height: 500px;
+    min-height: 400px;
   }
   .overlapping-header + .vlb-section {
-    margin-top: -400px;
+    margin-top: -260px;
   }
 }
 

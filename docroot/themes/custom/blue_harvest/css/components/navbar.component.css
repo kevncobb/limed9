@@ -90,6 +90,6 @@
   }
   .nav-item .nav-link:focus::after,
   .nav-item .nav-link:hover::after {
-    width: 100%;
+    width: 100% !important;
   }
 }
