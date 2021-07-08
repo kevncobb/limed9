@@ -11,6 +11,15 @@ body {
   font-family: futura-pt, sans-serif;
 }
 
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: futura-pt-bold, sans-serif;
+}
+
 .node__content {
   margin-top: 0;
 }
