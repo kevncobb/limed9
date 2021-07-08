@@ -7,14 +7,6 @@
   Drupal.behaviors.blue_harvest = {
     attach: function() {
       // blue_harvest JavaScript behaviors goes here.
-      $(function(){
-        $('.dropdown').hover(function() {
-            $(this).addClass('open');
-          },
-          function() {
-            $(this).removeClass('open');
-          });
-      });
       $(document).ready(function() {
         // executes when HTML-Document is loaded and DOM is ready
 
@@ -29,14 +21,14 @@
           // Clears the time on hover to prevent a que or waiting for the delay to finish from a previous hover event
           clearTimeout(timer);
           // Add the class .open and show the menu
-          $('.dropdown').addClass('open');
+          $('.dropdown').addClass('show');
 
         }, function() {
 
           // Sets the timer variable to run the timeout delay
           timer = setTimeout(function() {
             // remove the class .open and hide the submenu
-            $('.dropdown').removeClass("open");
+            $('.dropdown').removeClass("show");
           }, 500);
 
         });
