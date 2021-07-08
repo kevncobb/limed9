@@ -351,6 +351,12 @@
   }
   .topic_title, .topic_body {
     color: white;
+    a {
+      color: white;
+      &:focus, &:hover {
+        color: $light;
+      }
+    }
   }
   .topic_link {
     background: white;

@@ -487,6 +487,18 @@
   color: white;
 }
 
+.blog-featured .topic_title a,
+.blog-featured .topic_body a {
+  color: white;
+}
+
+.blog-featured .topic_title a:focus,
+.blog-featured .topic_title a:hover,
+.blog-featured .topic_body a:focus,
+.blog-featured .topic_body a:hover {
+  color: #f8f9fa;
+}
+
 .blog-featured .topic_link {
   color: black;
   background: white;

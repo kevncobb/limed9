@@ -85,6 +85,10 @@ p + div.media.media--type-file {
   z-index: 2;
 }
 
+.caps {
+  text-transform: uppercase;
+}
+
 .bg-white {
   background-color: white;
 }
