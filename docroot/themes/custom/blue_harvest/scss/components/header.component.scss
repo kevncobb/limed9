@@ -183,6 +183,14 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .overlapping-header {
+    min-height: 500px;
+    + .vlb-section {
+      margin-top: -400px;
+    }
+  }
+}
 header.navbar {
   padding: 0;
   nav.navigation {
