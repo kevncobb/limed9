@@ -113,10 +113,22 @@ p + div.media.media--type-file {
 
 .bg-darken::after {
   position: absolute;
+  z-index: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   content: "";
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bg-darken .bg-edge2edge {
+  z-index: 1;
+}
+
+.bg-darken .bg-edge2edge h1,
+.bg-darken .bg-edge2edge h2,
+.bg-darken .bg-edge2edge h3 {
+  text-shadow: 1px 1px 15px black;
 }
 
 .bg-white {
