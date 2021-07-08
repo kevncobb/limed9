@@ -7,8 +7,13 @@
   Drupal.behaviors.blue_harvest = {
     attach: function() {
       // blue_harvest JavaScript behaviors goes here.
-      $('.dropdown').hover(function(){
-        $('.dropdown-toggle', this).trigger('click');
+      $(function(){
+        $('.dropdown').hover(function() {
+            $(this).addClass('open');
+          },
+          function() {
+            $(this).removeClass('open');
+          });
       });
     }
   };
