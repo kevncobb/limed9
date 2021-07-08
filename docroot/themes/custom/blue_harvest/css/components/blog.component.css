@@ -464,12 +464,12 @@
   margin: -50px -50px 25px -50px;
 }
 
-.topic_items .video-player-icon.js-video-player-icon {
+.topic-items .video-player-icon.js-video-player-icon {
   display: block !important;
   cursor: inherit !important;
 }
 
-.topic_items .video-player-icon:after {
+.topic-items .video-player-icon:after {
   display: none;
 }
 
