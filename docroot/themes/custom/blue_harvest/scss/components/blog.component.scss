@@ -352,9 +352,9 @@
   .topic_title, .topic_body {
     color: white;
     a {
-      color: white;
+      color: white !important;
       &:focus, &:hover {
-        color: $light;
+        color: $light !important;
       }
     }
   }

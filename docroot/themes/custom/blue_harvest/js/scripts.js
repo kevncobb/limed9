@@ -7,6 +7,14 @@
   Drupal.behaviors.blue_harvest = {
     attach: function() {
       // blue_harvest JavaScript behaviors goes here.
+      $(".navbar-nav .dropdown").hover(
+        function(){
+          $(this).addClass("show");
+          $("ul.dropdown-menu", this).addClass("show");
+        },function(){
+          $(this).removeClass("show");
+          $("ul.dropdown-menu", this).removeClass("show");
+      });
     }
   };
   Drupal.behaviors.focus_search_bar_when_opened = {
@@ -21,3 +29,5 @@
   };
 
 })(window.jQuery, window._, window.Drupal);
+
+
