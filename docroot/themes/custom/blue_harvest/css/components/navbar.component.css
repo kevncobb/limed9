@@ -9,6 +9,9 @@
 .navbar-nav.ml-auto .dropdown-menu {
   right: 0;
   left: auto;
+  -webkit-transform: translateX(33%);
+  -o-transform: translateX(33%);
+  transform: translateX(33%);
 }
 
 [dir="rtl"] .navbar-nav.ml-auto .dropdown-menu {
@@ -20,6 +23,9 @@
   .navbar-nav.ml-sm-auto .dropdown-menu {
     right: 0;
     left: auto;
+    -webkit-transform: translateX(33%);
+    -o-transform: translateX(33%);
+    transform: translateX(33%);
   }
   [dir="rtl"] .navbar-nav.ml-sm-auto .dropdown-menu {
     right: auto;
@@ -31,6 +37,9 @@
   .navbar-nav.ml-md-auto .dropdown-menu {
     right: 0;
     left: auto;
+    -webkit-transform: translateX(33%);
+    -o-transform: translateX(33%);
+    transform: translateX(33%);
   }
   [dir="rtl"] .navbar-nav.ml-md-auto .dropdown-menu {
     right: auto;
@@ -42,6 +51,9 @@
   .navbar-nav.ml-lg-auto .dropdown-menu {
     right: 0;
     left: auto;
+    -webkit-transform: translateX(33%);
+    -o-transform: translateX(33%);
+    transform: translateX(33%);
   }
   [dir="rtl"] .navbar-nav.ml-lg-auto .dropdown-menu {
     right: auto;
@@ -53,6 +65,9 @@
   .navbar-nav.ml-xl-auto .dropdown-menu {
     right: 0;
     left: auto;
+    -webkit-transform: translateX(33%);
+    -o-transform: translateX(33%);
+    transform: translateX(33%);
   }
   [dir="rtl"] .navbar-nav.ml-xl-auto .dropdown-menu {
     right: auto;
@@ -82,6 +97,7 @@
     -webkit-transition: width 0.325s ease;
     -o-transition: width 0.325s ease;
     transition: width 0.325s ease;
+    border: none;
     background: #0038a5;
   }
   .nav-item .nav-link:focus,

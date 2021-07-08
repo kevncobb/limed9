@@ -16,6 +16,7 @@
         .dropdown-menu {
           left: auto;
           right: 0;
+          transform: translateX(33%);
         }
       }
     }
@@ -53,6 +54,7 @@
         content: '';
         -webkit-transition: width 0.325s ease;
         transition: width 0.325s ease;
+        border: none;
       }
       &:focus, &:hover {
         color: $blue;
