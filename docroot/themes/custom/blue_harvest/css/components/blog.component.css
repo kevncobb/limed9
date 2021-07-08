@@ -323,7 +323,7 @@
   letter-spacing: 1px;
   letter-spacing: 0.0625rem;
   text-transform: uppercase;
-  color: #78639e;
+  color: #0038a5;
   font-size: 14px;
   font-size: 0.875rem;
   font-size: 12px;
@@ -471,6 +471,25 @@
 
 .topic-items .video-player-icon:after {
   display: none;
+}
+
+.blog-featured .topic_row_inner {
+  color: white;
+  background-color: #0038a5;
+}
+
+.blog-featured .topic_tags a:after {
+  background: #4871c1;
+}
+
+.blog-featured .topic_title,
+.blog-featured .topic_body {
+  color: white;
+}
+
+.blog-featured .topic_link {
+  color: black;
+  background: white;
 }
 
 .blog-header {
