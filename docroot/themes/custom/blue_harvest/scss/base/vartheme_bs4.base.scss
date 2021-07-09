@@ -632,6 +632,19 @@ pre {
     max-width: 100%;
     flex-shrink: 0;
   }
+  a.card-link {
+    background-color: $blue;
+    padding: 5px 10px;
+    color: white;
+    font-size: 75%;
+    font-weight: bold;
+    margin: 5px 0 0;
+    text-transform: uppercase;
+    display: inline-block;
+    &:focus, &:hover {
+      background-color: $dark;
+    }
+  }
 }
 
 select::-ms-expand {

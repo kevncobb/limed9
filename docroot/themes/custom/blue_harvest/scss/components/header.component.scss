@@ -186,7 +186,7 @@
 
 @media screen and (min-width: 768px) {
   .overlapping-header {
-    min-height: 400px;
+    min-height: 370px;
     + .vlb-section {
       margin-top: -260px;
     }
@@ -213,6 +213,9 @@ header.navbar {
       a {
         color: white;
         padding-left: 14px;
+        &.active-link {
+          color: $yellow;
+        }
         &.highlighted-link {
           color: white;
         }
@@ -238,12 +241,15 @@ header.navbar {
           order: 2;
           padding-top: 35px;
         }
-        #block-blue-harvest-main-menu {
+        nav#block-blue-harvest-main-menu {
           //hacking top bar
           position: absolute;
           width: 133%;
           right: 0;
           top: -5px;
+          ul.nav.navbar-nav {
+            float: right;
+          }
         }
       }
     }

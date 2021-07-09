@@ -215,7 +215,7 @@
 
 @media screen and (min-width: 768px) {
   .overlapping-header {
-    min-height: 400px;
+    min-height: 370px;
   }
   .overlapping-header + .vlb-section {
     margin-top: -260px;
@@ -249,6 +249,10 @@ header.navbar .navbar-collapse .secondary-menu a {
   color: white;
 }
 
+header.navbar .navbar-collapse .secondary-menu a.active-link {
+  color: #fbea65;
+}
+
 header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
   color: white;
 }
@@ -276,11 +280,14 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
     width: 100%;
     padding-top: 35px;
   }
-  header.navbar .navbar-collapse > .navbar-nav #block-blue-harvest-main-menu {
+  header.navbar .navbar-collapse > .navbar-nav nav#block-blue-harvest-main-menu {
     position: absolute;
     top: -5px;
     right: 0;
     width: 133%;
+  }
+  header.navbar .navbar-collapse > .navbar-nav nav#block-blue-harvest-main-menu ul.nav.navbar-nav {
+    float: right;
   }
 }
 

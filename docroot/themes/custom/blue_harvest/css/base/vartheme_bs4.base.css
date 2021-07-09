@@ -587,6 +587,22 @@ pre {
   max-width: 100%;
 }
 
+.card a.card-link {
+  display: inline-block;
+  margin: 5px 0 0;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  color: white;
+  background-color: #0038a5;
+  font-size: 75%;
+  font-weight: bold;
+}
+
+.card a.card-link:focus,
+.card a.card-link:hover {
+  background-color: #343a40;
+}
+
 select::-ms-expand {
   display: none;
 }

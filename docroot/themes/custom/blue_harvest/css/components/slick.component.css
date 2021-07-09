@@ -59,6 +59,14 @@
   left: 5%;
 }
 
+.facts-and-stats-view .caption-bottom-left .slide__caption {
+  top: auto;
+  bottom: 4%;
+  left: 5%;
+  width: 60%;
+  height: 30%;
+}
+
 .facts-and-stats-view .caption-top-left .slide__caption {
   top: 5%;
   bottom: auto;
