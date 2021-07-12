@@ -358,4 +358,10 @@ button.moderation-sidebar-link[value="Reject Review"] {
   &:first-child h2:first-child {
     //margin-top: 25px;
   }
+  .bg-blue {
+    a {
+      color: #fbea65 !important;
+      border-bottom: 2px solid #fbea65 !important;
+    }
+  }
 }

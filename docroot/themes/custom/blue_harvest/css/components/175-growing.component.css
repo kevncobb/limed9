@@ -254,7 +254,7 @@ body.full-nav .home_pillars_background {
   .home_pillars_sections {
     position: relative;
     width: calc(100% + 140px);
-    padding-top: 200px;
+    padding-top: 300px;
     -webkit-transition: -webkit-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     -o-transition: -o-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     transition: -webkit-transform 0.75s cubic-bezier(0.455, 0.03, 0.515, 0.955);

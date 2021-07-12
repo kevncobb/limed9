@@ -1,0 +1,4 @@
+# Schema for the configuration files of the charter.
+charter.settings:
+  type: bootstrap_barrio.settings
+  label: 'charter settings'
