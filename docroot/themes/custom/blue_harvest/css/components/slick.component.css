@@ -41,8 +41,8 @@
 .facts-and-stats-view .caption-top .slide__caption {
   top: 4%;
   bottom: auto;
-  left: 5%;
-  width: 90%;
+  left: 10%;
+  width: 80%;
   height: 39%;
 }
 
@@ -51,7 +51,7 @@
   bottom: 4%;
   left: 5%;
   width: 90%;
-  height: 39%;
+  height: 35%;
 }
 
 .facts-and-stats-view .caption-left .slide__caption {

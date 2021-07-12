@@ -24,6 +24,22 @@
   background-position: right center;
 }
 
+.file--link-pdf {
+  a {
+    &:before {
+      content: "";
+      background: url(/themes/custom/limestone/images/icons/icon-pdf.svg) no-repeat;
+      background-size: 18px;
+      width: 19px;
+      height: 21px;
+      display: inline-block;
+      position: relative;
+      top: 3px;
+      margin-right: 3px;
+    }
+  }
+}
+
 .file--general,
 .file--application-octet-stream {
   background-image: url(../../images/icons/application-octet-stream.png);
