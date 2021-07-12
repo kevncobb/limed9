@@ -317,6 +317,14 @@ button.moderation-sidebar-link[value="Reject Review"] {
   font-style: italic;
   color: #636363;
 }
+.display-5 {
+  font-size: calc(1.275rem + 2vw);
+  font-weight: 300;
+  line-height: 1.2;
+  @media screen and (min-width: 1200px) {
+    font-size: 2.7rem;
+  }
+}
 .typography {
   a {
     position: relative;
