@@ -331,6 +331,10 @@ button.moderation-sidebar-link[value="Reject Review"] {
     }
     &.btn {
       border: none;
+      color: white;
+      &.btn-warning {
+        color: inherit;
+      }
     }
   }
   p {

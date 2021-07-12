@@ -30,7 +30,7 @@
   height: 21px;
   margin-right: 3px;
   content: "";
-  background: url(/themes/custom/limestone/images/icons/icon-pdf.svg) no-repeat;
+  background: url(../../images/icons/icon-pdf.svg) no-repeat;
   -webkit-background-size: 18px 18px;
   background-size: 18px;
 }

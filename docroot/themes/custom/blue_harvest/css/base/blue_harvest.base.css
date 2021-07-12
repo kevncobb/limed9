@@ -375,7 +375,12 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 
 .typography a.btn {
+  color: white;
   border: none;
+}
+
+.typography a.btn.btn-warning {
+  color: inherit;
 }
 
 .typography p {
