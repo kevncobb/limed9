@@ -420,12 +420,12 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link
 #navbar-top.navbar-dark .nav-link:hover,
 #navbar-top.navbar-dark .nav-link:focus
 {
-    color: rgba(255, 255, 255, .75);
+    color: rgba(255, 255, 255, .75) !important;
 }
 
 #navbar-top.navbar-dark .nav-link
 {
-    color: rgba(255, 255, 255, .5);
+    color: rgba(255, 255, 255, .5) !important;
 }
 
 #navbar-top.navbar-light .nav-link:hover,
