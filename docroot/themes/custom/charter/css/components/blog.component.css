@@ -498,7 +498,8 @@
     }
 }
 
-.topic_link
+.topic_link,
+.varbase-heroslider-media .field--name-field-link a
 {
     font-size: 14px;
     font-size: .875rem;
@@ -529,7 +530,9 @@
 }
 
 .topic_link:focus,
-.topic_link:hover
+.topic_link:hover,
+.varbase-heroslider-media .field--name-field-link a:focus,
+.varbase-heroslider-media .field--name-field-link a:hover
 {
     color: #fff;
     background: #000;

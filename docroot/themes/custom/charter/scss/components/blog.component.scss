@@ -296,7 +296,7 @@
   }
 }
 
-.topic_link {
+.topic_link, .varbase-heroslider-media .field--name-field-link a {
   font-size: 14px;
   font-size: 0.875rem;
   font-weight: 700;
@@ -317,12 +317,18 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  margin-top: 24px; }
+  margin-top: 24px;
+}
 .large .topic_link {
-  padding: 11px 32px 12px; }
-.topic_link:focus, .topic_link:hover {
+  padding: 11px 32px 12px;
+}
+.topic_link:focus,
+.topic_link:hover,
+.varbase-heroslider-media .field--name-field-link a:focus,
+.varbase-heroslider-media .field--name-field-link a:hover {
   background: #000000;
-  color: #ffffff; }
+  color: #ffffff;
+}
 
 // Blog Page
 
