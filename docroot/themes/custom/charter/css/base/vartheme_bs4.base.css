@@ -753,3 +753,13 @@ select::-ms-expand
 {
     display: none;
 }
+
+.varbase-heroslider-media .node--type-varbase-heroslider-media .hero-slide-content
+{
+    text-shadow: 0 1px 2px #333;
+}
+
+.varbase-heroslider-media .node--type-varbase-heroslider-media .hero-slide-content .field--name-title
+{
+    text-shadow: 1px 1px 3px #333;
+}
