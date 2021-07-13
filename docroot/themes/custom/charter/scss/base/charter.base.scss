@@ -122,9 +122,9 @@ P + div.media.media--type-file {
   max-width: 300px;
 }
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.7) !important;
   &:focus, &:hover {
-    color: rgba(255,255,255,1);
+    color: rgba(255,255,255,1) !important;
   }
 }
 .navbar-collapse.collapse.show .row {
