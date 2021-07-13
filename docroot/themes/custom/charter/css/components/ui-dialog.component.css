@@ -1,17 +1,21 @@
-.font-size-lg {
-  font-size: 1.375rem;
+.font-size-lg
+{
+    font-size: 1.375rem;
 }
 
-.font-size-sm {
-  font-size: 0.9625rem;
+.font-size-sm
+{
+    font-size: .9625rem;
 }
 
-.ui-dialog {
-  border-radius: 0;
+.ui-dialog
+{
+    border-radius: 0;
 }
 
 .ui-dialog input,
 .ui-dialog select,
-.ui-dialog textarea {
-  font-size: 1.1rem;
+.ui-dialog textarea
+{
+    font-size: 1.1rem;
 }

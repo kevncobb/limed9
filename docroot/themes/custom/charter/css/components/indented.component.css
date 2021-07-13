@@ -1,17 +1,21 @@
-.font-size-lg {
-  font-size: 1.375rem;
+.font-size-lg
+{
+    font-size: 1.375rem;
 }
 
-.font-size-sm {
-  font-size: 0.9625rem;
+.font-size-sm
+{
+    font-size: .9625rem;
 }
 
-.indented {
-  margin-left: 1.5rem;
-  /* LTR */
+.indented
+{
+    margin-left: 1.5rem;
+    /* LTR */
 }
 
-[dir="rtl"] .indented {
-  margin-right: 1.5rem;
-  margin-left: 0;
+[dir='rtl'] .indented
+{
+    margin-right: 1.5rem;
+    margin-left: 0;
 }

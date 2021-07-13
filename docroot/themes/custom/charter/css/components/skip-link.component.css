@@ -1,27 +1,34 @@
-.font-size-lg {
-  font-size: 1.375rem;
+.font-size-lg
+{
+    font-size: 1.375rem;
 }
 
-.font-size-sm {
-  font-size: 0.9625rem;
+.font-size-sm
+{
+    font-size: .9625rem;
 }
 
-.skip-link {
-  z-index: 50;
-  left: 50%;
-  padding: 0.0625rem 1rem 0.125rem;
-  -webkit-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
-  border-bottom-width: 0;
-  border-radius: 0 0 0.3rem 0.3rem;
-  outline: 0;
-  background: #495057;
-  font-size: 1.1rem;
-  line-height: 1.5;
+.skip-link
+{
+    font-size: 1.1rem;
+    line-height: 1.5;
+
+    z-index: 50;
+    left: 50%;
+
+    padding: .0625rem 1rem .125rem;
+
+    transform: translateX(-50%);
+
+    border-bottom-width: 0;
+    border-radius: 0 0 .3rem .3rem;
+    outline: 0;
+    background: #495057;
 }
 
-.skip-link .visually-hidden.focusable:focus {
-  position: absolute !important;
-  color: #fff;
+.skip-link .visually-hidden.focusable:focus
+{
+    position: absolute !important;
+
+    color: #fff;
 }
