@@ -7,3 +7,18 @@
 // -----------------------------------------------------------------------------
 
 /* Insert your charter header custom SASS styling. */
+
+header.navbar {
+  font-size: 1.2rem;
+}
+
+.navbar-brand {
+  padding: 0;
+  a {
+    padding: 0;
+    img {
+      width: auto;
+      height: 100px;
+    }
+  }
+}
