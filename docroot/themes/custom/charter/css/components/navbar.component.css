@@ -128,7 +128,7 @@
     }
 }
 
-.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item.active a,
 .dropdown-menu .dropdown-item:active
 {
     text-decoration: none;
