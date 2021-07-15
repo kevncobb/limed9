@@ -127,3 +127,12 @@
         width: 100% !important;
     }
 }
+
+.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item:active
+{
+    text-decoration: none;
+
+    color: #fff !important;
+    background-color: #0038a5 !important;
+}
