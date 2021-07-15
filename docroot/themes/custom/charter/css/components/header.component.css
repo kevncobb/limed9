@@ -10,23 +10,7 @@
 
 .navbar-brand img
 {
-    width: 200px;
-}
-
-@media screen and (min-width: 768px)
-{
-    .navbar-brand img
-    {
-        margin-top: 45px;
-    }
-}
-
-@media screen and (min-width: 992px)
-{
-    .navbar-brand img
-    {
-        margin-top: 0;
-    }
+    width: 190px;
 }
 
 #navbar-top

@@ -13,21 +13,3 @@ header.navbar
 {
     font-size: 1.2rem;
 }
-
-.navbar-brand
-{
-    padding: 0;
-}
-
-.navbar-brand a
-{
-    line-height: 90px;
-
-    padding: 0;
-}
-
-.navbar-brand a img
-{
-    width: auto;
-    height: 100px;
-}
