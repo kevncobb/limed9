@@ -35,3 +35,9 @@
 #navbar-main {
   z-index: 1;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+  text-decoration: none;
+  color: #fff !important;
+  background-color: #0038a5 !important;
+}

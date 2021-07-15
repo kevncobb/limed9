@@ -21,6 +21,8 @@ header.navbar
 
 .navbar-brand a
 {
+    line-height: 90px;
+
     padding: 0;
 }
 
