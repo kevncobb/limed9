@@ -51,6 +51,7 @@ bootstrap-styles:
       css/components/image-button.component.css: {}
       css/components/indented.component.css: {}
       css/components/item-list.component.css: {}
+      css/components/large-menu.component.css: {}
       css/components/list-group.component.css: {}
       css/components/node-preview.component.css: {}
       css/components/node.component.css: {}
