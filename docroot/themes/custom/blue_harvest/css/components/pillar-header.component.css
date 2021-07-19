@@ -88,6 +88,7 @@
 
 @media screen and (min-width: 740px) {
   .pillar_header_content {
+    margin-left: -140px;
     padding-top: 0;
     background: transparent !important;
 
@@ -164,8 +165,6 @@
 
 @media screen and (min-width: 740px) {
   .pillar_heading {
-    display: inline-block;
-    max-width: 775px;
     margin-bottom: 70px;
   }
 }

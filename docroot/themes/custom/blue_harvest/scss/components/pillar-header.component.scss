@@ -90,7 +90,7 @@
     -webkit-clip-path: none;
     clip-path: none;
     padding-top: 0px;
-
+    margin-left: -140px;
     &:before {
       width: 1000px;
       height: 100%;
@@ -171,8 +171,6 @@
 @media screen and (min-width: 740px) {
   .pillar_heading {
     margin-bottom: 70px;
-    max-width: 775px;
-    display: inline-block;
   }
 }
 
