@@ -99,7 +99,9 @@
 
 @media (min-width: 576px) {
   .facts-and-stats-view .caption-top-left .slide__caption {
+    left: 5%;
     width: 70%;
+    height: 40%;
   }
 }
 

@@ -90,6 +90,8 @@
       top: 5%;
       @media (min-width: map-get($grid-breakpoints, "sm")) {
         width: 70%;
+        height: 40%;
+        left: 5%;
       }
     }
   }

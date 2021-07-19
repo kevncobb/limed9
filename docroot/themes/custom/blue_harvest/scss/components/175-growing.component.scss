@@ -1059,105 +1059,6 @@ body.full-nav .home_pillars_background {
     float: right;
   }
 }
-.large-menu {
-  ul {
-    width: 100%;
-    float: left;
-  }
-  li.nav-item {
-    border-bottom: thin solid gray;
-    margin-right: 30px;
-    width: 100%;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  a.nav-link {
-    font-size: 1.5rem;
-    padding: 10px;
-  }
-
-  @media screen and (min-width: 768px) {
-    ul {
-      width: auto;
-      float: right;
-      li.nav-item {
-        width: auto;
-      }
-    }
-  }
-
-  @media screen and (min-width: 780px) {
-    li.nav-item {
-      position: relative;
-      border-bottom: none;
-    }
-    &:last-child {
-      margin-right: 0;
-      a {
-        padding-right: 0;
-      }
-      &::after {
-        display: none;
-      }
-    }
-  }
-  @media screen and (min-width: 992px) {
-    li.nav-item {
-      margin-right: 60px;
-      position: relative;
-      &::after {
-        width: 3px;
-        height: 43px;
-        position: absolute;
-        top: 9px;
-        right: -33px;
-        display: block;
-        background: rgba(167, 169, 172, 0.3);
-        content: '';
-        -webkit-transform: rotate(-25deg);
-        transform: rotate(-25deg);
-        border: none;
-      }
-      &:last-child {
-        &::after {
-          display: none;
-        }
-      }
-      a.nav-link {
-        display: inline-block;
-        vertical-align: top;
-        color: #000000;
-        font-size: 40px;
-        font-size: 2.5rem;
-        font-weight: 300;
-        position: relative;
-        -webkit-transition: color 0.325s ease;
-        transition: color 0.325s ease;
-        @media screen and (min-width: 992px) {
-          padding-bottom: 20px;
-          padding-top: 0;
-        }
-
-        &::after {
-          width: 0px;
-          height: 2px;
-          display: block;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          background: $blue;
-          content: '';
-          -webkit-transition: width 0.325s ease;
-          transition: width 0.325s ease;
-          @media screen and (min-width: 992px) {
-            bottom: 16px;
-          }
-        }
-      }
-    }
-  }
-}
 
 @media screen and (min-width: 768px) {
   .overlapping-header {
@@ -1211,11 +1112,6 @@ header.navbar {
       > .navbar-nav {
         width: 100%;
         position: relative;
-        .large-menu {
-          width: 100%;
-          order: 2;
-          padding-top: 35px;
-        }
         nav#block-blue-harvest-main-menu {
           //hacking top bar
           position: absolute;
