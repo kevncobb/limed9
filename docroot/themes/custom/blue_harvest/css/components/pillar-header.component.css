@@ -31,10 +31,12 @@
 }
 
 .pillar_header_content.theme_blue {
+  color: #fff;
   background: rgba(0, 56, 165, 0.65);
 }
 
 .pillar_header_content.theme_purple {
+  color: #fff;
   background: rgba(75, 46, 132, 0.65);
 }
 
@@ -132,7 +134,7 @@
 
 @media screen and (min-width: 740px) {
   .pillar_header_content.theme_blue:before {
-    background: rgba(0, 175, 215, 0.65);
+    background: rgba(0, 56, 165, 0.65);
   }
   .pillar_header_content.theme_purple:before {
     background: rgba(75, 46, 132, 0.65);
