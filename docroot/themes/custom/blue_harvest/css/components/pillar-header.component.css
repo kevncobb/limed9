@@ -255,6 +255,8 @@
 }
 
 .pillar_header_description {
+  display: inline-block;
+  max-width: 775px;
   color: #222;
   font-size: 36px;
   font-size: 2.25rem;
