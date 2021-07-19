@@ -51,7 +51,6 @@ bootstrap-styles:
       css/components/image-button.component.css: {}
       css/components/indented.component.css: {}
       css/components/item-list.component.css: {}
-      css/components/large-menu.component.css: {}
       css/components/list-group.component.css: {}
       css/components/node-preview.component.css: {}
       css/components/node.component.css: {}
@@ -135,6 +134,7 @@ global-styles:
       css/components/blog.component.css: {}
       css/components/navbar.admin.component.css: {}
       css/components/navbar.component.css: {}
+      css/components/large-menu.component.css: {}
       css/components/progress-bar.component.css: { weight: -10 }
       css/components/varicons.component.css: {}
       css/components/vb-tags.component.css: {}
