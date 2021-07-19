@@ -8,11 +8,11 @@
 
 /* Insert your blue_harvest header custom SASS styling. */
 header.navbar {
-  padding: 0 30px;
+  padding: 0 30px !important;
 }
 
 @media screen and (min-width: 768px) {
   header.navbar {
-    padding: 0;
+    padding: inherit !important;
   }
 }
