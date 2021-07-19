@@ -7,3 +7,9 @@
 // -----------------------------------------------------------------------------
 
 /* Insert your blue_harvest header custom SASS styling. */
+header.navbar {
+  padding: 0 30px;
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
+}
