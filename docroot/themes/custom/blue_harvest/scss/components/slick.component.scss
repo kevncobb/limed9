@@ -22,10 +22,14 @@
     right: 5%;
     left: auto;
     color: white;
-    background-color: rgba(0, 56, 165, 0.9);
+
+    width: 80%;
+    height: 70%;
+    background-color: rgba(0, 56, 165, 0.55);
     @media (min-width: map-get($grid-breakpoints, "sm")) {
       width: 40%;
       height: 90%;
+      background-color: rgba(0, 56, 165, 0.9);
     }
     .slide__description {
       position: absolute;

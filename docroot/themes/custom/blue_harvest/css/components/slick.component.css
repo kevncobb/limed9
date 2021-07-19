@@ -11,13 +11,15 @@
   top: 5%;
   right: 5%;
   left: auto;
+  width: 80%;
+  height: 70%;
   cursor: text;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
   color: white;
-  background-color: rgba(0, 56, 165, 0.9);
+  background-color: rgba(0, 56, 165, 0.55);
 
   -o-user-select: text;
 }
@@ -26,6 +28,7 @@
   .facts-and-stats-view .slide__caption {
     width: 40%;
     height: 90%;
+    background-color: rgba(0, 56, 165, 0.9);
   }
 }
 
