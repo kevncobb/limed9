@@ -53,8 +53,9 @@
   .navbar-overlay-dark nav {
     float: left;
     width: 375px !important;
-    margin-right: auto;
+    margin-right: 0;
     margin-left: auto;
+    padding: 0;
   }
 }
 
