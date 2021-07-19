@@ -134,6 +134,7 @@ global-styles:
       css/components/blog.component.css: {}
       css/components/navbar.admin.component.css: {}
       css/components/navbar.component.css: {}
+      css/components/flexible-callouts.component.css: {}
       css/components/large-menu.component.css: {}
       css/components/progress-bar.component.css: { weight: -10 }
       css/components/pillar-header.component.css: {}

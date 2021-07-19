@@ -1,0 +1,321 @@
+// Field component style.
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // blue_harvest variables.
+@import "../mixins";                      // blue_harvest mixins.
+/* ==========================================================================
+   Flexible Callout
+============================================================================= */
+
+.flex_callout {
+  position: relative;
+  background-color: #ffffff;
+  color: #222;
+  padding-bottom: 320px;
+
+  &.theme_dark {
+    background-color: #222;
+    color: #fff;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.page_layout_home .flex_callout {
+  z-index: 2;
+}
+
+.flex_callout.emphasized {
+  background-color: #222;
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 0;
+}
+
+
+@media screen and (min-width: 500px) {
+  .flex_callout {
+    padding-bottom: 450px;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .flex_callout {
+    padding-bottom: 0;
+  }
+}
+
+.flex_callout_emphasized_overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2;
+}
+
+.flex_callout_background {
+  width: 100%;
+  height: 320px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  -webkit-clip-path: polygon(0 16%, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 16%, 100% 0, 100% 100%, 0% 100%);
+
+  .fs-background-media {
+    background-position: right center;
+  }
+}
+
+.flex_callout.emphasized .flex_callout_background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: auto;
+  right: auto;
+  -webkit-clip-path: none;
+  clip-path: none;
+}
+
+@media print {
+  .flex_callout_background {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .flex_callout_background {
+    height: 450px;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .flex_callout_background {
+    width: 60%;
+    height: 100%;
+    position: absolute;
+    bottom: auto;
+    left: auto;
+    top: 0;
+    right: 0;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
+  }
+}
+
+.flex_callout_wrapper {
+  position: relative;
+  padding: 45px 0 25px;
+}
+
+.flex_callout.emphasized .flex_callout_wrapper {
+  height: 100%;
+  padding: 85px 0 102px;
+  z-index: 4;
+}
+
+@media screen and (min-width: 500px) {
+  .flex_callout.emphasized .flex_callout_wrapper {
+    padding: 100px 0 122px;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .flex_callout.emphasized .flex_callout_wrapper {
+    padding: 128px 0 148px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .flex_callout_wrapper {
+    padding: 80px 0 45px;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .flex_callout_wrapper {
+    padding: 160px 0 165px;
+  }
+}
+
+@media print {
+  .flex_callout_wrapper {
+    padding: 0;
+  }
+}
+
+.flex_callout_meta {
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  letter-spacing: 0.0625rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.flex_callout.emphasized .flex_callout_meta {
+  margin-bottom: 14px;
+}
+
+.flex_callout_title {
+  font-size: 22px;
+  font-size: 1.375rem;
+  font-weight: 300;
+  line-height: 1.25;
+  margin: 0 0 16px;
+
+  strong {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 900;
+  }
+}
+
+@media screen and (min-width: 740px) {
+  .flex_callout_title {
+    font-size: 30px;
+    font-size: 1.875rem;
+  }
+}
+
+.flex_callout.emphasized .flex_callout_title {
+  font-size: 26px;
+  font-size: 1.625rem;
+  font-weight: 900;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  margin-bottom: 3px;
+}
+
+@media screen and (min-width: 740px) {
+  .flex_callout.emphasized .flex_callout_title {
+    font-size: 40px;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+}
+
+.flex_callout_subheading {
+  font-size: 22px;
+  font-size: 1.375rem;
+  font-weight: 300;
+  line-height: 1.25;
+  display: block;
+}
+
+@media screen and (min-width: 740px) {
+  .flex_callout_subheading {
+    font-size: 30px;
+    font-size: 1.875rem;
+  }
+}
+
+.flex_callout_description {
+  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+
+  p {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 740px) {
+  .flex_callout_description {
+    font-size: 20px;
+    font-size: 1.25rem;
+  }
+}
+
+.flex_callout_links {
+  margin-top: 26px;
+}
+
+@media print {
+  .flex_callout_links {
+    display: none;
+  }
+}
+
+.flex_callout.emphasized .flex_callout_links {
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 500px) {
+  .flex_callout.emphasized .flex_callout_links {
+    margin-top: 48px;
+  }
+}
+
+.flex_callout_link {
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  letter-spacing: 0.0625rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+  padding: 7px 22px 8px;
+  -webkit-transition: background .25s, border .25s, color .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
+  transition: background .25s, border .25s, color .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
+  transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
+  transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
+  background: #4B2E84;
+  color: #ffffff;
+  display: inline-block;
+}
+
+.large .flex_callout_link {
+  padding: 11px 32px 12px;
+}
+
+.flex_callout_link {
+  &:focus, &:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+}
+
+.flex_callout {
+  &.theme_dark .flex_callout_link:hover {
+    background: #ffffff;
+    color: #222;
+  }
+
+  &.emphasized .flex_callout_link {
+    margin-right: 13px;
+    margin-bottom: 13px;
+
+    &:last-of-type {
+      margin-bottom: 0px;
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .flex_callout.emphasized .flex_callout_link {
+    margin-bottom: 0px;
+  }
+}
