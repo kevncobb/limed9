@@ -1011,6 +1011,7 @@ body.full-nav .home_pillars_background {
       width: 375px !important;
       margin-left: auto;
       margin-right: auto;
+      float: left;
     }
   }
   @media screen and (min-width: 580px) {
@@ -1021,11 +1022,14 @@ body.full-nav .home_pillars_background {
   }
   @media screen and (min-width: 768px) {
     display: block;
+    float: right;
+    font-size: 14px;
   }
   @media screen and (min-width: 780px) {
     nav {
       //transform: translate(50%, 50%);
       width: 780px !important;
+      font-size: inherit;
 
     }
   }
@@ -1045,6 +1049,9 @@ body.full-nav .home_pillars_background {
   a {
     color: white;
     padding: 10px !important;
+  }
+  .dropdown-item {
+    a { color: $blue; }
   }
   ul.navbar-nav {
     @include make-container();

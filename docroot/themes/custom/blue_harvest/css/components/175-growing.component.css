@@ -1057,6 +1057,7 @@ body.full-nav .home_pillars_background {
 
 @media screen and (min-width: 375px) {
   .navbar-overlay-dark nav {
+    float: left;
     width: 375px !important;
     margin-right: auto;
     margin-left: auto;
@@ -1072,12 +1073,15 @@ body.full-nav .home_pillars_background {
 @media screen and (min-width: 768px) {
   .navbar-overlay-dark {
     display: block;
+    float: right;
+    font-size: 14px;
   }
 }
 
 @media screen and (min-width: 780px) {
   .navbar-overlay-dark nav {
     width: 780px !important;
+    font-size: inherit;
   }
 }
 
@@ -1096,6 +1100,10 @@ body.full-nav .home_pillars_background {
 .navbar-overlay-dark a {
   padding: 10px !important;
   color: white;
+}
+
+.navbar-overlay-dark .dropdown-item a {
+  color: #0038a5;
 }
 
 .navbar-overlay-dark ul.navbar-nav {
