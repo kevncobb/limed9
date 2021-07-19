@@ -10,6 +10,10 @@
 
 header.navbar {
   font-size: 1.2rem;
+  padding: 0 30px;
+  @media screen and (min-width: 768px) {
+    padding: inherit;
+  }
 }
 
 .navbar-brand {
