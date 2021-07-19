@@ -136,6 +136,7 @@ global-styles:
       css/components/navbar.component.css: {}
       css/components/large-menu.component.css: {}
       css/components/progress-bar.component.css: { weight: -10 }
+      css/components/pillar-header.component.css: {}
       css/components/varicons.component.css: {}
       css/components/vb-tags.component.css: {}
       css/components/timeline.component.css: {}
