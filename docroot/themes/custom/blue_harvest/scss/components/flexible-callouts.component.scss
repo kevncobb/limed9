@@ -13,7 +13,9 @@
   background-color: #ffffff;
   color: #222;
   padding-bottom: 320px;
-
+  .col-lg-4 {
+    margin-left: 115px;
+  }
   &.theme_dark {
     background-color: #222;
     color: #fff;
@@ -68,7 +70,14 @@
   clip-path: polygon(0 16%, 100% 0, 100% 100%, 0% 100%);
 
   .fs-background-media {
-    background-position: right center;
+    height: 100%;
+    .align-center {
+      height: 100%;
+    }
+    .blazy {
+      min-width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -93,6 +102,9 @@
 @media screen and (min-width: 500px) {
   .flex_callout_background {
     height: 450px;
+    .field--name-field-media-image {
+      width: 100%;
+    }
   }
 }
 

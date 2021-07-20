@@ -16,6 +16,10 @@
   background-color: #fff;
 }
 
+.flex_callout .col-lg-4 {
+  margin-left: 115px;
+}
+
 .flex_callout.theme_dark {
   color: #fff;
   background-color: #222;
@@ -70,7 +74,16 @@
 }
 
 .flex_callout_background .fs-background-media {
-  background-position: right center;
+  height: 100%;
+}
+
+.flex_callout_background .fs-background-media .align-center {
+  height: 100%;
+}
+
+.flex_callout_background .fs-background-media .blazy {
+  min-width: 100%;
+  height: 100%;
 }
 
 .flex_callout.emphasized .flex_callout_background {
@@ -95,6 +108,9 @@
 @media screen and (min-width: 500px) {
   .flex_callout_background {
     height: 450px;
+  }
+  .flex_callout_background .field--name-field-media-image {
+    width: 100%;
   }
 }
 
