@@ -37,6 +37,32 @@
   font-family: "object-fit: cover";
 }
 
+.slanted-2-col .layout.row .col-sm-12:first-child {
+  background-color: #222;
+}
+
+.slanted-2-col .layout.row .col-sm-12:first-child::after {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 83%;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-color: #222;
+
+  -webkit-clip-path: polygon(0 0, calc(60% - 220px) 0, 60% 100%, 0% 100%);
+  clip-path: polygon(0 0, calc(60% - 220px) 0, 60% 100%, 0% 100%);
+}
+
+.slanted-2-col .layout.row .col-sm-12:first-child > .block {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .flex_callout {
   position: relative;
   padding-bottom: 320px;

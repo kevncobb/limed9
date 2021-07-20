@@ -29,6 +29,35 @@
     }
   }
 }
+
+.slanted-2-col {
+  .layout.row {
+    .col-sm-12:first-child {
+      background-color: #222;
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 83%;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        content: "";
+        clip-path: polygon(0 0,calc(60% - 220px) 0,60% 100%,0% 100%);
+        background-color: #222;
+      }
+      > .block {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+
+
+
+
 .flex_callout {
   position: relative;
   //background-color: #ffffff;
