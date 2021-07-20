@@ -38,6 +38,7 @@
 }
 
 .slanted-2-col .layout.row .col-sm-12:first-child {
+  color: white;
   background-color: #222;
 }
 
@@ -69,6 +70,18 @@
 
 @media screen and (min-width: 1200px) {
   .slanted-2-col .layout.row .col-sm-12:first-child:after {
+    left: 75%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .slanted-2-col .layout.row .col-sm-12:first-child:after {
+    left: 72%;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .slanted-2-col .layout.row .col-sm-12:first-child:after {
     left: 70%;
   }
 }
@@ -88,6 +101,7 @@
   -ms-flex: 0 0 100% !important;
   flex: 0 0 100% !important;
   max-width: 100% !important;
+  padding: 0;
 }
 
 .slanted-2-col .layout.row .col-sm-12:last-child {
@@ -96,6 +110,7 @@
   -ms-flex: 0 0 100% !important;
   flex: 0 0 100% !important;
   max-width: 100% !important;
+  padding: 0;
 }
 
 @media screen and (min-width: 980px) {
@@ -131,9 +146,15 @@
 .flex_callout_wrapper {
   position: relative;
   z-index: 2;
-  float: right;
-  max-width: 600px;
-  padding: 45px 0 25px;
+  padding: 80px 50px 45px;
+}
+
+@media screen and (min-width: 980px) {
+  .flex_callout_wrapper {
+    float: right;
+    max-width: 600px;
+    padding: 80px 10px 45px;
+  }
 }
 
 .flex_callout.emphasized .flex_callout_wrapper {
