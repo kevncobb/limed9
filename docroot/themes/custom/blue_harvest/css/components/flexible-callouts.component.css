@@ -74,7 +74,13 @@
 
 @media screen and (min-width: 980px) {
   .slanted-2-col .layout.row .col-sm-12:first-child:after {
-    left: 78%;
+    left: 84%;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .slanted-2-col .layout.row .col-sm-12:first-child:after {
+    left: 79%;
   }
 }
 

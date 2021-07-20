@@ -57,7 +57,12 @@
       }
       @media screen and (min-width: 980px) {
         &:after {
-          left: 78%;
+          left: 84%;
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:after {
+          left: 79%;
         }
       }
       @media screen and (min-width: 1200px) {
