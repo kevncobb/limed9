@@ -10,15 +10,24 @@
 
 .flex_callout {
   position: relative;
-  background-color: #ffffff;
-  color: #222;
+  //background-color: #ffffff;
+  //color: #222;
   padding-bottom: 320px;
   .col-lg-4 {
-    margin-left: 115px;
+    padding-left: 115px;
+    background-color: #222;
+    color: white;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+    }
   }
   &.theme_dark {
-    background-color: #222;
-    color: #fff;
+    //background-color: #222;
+    //color: #fff;
   }
 
   &:last-child {

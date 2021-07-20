@@ -12,17 +12,20 @@
 .flex_callout {
   position: relative;
   padding-bottom: 320px;
-  color: #222;
-  background-color: #fff;
 }
 
 .flex_callout .col-lg-4 {
-  margin-left: 115px;
+  padding-left: 115px;
+  color: white;
+  background-color: #222;
 }
 
-.flex_callout.theme_dark {
-  color: #fff;
-  background-color: #222;
+.flex_callout .col-lg-4:before {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
 }
 
 .flex_callout:last-child {
