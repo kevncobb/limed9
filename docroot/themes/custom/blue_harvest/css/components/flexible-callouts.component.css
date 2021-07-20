@@ -10,21 +10,31 @@
    Flexible Callout
 ============================================================================= */
 .cover-image {
-  position: absolute;
   width: 100%;
   height: 100%;
 }
 
 .cover-image .contextual-region {
-  position: absolute;
   width: 100%;
   height: 100%;
 }
 
 .cover-image .field--type-image {
-  position: absolute;
   width: 100%;
   height: 100%;
+}
+
+.cover-image .field--type-image .media {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-image .field--type-image .media img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  font-family: "object-fit: cover";
 }
 
 .flex_callout {
@@ -40,6 +50,7 @@
 
 .flex_callout .col:before {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 97%;
   width: 100%;
@@ -47,8 +58,8 @@
   content: "";
   background-color: #222;
 
-  -webkit-clip-path: polygon(0 0, calc(60% - 250px) 0, 60% 100%, 0% 100%);
-  clip-path: polygon(0 0, calc(60% - 250px) 0, 60% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0 0, calc(60% - 220px) 0, 60% 100%, 0% 100%);
+  clip-path: polygon(0 0, calc(60% - 220px) 0, 60% 100%, 0% 100%);
 }
 
 .flex_callout:last-child {
@@ -157,6 +168,9 @@
 
 .flex_callout_wrapper {
   position: relative;
+  z-index: 2;
+  float: right;
+  max-width: 600px;
   padding: 45px 0 25px;
 }
 
