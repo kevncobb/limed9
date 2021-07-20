@@ -87,6 +87,9 @@
     -webkit-clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%);
     clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%);
   }
+  .pillar_header_content:before {
+    content: "";
+  }
 }
 
 @media screen and (min-width: 400px) {

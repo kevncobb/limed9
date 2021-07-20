@@ -83,6 +83,9 @@
     clip-path: polygon(0 100px, 100% 0, 100% 100%, 0% 100%);
     padding: 120px 10px 0;
     margin-top: 150px;
+    &:before {
+      content: '';
+    }
   }
 }
 @media screen and (min-width: 400px) {
