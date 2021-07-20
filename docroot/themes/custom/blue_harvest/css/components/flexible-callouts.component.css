@@ -14,18 +14,23 @@
   padding-bottom: 320px;
 }
 
-.flex_callout .col-lg-4 {
+.flex_callout .col {
   padding-left: 115px;
   color: white;
   background-color: #222;
 }
 
-.flex_callout .col-lg-4:before {
+.flex_callout .col:before {
   position: absolute;
   top: 0;
+  left: 97%;
   width: 100%;
   height: 100%;
   content: "";
+  background-color: #222;
+
+  -webkit-clip-path: polygon(0 0, calc(60% - 250px) 0, 60% 100%, 0% 100%);
+  clip-path: polygon(0 0, calc(60% - 250px) 0, 60% 100%, 0% 100%);
 }
 
 .flex_callout:last-child {
