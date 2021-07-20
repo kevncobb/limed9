@@ -71,21 +71,21 @@
 
   .layout.row {
     .col-sm-12:first-child {
-      flex: 0 0 50% !important;
-      max-width: 50% !important;
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
   }
     .col-sm-12:last-child {
-      flex: 0 0 50% !important;
-      max-width: 50% !important;
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
     }
     @media screen and (min-width: 980px) {
       .col-sm-12:first-child {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
       }
       .col-sm-12:last-child {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
       }
     }
   }
