@@ -37,7 +37,7 @@
       &::after {
         position: absolute;
         top: 0;
-        left: 83%;
+        left: 75%;
         width: 100%;
         height: 100%;
         z-index: 1;
@@ -45,68 +45,56 @@
         clip-path: polygon(0 0,calc(60% - 220px) 0,60% 100%,0% 100%);
         background-color: #222;
       }
+      @media screen and (min-width: 740px) {
+        &:after {
+          left: 85%;
+        }
+      }
+      @media screen and (min-width: 980px) {
+        &:after {
+          left: 78%;
+        }
+      }
+      @media screen and (min-width: 1200px) {
+        &:after {
+          left: 70%;
+        }
+      }
       > .block {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+        z-index: 2;
       }
     }
   }
-}
 
-
-
-
-
-.flex_callout {
-  position: relative;
-  //background-color: #ffffff;
-  //color: #222;
-  padding-bottom: 320px;
-  .col {
-    padding-left: 115px;
-    background-color: #222;
-    color: white;
-    &:before {
-      position: absolute;
-      top: 0;
-      left: 83%;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      content: "";
-      clip-path: polygon(0 0,calc(60% - 220px) 0,60% 100%,0% 100%);
-      background-color: #222;
-    }
-    @media screen and (min-width: 740px) {
-      &:before {
-        left: 81%;
-      }
+  .layout.row {
+    .col-sm-12:first-child {
+      flex: 0 0 50% !important;
+      max-width: 50% !important;
+  }
+    .col-sm-12:last-child {
+      flex: 0 0 50% !important;
+      max-width: 50% !important;
     }
     @media screen and (min-width: 980px) {
-      &:before {
-        left: 78%;
+      .col-sm-12:first-child {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+      }
+      .col-sm-12:last-child {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
       }
     }
-    @media screen and (min-width: 1200px) {
-      &:before {
-        left: 70%;
-      }
-    }
-  }
-  &.theme_dark {
-    //background-color: #222;
-    //color: #fff;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
   }
 }
 
-.page_layout_home .flex_callout {
-  z-index: 2;
-}
+
+
+
+
 
 .flex_callout.emphasized {
   background-color: #222;
@@ -116,87 +104,9 @@
 }
 
 
-@media screen and (min-width: 500px) {
-  .flex_callout {
-    padding-bottom: 450px;
-  }
-}
-
-@media screen and (min-width: 980px) {
-  .flex_callout {
-    padding-bottom: 0;
-  }
-}
-
-.flex_callout_emphasized_overlay {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 2;
-}
-
-.flex_callout_background {
-  width: 100%;
-  height: 320px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  -webkit-clip-path: polygon(0 16%, 100% 0, 100% 100%, 0% 100%);
-  clip-path: polygon(0 16%, 100% 0, 100% 100%, 0% 100%);
-
-  .fs-background-media {
-    height: 100%;
-    .align-center {
-      height: 100%;
-    }
-    .blazy {
-      min-width: 100%;
-      height: 100%;
-    }
-  }
-}
-
-.flex_callout.emphasized .flex_callout_background {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  top: auto;
-  right: auto;
-  -webkit-clip-path: none;
-  clip-path: none;
-}
-
 @media print {
   .flex_callout_background {
     display: none;
-  }
-}
-
-@media screen and (min-width: 500px) {
-  .flex_callout_background {
-    height: 450px;
-    .field--name-field-media-image {
-      width: 100%;
-    }
-  }
-}
-
-@media screen and (min-width: 980px) {
-  .flex_callout_background {
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    bottom: auto;
-    left: auto;
-    top: 0;
-    right: 0;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
   }
 }
 
@@ -283,24 +193,6 @@
   }
 }
 
-.flex_callout.emphasized .flex_callout_title {
-  font-size: 26px;
-  font-size: 1.625rem;
-  font-weight: 900;
-  line-height: 1.2;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: block;
-  margin-bottom: 3px;
-}
-
-@media screen and (min-width: 740px) {
-  .flex_callout.emphasized .flex_callout_title {
-    font-size: 40px;
-    font-size: 2.5rem;
-    font-weight: 700;
-  }
-}
 
 .flex_callout_subheading {
   font-size: 22px;
