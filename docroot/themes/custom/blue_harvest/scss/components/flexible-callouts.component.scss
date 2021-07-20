@@ -7,7 +7,25 @@
 /* ==========================================================================
    Flexible Callout
 ============================================================================= */
+.cover-image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  //padding-top: calc(591.44 / 1127.34 * 100%);
+  .contextual-region {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+  .field--type-image {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    .media {
 
+    }
+  }
+}
 .flex_callout {
   position: relative;
   //background-color: #ffffff;

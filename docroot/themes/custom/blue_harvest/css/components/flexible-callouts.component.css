@@ -9,6 +9,24 @@
 /* ==========================================================================
    Flexible Callout
 ============================================================================= */
+.cover-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-image .contextual-region {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-image .field--type-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .flex_callout {
   position: relative;
   padding-bottom: 320px;
