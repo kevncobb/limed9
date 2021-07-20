@@ -37,6 +37,16 @@
   font-family: "object-fit: cover";
 }
 
+.slanted-2-col .layout.row {
+  margin: 0 40px;
+}
+
+@media screen and (min-width: 980px) {
+  .slanted-2-col .layout.row {
+    margin: 0 -15px;
+  }
+}
+
 .slanted-2-col .layout.row .col-sm-12:first-child {
   color: white;
   background-color: #222;
