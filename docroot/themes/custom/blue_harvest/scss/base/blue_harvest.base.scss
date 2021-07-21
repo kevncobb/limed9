@@ -364,8 +364,12 @@ button.moderation-sidebar-link[value="Reject Review"] {
       }
     }
   }
+
   p {
     margin: 34px 0;
+  }
+  p + pre {
+    margin-bottom: 5px;
   }
   h2, h3, h4, h5, h6 {
     margin: 40px 0 20px;

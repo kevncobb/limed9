@@ -419,6 +419,10 @@ button.moderation-sidebar-link[value="Reject Review"] {
   margin: 34px 0;
 }
 
+.typography p + pre {
+  margin-bottom: 5px;
+}
+
 .typography h2,
 .typography h3,
 .typography h4,
