@@ -293,7 +293,7 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
     position: absolute;
     top: -42px;
     right: 0;
-    width: 145%;
+    width: 150%;
   }
   header.navbar .navbar-collapse > .navbar-nav nav#block-blue-harvest-main-menu ul.nav.navbar-nav {
     float: right;
