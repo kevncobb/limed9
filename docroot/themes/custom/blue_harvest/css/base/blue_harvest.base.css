@@ -95,6 +95,7 @@ pre.sms {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+  word-break: break-word;
   color: white;
   background-color: #058bfb;
   font-size: 0.9rem;
@@ -412,7 +413,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 
 .typography a.btn.btn-warning {
-  color: inherit;
+  color: #212529;
 }
 
 .typography p {
@@ -420,7 +421,8 @@ button.moderation-sidebar-link[value="Reject Review"] {
 }
 
 .typography p + pre {
-  margin-bottom: 5px;
+  margin-top: -20px;
+  margin-bottom: 0;
 }
 
 .typography h2,

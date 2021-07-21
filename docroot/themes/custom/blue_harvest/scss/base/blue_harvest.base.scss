@@ -75,6 +75,7 @@ pre.sms {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+  word-break: break-word;
   background-color: #058bfb;
   color: white;
 }
@@ -360,7 +361,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
       border: none;
       color: white;
       &.btn-warning {
-        color: inherit;
+        color: #212529;
       }
     }
   }
@@ -369,7 +370,8 @@ button.moderation-sidebar-link[value="Reject Review"] {
     margin: 34px 0;
   }
   p + pre {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
+    margin-top: -20px;
   }
   h2, h3, h4, h5, h6 {
     margin: 40px 0 20px;
