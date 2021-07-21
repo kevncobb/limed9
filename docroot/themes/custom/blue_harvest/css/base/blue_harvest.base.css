@@ -445,8 +445,3 @@ button.moderation-sidebar-link[value="Reject Review"] {
   color: #fbea65 !important;
   border-bottom: 2px solid #fbea65 !important;
 }
-
-.navbar-nav .dropdown-menu .dropdown-item.active,
-.navbar-nav .dropdown-menu .dropdown-item:active {
-  color: #fff !important;
-}
