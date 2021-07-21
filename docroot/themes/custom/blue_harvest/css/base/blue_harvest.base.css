@@ -89,6 +89,17 @@ p + div.media.media--type-file {
   text-transform: uppercase;
 }
 
+pre.sms {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  color: white;
+  background-color: #058bfb;
+  font-size: 0.9rem;
+}
+
 .bg-white {
   background-color: white;
 }

@@ -68,6 +68,16 @@ P + div.media.media--type-file {
 .caps {
   text-transform: uppercase;
 }
+pre.sms {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  background-color: #058bfb;
+  color: white;
+}
 .bg-white {
   background-color: white;
 }
