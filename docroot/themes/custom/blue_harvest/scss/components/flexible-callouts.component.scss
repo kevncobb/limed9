@@ -10,6 +10,10 @@
 .cover-image {
   height: 100%;
   width: 100%;
+  > div {
+    height: 100%;
+    width: 100%;
+  }
   .contextual-region {
     height: 100%;
     width: 100%;

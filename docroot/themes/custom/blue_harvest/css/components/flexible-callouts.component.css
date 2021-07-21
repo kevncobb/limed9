@@ -14,6 +14,11 @@
   height: 100%;
 }
 
+.cover-image > div {
+  width: 100%;
+  height: 100%;
+}
+
 .cover-image .contextual-region {
   width: 100%;
   height: 100%;
