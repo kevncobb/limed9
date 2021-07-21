@@ -101,6 +101,10 @@ pre.sms {
   font-size: 0.9rem;
 }
 
+pre.sms a {
+  color: white;
+}
+
 .bg-white {
   background-color: white;
 }
