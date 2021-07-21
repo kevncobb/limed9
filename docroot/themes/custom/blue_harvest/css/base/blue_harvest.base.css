@@ -122,6 +122,10 @@ pre.sms {
   background-color: #e4e4e0;
 }
 
+.bg-secondary {
+  color: white;
+}
+
 .bg-dark {
   color: white;
   background-color: #2c3e50;
