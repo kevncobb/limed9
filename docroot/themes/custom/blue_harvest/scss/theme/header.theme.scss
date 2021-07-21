@@ -14,7 +14,7 @@ header.navbar {
   }
 }
 .navbar-nav .dropdown-menu {
-  .dropdown-item.active a, .dropdown-item:active a {
+  .dropdown-item.active > a, .dropdown-item:active > a {
     color: #fff !important;
   }
 }
