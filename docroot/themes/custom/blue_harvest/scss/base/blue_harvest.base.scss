@@ -390,3 +390,8 @@ button.moderation-sidebar-link[value="Reject Review"] {
     }
   }
 }
+.navbar-nav .dropdown-menu {
+  .dropdown-item.active, .dropdown-item:active {
+    color: #fff !important;
+  }
+}

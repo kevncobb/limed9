@@ -123,8 +123,3 @@
     width: 100% !important;
   }
 }
-
-.navbar-nav .dropdown-menu .dropdown-item.active,
-.navbar-nav .dropdown-menu .dropdown-item:active {
-  color: #fff !important;
-}
