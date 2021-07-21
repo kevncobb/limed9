@@ -102,6 +102,11 @@ p + div.media.media--type-file {
   color: white;
 }
 
+.bg-blue .typography a {
+  color: #fbea65;
+  border-bottom: thin solid #fbea65;
+}
+
 .bg-light {
   background-color: #e4e4e0;
 }

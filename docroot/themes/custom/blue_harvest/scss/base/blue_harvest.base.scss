@@ -77,6 +77,12 @@ P + div.media.media--type-file {
   a {
     color: white;
   }
+  .typography {
+    a {
+      color: $yellow;
+      border-bottom: thin solid $yellow;
+    }
+  }
 }
 .bg-light {
   background-color: #e4e4e0;
