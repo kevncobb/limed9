@@ -32,8 +32,11 @@ header.navbar {
   .addtoany_list {
     @include make-container();
     max-width: 1140px;
+    display: inline-block;
     a {
       text-decoration: none;
+      border-bottom: none;
+      float: right;
     }
   }
 }

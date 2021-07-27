@@ -26,6 +26,8 @@ header.navbar
 
 .page-header .addtoany_list
 {
+    display: inline-block;
+
     width: 100%;
     max-width: 1140px;
     margin-right: auto;
@@ -36,5 +38,9 @@ header.navbar
 
 .page-header .addtoany_list a
 {
+    float: right;
+
     text-decoration: none;
+
+    border-bottom: none;
 }
