@@ -27,3 +27,13 @@ header.navbar {
     }
   }
 }
+
+.page-header {
+  .addtoany_list {
+    @include make-container();
+    max-width: 1140px;
+    a {
+      text-decoration: none;
+    }
+  }
+}
