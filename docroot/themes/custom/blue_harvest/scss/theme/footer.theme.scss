@@ -49,7 +49,7 @@
         ul.nav {
           display: flex;
           flex-flow: row;
-          justify-content: center;
+          justify-content: left;
           flex-wrap: wrap;
           @include padding($spacer $spacer 0 $spacer);
 

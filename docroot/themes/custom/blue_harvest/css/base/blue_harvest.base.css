@@ -123,6 +123,12 @@ pre.sms a {
   border-bottom: thin solid #fbea65;
 }
 
+.bg-blue .typography a:focus,
+.bg-blue .typography a:hover {
+  color: white;
+  border-bottom: thin solid white;
+}
+
 .bg-light {
   background-color: #e4e4e0;
 }

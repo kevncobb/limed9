@@ -95,6 +95,10 @@ pre.sms {
     a {
       color: $yellow;
       border-bottom: thin solid $yellow;
+      &:focus, &:hover {
+        color: white;
+        border-bottom: thin solid white;
+      }
     }
   }
 }
