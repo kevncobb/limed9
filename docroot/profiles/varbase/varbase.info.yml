@@ -7,13 +7,14 @@ distribution:
   name: Varbase
   install:
     theme: vartheme_claro
-version: 9.0.0-rc2
+version: 9.0.1
 install:
   - system
   - action
   - user
   - node
   - block
+  - block_content
   - datetime
   - help
   - image

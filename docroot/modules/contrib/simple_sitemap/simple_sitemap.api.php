@@ -127,14 +127,5 @@ function hook_simple_sitemap_sitemap_generators_alter(array &$sitemap_generators
 }
 
 /**
- * Alter properties of and remove sitemap type plugins.
- *
- * @param array $sitemap_types
- */
-function hook_simple_sitemap_sitemap_types_alter(array &$sitemap_types) {
-
-}
-
-/**
  * @} End of "addtogroup hooks".
  */

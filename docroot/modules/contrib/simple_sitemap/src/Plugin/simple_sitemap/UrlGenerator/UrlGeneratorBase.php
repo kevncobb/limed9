@@ -2,21 +2,17 @@
 
 namespace Drupal\simple_sitemap\Plugin\simple_sitemap\UrlGenerator;
 
-use Drupal\simple_sitemap\Plugin\simple_sitemap\SimplesitemapPluginBase;
+use Drupal\simple_sitemap\Exception\SkipElementException;
+use Drupal\simple_sitemap\Plugin\simple_sitemap\SimpleSitemapPluginBase;
+use Drupal\simple_sitemap\Entity\SimpleSitemapInterface;
+use Drupal\simple_sitemap\Settings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\simple_sitemap\Logger;
-use Drupal\simple_sitemap\Simplesitemap;
 
 /**
  * Class UrlGeneratorBase
- * @package Drupal\simple_sitemap\Plugin\simple_sitemap\UrlGenerator
  */
-abstract class UrlGeneratorBase extends SimplesitemapPluginBase implements UrlGeneratorInterface {
-
-  /**
-   * @var \Drupal\simple_sitemap\Simplesitemap
-   */
-  protected $generator;
+abstract class UrlGeneratorBase extends SimpleSitemapPluginBase implements UrlGeneratorInterface {
 
   /**
    * @var \Drupal\simple_sitemap\Logger
@@ -24,60 +20,52 @@ abstract class UrlGeneratorBase extends SimplesitemapPluginBase implements UrlGe
   protected $logger;
 
   /**
-   * @var array
+   * @var \Drupal\simple_sitemap\Settings
    */
   protected $settings;
 
   /**
-   * @var string
+   * @var \Drupal\simple_sitemap\Entity\SimpleSitemapInterface
    */
   protected $sitemapVariant;
 
   /**
    * UrlGeneratorBase constructor.
+   *
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
-   * @param \Drupal\simple_sitemap\Simplesitemap $generator
    * @param \Drupal\simple_sitemap\Logger $logger
+   * @param \Drupal\simple_sitemap\Settings $settings
    */
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    Simplesitemap $generator,
-    Logger $logger
+    Logger $logger,
+    Settings $settings
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->generator = $generator;
     $this->logger = $logger;
+    $this->settings = $settings;
   }
 
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): SimpleSitemapPluginBase {
     return new static(
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('simple_sitemap.generator'),
-      $container->get('simple_sitemap.logger')
+      $container->get('simple_sitemap.logger'),
+      $container->get('simple_sitemap.settings')
     );
   }
 
   /**
-   * @param array $settings
+   * @param \Drupal\simple_sitemap\Entity\SimpleSitemapInterface $sitemap_variant
+   *
    * @return $this
    */
-  public function setSettings(array $settings) {
-    $this->settings = $settings;
-
-    return $this;
-  }
-
-  /**
-   * @param string $sitemap_variant
-   * @return $this
-   */
-  public function setSitemapVariant($sitemap_variant) {
+  public function setSitemapVariant(SimpleSitemapInterface $sitemap_variant): UrlGeneratorInterface {
     $this->sitemapVariant = $sitemap_variant;
 
     return $this;
@@ -85,32 +73,40 @@ abstract class UrlGeneratorBase extends SimplesitemapPluginBase implements UrlGe
 
   /**
    * @param string $url
+   *
    * @return string
    */
-  protected function replaceBaseUrlWithCustom($url) {
-    return !empty($this->settings['base_url'])
-      ? str_replace($GLOBALS['base_url'], $this->settings['base_url'], $url)
+  protected function replaceBaseUrlWithCustom(string $url): string {
+    return !empty($base_url = $this->settings->get('base_url'))
+      ? str_replace($GLOBALS['base_url'], $base_url, $url)
       : $url;
   }
 
   /**
    * @return mixed
+   *
+   * @todo Throw and catch SkipElementException here and children.
    */
-  abstract public function getDataSets();
+  abstract public function getDataSets(): array;
 
   /**
    * @param $data_set
    * @return mixed
    */
-  abstract protected function processDataSet($data_set);
+  abstract protected function processDataSet($data_set): array;
 
   /**
    * @param $data_set
    * @return array
+   *
+   * @todo catch SkipElementException here and children.
    */
-  public function generate($data_set) {
-    $path_data = $this->processDataSet($data_set);
-
-    return FALSE !== $path_data ? [$path_data] : [];
+  public function generate($data_set): array {
+    try {
+      return [$this->processDataSet($data_set)];
+    }
+    catch (SkipElementException $e) {
+      return [];
+    }
   }
 }

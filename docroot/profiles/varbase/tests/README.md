@@ -14,7 +14,7 @@ the composer.
 ## Create a Varbase project with [Composer](https://getcomposer.org/download/):
 
 ```
-composer create-project vardot/varbase:8.8.x-dev PROJECT_DIR_NAME --stability dev --no-interaction
+composer create-project vardot/varbase:9.0.x-dev PROJECT_DIR_NAME --stability dev --no-interaction
 ```
 
 --------------------------------------------------------------------------------
@@ -213,13 +213,6 @@ $ ../../../bin/behat -di
     $ ../../../bin/behat tests/features/varbase/step3-cleanup-tests
 ```
 
-8. If you want to test the installation process, you will need to use the
- varbase Install config file, as you can see in the following command.
-
-   $ ../../../bin/behat --config=behat.varbase-install.yml tools/install-varbase/default-installation.feature
-
-
-
 # Advanced customized automated testing
 To run the automated testing with behat you will need to change the [ wd_host and base_url ] settings in the
 [ behat.varbase.yml ] file to go with your project configuration and the selenium server.
@@ -241,7 +234,7 @@ To run the automated testing with behat you will need to change the [ wd_host an
       # browser_name: 'phantomjs'
       javascript_session: selenium2
 ```
-      
+
 Testing scenarios are tagged with the Behat tags of:
 
 * **@local = Local**

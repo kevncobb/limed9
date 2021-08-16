@@ -25,18 +25,6 @@ class SocialApi extends ContentEntityBase implements ContentEntityInterface {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public static function preCreate(EntityStorageInterface $storage, array &$values) {
-
-    if (isset($values['token'])) {
-      $values['token'] = static::encryptToken($values['token']);
-    }
-
-    return parent::preCreate($storage, $values);
-  }
-
-  /**
    * Gets the Drupal user ID associated to the record.
    *
    * @return int

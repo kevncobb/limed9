@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\layout_builder\Form\ConfigureSectionForm;
 
 /**
- * Class VerticalAlignment.
+ * Vertical Alignment.
  *
  * @package Drupal\varbase_layout_builder\Plugin\Style
  *
@@ -74,6 +74,19 @@ class VerticalAlignment extends StylePluginBase {
       // Attach the Layout Builder form style for this plugin.
       $form['#attached']['library'][] = 'varbase_layout_builder/plugin.vertical_alignment.layout_builder_form';
 
+    }
+    else {
+      $form['vertical_alignment'] = [
+        '#type' => 'radios',
+        '#options' => $this->getStyleOptions('vertical_alignment'),
+        '#title' => $this->t('Vertical alignment'),
+        '#validated' => TRUE,
+        '#attributes' => [
+          'class' => ['field-vertical-alignment', 'bs_input-boxes'],
+        ],
+        '#access' => FALSE,
+        '#default_value' => NULL,
+      ];
     }
 
     return $form;

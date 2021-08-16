@@ -7,10 +7,9 @@ use Drupal\Core\Queue\DatabaseQueue;
 use Drupal\Component\Datetime\Time;
 
 /**
- * Class SimplesitemapQueue
- * @package Drupal\simple_sitemap\Queue
+ * Class SimpleSitemapQueue
  */
-class SimplesitemapQueue extends DatabaseQueue {
+class SimpleSitemapQueue extends DatabaseQueue {
 
   /**
    * @var \Drupal\Component\Datetime\Time
@@ -18,7 +17,7 @@ class SimplesitemapQueue extends DatabaseQueue {
   protected $time;
 
   /**
-   * SimplesitemapQueue constructor.
+   * SimpleSitemapQueue constructor.
    * @param $name
    * @param \Drupal\Core\Database\Connection $connection
    * @param \Drupal\Component\Datetime\Time $time
@@ -58,10 +57,10 @@ class SimplesitemapQueue extends DatabaseQueue {
    *   - data: the same as what what passed into createItem().
    *   - item_id: the unique ID returned from createItem().
    *   - created: timestamp when the item was put into the queue.
-   *
+   * @throws \Exception
    * @see \Drupal\Core\Queue\QueueInterface::claimItem
    */
-  public function yieldItem() {
+  public function yieldItem(): \Generator {
     try {
       $query = $this->connection->query('SELECT data, item_id FROM {queue} q WHERE name = :name ORDER BY item_id ASC', [':name' => $this->name]);
       while ($item = $query->fetchObject()) {
@@ -110,7 +109,7 @@ class SimplesitemapQueue extends DatabaseQueue {
     return $query->execute();
   }
 
-  public function deleteItems($item_ids) {
+  public function deleteItems($item_ids): void {
     try {
       $this->connection->delete(static::TABLE_NAME)
         ->condition('item_id', $item_ids, 'IN')

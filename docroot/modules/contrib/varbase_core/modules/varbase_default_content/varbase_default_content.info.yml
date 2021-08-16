@@ -9,7 +9,7 @@ dependencies:
   - drupal:block_content
   - default_content:default_content
 
-# Information added by Drupal.org packaging script on 2021-06-26
-version: '9.0.5'
+# Information added by Drupal.org packaging script on 2021-07-13
+version: '9.0.7'
 project: 'varbase_core'
-datestamp: 1624711788
+datestamp: 1626188346

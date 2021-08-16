@@ -2,27 +2,30 @@
 
 namespace Drupal\simple_sitemap\Commands;
 
+use Drupal\simple_sitemap\Entity\SimpleSitemap;
 use Drupal\simple_sitemap\Queue\QueueWorker;
-use Drupal\simple_sitemap\Simplesitemap;
+use Drupal\simple_sitemap\Manager\Generator;
 use Drush\Commands\DrushCommands;
 
 /**
- * Class SimplesitemapCommands
- * @package Drupal\simple_sitemap\Commands
+ * Class SimpleSitemapCommands
  */
-class SimplesitemapCommands extends DrushCommands {
+class SimpleSitemapCommands extends DrushCommands {
 
   /**
-   * @var \Drupal\simple_sitemap\Simplesitemap
+   * @var \Drupal\simple_sitemap\Manager\Generator
    */
   protected $generator;
 
   /**
    * SimplesitemapCommands constructor.
-   * @param \Drupal\simple_sitemap\Simplesitemap $generator
+   *
+   * @param \Drupal\simple_sitemap\Manager\Generator $generator
    */
-  public function __construct(Simplesitemap $generator) {
+  public function __construct(Generator $generator) {
     $this->generator = $generator;
+
+    parent::__construct();
   }
 
   /**
@@ -37,7 +40,7 @@ class SimplesitemapCommands extends DrushCommands {
    *
    * @aliases ssg, simple-sitemap-generate
    */
-  public function generate() {
+  public function generate(): void {
     $this->generator->generateSitemap(QueueWorker::GENERATE_TYPE_DRUSH);
   }
 
@@ -62,8 +65,8 @@ class SimplesitemapCommands extends DrushCommands {
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function rebuildQueue(array $options = ['variants' => '']) {
-    $variants = array_keys($this->generator->getSitemapManager()->getSitemapVariants(NULL, FALSE));
+  public function rebuildQueue(array $options = ['variants' => '']): void {
+    $variants = array_keys(SimpleSitemap::loadMultiple());
     if (strlen($options['variants']) > 0) {
       $chosen_variants = array_map('trim', array_filter(explode(',', $options['variants'])));
       if (!empty($erroneous_variants = array_diff($chosen_variants, $variants))) {

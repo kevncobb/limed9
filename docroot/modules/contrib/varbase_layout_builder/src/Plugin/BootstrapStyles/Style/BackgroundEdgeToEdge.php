@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\layout_builder\Form\ConfigureSectionForm;
 
 /**
- * Class BackgroundEdgeToEdge.
+ * Background Edge To Edge.
  *
  * @package Drupal\varbase_layout_builder\Plugin\Style
  *
@@ -35,6 +35,18 @@ class BackgroundEdgeToEdge extends StylePluginBase {
         '#attributes' => [
           'class' => ['field-background-edge-to-edge'],
         ],
+      ];
+    }
+    else {
+      $form['background_edgetoedge'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Edge to Edge Background'),
+        '#validated' => TRUE,
+        '#attributes' => [
+          'class' => ['field-background-edge-to-edge'],
+        ],
+        '#access' => FALSE,
+        '#default_value' => FALSE,
       ];
     }
 
@@ -65,12 +77,12 @@ class BackgroundEdgeToEdge extends StylePluginBase {
 
         $build = $this->addClassesToBuild($build, ['bg-edge2edge'], $theme_wrapper);
       }
-      else if ($storage['background']['background_type'] == 'image'
+      elseif ($storage['background']['background_type'] == 'image'
         && !empty($storage['background_media']['image']['media_id'])) {
 
         $build = $this->addClassesToBuild($build, ['bg-edge2edge'], $theme_wrapper);
       }
-      else if ($storage['background']['background_type'] == 'video'
+      elseif ($storage['background']['background_type'] == 'video'
         && !empty($storage['background_media']['video']['media_id'])) {
 
         $build['#theme_wrappers']['bs_video_background']['#attributes']['class'][] = 'bg-edge2edge';

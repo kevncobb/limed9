@@ -6,33 +6,32 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Drupal\simple_sitemap\Simplesitemap;
+use Drupal\simple_sitemap\Manager\Generator;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\simple_sitemap\SimplesitemapManager;
 
 /**
- * Class SimplesitemapController
- * @package Drupal\simple_sitemap\Controller
+ * Class SimpleSitemapController
  */
-class SimplesitemapController extends ControllerBase {
+class SimpleSitemapController extends ControllerBase {
 
   /**
-   * @var \Drupal\simple_sitemap\Simplesitemap
+   * @var \Drupal\simple_sitemap\Manager\Generator
    */
   protected $generator;
 
   /**
-   * SimplesitemapController constructor.
-   * @param \Drupal\simple_sitemap\Simplesitemap $generator
+   * SimpleSitemapController constructor.
+   *
+   * @param \Drupal\simple_sitemap\Manager\Generator $generator
    */
-  public function __construct(Simplesitemap $generator) {
+  public function __construct(Generator $generator) {
     $this->generator = $generator;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): SimpleSitemapController {
     return new static(
       $container->get('simple_sitemap.generator')
     );
@@ -45,18 +44,15 @@ class SimplesitemapController extends ControllerBase {
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *  The request object.
-   *
-   * @param string $variant
+   * @param string|null $variant
    *  Optional name of sitemap variant.
-   *  @see SimplesitemapManager::getSitemapVariants()
    *
-   * @throws NotFoundHttpException
-   *
-   * @return \Symfony\Component\HttpFoundation\Response|false
+   * @return \Symfony\Component\HttpFoundation\Response
    *  Returns an XML response.
+   * @throws NotFoundHttpException
    */
-  public function getSitemap(Request $request, $variant = NULL) {
-    $output = $this->generator->setVariants($variant)->getSitemap($request->query->getInt('page'));
+  public function getSitemap(Request $request, ?string $variant = NULL): Response {
+    $output = $this->generator->setVariants($variant)->getSitemap($request->query->get('page'));
     if (!$output) {
       throw new NotFoundHttpException();
     }
@@ -72,7 +68,7 @@ class SimplesitemapController extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function getSitemapXsl() {
+  public function getSitemapXsl(): Response {
 
     // Read the XSL content from the file.
     $module_path = drupal_get_path('module', 'simple_sitemap');

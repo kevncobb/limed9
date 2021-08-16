@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\layout_builder\Form\ConfigureSectionForm;
 
 /**
- * Class HorizontalAlignment.
+ * Horizontal Alignment.
  *
  * @package Drupal\varbase_layout_builder\Plugin\Style
  *
@@ -74,7 +74,19 @@ class HorizontalAlignment extends StylePluginBase {
       // Attach the Layout Builder form style for this plugin.
       $form['#attached']['library'][] = 'varbase_layout_builder/plugin.horizontal_alignment.layout_builder_form';
 
-  
+    }
+    else {
+      $form['horizontal_alignment'] = [
+        '#type' => 'radios',
+        '#options' => $this->getStyleOptions('horizontal_alignment'),
+        '#title' => $this->t('Horizontal alignment'),
+        '#validated' => TRUE,
+        '#attributes' => [
+          'class' => ['field-horizontal-alignment', 'bs_input-boxes'],
+        ],
+        '#access' => FALSE,
+        '#default_value' => NULL,
+      ];
     }
 
     return $form;
