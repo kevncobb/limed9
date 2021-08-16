@@ -4,6 +4,7 @@ namespace Drupal\simple_sitemap\Plugin\simple_sitemap\SitemapGenerator;
 
 /**
  * Class DefaultSitemapGenerator
+ * @package Drupal\simple_sitemap\Plugin\simple_sitemap\SitemapGenerator
  *
  * @SitemapGenerator(
  *   id = "default",
@@ -13,13 +14,18 @@ namespace Drupal\simple_sitemap\Plugin\simple_sitemap\SitemapGenerator;
  */
 class DefaultSitemapGenerator extends SitemapGeneratorBase {
 
-  protected const XMLNS_XHTML = 'http://www.w3.org/1999/xhtml';
-  protected const XMLNS_IMAGE = 'http://www.google.com/schemas/sitemap-image/1.1';
+  const XMLNS_XHTML = 'http://www.w3.org/1999/xhtml';
+  const XMLNS_IMAGE = 'http://www.google.com/schemas/sitemap-image/1.1';
+
+  /**
+   * @var bool
+   */
+  protected $isHreflangSitemap;
 
   /**
    * @var array
    */
-  protected const ATTRIBUTES = [
+  protected static $attributes = [
     'xmlns' => self::XMLNS,
     'xmlns:xhtml' => self::XMLNS_XHTML,
     'xmlns:image' => self::XMLNS_IMAGE,
@@ -34,13 +40,13 @@ class DefaultSitemapGenerator extends SitemapGeneratorBase {
    * @return string
    *   Sitemap chunk
    */
-  public function getChunkXml(array $links): string {
+  protected function getXml(array $links) {
     $this->writer->openMemory();
     $this->writer->setIndent(TRUE);
     $this->writer->startSitemapDocument();
 
     // Add the XML stylesheet to document if enabled.
-    if ($this->settings->get('xsl')) {
+    if ($this->settings['xsl']) {
       $this->writer->writeXsl();
     }
 
@@ -57,12 +63,12 @@ class DefaultSitemapGenerator extends SitemapGeneratorBase {
   /**
    * Adds attributes to the sitemap.
    */
-  protected function addSitemapAttributes(): void {
-    $attributes = self::ATTRIBUTES;
-    if (!$this->sitemapVariant->isMultilingual()) {
+  protected function addSitemapAttributes() {
+    $attributes = self::$attributes;
+    if (!$this->isHreflangSitemap()) {
       unset($attributes['xmlns:xhtml']);
     }
-    $sitemap_variant = $this->sitemapVariant->id();
+    $sitemap_variant = $this->sitemapVariant;
     $this->moduleHandler->alter('simple_sitemap_attributes', $attributes, $sitemap_variant);
     foreach ($attributes as $name => $value) {
       $this->writer->writeAttribute($name, $value);
@@ -74,7 +80,7 @@ class DefaultSitemapGenerator extends SitemapGeneratorBase {
    *
    * @param array $links
    */
-  protected function addLinks(array $links): void {
+  protected function addLinks(array $links) {
     foreach ($links as $url_data) {
       $this->writer->startElement('url');
       $this->addUrl($url_data);
@@ -88,13 +94,13 @@ class DefaultSitemapGenerator extends SitemapGeneratorBase {
    * @param array $url_data
    *   The array of properties for this URL.
    */
-  protected function addUrl(array $url_data): void {
+  protected function addUrl(array $url_data) {
     $this->writer->writeElement('loc', $url_data['url']);
 
     // If more than one language is enabled, add all translation variant URLs
     // as alternate links to this link turning the sitemap into a hreflang
     // sitemap.
-    if (isset($url_data['alternate_urls']) && $this->sitemapVariant->isMultilingual()) {
+    if (isset($url_data['alternate_urls']) && $this->isHreflangSitemap()) {
       $this->addAlternateUrls($url_data['alternate_urls']);
     }
 
@@ -134,7 +140,7 @@ class DefaultSitemapGenerator extends SitemapGeneratorBase {
    *
    * @param array $alternate_urls
    */
-  protected function addAlternateUrls(array $alternate_urls): void {
+  protected function addAlternateUrls(array $alternate_urls) {
     foreach ($alternate_urls as $language_id => $alternate_url) {
       $this->writer->startElement('xhtml:link');
       $this->addAlternateUrl($language_id, $alternate_url);
@@ -145,12 +151,23 @@ class DefaultSitemapGenerator extends SitemapGeneratorBase {
   /**
    * Adds a translation variant URL as alternate URL to a URL.
    *
-   * @param string $language_id
-   * @param string $alternate_url
+   * @param $language_id
+   * @param $alternate_url
    */
-  protected function addAlternateUrl(string $language_id, string $alternate_url): void {
+  protected function addAlternateUrl($language_id, $alternate_url) {
     $this->writer->writeAttribute('rel', 'alternate');
     $this->writer->writeAttribute('hreflang', $language_id);
     $this->writer->writeAttribute('href', $alternate_url);
+  }
+
+  /**
+   * Checks if sitemap is hreflang compliant.
+   *
+   * @return bool
+   */
+  protected function isHreflangSitemap() {
+    return NULL !== $this->isHreflangSitemap
+      ? $this->isHreflangSitemap
+      : self::isMultilingualSitemap();
   }
 }

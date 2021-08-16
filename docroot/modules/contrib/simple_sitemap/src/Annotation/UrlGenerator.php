@@ -7,6 +7,8 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines a UrlGenerator item annotation object.
  *
+ * @package Drupal\simple_sitemap\Annotation
+ *
  * @see \Drupal\simple_sitemap\Plugin\simple_sitemap\UrlGenerator\UrlGeneratorManager
  * @see plugin_api
  *

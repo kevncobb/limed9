@@ -13306,25 +13306,25 @@
         },
         {
             "name": "drupal/simple_sitemap",
-            "version": "dev-4.x",
-            "version_normalized": "dev-4.x",
+            "version": "dev-3.x",
+            "version_normalized": "dev-3.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simple_sitemap.git",
-                "reference": "0b5d8cf8191cc2c60a18c6167aad0146d5bb4b47"
+                "reference": "bf79c11cbf06ea728684841d48972e12d4340a54"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9",
+                "drupal/core": "^8 || ^9",
                 "ext-xmlwriter": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-4.x": "4.x-dev"
+                    "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "4.x-dev",
-                    "datestamp": "1627235755",
+                    "version": "8.x-3.10+3-dev",
+                    "datestamp": "1621901802",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -16262,18 +16262,18 @@
         },
         {
             "name": "drupal/varbase_seo",
-            "version": "9.0.1",
-            "version_normalized": "9.0.1.0",
+            "version": "9.0.0",
+            "version_normalized": "9.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/varbase_seo.git",
-                "reference": "9.0.1"
+                "reference": "9.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/varbase_seo-9.0.1.zip",
-                "reference": "9.0.1",
-                "shasum": "d09926d4e5d874542d353dc9b3bb8ffaa1d11f43"
+                "url": "https://ftp.drupal.org/files/projects/varbase_seo-9.0.0.zip",
+                "reference": "9.0.0",
+                "shasum": "135959523d61fac15bfe769f8a1e3eeb6692f7de"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0",
@@ -16286,15 +16286,15 @@
                 "drupal/redirect": "~1.0",
                 "drupal/schema_metatag": "~2.0",
                 "drupal/script_manager": "~1.0",
-                "drupal/simple_sitemap": "~4.0",
+                "drupal/simple_sitemap": "~3.0",
                 "drupal/yoast_seo": "~1.0",
                 "oomphinc/composer-installers-extender": "~1.0 || ~2.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "9.0.1",
-                    "datestamp": "1625518723",
+                    "version": "9.0.0",
+                    "datestamp": "1623924053",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"

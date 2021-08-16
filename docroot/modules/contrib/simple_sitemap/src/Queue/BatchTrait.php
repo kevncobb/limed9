@@ -18,10 +18,9 @@ trait BatchTrait {
   /**
    * @param string $from
    * @param array|null $variants
-   *
    * @return bool
    */
-  public function batchGenerateSitemap(string $from = self::GENERATE_TYPE_FORM, ?array $variants = NULL): bool {
+  public function batchGenerateSitemap($from = self::GENERATE_TYPE_FORM, $variants = NULL) {
     $this->batch = [
       'title' => $this->t('Generating XML sitemaps'),
       'init_message' => $this->t('Initializing...'),
@@ -58,7 +57,7 @@ trait BatchTrait {
    *
    * @todo Variants into generateSitemap().
    */
-  public static function doBatchGenerateSitemap(&$context): void {
+  public static function doBatchGenerateSitemap(&$context) {
 
     /** @var \Drupal\simple_sitemap\Queue\QueueWorker $queue_worker */
     $queue_worker = \Drupal::service('simple_sitemap.queue_worker');
@@ -80,9 +79,10 @@ trait BatchTrait {
    * @param array $operations
    *
    * @return bool
+   *
    * @see https://api.drupal.org/api/drupal/core!includes!form.inc/group/batch/8
    */
-  public static function finishGeneration(bool $success, array $results, array $operations): bool {
+  public static function finishGeneration($success, $results, $operations) {
     if ($success) {
       \Drupal::service('simple_sitemap.logger')
         ->m('The XML sitemaps have been regenerated.')

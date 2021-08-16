@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c483ff4364fb6115931bc477a5a11d3ef9ce3b11',
+        'reference' => '580554d0689f13338d6857b16939580b97b4dcf2',
         'name' => 'vardot/varbase-project',
         'dev' => true,
     ),
@@ -2448,14 +2448,14 @@
             'dev_requirement' => false,
         ),
         'drupal/simple_sitemap' => array(
-            'pretty_version' => 'dev-4.x',
-            'version' => 'dev-4.x',
+            'pretty_version' => 'dev-3.x',
+            'version' => 'dev-3.x',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../docroot/modules/contrib/simple_sitemap',
             'aliases' => array(
-                0 => '4.x-dev',
+                0 => '3.x-dev',
             ),
-            'reference' => '0b5d8cf8191cc2c60a18c6167aad0146d5bb4b47',
+            'reference' => 'bf79c11cbf06ea728684841d48972e12d4340a54',
             'dev_requirement' => false,
         ),
         'drupal/slick' => array(
@@ -2885,12 +2885,12 @@
             'dev_requirement' => false,
         ),
         'drupal/varbase_seo' => array(
-            'pretty_version' => '9.0.1',
-            'version' => '9.0.1.0',
+            'pretty_version' => '9.0.0',
+            'version' => '9.0.0.0',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../docroot/modules/contrib/varbase_seo',
             'aliases' => array(),
-            'reference' => '9.0.1',
+            'reference' => '9.0.0',
             'dev_requirement' => false,
         ),
         'drupal/varbase_styleguide' => array(
@@ -4157,7 +4157,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c483ff4364fb6115931bc477a5a11d3ef9ce3b11',
+            'reference' => '580554d0689f13338d6857b16939580b97b4dcf2',
             'dev_requirement' => false,
         ),
         'vardot/varbase-updater' => array(

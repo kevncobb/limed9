@@ -5,9 +5,10 @@ namespace Drupal\simple_sitemap;
 use Drupal\Core\Config\ConfigFactory;
 
 /**
- * Class Settings
+ * Class SimplesitemapSettings
+ * @package Drupal\simple_sitemap
  */
-class Settings {
+class SimplesitemapSettings {
 
   /**
    * @var \Drupal\Core\Config\ConfigFactory
@@ -16,7 +17,7 @@ class Settings {
 
 
   /**
-   * SimpleSitemapSettings constructor.
+   * SimplesitemapSettings constructor.
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    */
   public function __construct(ConfigFactory $config_factory) {
@@ -29,21 +30,22 @@ class Settings {
    *
    * @param string $name
    *  Name of the setting, like 'max_links'.
+   *
    * @param mixed $default
    *  Value to be returned if the setting does not exist in the configuration.
    *
    * @return mixed
    *  The current setting from configuration or a default value.
    */
-  public function get(string $name, $default = FALSE) { // todo Why not NULL?
+  public function getSetting($name, $default = FALSE) {
     $setting = $this->configFactory
       ->get('simple_sitemap.settings')
       ->get($name);
 
-    return $setting ?? $default;
+    return NULL !== $setting ? $setting : $default;
   }
 
-  public function getAll() {
+  public function getSettings() {
     return $this->configFactory
       ->get('simple_sitemap.settings')
       ->get();
@@ -59,7 +61,7 @@ class Settings {
    *
    * @return $this
    */
-  public function save(string $name, $setting): Settings {
+  public function saveSetting($name, $setting) {
     $this->configFactory->getEditable('simple_sitemap.settings')
       ->set($name, $setting)->save();
 

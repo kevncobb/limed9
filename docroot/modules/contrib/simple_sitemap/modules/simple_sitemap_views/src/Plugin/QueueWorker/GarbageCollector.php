@@ -47,9 +47,6 @@ class GarbageCollector extends QueueWorkerBase implements ContainerFactoryPlugin
    *   Entity type manager.
    * @param \Drupal\simple_sitemap_views\SimpleSitemapViews $sitemap_views
    *   Views sitemap data.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SimpleSitemapViews $sitemap_views) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -126,8 +123,7 @@ class GarbageCollector extends QueueWorkerBase implements ContainerFactoryPlugin
             $max_links = 0;
             break;
           }
-
-          if ($variant_max_links > $max_links) {
+          elseif ($variant_max_links > $max_links) {
             $max_links = $variant_max_links;
           }
         }

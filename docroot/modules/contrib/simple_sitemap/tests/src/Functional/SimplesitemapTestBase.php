@@ -27,7 +27,7 @@ abstract class SimplesitemapTestBase extends BrowserTestBase {
   /**
    * Simple sitemap generator.
    *
-   * @var \Drupal\simple_sitemap\Manager\Generator
+   * @var \Drupal\simple_sitemap\Simplesitemap
    */
   protected $generator;
 

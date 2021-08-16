@@ -33,7 +33,7 @@ class SimpleSitemapViewsController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): SimpleSitemapViewsController {
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('simple_sitemap.views')
     );
@@ -45,7 +45,7 @@ class SimpleSitemapViewsController extends ControllerBase {
    * @return array
    *   A render array.
    */
-  public function content(): array {
+  public function content() {
     $table = [
       '#type' => 'table',
       '#header' => [
