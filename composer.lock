@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be7cab7152d050f58158b5b392eb6d4f",
+    "content-hash": "f4f6664199bc05a2debf8459c228e269",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -12738,17 +12738,11 @@
         },
         {
             "name": "drupal/simple_sitemap",
-            "version": "4.0.0-alpha2",
+            "version": "dev-4.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simple_sitemap.git",
-                "reference": "4.0.0-alpha2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simple_sitemap-4.0.0-alpha2.zip",
-                "reference": "4.0.0-alpha2",
-                "shasum": "d5c749859b72dfa8e82a6e41108c2f74f4efe6f2"
+                "reference": "0b5d8cf8191cc2c60a18c6167aad0146d5bb4b47"
             },
             "require": {
                 "drupal/core": "^8.7.7 || ^9",
@@ -12756,12 +12750,15 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
                 "drupal": {
-                    "version": "4.0.0-alpha2",
-                    "datestamp": "1626796343",
+                    "version": "4.x-dev",
+                    "datestamp": "1627235755",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 },
                 "drush": {
@@ -23824,7 +23821,8 @@
         "drupal/book_pdf": 15,
         "drupal/views_entity_form_field": 10,
         "drupal/cache_control_override": 15,
-        "drupal/layout_builder_component_attributes": 20
+        "drupal/layout_builder_component_attributes": 20,
+        "drupal/simple_sitemap": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

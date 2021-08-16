@@ -13306,18 +13306,12 @@
         },
         {
             "name": "drupal/simple_sitemap",
-            "version": "4.0.0-alpha2",
-            "version_normalized": "4.0.0.0-alpha2",
+            "version": "dev-4.x",
+            "version_normalized": "dev-4.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simple_sitemap.git",
-                "reference": "4.0.0-alpha2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simple_sitemap-4.0.0-alpha2.zip",
-                "reference": "4.0.0-alpha2",
-                "shasum": "d5c749859b72dfa8e82a6e41108c2f74f4efe6f2"
+                "reference": "0b5d8cf8191cc2c60a18c6167aad0146d5bb4b47"
             },
             "require": {
                 "drupal/core": "^8.7.7 || ^9",
@@ -13325,12 +13319,15 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
                 "drupal": {
-                    "version": "4.0.0-alpha2",
-                    "datestamp": "1626796343",
+                    "version": "4.x-dev",
+                    "datestamp": "1627235755",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 },
                 "drush": {
@@ -13339,7 +13336,7 @@
                     }
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
                 "GPL-2.0-or-later"
