@@ -7629,8 +7629,7 @@
             "homepage": "https://www.drupal.org/project/imageapi_optimize",
             "support": {
                 "source": "https://git.drupalcode.org/project/imageapi_optimize"
-            },
-            "time": "2021-06-30T08:15:49+00:00"
+            }
         },
         {
             "name": "drupal/imagemagick",
@@ -13591,6 +13590,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Issue #3184083: Fix invalid id passed to layout plugin": "https://www.drupal.org/files/issues/2020-11-22/3184083-1-styleguide-layout.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",

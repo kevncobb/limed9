@@ -14012,6 +14012,9 @@
                     "status": "not-covered",
                     "message": "Beta releases are not covered by Drupal security advisories."
                 }
+            },
+            "patches_applied": {
+                "Issue #3184083: Fix invalid id passed to layout plugin": "https://www.drupal.org/files/issues/2020-11-22/3184083-1-styleguide-layout.patch"
             }
         },
         "installation-source": "dist",
