@@ -83,7 +83,7 @@
   */
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .facts-and-stats-view .slick__slide {
     min-height: 300px;
   }
@@ -114,10 +114,10 @@
   position: absolute;
   top: auto;
   right: 4%;
-  bottom: 1%;
+  bottom: 3%;
   left: 40%;
   width: 60%;
-  height: 98%;
+  height: 94%;
   cursor: text;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -129,7 +129,7 @@
   -o-user-select: text;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   .facts-and-stats-view .slide__caption {
     top: auto;
     bottom: 1%;

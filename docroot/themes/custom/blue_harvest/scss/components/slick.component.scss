@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------------
 
 .facts-and-stats-view {
-  @media (max-width: map-get($grid-breakpoints, "sm")) {
+  @media (max-width: map-get($grid-breakpoints, "md")) {
     .slick__slide {
       min-height: 300px;
       .slide__media {
@@ -49,11 +49,11 @@
     //height: 92%;
     background-color: rgba(0, 56, 165, 0.55);
     width: 60%;
-    height: 98%;
+    height: 94%;
     left: 40%;
     top: auto;
-    bottom: 1%;
-    @media (min-width: map-get($grid-breakpoints, "sm")) {
+    bottom: 3%;
+    @media (min-width: map-get($grid-breakpoints, "md")) {
       width: 60%;
       height: 98%;
       left: 40%;
