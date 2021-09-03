@@ -113,10 +113,10 @@
   position: absolute;
   top: auto;
   right: 4%;
-  bottom: 4%;
-  left: 46%;
-  width: 55%;
-  height: 92%;
+  bottom: 1%;
+  left: 40%;
+  width: 60%;
+  height: 98%;
   cursor: text;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -131,10 +131,10 @@
 @media (min-width: 576px) {
   .facts-and-stats-view .slide__caption {
     top: auto;
-    bottom: 4%;
-    left: 46%;
-    width: 55%;
-    height: 92%;
+    bottom: 1%;
+    left: 40%;
+    width: 60%;
+    height: 98%;
     background-color: rgba(0, 56, 165, 0.9);
   }
 }

@@ -47,17 +47,17 @@
     //width: 92%;
     //height: 92%;
     background-color: rgba(0, 56, 165, 0.55);
-    width: 55%;
-    height: 92%;
-    left: 46%;
+    width: 60%;
+    height: 98%;
+    left: 40%;
     top: auto;
-    bottom: 4%;
+    bottom: 1%;
     @media (min-width: map-get($grid-breakpoints, "sm")) {
-      width: 55%;
-      height: 92%;
-      left: 46%;
+      width: 60%;
+      height: 98%;
+      left: 40%;
       top: auto;
-      bottom: 4%;
+      bottom: 1%;
       background-color: rgba(0, 56, 165, 0.9);
     }
     .slide__description {
