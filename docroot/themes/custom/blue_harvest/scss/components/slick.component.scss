@@ -11,7 +11,11 @@
     .slick__slide {
       min-height: 300px;
       .slide__media {
-        opacity: 0;
+        height: 100%;
+        width: auto;
+        .media.media--blazy.media--slick.media--ratio.media--ratio--fluid.media--image.is-b-loaded {
+          padding-bottom: 85.25% !important;
+        }
       }
       .slide__caption {
         top: auto;
