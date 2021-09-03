@@ -83,6 +83,24 @@
   */
 }
 
+@media (max-width: 576px) {
+  .facts-and-stats-view .slick__slide {
+    min-height: 300px;
+  }
+  .facts-and-stats-view .slick__slide .slide__media {
+    opacity: 0;
+  }
+  .facts-and-stats-view .slick__slide .slide__caption {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    font-size: 17px;
+    line-height: 22px;
+  }
+}
+
 .facts-and-stats-view .slide__media {
   width: 50%;
 }

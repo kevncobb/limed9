@@ -7,6 +7,24 @@
 // -----------------------------------------------------------------------------
 
 .facts-and-stats-view {
+  @media (max-width: map-get($grid-breakpoints, "sm")) {
+    .slick__slide {
+      min-height: 300px;
+      .slide__media {
+        opacity: 0;
+      }
+      .slide__caption {
+        top: auto;
+        right: 0%;
+        bottom: 0%;
+        left: 0;
+        height: 100%;
+        font-size: 17px;
+        line-height: 22px;
+      }
+    }
+  }
+
   .slide__media {
     width: 50%;
   }
