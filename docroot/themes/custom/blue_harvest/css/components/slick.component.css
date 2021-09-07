@@ -83,7 +83,7 @@
   */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .facts-and-stats-view .slick__slide {
     min-height: 300px;
   }

@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------------
 
 .facts-and-stats-view {
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
     .slick__slide {
       min-height: 300px;
       .slide__media {
