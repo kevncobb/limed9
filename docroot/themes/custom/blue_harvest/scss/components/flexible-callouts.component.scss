@@ -247,10 +247,14 @@
 
 @media screen and (min-width: 980px) {
   .flex_callout_wrapper {
-    padding: 160px 0 165px;
+    padding: 160px 0 165px 20px;
   }
 }
-
+@media screen and (min-width: 1200px) {
+  .flex_callout_wrapper {
+    padding: 160px 0 165px 0;
+  }
+}
 @media print {
   .flex_callout_wrapper {
     padding: 0;

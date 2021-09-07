@@ -32,6 +32,9 @@
   &.theme_blue {
     background: rgba(0, 56, 165, 0.65);
     color: #ffffff;
+    .pillar_header_cta_label, .pillar_header_headline, .pillar_header_description {
+      color: #ffffff;
+    }
   }
 
   &.theme_purple {
@@ -57,7 +60,7 @@
   &.theme_black {
     background: rgba(34, 34, 34, 0.65);
 
-    .pillar_header_cta_label {
+    .pillar_header_cta_label, .pillar_header_headline, .pillar_header_description {
       color: #ffffff;
     }
   }
