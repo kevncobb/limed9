@@ -416,7 +416,7 @@
   text-transform: uppercase;
   color: #fff !important;
   border-bottom: none !important;
-  background: #4b2e84;
+  background: #0038a5;
   font-size: 14px;
   font-size: 0.875rem;
   font-weight: 700;
@@ -437,7 +437,7 @@
 }
 
 .flex_callout.theme_dark .flex_callout_link:hover {
-  color: #222;
+  color: #0038a5 !important;
   background: #fff;
 }
 

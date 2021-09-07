@@ -369,7 +369,7 @@
   transition: background .25s, border .25s, color .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s;
   transition: background .25s, border .25s, box-shadow .25s, color .25s, transform .25s, -webkit-box-shadow .25s, -webkit-transform .25s;
-  background: #4B2E84;
+  background: #0038a5;
   color: #ffffff !important;
   display: inline-block;
   border-bottom: none !important;
@@ -389,7 +389,7 @@
 .flex_callout {
   &.theme_dark .flex_callout_link:hover {
     background: #ffffff;
-    color: #222;
+    color: #0038a5 !important;
   }
 
   &.emphasized .flex_callout_link {
