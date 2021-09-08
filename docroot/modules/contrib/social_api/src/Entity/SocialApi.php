@@ -4,7 +4,6 @@ namespace Drupal\social_api\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Site\Settings;
 
 /**

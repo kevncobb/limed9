@@ -64,7 +64,10 @@
     "drupal/replicate": "^1.0",
     "drupal/replicate_ui": "^1.0",
     "drupal/views_conditional": "^1.4",
-    "drupal/simple_sitemap": "3.x-dev@dev"
+    "drupal/simple_sitemap": "3.x-dev@dev",
+    "drupal/advanced_text_formatter": "^2.1",
+    "drupal/admin_toolbar": "^3.0",
+    "drupal/webform": "^6.0"
   },
   "config": {
     "bin-dir": "bin/",

@@ -1,5 +1,5 @@
-name: 'Varbase Layout Builder'
-description: 'Provides default configuration and enhancements to utilize Drupal core''s Layout Builder.'
+name: "Varbase Layout Builder"
+description: "Provides default configuration and enhancements to utilize Drupal core's Layout Builder."
 type: module
 package: Varbase
 configure: varbase_layout_builder.settings
@@ -25,7 +25,7 @@ install:
   - bootstrap_styles
   - bootstrap_layout_builder
 
-# Information added by Drupal.org packaging script on 2021-07-06
-version: '10.0.3'
+# Information added by Drupal.org packaging script on 2021-09-01
+version: '10.0.4'
 project: 'varbase_layout_builder'
-datestamp: 1625608782
+datestamp: 1630505181

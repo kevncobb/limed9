@@ -32,6 +32,7 @@ class AdvancedTextFormatter extends FormatterBase {
   const FORMAT_INPUT = 'input';
   const FORMAT_NONE = 'none';
   const FORMAT_PHP = 'php';
+  const FORMAT_LIMIT_HTML = 'limit_html';
 
   /**
    * {@inheritdoc}
@@ -117,8 +118,9 @@ class AdvancedTextFormatter extends FormatterBase {
       '#options' => [
         static::FORMAT_NONE   => $this->t('None'),
         static::FORMAT_INPUT  => $this->t('Selected Text Format'),
-        static::FORMAT_PHP    => $this->t('Limit allowed HTML tags'),
+        static::FORMAT_LIMIT_HTML => $this->t('Limit allowed HTML tags'),
         static::FORMAT_DRUPAL => $this->t('Drupal'),
+        static::FORMAT_PHP    => $this->t('PHP (Deprecated)'),
       ],
       '#default_value' => $this->getSetting('filter'),
     ];
@@ -214,6 +216,9 @@ class AdvancedTextFormatter extends FormatterBase {
         break;
 
       case static::FORMAT_PHP:
+        \Drupal::messenger()->addNotice(t('The PHP filter has been deprecated. Please use the "Limit allowed HTML tags" filter instead.'));
+
+      case static::FORMAT_LIMIT_HTML:
         $text  = [];
         $tags  = $this->getSetting('allowed_html');
         $autop = $this->getSetting('autop');
@@ -282,6 +287,9 @@ class AdvancedTextFormatter extends FormatterBase {
           break;
 
         case static::FORMAT_PHP:
+          \Drupal::messenger()->addNotice(t('The PHP filter has been deprecated. Please use the "Limit allowed HTML tags" filter instead.'));
+
+        case static::FORMAT_LIMIT_HTML:
           $output = Xss::filter($output, $this->getSetting('allowed_html'));
 
           if ($this->getSetting('autop')) {
