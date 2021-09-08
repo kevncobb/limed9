@@ -42,6 +42,20 @@
     padding: 0;
 }
 
+.varbase-heroslider-media .slick-slide::after
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    content: '';
+
+    box-shadow: inset 0 0 0 111.11111rem rgba(0, 0, 0, .3);
+}
+
 .varbase-heroslider-media .slick-active .slide__caption
 {
     transition: transform 1.25s cubic-bezier(.19, 1, .22, 1) .5s, opacity 1.25s cubic-bezier(.19, 1, .22, 1) .5s;
