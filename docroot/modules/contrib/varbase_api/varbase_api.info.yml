@@ -1,5 +1,5 @@
-name: 'Varbase API'
-description: 'A JSON:API implementation with authentication and authorization that allows for easy ingestion of content by other applications.'
+name: "Varbase API"
+description: "A JSON:API implementation with authentication and authorization that allows for easy ingestion of content by other applications."
 type: module
 package: Varbase
 configure: varbase_api.settings
@@ -17,7 +17,7 @@ install:
   - jsonapi_extras
   - jsonapi_defaults
 
-# Information added by Drupal.org packaging script on 2021-06-19
-version: '9.0.0'
+# Information added by Drupal.org packaging script on 2021-09-11
+version: '9.0.1'
 project: 'varbase_api'
-datestamp: 1624111693
+datestamp: 1631365920
