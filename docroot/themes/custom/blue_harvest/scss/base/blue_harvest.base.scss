@@ -416,7 +416,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
   font-style: italic;
   color: #0c2f7a;
   @media screen and (min-width: 768px) {
-    margin: 0 -3rem 0 0rem;
+    margin: 0 -3rem 0 0rem !important;
     width: 50%;
     float: right;
     text-align: right;
