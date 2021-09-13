@@ -455,3 +455,41 @@ button.moderation-sidebar-link[value="Reject Review"] {
   color: #fbea65 !important;
   border-bottom: 2px solid #fbea65 !important;
 }
+
+.wrapper {
+  max-width: 700px;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    padding: 0;
+  }
+}
+
+.quote {
+  margin-left: 0;
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  font-family: serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 768px) {
+  .quote {
+    float: left;
+    width: 50%;
+    margin: 0 0 0 -3rem;
+    padding: 3rem 3rem 3rem 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .text,
+  .headline {
+    margin-left: 150px;
+  }
+}
