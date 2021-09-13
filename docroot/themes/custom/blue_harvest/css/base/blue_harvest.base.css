@@ -483,7 +483,7 @@ button.moderation-sidebar-link[value="Reject Review"] {
     float: right;
     width: 50%;
     margin: 0 -3rem 0 0rem !important;
-    padding: 3rem 0rem 3rem 3rem;
+    padding: 0rem 0rem 3rem 3rem;
     text-align: right;
   }
 }
