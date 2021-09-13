@@ -1,0 +1,6 @@
+name: 'Embedded Google Documents Viewer'
+description: 'An embedded Document viewer field using Google Docs'
+dependencies:
+  - drupal:field
+core_version_requirement: ^8.8 || ^9
+type: module

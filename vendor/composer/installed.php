@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bfca43ab51357ec471f30b8289aeed4afe533f28',
+        'reference' => 'e73280380671a92bbb68f4ade901b0d39fbab25c',
         'name' => 'vardot/varbase-project',
         'dev' => true,
     ),
@@ -569,15 +569,6 @@
             'install_path' => __DIR__ . '/../../docroot/modules/contrib/bootstrap_layouts',
             'aliases' => array(),
             'reference' => '8.x-5.2',
-            'dev_requirement' => false,
-        ),
-        'drupal/bootstrap_styles' => array(
-            'pretty_version' => '1.0.3',
-            'version' => '1.0.3.0',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../docroot/modules/contrib/bootstrap_styles',
-            'aliases' => array(),
-            'reference' => '1.0.3',
             'dev_requirement' => false,
         ),
         'drupal/breakpoint' => array(
@@ -1399,6 +1390,17 @@
             'replaced' => array(
                 0 => '9.2.5',
             ),
+        ),
+        'drupal/gdoc_field' => array(
+            'pretty_version' => 'dev-1.x',
+            'version' => 'dev-1.x',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/gdoc_field',
+            'aliases' => array(
+                0 => '1.x-dev',
+            ),
+            'reference' => '71d688faadd4e89a47c6c4eba0581c1f612bd7b9',
+            'dev_requirement' => false,
         ),
         'drupal/genpass' => array(
             'pretty_version' => '1.1.0',
@@ -4163,7 +4165,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bfca43ab51357ec471f30b8289aeed4afe533f28',
+            'reference' => 'e73280380671a92bbb68f4ade901b0d39fbab25c',
             'dev_requirement' => false,
         ),
         'vardot/varbase-updater' => array(
