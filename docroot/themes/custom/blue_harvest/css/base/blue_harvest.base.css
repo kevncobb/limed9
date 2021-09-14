@@ -53,22 +53,27 @@ p + div.media.media--type-file {
 }
 
 .mh-600 {
+  overflow: hidden;
   max-height: 600px;
 }
 
 .mh-700 {
+  overflow: hidden;
   max-height: 700px;
 }
 
 .mh-800 {
+  overflow: hidden;
   max-height: 800px;
 }
 
 .mh-900 {
+  overflow: hidden;
   max-height: 900px;
 }
 
 .mh-1000 {
+  overflow: hidden;
   max-height: 1000px;
 }
 
