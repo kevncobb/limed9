@@ -42,22 +42,21 @@ P + div.media.media--type-file {
 }
 .mh-600 {
   max-height: 600px;
-  overflow: hidden;
 }
 .mh-700 {
   max-height: 700px;
-  overflow: hidden;
 }
 .mh-800 {
   max-height: 800px;
-  overflow: hidden;
 }
 .mh-900 {
   max-height: 900px;
-  overflow: hidden;
 }
 .mh-1000 {
   max-height: 1000px;
+
+}
+.overflow-hidden {
   overflow: hidden;
 }
 .centered {
