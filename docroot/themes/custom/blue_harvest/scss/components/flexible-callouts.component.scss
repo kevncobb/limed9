@@ -412,3 +412,10 @@
     margin-bottom: 0px;
   }
 }
+
+.v-center-column {
+  transform: translate(0, 50%);
+  .center {
+    transform: translate(0, 50%);
+  }
+}

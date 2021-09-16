@@ -462,3 +462,15 @@
     margin-bottom: 0;
   }
 }
+
+.v-center-column {
+  -webkit-transform: translate(0, 50%);
+  -o-transform: translate(0, 50%);
+  transform: translate(0, 50%);
+}
+
+.v-center-column .center {
+  -webkit-transform: translate(0, 50%);
+  -o-transform: translate(0, 50%);
+  transform: translate(0, 50%);
+}
