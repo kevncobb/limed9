@@ -235,6 +235,24 @@ header.navbar {
   padding: 0;
 }
 
+header.navbar.bg-blue nav.navigation a.highlighted-link {
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+}
+
+header.navbar.bg-blue .large-menu li.nav-item a.nav-link {
+  color: white;
+}
+
+header.navbar.bg-blue .large-menu li.nav-item::after {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+header.navbar.bg-blue .dropdown-menu a {
+  color: #0038a5;
+}
+
 header.navbar nav.navigation a.highlighted-link {
   text-transform: uppercase;
   color: #0038a5;
