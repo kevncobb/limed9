@@ -35,7 +35,7 @@
   // Youtube Modal
   Drupal.behaviors.youtube_modal = {
     attach: function (context, settings) {
-      $(context).find('#youtubeModal').on('shown.bs.modal', function () {
+      $(context).find('.mobile_video_cta_link').find('[data-toggle="modal"]').click(function() {
         //FUNCTION TO GET AND AUTO PLAY YOUTUBE VIDEO FROM DATATAG
             var theModal = $(this).data( "target" ),
               videoSRC = $(this).attr( "data-theVideo" ),
