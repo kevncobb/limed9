@@ -37,13 +37,17 @@
     attach: function (context, settings) {
       $(context).find('.mobile_video_cta_link').find('[data-toggle="modal"]').click(function() {
         //FUNCTION TO GET AND AUTO PLAY YOUTUBE VIDEO FROM DATATAG
-            var theModal = $(this).data( "target" ),
-              videoSRC = $(this).attr( "data-theVideo" ),
-              videoSRCauto = videoSRC+"?autoplay=1" ;
-            $(theModal+' iframe').attr('src', videoSRCauto);
-            $(theModal+' button.close').click(function () {
-              $(theModal+' iframe').attr('src', videoSRC);
-            });
+        var theModal = $(this).data( "target" ),
+          videoSRC = $(this).attr( "data-theVideo" ),
+          videoSRCauto = videoSRC+"?autoplay=1" ;
+        $(theModal+' iframe').attr('src', videoSRCauto);
+        $(theModal+' button.close').click(function () {
+          $(theModal+' iframe').attr('src', videoSRC);
+        });
+      });
+
+      $(context).find('#youtubeModal').on('hidden.bs.modal', function () {
+        $("#youtubeModal iframe").attr("src", $("#youtubeModal iframe").attr("src"));
       });
     }
   };
