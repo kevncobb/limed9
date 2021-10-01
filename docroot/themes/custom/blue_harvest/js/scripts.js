@@ -46,7 +46,7 @@
             });
       });
 
-      $(context).find('#youtubeModal').on('hidden.bs.modal', function () {
+      $(context).find('.youtubeModal').on('hidden.bs.modal', function () {
         $("#youtubeModal iframe").removeAttr('src');
       });
     }
