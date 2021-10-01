@@ -33,8 +33,25 @@
     }
   };
   // Youtube Modal
-  Drupal.behaviors.stop_video_when_modal_closed = {
+  Drupal.behaviors.youtube_modal = {
     attach: function (context, settings) {
+      $(context).find('#youtubeModal').on('show.bs.modal', function () {
+        //FUNCTION TO GET AND AUTO PLAY YOUTUBE VIDEO FROM DATATAG
+        function autoPlayYouTubeModal(){
+          var trigger = $("body").find('[data-toggle="modal"]');
+          trigger.click(function() {
+            var theModal = $(this).data( "target" ),
+              videoSRC = $(this).attr( "data-theVideo" ),
+              videoSRCauto = videoSRC+"?autoplay=1" ;
+            $(theModal+' iframe').attr('src', videoSRCauto);
+            $(theModal).on('hidden.bs.modal', function (event) {
+              $(theModal+' iframe').attr('src', videoSRC);
+            });
+          });
+        }
+        autoPlayYouTubeModal();
+      });
+
       $(context).find('#youtubeModal').on('hidden.bs.modal', function () {
         $("#youtubeModal iframe").attr("src", $("#youtubeModal iframe").attr("src"));
       });
