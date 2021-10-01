@@ -41,10 +41,9 @@
               videoSRC = $(this).attr( "data-theVideo" ),
               videoSRCauto = videoSRC+"?autoplay=1" ;
             $(theModal+' iframe').attr('src', videoSRCauto);
-      });
-
-      $(context).find('#youtubeModal').on('hidden.bs.modal', function () {
-        $("#youtubeModal iframe").attr("src", $("#youtubeModal iframe").attr("src"));
+            $(theModal+' button.close').click(function () {
+              $(theModal+' iframe').attr('src', videoSRC);
+            });
       });
     }
   };
