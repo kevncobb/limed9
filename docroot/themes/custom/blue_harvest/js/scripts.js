@@ -32,6 +32,14 @@
       });
     }
   };
+  // Youtube Modal
+  Drupal.behaviors.stop_video_when_modal_closed = {
+    attach: function (context, settings) {
+      $(context).find('#youtubeModal').on('hidden.bs.modal', function () {
+        $("#youtubeModal iframe").attr("src", $("#youtubeModal iframe").attr("src"));
+      });
+    }
+  };
 
 })(window.jQuery, window._, window.Drupal);
 
