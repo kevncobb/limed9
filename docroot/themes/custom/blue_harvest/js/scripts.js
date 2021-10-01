@@ -47,7 +47,7 @@
       });
 
       $(context).find('.youtubeModal').on('hidden.bs.modal', function () {
-        $(".youtubeModal iframe").removeAttr('src');
+        $(".youtubeModal iframe").attr('src', videoSRC);
       });
     }
   };
