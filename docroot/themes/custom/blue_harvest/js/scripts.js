@@ -44,10 +44,9 @@
             $(theModal+' button.close').click(function () {
               $(theModal+' iframe').attr('src', videoSRC);
             });
-      });
-
-      $(context).find('.youtubeModal').on('hidden.bs.modal', function () {
-        $(".youtubeModal iframe").attr('src', videoSRC);
+        $(context).find('.youtubeModal').on('hidden.bs.modal', function () {
+          $(".youtubeModal iframe").attr('src', videoSRC);
+        });
       });
     }
   };
