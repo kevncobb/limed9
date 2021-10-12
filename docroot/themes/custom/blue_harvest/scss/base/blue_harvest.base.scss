@@ -93,6 +93,10 @@ pre.sms {
   color: white;
   a {
     color: white;
+    &:focus, &:hover {
+      text-decoration: underline;
+      color: white;
+    }
   }
   .typography {
     a {
@@ -112,8 +116,21 @@ pre.sms {
   color: white;
 }
 .bg-dark {
-  background-color: #2c3e50;
+  background-color: #343a40;
   color: white;
+  a {
+    color: $yellow;
+    border-bottom: 2px solid $yellow;
+    &:focus, &:hover {
+      text-decoration: none;
+      color: white;
+    }
+  }
+  .block-system-breadcrumb-block {
+    ol.breadcrumb {
+      background-color: #343a40;
+    }
+  }
 }
 .bg-darken {
   &::after {

@@ -59,7 +59,7 @@
         border: none;
       }
       &:focus, &:hover {
-        color: $blue;
+        //color: $blue;
         &::after {
           width: 100% !important;
         }

@@ -122,6 +122,12 @@ pre.sms a {
   color: white;
 }
 
+.bg-blue a:focus,
+.bg-blue a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
 .bg-blue .typography a {
   color: #fbea65;
   border-bottom: thin solid #fbea65;
@@ -143,7 +149,22 @@ pre.sms a {
 
 .bg-dark {
   color: white;
-  background-color: #2c3e50;
+  background-color: #343a40;
+}
+
+.bg-dark a {
+  color: #fbea65;
+  border-bottom: 2px solid #fbea65;
+}
+
+.bg-dark a:focus,
+.bg-dark a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.bg-dark .block-system-breadcrumb-block ol.breadcrumb {
+  background-color: #343a40;
 }
 
 .bg-darken::after {

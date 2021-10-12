@@ -25,3 +25,8 @@ header.navbar {
 .navbar-light .navbar-nav ul.dropdown-menu li.active > a.active {
   color: #fff !important;
 }
+
+header.bg-blue .nav-item > a:hover,
+header.bg-blue .nav-item > a:focus {
+  color: #fbea65;
+}
