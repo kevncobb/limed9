@@ -17,7 +17,7 @@ install:
   - jsonapi_extras
   - jsonapi_defaults
 
-# Information added by Drupal.org packaging script on 2021-09-11
-version: '9.0.1'
+# Information added by Drupal.org packaging script on 2021-10-07
+version: '9.0.4'
 project: 'varbase_api'
-datestamp: 1631365920
+datestamp: 1633625462

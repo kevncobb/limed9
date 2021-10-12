@@ -1,5 +1,5 @@
-name: 'Varbase Development'
-description: 'Development Environment Modules and Features, make sure to disable this feature in production.'
+name: "Varbase Development"
+description: "Development Environment Modules and Features, make sure to disable this feature in production."
 type: module
 package: Varbase
 core_version_requirement: ^9
@@ -11,7 +11,7 @@ install:
   - devel
   - tour_ui
 #uninstall:
-#  - migrate_drupal_ui 
+#  - migrate_drupal_ui
 #  - dblog
 #  - views_ui
 #  - config_update_ui
@@ -25,7 +25,7 @@ install:
 #  - slick_ui
 #  - config_inspector
 
-# Information added by Drupal.org packaging script on 2021-07-13
-version: '9.0.7'
+# Information added by Drupal.org packaging script on 2021-10-09
+version: '9.0.9'
 project: 'varbase_core'
-datestamp: 1626188346
+datestamp: 1633798666

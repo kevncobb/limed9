@@ -5,7 +5,7 @@ namespace Drupal\taxonomy_menu\Controller;
 use Drupal\Core\Controller\ControllerBase;
 
 /**
- * Class TaxonomyMenu.
+ * Render taxonomy links.
  *
  * @package Drupal\taxonomy_menu\Controller
  */

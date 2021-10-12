@@ -91,7 +91,7 @@ class TaxonomyMenuMenuLink extends MenuLinkBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    */
   public function getTitle() {
-    /* @var $link \Drupal\taxonomy\Entity\Term. */
+    /** @var \Drupal\taxonomy\Entity\Term. $link */
     $link = $this->entityTypeManager->getStorage('taxonomy_term')
       ->load($this->pluginDefinition['metadata']['taxonomy_term_id']);
 
@@ -110,7 +110,7 @@ class TaxonomyMenuMenuLink extends MenuLinkBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    */
   public function getDescription() {
-    /* @var $link \Drupal\taxonomy\Entity\Term. */
+    /** @var \Drupal\taxonomy\Entity\Term. $link */
     $link = $this->entityTypeManager->getStorage('taxonomy_term')
       ->load($this->pluginDefinition['metadata']['taxonomy_term_id']);
 
@@ -139,7 +139,7 @@ class TaxonomyMenuMenuLink extends MenuLinkBase implements ContainerFactoryPlugi
     // Update the definition.
     $this->pluginDefinition = $overrides + $this->pluginDefinition;
     if ($persist) {
-      // TODO - consider any "persistence" back to TaxonomyMenu and/or Taxonomy
+      // @todo consider any "persistence" back to TaxonomyMenu and/or Taxonomy
       // upon menu link update.
       // Always save the menu name as an override to avoid defaulting to tools.
       $overrides['menu_name'] = $this->pluginDefinition['menu_name'];

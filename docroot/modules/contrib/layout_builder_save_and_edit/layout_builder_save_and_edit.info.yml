@@ -5,7 +5,7 @@ type: module
 dependencies:
   - drupal:layout_builder
 
-# Information added by Drupal.org packaging script on 2020-07-22
-version: '1.0.0'
+# Information added by Drupal.org packaging script on 2021-10-07
+version: '1.0.1'
 project: 'layout_builder_save_and_edit'
-datestamp: 1595441850
+datestamp: 1633610016

@@ -1,5 +1,5 @@
-name: 'Varbase Internationalization'
-description: 'Varbase internationalization, languages, and translation support.'
+name: "Varbase Internationalization"
+description: "Varbase internationalization, languages, and translation support."
 type: module
 package: Varbase
 core_version_requirement: ^9
@@ -10,7 +10,7 @@ install:
   - config_translation
   - content_translation
 
-# Information added by Drupal.org packaging script on 2021-07-13
-version: '9.0.7'
+# Information added by Drupal.org packaging script on 2021-10-09
+version: '9.0.9'
 project: 'varbase_core'
-datestamp: 1626188346
+datestamp: 1633798666

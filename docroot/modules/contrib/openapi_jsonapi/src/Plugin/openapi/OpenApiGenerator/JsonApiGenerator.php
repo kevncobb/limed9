@@ -217,7 +217,19 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
   public function getPaths() {
     $routes = $this->getJsonApiRoutes();
     $api_paths = [];
+    $read_only_mode_is_enabled = $this->configFactory->get('jsonapi.settings')->get('read_only');
+    $read_only_methods = ['GET', 'HEAD', 'OPTIONS', 'TRACE'];
+
     foreach ($routes as $route_name => $route) {
+      if ($read_only_mode_is_enabled === TRUE) {
+        $supported_methods = $route->getMethods();
+        assert(count($supported_methods) > 0, 'JSON:API routes always have a method specified.');
+        $is_read_only_route = empty(array_diff($supported_methods, $read_only_methods));
+        if ($is_read_only_route === FALSE) {
+          continue;
+        }
+      }
+
       /** @var \Drupal\jsonapi\ResourceType\ResourceType $resource_type */
       $resource_type = $this->getResourceType($route_name, $route);
       if (!$resource_type instanceof ResourceType) {
@@ -522,7 +534,8 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
           'in' => 'path',
         ];
         if ($parameter_info['converter'] === static::JSON_API_UUID_CONVERTER) {
-          $parameter['type'] = 'uuid';
+          $parameter['type'] = 'string';
+          $parameter['format'] = 'uuid';
           $parameter['description'] = $this->t('The uuid of the @entity @bundle',
             [
               '@entity' => $entity_type_id,
@@ -559,6 +572,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
             )->toString(),
           ]
         ),
+        'items' => [],
       ];
       $parameters[] = [
         'name' => 'sort',
@@ -572,6 +586,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
             )->toString(),
           ]
         ),
+        'items' => [],
       ];
       $parameters[] = [
         'name' => 'page',
@@ -585,6 +600,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
             )->toString(),
           ]
         ),
+        'items' => [],
       ];
       $parameters[] = [
         'name' => 'include',

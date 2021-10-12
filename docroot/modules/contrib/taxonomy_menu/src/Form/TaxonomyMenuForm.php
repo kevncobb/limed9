@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityFieldManager;
 
 /**
- * Class TaxonomyMenuForm.
+ * Builds the taxonomy menu form.
  *
  * @package Drupal\taxonomy_menu\Form
  */
@@ -59,7 +59,7 @@ class TaxonomyMenuForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    /* @var $taxonomy_menu \Drupal\taxonomy_menu\Entity\TaxonomyMenu */
+    /** @var \Drupal\taxonomy_menu\Entity\TaxonomyMenu $taxonomy_menu */
     $taxonomy_menu = $this->entity;
     $form['label'] = [
       '#type' => 'textfield',

@@ -31,6 +31,7 @@
     "oomphinc/composer-installers-extender": "~1.0 || ~2.0",
     "cweagans/composer-patches": "~1.0",
     "drupal/core": "~9.0",
+    "vardot/entity-definition-update-manager": "~1.0",
     "drupal/config_update": "~1.0",
     "drupal/config_ignore": "~2.0",
     "drupal/config_inspector": "~1.0",
@@ -67,7 +68,7 @@
     "drupal/roleassign": "~1.0",
     "drupal/prevent_homepage_deletion": "~1.0",
     "drupal/admin_toolbar": "~3.0",
-    "drupal/tour_ui": "~1.0",
+    "drupal/tour_ui": "1.0-beta3",
     "drupal/coffee": "~1.0",
     "drupal/responsive_preview": "~1.0",
     "drupal/views_bulk_operations": "~4.0",
@@ -149,7 +150,9 @@
         "Issue #2741877: Nested modals don't work: opening a modal from a modal closes the original":
         "https://www.drupal.org/files/issues/2021-04-29/2741877-77.patch",
         "Issue #3165435: Fix tour <front> route as route name when a selected node had been set as the front page for the site":
-        "https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch"
+        "https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch",
+        "Issue #3226791: Fix Validation error saving untranslatable Media reference field":
+        "https://www.drupal.org/files/issues/2021-08-04/media_required_validation-3226791-2.patch"
       },
       "drupal/default_content": {
         "Issue #3160146: Add Layout Builder Normalizer and Denormalize":
@@ -180,6 +183,10 @@
       "drupal/menu_position": {
         "Issue #3146668: Fix adding a new rule on drupal 9 fails with SchemaIncompleteException":
         "https://www.drupal.org/files/issues/2020-06-08/drupal9_schemaexception-3146668-2.patch"
+      },
+      "drupal/tour_ui": {
+        "Issue #3214357: Will changes from (core 9.2+) Tour hurt?":
+        "https://www.drupal.org/files/issues/2021-05-28/tour_ui-3214357-7.patch"
       }
     }
   }

@@ -165,7 +165,7 @@ class AdvancedTextFormatter extends FormatterBase {
       '#element_validate' => ['_advanced_text_formatter_validate_allowed_html'],
       '#states'           => [
         'visible' => [
-          '#' . $elFilterId => ['value' => 'php'],
+          '#' . $elFilterId => ['value' => static::FORMAT_LIMIT_HTML],
         ],
       ],
     ];
@@ -177,7 +177,7 @@ class AdvancedTextFormatter extends FormatterBase {
       '#default_value' => $this->getSetting('autop'),
       '#states'        => [
         'invisible' => [
-          '#' . $elFilterId  => ['!value' => 'php'],
+          '#' . $elFilterId => ['!value' => static::FORMAT_LIMIT_HTML],
         ],
       ],
     ];
@@ -216,7 +216,7 @@ class AdvancedTextFormatter extends FormatterBase {
         break;
 
       case static::FORMAT_PHP:
-        \Drupal::messenger()->addNotice(t('The PHP filter has been deprecated. Please use the "Limit allowed HTML tags" filter instead.'));
+        $this->messenger()->addWarning(t('The PHP filter has been deprecated. Please use the "Limit allowed HTML tags" filter instead.'));
 
       case static::FORMAT_LIMIT_HTML:
         $text  = [];
@@ -287,7 +287,7 @@ class AdvancedTextFormatter extends FormatterBase {
           break;
 
         case static::FORMAT_PHP:
-          \Drupal::messenger()->addNotice(t('The PHP filter has been deprecated. Please use the "Limit allowed HTML tags" filter instead.'));
+          $this->messenger()->addWarning(t('The PHP filter has been deprecated. Please use the "Limit allowed HTML tags" filter instead.'));
 
         case static::FORMAT_LIMIT_HTML:
           $output = Xss::filter($output, $this->getSetting('allowed_html'));

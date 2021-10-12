@@ -68,7 +68,8 @@
     "drupal/advanced_text_formatter": "^2.1",
     "drupal/admin_toolbar": "^3.0",
     "drupal/webform": "^6.0",
-    "drupal/gdoc_field": "1.x-dev@dev"
+    "drupal/gdoc_field": "1.x-dev@dev",
+    "drupal/ng_lightbox": "^2.0@beta"
   },
   "config": {
     "bin-dir": "bin/",

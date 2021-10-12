@@ -1,5 +1,5 @@
-name: 'Varbase Page'
-description: 'Provides Basic page content type and related configuration.'
+name: "Varbase Page"
+description: "Provides Basic page content type and related configuration."
 type: module
 package: Varbase
 core_version_requirement: ^9
@@ -18,7 +18,7 @@ install:
   - advanced_text_formatter
   - maxlength
 
-# Information added by Drupal.org packaging script on 2021-07-13
-version: '9.0.7'
+# Information added by Drupal.org packaging script on 2021-10-09
+version: '9.0.9'
 project: 'varbase_core'
-datestamp: 1626188346
+datestamp: 1633798666
