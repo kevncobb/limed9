@@ -69,7 +69,8 @@
     "drupal/admin_toolbar": "^3.0",
     "drupal/webform": "^6.0",
     "drupal/gdoc_field": "1.x-dev@dev",
-    "drupal/ng_lightbox": "^2.0@beta"
+    "drupal/ng_lightbox": "^2.0@beta",
+    "drupal/colorbox": "^1.7"
   },
   "config": {
     "bin-dir": "bin/",
