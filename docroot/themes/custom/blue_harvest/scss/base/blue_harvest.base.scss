@@ -117,7 +117,7 @@ pre.sms {
 }
 .bg-dark {
   background-color: #343a40;
-  color: white;
+  color: white !important;
   a {
     color: $yellow;
     border-bottom: 2px solid $yellow;

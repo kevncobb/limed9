@@ -148,7 +148,7 @@ pre.sms a {
 }
 
 .bg-dark {
-  color: white;
+  color: white !important;
   background-color: #343a40;
 }
 
