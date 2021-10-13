@@ -2,8 +2,8 @@
 // -----------------------------------------------------------------------------
 @import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
 @import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
-@import "../variables";                   // charter variables.
-@import "../mixins";                      // charter mixins.
+@import "../variables";                   // blue_harvest variables.
+@import "../mixins";                      // blue_harvest mixins.
 // -----------------------------------------------------------------------------
 
 // File icons.
@@ -28,7 +28,7 @@
   a {
     &:before {
       content: "";
-      background: url(../../images/icons/icon-pdf.svg) no-repeat;
+      background: url(../../images/icons/application-pdf.png) no-repeat;
       background-size: 18px;
       width: 19px;
       height: 21px;
