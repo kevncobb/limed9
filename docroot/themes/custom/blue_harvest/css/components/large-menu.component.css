@@ -8,6 +8,7 @@
 
 .navbar-brand img {
   width: 215px;
+  padding: 5px;
 }
 
 @media screen and (min-width: 768px) {
