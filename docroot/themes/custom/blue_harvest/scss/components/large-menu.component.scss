@@ -14,9 +14,11 @@
     width: 215px;
     @media screen and (min-width: 768px) {
       margin-top: 45px;
+      width: 300px;
     }
     @media screen and (min-width: 992px) {
       margin-top: 0px;
+      width: 400px;
     }
   }
 }
@@ -277,7 +279,7 @@ header.navbar {
         nav#block-blue-harvest-main-menu {
           //hacking top bar
           position: absolute;
-          top: -42px;
+          top: -24px;
           right: 0;
           width: 150%;
           ul.nav.navbar-nav {
@@ -310,7 +312,7 @@ header.navbar {
         nav#block-blue-harvest-main-menu {
           //hacking top bar
           position: absolute;
-          top: -11px;
+          top: -3px;
           right: 0;
           width: 100%;
           ul.nav.navbar-nav {

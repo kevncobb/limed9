@@ -12,12 +12,14 @@
 
 @media screen and (min-width: 768px) {
   .navbar-brand img {
+    width: 300px;
     margin-top: 45px;
   }
 }
 
 @media screen and (min-width: 992px) {
   .navbar-brand img {
+    width: 400px;
     margin-top: 0;
   }
 }
@@ -309,7 +311,7 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
   }
   header.navbar .navbar-collapse > .navbar-nav nav#block-blue-harvest-main-menu {
     position: absolute;
-    top: -42px;
+    top: -24px;
     right: 0;
     width: 150%;
   }
@@ -339,7 +341,7 @@ header.navbar .navbar-collapse .secondary-menu a.highlighted-link {
   }
   header.navbar .navbar-collapse > .navbar-nav nav#block-blue-harvest-main-menu {
     position: absolute;
-    top: -11px;
+    top: -3px;
     right: 0;
     width: 100%;
   }
