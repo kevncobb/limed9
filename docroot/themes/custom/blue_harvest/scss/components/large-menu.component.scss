@@ -18,6 +18,10 @@
     }
     @media screen and (min-width: 992px) {
       margin-top: 0px;
+      width: 333px;
+    }
+    @media screen and (min-width: 1200px) {
+      margin-top: 0px;
       width: 400px;
     }
   }
@@ -282,6 +286,7 @@ header.navbar {
           top: -24px;
           right: 0;
           width: 150%;
+          font-size: 0.9rem;
           ul.nav.navbar-nav {
             float: right;
           }
