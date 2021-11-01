@@ -163,6 +163,10 @@ pre.sms a {
   color: white;
 }
 
+.bg-dark .a2a_kit a {
+  border-bottom: none;
+}
+
 .bg-dark .block-system-breadcrumb-block ol.breadcrumb {
   background-color: #343a40;
 }
