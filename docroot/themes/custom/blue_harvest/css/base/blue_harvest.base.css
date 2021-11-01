@@ -163,7 +163,8 @@ pre.sms a {
   color: white;
 }
 
-.bg-dark .a2a_kit a {
+.bg-dark .a2a_kit a,
+.bg-dark .field--name-field-blog-categories a {
   border-bottom: none;
 }
 
