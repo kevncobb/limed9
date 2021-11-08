@@ -28,4 +28,14 @@ header.bg-blue {
       color: $yellow;
     }
   }
+  .navbar-toggler {
+    &.collapsed {
+      .navbar-toggler-icon {
+        background-image: url("/themes/custom/blue_harvest/images/icons/menu-toggle-shield.svg");
+      }
+    }
+    .navbar-toggler-icon {
+      background-image: url("/themes/custom/blue_harvest/images/icons/menu-toggle-shield-x.svg");
+    }
+  }
 }
