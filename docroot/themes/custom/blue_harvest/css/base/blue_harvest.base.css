@@ -32,6 +32,22 @@ p + div.media.media--type-file {
   margin-top: -1rem;
 }
 
+.mw-200 {
+  max-width: 200px;
+}
+
+.mw-300 {
+  max-width: 300px;
+}
+
+.mw-400 {
+  max-width: 400px;
+}
+
+.mw-500 {
+  max-width: 500px;
+}
+
 .mw-600 {
   max-width: 600px;
 }
