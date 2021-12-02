@@ -438,7 +438,14 @@ button.moderation-sidebar-link[value="Reject Review"] {
     padding: 0;
   }
 }
-
+.wide-wrapper {
+  max-width: 1080px;
+  margin: auto;
+  padding: 1.5rem;
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
+}
 
 .quote {
   padding: 1.5rem 1.5rem 1.5rem 0;
