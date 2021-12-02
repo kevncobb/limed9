@@ -126,6 +126,16 @@ pre.sms {
       color: white;
     }
   }
+  .typography {
+    a {
+      color: $yellow;
+      border-bottom: thin solid $yellow;
+      &:focus, &:hover {
+        color: white;
+        border-bottom: thin solid white;
+      }
+    }
+  }
   .a2a_kit a, .field--name-field-blog-categories a {
     border-bottom: none;
   }

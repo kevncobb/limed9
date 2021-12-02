@@ -163,6 +163,17 @@ pre.sms a {
   color: white;
 }
 
+.bg-dark .typography a {
+  color: #fbea65;
+  border-bottom: thin solid #fbea65;
+}
+
+.bg-dark .typography a:focus,
+.bg-dark .typography a:hover {
+  color: white;
+  border-bottom: thin solid white;
+}
+
 .bg-dark .a2a_kit a,
 .bg-dark .field--name-field-blog-categories a {
   border-bottom: none;
