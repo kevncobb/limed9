@@ -67,7 +67,7 @@
     "drupal/simple_sitemap": "3.x-dev@dev",
     "drupal/advanced_text_formatter": "^2.1",
     "drupal/admin_toolbar": "^3.0",
-    "drupal/webform": "^6.0",
+    "drupal/webform": "^6.2@beta",
     "drupal/gdoc_field": "1.x-dev@dev",
     "drupal/ng_lightbox": "^2.0@beta",
     "drupal/colorbox": "^1.7"

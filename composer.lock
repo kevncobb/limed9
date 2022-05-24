@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4a30f84b791559b10b73525a1735fdf",
+    "content-hash": "3e373ece16973cafeb7881b928026832",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -17054,17 +17054,17 @@
         },
         {
             "name": "drupal/webform",
-            "version": "6.1.3",
+            "version": "6.2.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/webform.git",
-                "reference": "6.1.3"
+                "reference": "6.2.0-beta2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-6.1.3.zip",
-                "reference": "6.1.3",
-                "shasum": "efd032eadc10a4752b9b0203152a5d20eefac175"
+                "url": "https://ftp.drupal.org/files/projects/webform-6.2.0-beta2.zip",
+                "reference": "6.2.0-beta2",
+                "shasum": "d934e0e240bda58bcf1fc196207606af14199148"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -17112,11 +17112,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "6.1.3",
-                    "datestamp": "1644940723",
+                    "version": "6.2.0-beta2",
+                    "datestamp": "1644940970",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 },
                 "drush": {
@@ -24815,6 +24815,7 @@
         "drupal/cache_control_override": 15,
         "drupal/layout_builder_component_attributes": 20,
         "drupal/simple_sitemap": 20,
+        "drupal/webform": 10,
         "drupal/gdoc_field": 20,
         "drupal/ng_lightbox": 10
     },

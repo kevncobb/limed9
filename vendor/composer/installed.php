@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9426107305293d24ceb70b04254b39d00979a577',
+        'reference' => 'f75997aedda3d48410c51a40caf1a817bea90897',
         'name' => 'vardot/varbase-project',
         'dev' => true,
     ),
@@ -3091,12 +3091,12 @@
             'dev_requirement' => false,
         ),
         'drupal/webform' => array(
-            'pretty_version' => '6.1.3',
-            'version' => '6.1.3.0',
+            'pretty_version' => '6.2.0-beta2',
+            'version' => '6.2.0.0-beta2',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../docroot/modules/contrib/webform',
             'aliases' => array(),
-            'reference' => '6.1.3',
+            'reference' => '6.2.0-beta2',
             'dev_requirement' => false,
         ),
         'drupal/webform_views' => array(
@@ -4282,7 +4282,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9426107305293d24ceb70b04254b39d00979a577',
+            'reference' => 'f75997aedda3d48410c51a40caf1a817bea90897',
             'dev_requirement' => false,
         ),
         'vardot/varbase-updater' => array(
