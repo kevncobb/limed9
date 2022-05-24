@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f0fc37888b9413fc91aa84a0a133d42a345a231b',
+        'reference' => 'cb2d70480c5690ff698a21add82a78cf623d4457',
         'name' => 'vardot/varbase-project',
         'dev' => true,
     ),
@@ -407,6 +407,17 @@
             'install_path' => __DIR__ . '/../../docroot/modules/contrib/antibot',
             'aliases' => array(),
             'reference' => '8.x-1.5',
+            'dev_requirement' => false,
+        ),
+        'drupal/auto_entitylabel' => array(
+            'pretty_version' => 'dev-3.x',
+            'version' => 'dev-3.x',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/auto_entitylabel',
+            'aliases' => array(
+                0 => '3.x-dev',
+            ),
+            'reference' => '0db913efc3156f7ecb4e73f83d50daf14308b984',
             'dev_requirement' => false,
         ),
         'drupal/autocomplete_deluxe' => array(
@@ -4293,7 +4304,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f0fc37888b9413fc91aa84a0a133d42a345a231b',
+            'reference' => 'cb2d70480c5690ff698a21add82a78cf623d4457',
             'dev_requirement' => false,
         ),
         'vardot/varbase-updater' => array(
