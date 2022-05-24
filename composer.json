@@ -70,7 +70,8 @@
     "drupal/webform": "^6.2@beta",
     "drupal/gdoc_field": "1.x-dev@dev",
     "drupal/ng_lightbox": "^2.0@beta",
-    "drupal/colorbox": "^1.7"
+    "drupal/colorbox": "^1.7",
+    "drupal/name": "1.x-dev@dev"
   },
   "config": {
     "bin-dir": "bin/",

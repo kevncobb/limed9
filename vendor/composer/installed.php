@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f75997aedda3d48410c51a40caf1a817bea90897',
+        'reference' => 'f0fc37888b9413fc91aa84a0a133d42a345a231b',
         'name' => 'vardot/varbase-project',
         'dev' => true,
     ),
@@ -2018,6 +2018,17 @@
             'install_path' => __DIR__ . '/../drupal/mysql56',
             'aliases' => array(),
             'reference' => '8.x-1.3',
+            'dev_requirement' => false,
+        ),
+        'drupal/name' => array(
+            'pretty_version' => 'dev-1.x',
+            'version' => 'dev-1.x',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/name',
+            'aliases' => array(
+                0 => '1.x-dev',
+            ),
+            'reference' => '052ad1d63450a731a73d49c6d6b931da0ffbec04',
             'dev_requirement' => false,
         ),
         'drupal/ng_lightbox' => array(
@@ -4282,7 +4293,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f75997aedda3d48410c51a40caf1a817bea90897',
+            'reference' => 'f0fc37888b9413fc91aa84a0a133d42a345a231b',
             'dev_requirement' => false,
         ),
         'vardot/varbase-updater' => array(
