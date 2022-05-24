@@ -147,6 +147,13 @@
     }
 }
 
+.dropdown-menu .dropdown-item a
+{
+    display: inline-block;
+
+    width: 100%;
+}
+
 .dropdown-menu .dropdown-item.active a,
 .dropdown-menu .dropdown-item:active
 {

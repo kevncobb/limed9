@@ -68,6 +68,12 @@
   }
 }
 .dropdown-menu {
+  .dropdown-item {
+    a {
+      width: 100%;
+      display: inline-block;
+    }
+  }
   .dropdown-item.active a, .dropdown-item:active {
     text-decoration: none;
     color: #fff !important;
