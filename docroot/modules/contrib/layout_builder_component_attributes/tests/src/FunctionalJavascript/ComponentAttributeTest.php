@@ -72,8 +72,8 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $this->drupalLogin($this->admin_user);
 
     // Enable layout builder.
-    $this->drupalPostForm(
-      static::FIELD_UI_PREFIX . '/display/default',
+    $this->drupalGet(static::FIELD_UI_PREFIX . '/display/default');
+    $this->submitForm(
       ['layout[enabled]' => TRUE],
       'Save'
     );
@@ -444,9 +444,9 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $assert_session = $this->assertSession();
 
     $page->clickLink('Remove Section 1');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElementVisible('css', '#drupal-off-canvas input[value="Remove"]');
     $page->pressButton('Remove');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElementRemoved('css', '#drupal-off-canvas');
 
     // Assert that there are no sections on the page.
     $assert_session->pageTextNotContains('Remove Section 1');
@@ -454,15 +454,15 @@ class ComponentAttributeTest extends WebDriverTestBase {
 
     // Add back a section and a component.
     $page->clickLink('Add section');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElement('css', '#drupal-off-canvas .layout-selection');
     $page->clickLink('One column');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElementVisible('css', '#drupal-off-canvas .layout-builder-configure-section input[value="Add section"]');
     $page->pressButton('Add section');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElementRemoved('css', '#drupal-off-canvas');
     $page->clickLink('Add block');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElement('css', '#drupal-off-canvas .block-categories');
     $page->clickLink('Powered by Drupal');
-    $assert_session->assertWaitOnAjaxRequest();
+    $assert_session->waitForElementVisible('css', '#drupal-off-canvas input[name="settings[label_display]"]');
     $page->checkField('Display title');
     $page->pressButton('Add block');
     $assert_session->assertWaitOnAjaxRequest();

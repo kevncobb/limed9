@@ -5,15 +5,18 @@
  */
 namespace OpenIDConnectServer;
 
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Key\LocalFileReference;
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
 use OpenIDConnectServer\Entities\ClaimSetInterface;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\ResponseTypes\BearerTokenResponse;
-use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
-use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Encoding\ChainedFormatter;
+use Lcobucci\JWT\Token\Builder;
+use Lcobucci\JWT\Encoding\JoseEncoder;
 
 class IdTokenResponse extends BearerTokenResponse
 {
@@ -37,12 +40,21 @@ class IdTokenResponse extends BearerTokenResponse
 
     protected function getBuilder(AccessTokenEntityInterface $accessToken, UserEntityInterface $userEntity)
     {
+        $claimsFormatter = ChainedFormatter::withUnixTimestampDates();
+        $builder = new Builder(new JoseEncoder(), $claimsFormatter);
+
+        // Since version 8.0 league/oauth2-server returns \DateTimeImmutable
+        $expiresAt = $accessToken->getExpiryDateTime();
+        if ($expiresAt instanceof \DateTime) {
+            $expiresAt = \DateTimeImmutable::createFromMutable($expiresAt);
+        }
+
         // Add required id_token claims
-        $builder = (new Builder())
+        $builder
             ->permittedFor($accessToken->getClient()->getIdentifier())
             ->issuedBy('https://' . $_SERVER['HTTP_HOST'])
-            ->issuedAt(time())
-            ->expiresAt($accessToken->getExpiryDateTime()->getTimestamp())
+            ->issuedAt(new \DateTimeImmutable())
+            ->expiresAt($expiresAt)
             ->relatedTo($userEntity->getIdentifier());
 
         return $builder;
@@ -77,11 +89,19 @@ class IdTokenResponse extends BearerTokenResponse
             $builder = $builder->withClaim($claimName, $claimValue);
         }
 
-        $token = $builder
-            ->getToken(new Sha256(), new Key($this->privateKey->getKeyPath(), $this->privateKey->getPassPhrase()));
+        if (
+            method_exists($this->privateKey, 'getKeyContents')
+            && !empty($this->privateKey->getKeyContents())
+        ) {
+            $key = InMemory::plainText($this->privateKey->getKeyContents(), (string)$this->privateKey->getPassPhrase());
+        } else {
+            $key = LocalFileReference::file($this->privateKey->getKeyPath(), (string)$this->privateKey->getPassPhrase());
+        }
+
+        $token = $builder->getToken(new Sha256(), $key);
 
         return [
-            'id_token' => (string) $token
+            'id_token' => $token->toString()
         ];
     }
 

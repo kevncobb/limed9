@@ -1,4 +1,4 @@
-[![Vardot](https://circleci.com/gh/Vardot/varbase/tree/9.0.x.svg?style=shield)](https://app.circleci.com/pipelines/github/Vardot/varbase) Varbase 9.0.1
+[![Vardot](https://circleci.com/gh/Vardot/varbase/tree/9.0.x.svg?style=shield)](https://app.circleci.com/pipelines/github/Vardot/varbase/511/workflows/10e931c0-988b-4022-b926-7a165dc5cd0c) Varbase 9.0.5
 
 [![](https://www.drupal.org/files/styles/grid-3/public/project-images/Medium-Logo%20Color%20with%20padding.png)](https://www.drupal.org/project/varbase)
 
@@ -17,7 +17,7 @@ in every project.
 * Speeds up development.
 * Offers standardized configuration and best-practices.
 * Comes with a lot of needed functionalities/modules for every-day Drupal site.
-* [Tested, tested, and tested.](https://travis-ci.org/Vardot/varbase/builds)
+* [Tested, tested, and tested.](https://app.circleci.com/pipelines/github/Vardot/varbase)
 
 Starting a new project? Consider Varbase for Drupal 9.
 Installing Varbase 9.0.x comes with several extra automated installation
@@ -29,7 +29,7 @@ instructions.
 
 To install the most recent stable release of Varbase 9.0.x run this command:
 ```
-composer create-project Vardot/varbase-project:~9 PROJECT_DIR_NAME --no-dev --no-interaction
+composer create-project Vardot/varbase-project:~9.0.0 PROJECT_DIR_NAME --no-dev --no-interaction
 ```
 
 To install the dev version of Varbase 9.0.x run this command:
@@ -62,3 +62,9 @@ composer create-project vardot/varbase-project:9.0.x-dev PROJECT_DIR_NAME --stab
 
 - xDebug is enabled on Lando by default for PHP debugging.
 - The debugger is set to listen for the port 9003 but can be changed in .lando/.php.ini
+
+
+Join Our Slack Team for Feedback and Support
+http://slack.varbase.vardot.com/
+
+Sponsored and developed by [Vardot](https://www.drupal.org/vardot).

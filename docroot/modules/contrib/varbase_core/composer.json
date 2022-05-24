@@ -51,7 +51,7 @@
     "drupal/block_class": "~1.0",
     "drupal/menu_block": "~1.0",
     "drupal/block_content_permissions": "~1.0",
-    "drupal/views_infinite_scroll": "~1.0",
+    "drupal/views_infinite_scroll": "~2.0",
     "drupal/entity": "~1.0",
     "drupal/entity_clone": "~1.0",
     "drupal/entity_usage": "~2.0",
@@ -64,6 +64,7 @@
     "drupal/admin_audit_trail": "~1.0",
     "drupal/login_destination": "~2.0",
     "drupal/betterlogin": "~1.0",
+    "drupal/email_registration": "~1.0",
     "drupal/config_perms": "~2.0",
     "drupal/roleassign": "~1.0",
     "drupal/prevent_homepage_deletion": "~1.0",
@@ -71,7 +72,7 @@
     "drupal/tour_ui": "1.0-beta3",
     "drupal/coffee": "~1.0",
     "drupal/responsive_preview": "~1.0",
-    "drupal/views_bulk_operations": "~4.0",
+    "drupal/views_bulk_operations": "4.0.1",
     "drupal/views_bulk_edit": "~2.0",
     "drupal/revision_log_default": "~1.0",
     "drupal/webform": "~6.0",
@@ -82,7 +83,7 @@
     "drupal/node_edit_protection": "~1.0",
     "drupal/rabbit_hole": "~1.0",
     "drupal/yoast_seo": "~1.0",
-    "drupal/fast_404": "2.x-dev",
+    "drupal/fast_404": "~2.0",
     "drupal/diff": "~1.0",
     "drupal/masquerade": "~2.0",
     "drupal/menu_admin_per_menu": "~1.0",
@@ -97,13 +98,14 @@
     "drupal/seckit": "~2.0",
     "drupal/security_review": "1.x-dev",
     "drupal/honeypot": "~2.0",
+    "drupal/antibot": "~1.0",
     "drupal/shield": "~1.0",
-    "drupal/flood_unblock": "~3.0",
+    "drupal/flood_control": "~2.0",
     "drupal/captcha": "~1.0",
     "drupal/recaptcha": "~3.0",
     "drupal/mailsystem": "~4.0",
     "drupal/length_indicator": "~1.0",
-    "drupal/maxlength": "~1.0",
+    "drupal/maxlength": "~2.0",
     "drupal/menu_position": "1.0-beta1",
     "drupal/taxonomy_access_fix": "~3.0",
     "drupal/better_exposed_filters": "~5.0",
@@ -113,7 +115,8 @@
     "drupal/entity_reference_revisions": "~1.0",
     "drupal/viewsreference": "~2.0",
     "drupal/vmi": "~2.0",
-    "drupal/jquery_ui_accordion": "~1.0"
+    "drupal/jquery_ui_accordion": "~1.0",
+    "drupal/reroute_email": "2.1.0"
   },
   "suggest": {
     "bower-asset/objectfitpolyfill": "~2.0: Provides JavaScript library necessary for the Object Fit Polyfill",
@@ -152,7 +155,11 @@
         "Issue #3165435: Fix tour <front> route as route name when a selected node had been set as the front page for the site":
         "https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch",
         "Issue #3226791: Fix Validation error saving untranslatable Media reference field":
-        "https://www.drupal.org/files/issues/2021-08-04/media_required_validation-3226791-2.patch"
+        "https://www.drupal.org/files/issues/2021-08-04/media_required_validation-3226791-2.patch",
+        "Issue #3059955: It is possible to overflow the number of items allowed in Media Library":
+        "https://www.drupal.org/files/issues/2020-11-16/3059955-107.patch",
+        "Issue #3053881: Reverting entity revisions that contain custom blocks erroneously triggers EntityChangedConstraint":
+        "https://www.drupal.org/files/issues/2021-10-29/3053881-60.patch"
       },
       "drupal/default_content": {
         "Issue #3160146: Add Layout Builder Normalizer and Denormalize":
@@ -178,7 +185,9 @@
       },
       "drupal/inline_entity_form": {
         "Issue #3143422: Allow to hide the Edit button in Complex widget":
-        "https://www.drupal.org/files/issues/2020-05-28/optional_edit-3143422-2.patch"
+        "https://www.drupal.org/files/issues/2020-05-28/optional_edit-3143422-2.patch",
+        "Issue #3136514: IEF complex widget: Re-ordering / weight sometimes not updated":
+        "https://www.drupal.org/files/issues/2021-04-13/inline_entity_form-order-by-weight-inline-entities-3136514-02.patch"
       },
       "drupal/menu_position": {
         "Issue #3146668: Fix adding a new rule on drupal 9 fails with SchemaIncompleteException":
@@ -187,6 +196,14 @@
       "drupal/tour_ui": {
         "Issue #3214357: Will changes from (core 9.2+) Tour hurt?":
         "https://www.drupal.org/files/issues/2021-05-28/tour_ui-3214357-7.patch"
+      },
+      "drupal/views_bulk_operations": {
+        "Issue #3222477: Pager is broken when Items Per Page is exposed":
+        "https://www.drupal.org/files/issues/2021-10-28/3222477-8.patch"
+      },
+      "drupal/reroute_email": {
+        "Issue #3254806: Fix Invalid argument supplied for foreach() in reroute_email_check_email_by_permission() (line 316)":
+        "https://git.drupalcode.org/project/reroute_email/-/commit/438a67caeb0b0cc47d1deb0cee50afda9a907dc8.diff"
       }
     }
   }

@@ -1,27 +1,31 @@
 /**
  * @file
- * JavaScript integration between Highcharts and Drupal.
+ * JavaScript's integration between Highcharts and Drupal.
  */
-(function ($) {
+(function (Drupal, once) {
+
   'use strict';
 
   Drupal.behaviors.chartsHighcharts = {
-    attach: function (context, settings) {
-      $('.charts-highchart', context).once().each(function () {
-        if ($(this).attr('data-chart')) {
-          let config = $.parseJSON($(this).attr('data-chart'));
-          $(this).highcharts(config);
-        }
+    attach: function (context) {
+      const contents = new Drupal.Charts.Contents();
+      once('charts-highchart', '.charts-highchart', context).forEach(function (element) {
+        const id = element.id;
+        let config = contents.getData(id);
+        config.chart.renderTo = id;
+        new Highcharts.Chart(config);
       });
     },
     detach: function (context, settings, trigger) {
       if (trigger === 'unload') {
-        let highcharts_in_context = $('.charts-highchart', context).highcharts();
-        if (highcharts_in_context) {
-          highcharts_in_context.destroy();
-        }
+        once('charts-highchart-detach', '.charts-highchart', context).forEach(function (element) {
+          if (!element.dataset.hasOwnProperty('highchartsChart')) {
+            return;
+          }
+
+          Highcharts.charts[element.dataset.highchartsChart].destroy();
+        });
       }
     }
-
   };
-}(jQuery));
+}(Drupal, once));

@@ -12,8 +12,7 @@ use Drupal\varbase\Config\ConfigBit;
 use Drupal\varbase\Form\ConfigureMultilingualForm;
 use Drupal\varbase\Form\AssemblerForm;
 use Drupal\varbase\Form\DevelopmentToolsAssemblerForm;
-use Drupal\varbase\Entity\VarbaseEntityDefinitionUpdateManager;
-use Drupal\node\Entity\Node;
+use Vardot\Entity\EntityDefinitionUpdateManager;
 use Drupal\path_alias\Entity\PathAlias;
 
 /**
@@ -33,7 +32,7 @@ function varbase_form_install_configure_form_alter(&$form, FormStateInterface $f
   $form['admin_account']['account']['name']['#default_value'] = 'webmaster';
   $form['admin_account']['account']['name']['#attributes']['disabled'] = TRUE;
   $form['admin_account']['account']['mail']['#default_value'] = 'webmaster@vardot.com';
-  $form['admin_account']['account']['mail']['#description'] = t('In most case, and for <a target="_blank" href="@link">Vardot</a> specific use, we recommend this to always be <em>webmaster@vardot.com</em>.', ['@link' => 'http://vardot.com']);
+  $form['admin_account']['account']['mail']['#description'] = t('In most cases, and for <a target="_blank" href="@link">Vardot</a>’s specific use, we recommend this to always be <em>webmaster@vardot.com</em>.', ['@link' => 'http://vardot.com']);
 }
 
 /**
@@ -106,7 +105,10 @@ function varbase_assemble_extra_components(array &$install_state) {
 
   // Install default components first.
   foreach ($default_components as $default_component) {
-    $batch['operations'][] = ['varbase_assemble_extra_component_then_install', (array) $default_component];
+    $batch['operations'][] = [
+      'varbase_assemble_extra_component_then_install',
+      (array) $default_component,
+    ];
   }
 
   // Install selected extra features.
@@ -121,6 +123,20 @@ function varbase_assemble_extra_components(array &$install_state) {
     $selected_extra_features_configs = $install_state['varbase']['extra_features_configs'];
   }
 
+  if (isset($selected_extra_features['varbase_heroslider_media'])
+  && $selected_extra_features['varbase_heroslider_media'] == TRUE) {
+    $batch['operations'][] = [
+      'varbase_install_component',
+      (array) 'enabled_varbase_heroslider_media_content',
+    ];
+  }
+  else {
+    $batch['operations'][] = [
+      'varbase_install_component',
+      (array) 'disabled_varbase_heroslider_media_content',
+    ];
+  }
+
   // Get the list of extra features config bits.
   $extraFeatures = ConfigBit::getList('configbit/extra.components.varbase.bit.yml', 'show_extra_components', TRUE, 'dependencies', 'profile', 'varbase');
 
@@ -133,7 +149,10 @@ function varbase_assemble_extra_components(array &$install_state) {
         // If the extra feature was a module and not enabled, then enable it.
         if (!\Drupal::moduleHandler()->moduleExists($extra_feature_key)) {
           // Add the checked extra feature to the batch process to be enabled.
-          $batch['operations'][] = ['varbase_assemble_extra_component_then_install', (array) $extra_feature_key];
+          $batch['operations'][] = [
+            'varbase_assemble_extra_component_then_install',
+            (array) $extra_feature_key,
+          ];
         }
 
         if (count($selected_extra_features_configs) &&
@@ -160,10 +179,16 @@ function varbase_assemble_extra_components(array &$install_state) {
     }
 
     // Hide Wornings and status messages.
-    $batch['operations'][] = ['varbase_hide_warning_and_status_messages', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_hide_warning_and_status_messages',
+      (array) TRUE,
+    ];
 
     // Fix entity updates to clear up any mismatched entity.
-    $batch['operations'][] = ['varbase_fix_entity_update', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_fix_entity_update',
+      (array) TRUE,
+    ];
   }
 
   // Install selected Demo content.
@@ -190,7 +215,10 @@ function varbase_assemble_extra_components(array &$install_state) {
         // If the demo content was a module and not enabled, then enable it.
         if (!\Drupal::moduleHandler()->moduleExists($demo_content_key)) {
           // Add the checked demo content to the batch process to be enabled.
-          $batch['operations'][] = ['varbase_assemble_extra_component_then_install', (array) $demo_content_key];
+          $batch['operations'][] = [
+            'varbase_assemble_extra_component_then_install',
+            (array) $demo_content_key,
+          ];
         }
 
         if (count($selected_demo_content_configs) &&
@@ -216,10 +244,16 @@ function varbase_assemble_extra_components(array &$install_state) {
     }
 
     // Hide Wornings and status messages.
-    $batch['operations'][] = ['varbase_hide_warning_and_status_messages', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_hide_warning_and_status_messages',
+      (array) TRUE,
+    ];
 
     // Fix entity updates to clear up any mismatched entity.
-    $batch['operations'][] = ['varbase_fix_entity_update', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_fix_entity_update',
+      (array) TRUE,
+    ];
 
   }
 
@@ -229,27 +263,24 @@ function varbase_assemble_extra_components(array &$install_state) {
 
   if (isset($selected_extra_features['varbase_heroslider_media'])
     && $selected_extra_features['varbase_heroslider_media'] == TRUE) {
-    $batch['operations'][] = ['varbase_install_component', (array) 'enabled_varbase_heroslider_media_content'];
     $uninstall_components[] = 'enabled_varbase_heroslider_media_content';
   }
   else {
-    $batch['operations'][] = ['varbase_install_component', (array) 'disabled_varbase_heroslider_media_content'];
     $uninstall_components[] = 'disabled_varbase_heroslider_media_content';
   }
 
-  // Reset timestamp for nodes.
-  $node_ids = \Drupal::entityQuery('node')->execute();
-  if (isset($node_ids)
-    && is_array($node_ids)
-    && count($node_ids) > 0) {
-
-    $batch['operations'][] = ['varbase_reset_timestamp_for_nodes', $node_ids];
-  }
-
+  // Reset timestamp for default content.
+  $batch['operations'][] = [
+    'varbase_reset_timestamp_for_default_content',
+    (array) TRUE,
+  ];
 
   if (count($uninstall_components) > 0) {
     foreach ($uninstall_components as $uninstall_component) {
-      $batch['operations'][] = ['varbase_uninstall_component', (array) $uninstall_component];
+      $batch['operations'][] = [
+        'varbase_uninstall_component',
+        (array) $uninstall_component,
+      ];
     }
   }
 
@@ -293,7 +324,10 @@ function varbase_assemble_development_tools(array &$install_state) {
         // If the development tool was a module and not enabled, then enable it.
         if (!\Drupal::moduleHandler()->moduleExists($development_tool_key)) {
           // Add checked development tool to the batch process to be enabled.
-          $batch['operations'][] = ['varbase_assemble_extra_component_then_install', (array) $development_tool_key];
+          $batch['operations'][] = [
+            'varbase_assemble_extra_component_then_install',
+            (array) $development_tool_key,
+          ];
         }
 
         if (count($selected_development_configs) &&
@@ -319,7 +353,10 @@ function varbase_assemble_development_tools(array &$install_state) {
     }
 
     // Hide Wornings and status messages.
-    $batch['operations'][] = ['varbase_hide_warning_and_status_messages', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_hide_warning_and_status_messages',
+      (array) TRUE,
+    ];
 
     // Fix entity updates to clear up any mismatched entity.
     $batch['operations'][] = ['varbase_fix_entity_update', (array) TRUE];
@@ -345,31 +382,49 @@ function varbase_configure_multilingual(array &$install_state) {
          && $install_state['varbase']['enable_multilingual'] == TRUE) {
 
     // Install the Varbase internationalization feature module.
-    $batch['operations'][] = ['varbase_assemble_extra_component_then_install', (array) 'varbase_internationalization'];
+    $batch['operations'][] = [
+      'varbase_assemble_extra_component_then_install',
+      (array) 'varbase_internationalization',
+    ];
 
     // Add all selected languages and then translatvarbase_hide_messagesion
     // will fetched for theme.
     if (isset($install_state['varbase']['multilingual_languages'])
         && is_array($install_state['varbase']['multilingual_languages'])) {
       foreach ($install_state['varbase']['multilingual_languages'] as $language_code) {
-        $batch['operations'][] = ['varbase_configure_language_and_fetch_traslation', (array) $language_code];
+        $batch['operations'][] = [
+          'varbase_configure_language_and_fetch_traslation',
+          (array) $language_code,
+        ];
       }
     }
 
     // Hide Wornings and status messages.
-    $batch['operations'][] = ['varbase_hide_warning_and_status_messages', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_hide_warning_and_status_messages',
+      (array) TRUE,
+    ];
 
     // Change configurations to work with enable_multilingual.
-    $batch['operations'][] = ['varbase_config_bit_for_multilingual', (array) TRUE];
+    $batch['operations'][] = [
+      'varbase_config_bit_for_multilingual',
+      (array) TRUE,
+    ];
 
   }
   else {
     // Change configurations to work with NO multilingual.
-    $batch['operations'][] = ['varbase_config_bit_for_multilingual', (array) FALSE];
+    $batch['operations'][] = [
+      'varbase_config_bit_for_multilingual',
+      (array) FALSE,
+    ];
   }
 
   // Fix entity updates to clear up any mismatched entity.
-  $batch['operations'][] = ['varbase_fix_entity_update', (array) TRUE];
+  $batch['operations'][] = [
+    'varbase_fix_entity_update',
+    (array) TRUE,
+  ];
 
   return $batch;
 }
@@ -421,7 +476,7 @@ function varbase_configure_language_and_fetch_traslation($language_code) {
 function varbase_fix_entity_update($entity_update) {
   if ($entity_update) {
     \Drupal::classResolver()
-      ->getInstanceFromDefinition(VarbaseEntityDefinitionUpdateManager::class)
+      ->getInstanceFromDefinition(EntityDefinitionUpdateManager::class)
       ->applyUpdates();
   }
 }
@@ -465,17 +520,60 @@ function varbase_uninstall_component($uninstall_component) {
 }
 
 /**
- * Batch to reset timestamp for selected nodes.
+ * Batch to reset timestamp for default content.
  *
- * @param array $node_ids
- *   The Node IDs.
+ * @param string|array $reset
+ *   To entity update or not.
  */
-function varbase_reset_timestamp_for_nodes($node_ids) {
-  foreach($node_ids as $nid) {
-    $node = Node::load($nid);
-    if (isset($node)) {
-      $node->created = \Drupal::time()->getCurrentTime();
-      $node->save();
+function varbase_reset_timestamp_for_default_content($reset) {
+
+  if ($reset) {
+    // Reset timestamp for all file's default content.
+    $file_storage = \Drupal::service('entity_type.manager')->getStorage('file');
+    $file_ids = $file_storage->getQuery()->execute();
+    if (isset($file_ids)
+      && is_array($file_ids)
+      && count($file_ids) > 0) {
+
+      foreach ($file_ids as $fid) {
+        $file = \Drupal::service('entity_type.manager')->getStorage('file')->load($fid);
+        if (isset($file)) {
+          $file->set('created', \Drupal::time()->getCurrentTime());
+          $file->save();
+        }
+      }
+    }
+
+    // Reset timestamp for all Media's default content.
+    $media_storage = \Drupal::service('entity_type.manager')->getStorage('media');
+    $media_ids = $media_storage->getQuery()->execute();
+    if (isset($media_ids)
+      && is_array($media_ids)
+      && count($media_ids) > 0) {
+
+      foreach ($media_ids as $mid) {
+        $media = \Drupal::service('entity_type.manager')->getStorage('media')->load($mid);
+        if (isset($media)) {
+          $media->set('created', \Drupal::time()->getCurrentTime());
+          $media->save();
+        }
+      }
+    }
+
+    // Reset timestamp for all Node's default content.
+    $node_storage = \Drupal::service('entity_type.manager')->getStorage('node');
+    $node_ids = $node_storage->getQuery()->execute();
+    if (isset($node_ids)
+      && is_array($node_ids)
+      && count($node_ids) > 0) {
+
+      foreach ($node_ids as $nid) {
+        $node = \Drupal::service('entity_type.manager')->getStorage('node')->load($nid);
+        if (isset($node)) {
+          $node->set('created', \Drupal::time()->getCurrentTime());
+          $node->save();
+        }
+      }
     }
   }
 }
@@ -499,16 +597,6 @@ function varbase_after_install_finished(array &$install_state) {
     $checkList->markAllUpdates();
   }
 
-  // Activate Varbase Bootstrap Paragraphs Settings in the active config.
-  if (\Drupal::moduleHandler()->moduleExists('varbase_bootstrap_paragraphs')) {
-    $profile_path = drupal_get_path('profile', 'varbase') . '/config/optional/';
-    $config_path = $profile_path . 'varbase_bootstrap_paragraphs.settings.yml';
-    $config_content = file_get_contents($config_path);
-    $config_data = (array) Yaml::parse($config_content);
-    $config_factory = \Drupal::configFactory()->getEditable('varbase_bootstrap_paragraphs.settings');
-    $config_factory->setData($config_data)->save(TRUE);
-  }
-
   // Import managed config to the active config at this time of install.
   $profile_path_managed = drupal_get_path('profile', 'varbase') . '/config/managed/';
   $managed_config_path = $profile_path_managed . 'block.block.vartheme_bs4_copyright.yml';
@@ -520,7 +608,7 @@ function varbase_after_install_finished(array &$install_state) {
   // Entity updates to clear up any mismatched entity and/or field definitions
   // And Fix changes were detected in the entity type and field definitions.
   \Drupal::classResolver()
-    ->getInstanceFromDefinition(VarbaseEntityDefinitionUpdateManager::class)
+    ->getInstanceFromDefinition(EntityDefinitionUpdateManager::class)
     ->applyUpdates();
 
   // Full flash and clear cash and rebuilding newly created routes.
@@ -557,12 +645,13 @@ function varbase_after_install_finished(array &$install_state) {
           $page_front_path = PathAlias::load($alias_id)->getPath();
 
           \Drupal::configFactory()->getEditable('system.site')
-          ->set('page.front', $page_front_path)
-          ->save();
+            ->set('page.front', $page_front_path)
+            ->save();
         }
       }
     }
-  } catch (\Exception $e) {
+  }
+  catch (\Exception $e) {
     \Drupal::messenger()->addError($e->getMessage());
   }
 

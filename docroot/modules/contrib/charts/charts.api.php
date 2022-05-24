@@ -6,13 +6,23 @@
  *
  * Charts module provides 4 element types that can be used to construct a chart.
  * In its most basic form, a chart may be created by specifying an element
- * with the #type property "chart".
+ * with the #type property "chart". However, for enough information to
+ * accurately data to an audience, you need a little more. Below is a very
+ * basic example of a column chart.
  *
  * @code
  * $chart = [
  *   '#type' => 'chart',
- *   '#chart_type' => 'pie',
- *   '#data' => [['Male', 10], ['Female', 20]],
+ *   '#chart_type' => 'column',
+ *   'series' => [
+ *     '#type' => 'chart_data',
+ *     '#title' => t('Responses'),
+ *     '#data' => [60, 40],
+ *   ],
+ *   'xaxis' => [
+ *     '#type' => 'chart_xaxis',
+ *     '#labels' => [t('Yes'), t('No')],
+ *   ]
  * ];
  * @endcode
  *
@@ -25,9 +35,9 @@
  *   '#type' => 'chart',
  *   '#chart_type' => 'column',
  * ];
- * $chart['male'] = [
+ * $chart['series'] = [
  *   '#type' => 'chart_data',
- *   '#title' => t('Male'),
+ *   '#title' => t('Responses'),
  *   '#data' => [10, 20, 30],
  * ];
  * $chart['xaxis'] = [
@@ -48,9 +58,8 @@
  * chart_data, chart_xaxis, and chart_yaxis). For a full list, see the
  * charts_element_info() function.
  *
- * This module also includes a number of examples for reference, which can be
- * views at "charts/examples". The source code may be read in the
- * "charts.examples.inc" file in the includes directory.
+ * This module also includes a number of examples for reference in the
+ * charts_api_example module, and displayed at /charts/example/display.
  *
  * @see Drupal\charts\Element folder
  */

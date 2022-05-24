@@ -316,8 +316,10 @@ class InlineBlockTest extends InlineBlockTestBase {
    *   The revision ID to assert.
    * @param array $content
    *   The content items to assert on the page.
+   *
+   * @internal
    */
-  protected function assertNodeRevisionContent($revision_id, array $content) {
+  protected function assertNodeRevisionContent(int $revision_id, array $content): void {
     $this->drupalGet("node/1/revisions/$revision_id/view");
     foreach ($content as $content_item) {
       $this->assertSession()->pageTextContains($content_item);
@@ -331,8 +333,10 @@ class InlineBlockTest extends InlineBlockTestBase {
    *   The block title.
    * @param int $expected_revision_count
    *   The revision count.
+   *
+   * @internal
    */
-  protected function assertBlockRevisionCountByTitle($block_title, $expected_revision_count) {
+  protected function assertBlockRevisionCountByTitle(string $block_title, int $expected_revision_count): void {
     $actual_revision_count = $this->blockStorage->getQuery()
       ->accessCheck(FALSE)
       ->condition('info', $block_title)
@@ -656,6 +660,47 @@ class InlineBlockTest extends InlineBlockTestBase {
     $assert($permissions, FALSE);
     $permissions[] = 'create and edit custom blocks';
     $assert($permissions, TRUE);
+  }
+
+  /**
+   * Test editing inline blocks when the parent has been reverted.
+   */
+  public function testInlineBlockParentRevert() {
+    $this->drupalLogin($this->drupalCreateUser([
+      'access contextual links',
+      'configure any layout',
+      'administer node display',
+      'administer node fields',
+      'administer nodes',
+      'bypass node access',
+      'create and edit custom blocks',
+    ]));
+    $this->drupalPostForm(
+      static::FIELD_UI_PREFIX . '/display/default',
+      ['layout[enabled]' => TRUE, 'layout[allow_custom]' => TRUE],
+      'Save'
+    );
+    $test_node = $this->createNode([
+      'title' => 'test node',
+      'type' => 'bundle_with_section_field',
+    ]);
+
+    $this->drupalGet("node/{$test_node->id()}/layout");
+    $this->addInlineBlockToLayout('Example block', 'original content');
+    $this->assertSaveLayout();
+    $original_content_revision_id = Node::load($test_node->id())->getLoadedRevisionId();
+
+    $this->drupalGet("node/{$test_node->id()}/layout");
+    $this->configureInlineBlock('original content', 'updated content');
+    $this->assertSaveLayout();
+
+    $this->drupalPostForm("node/{$test_node->id()}/revisions/$original_content_revision_id/revert", [], 'Revert');
+    $this->drupalGet("node/{$test_node->id()}/layout");
+    $this->configureInlineBlock('original content', 'second updated content');
+    $this->assertSaveLayout();
+
+    $this->drupalGet($test_node->toUrl());
+    $this->assertSession()->pageTextContains('second updated content');
   }
 
 }

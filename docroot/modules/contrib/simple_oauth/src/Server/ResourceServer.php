@@ -57,8 +57,8 @@ class ResourceServer implements ResourceServerInterface {
     try {
       $public_key = $config_factory->get('simple_oauth.settings')
         ->get('public_key');
-      $public_key_real = $this->fileSystem()->realpath($public_key);
-      if ($public_key && $public_key_real) {
+      $public_key_real = $public_key ? $this->fileSystem()->realpath($public_key): NULL;
+      if ($public_key_real) {
         // Initialize the crypto key, optionally disabling the permissions
         // check.
         $crypt_key = new CryptKey(

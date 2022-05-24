@@ -4,11 +4,16 @@ namespace Drupal\charts_google\Plugin\chart\Library;
 
 use Drupal\charts\Element\Chart as ChartElement;
 use Drupal\charts\Plugin\chart\Library\ChartBase;
+use Drupal\charts\TypeManager;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Define a concrete class for a Chart.
@@ -18,7 +23,65 @@ use Drupal\Core\Url;
  *   name = @Translation("Google")
  * )
  */
-class Google extends ChartBase {
+class Google extends ChartBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * The element info manager.
+   *
+   * @var \Drupal\Core\Render\ElementInfoManagerInterface
+   */
+  protected $elementInfo;
+
+  /**
+   * The chart type manager.
+   *
+   * @var \Drupal\charts\TypeManager
+   */
+  protected $chartTypeManager;
+
+  /**
+   * Constructs a \Drupal\views\Plugin\Block\ViewsBlockBase object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The element info manager.
+   * @param \Drupal\Core\Render\ElementInfoManagerInterface $element_info
+   *   The element info manager.
+   * @param \Drupal\charts\TypeManager $chart_type_manager
+   *   The chart type manager.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, ElementInfoManagerInterface $element_info, TypeManager $chart_type_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->moduleHandler = $module_handler;
+    $this->elementInfo = $element_info;
+    $this->chartTypeManager = $chart_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('module_handler'),
+      $container->get('element_info'),
+      $container->get('plugin.manager.charts_type')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -77,9 +140,10 @@ class Google extends ChartBase {
       'donut' => 'DonutChart',
       'gauge' => 'Gauge',
       'scatter' => 'ScatterChart',
+      'bubble' => 'BubbleChart',
       'geo' => 'GeoChart',
     ];
-    \Drupal::moduleHandler()->alter('charts_google_visualization_types', $types);
+    $this->moduleHandler->alter('charts_google_visualization_types', $types);
     return isset($types[$renderable_type]) ? $types[$renderable_type] : FALSE;
   }
 
@@ -95,36 +159,52 @@ class Google extends ChartBase {
    *   The returned chart definition.
    */
   public function chartsGooglePopulateChartOptions(array $element, array $chart_definition) {
-    $chart_definition['options']['title'] = $element['#title'] ? $element['#title'] : NULL;
+    $chart_definition['options']['title'] = $element['#title'] ?? NULL;
     $chart_definition['options']['titleTextStyle']['color'] = $element['#title_color'];
-    $chart_definition['options']['titleTextStyle']['bold'] = $element['#title_font_weight'] === 'bold' ? TRUE : FALSE;
-    $chart_definition['options']['titleTextStyle']['italic'] = $element['#title_font_style'] === 'italic' ? TRUE : FALSE;
+    $chart_definition['options']['titleTextStyle']['bold'] = $element['#title_font_weight'] === 'bold';
+    $chart_definition['options']['titleTextStyle']['italic'] = $element['#title_font_style'] === 'italic';
     $chart_definition['options']['titleTextStyle']['fontSize'] = $element['#title_font_size'];
     $chart_definition['options']['titlePosition'] = $element['#title_position'];
     $chart_definition['options']['colors'] = $element['#colors'];
     $chart_definition['options']['fontName'] = $element['#font'];
     $chart_definition['options']['fontSize'] = $element['#font_size'];
     $chart_definition['options']['backgroundColor']['fill'] = $element['#background'];
-    $chart_definition['options']['isStacked'] = $element['#stacking'] ? TRUE : FALSE;
+    $chart_definition['options']['isStacked'] = (bool) $element['#stacking'];
     $chart_definition['options']['tooltip']['trigger'] = $element['#tooltips'] ? 'focus' : 'none';
-    $chart_definition['options']['tooltip']['isHtml'] = $element['#tooltips_use_html'] ? TRUE : FALSE;
+    $chart_definition['options']['tooltip']['isHtml'] = (bool) $element['#tooltips_use_html'];
     $chart_definition['options']['pieSliceText'] = $element['#data_labels'] ? NULL : 'none';
-    $chart_definition['options']['legend']['position'] = $element['#legend_position'] ? $element['#legend_position'] : 'none';
+    $chart_definition['options']['legend']['position'] = $element['#legend_position'] ?? 'none';
     $chart_definition['options']['legend']['alignment'] = 'center';
     $chart_definition['options']['interpolateNulls'] = TRUE;
-
-    // TODO: Legend title (and thus these properties) not supported by Google.
+    if ($element['#chart_type'] === 'gauge') {
+      $chart_definition['options']['redFrom'] = $element['#gauge']['red_from'];
+      $chart_definition['options']['redTo'] = $element['#gauge']['red_to'];
+      $chart_definition['options']['yellowFrom'] = $element['#gauge']['yellow_from'];
+      $chart_definition['options']['yellowTo'] = $element['#gauge']['yellow_to'];
+      $chart_definition['options']['GreenFrom'] = $element['#gauge']['green_from'];
+      $chart_definition['options']['greenTo'] = $element['#gauge']['green_to'];
+      $chart_definition['options']['min'] = (int) $element['#gauge']['min'];
+      $chart_definition['options']['max'] = (int) $element['#gauge']['max'];
+    }
+    if ($element['#chart_type'] === 'donut') {
+      $chart_definition['options']['pieHole'] = 0.4;
+    }
+    if ($element['#chart_type'] === 'bubble') {
+      $chart_definition['options']['bubble']['textStyle']['fontSize'] = 11;
+    }
+    // @todo Legend title (and thus these properties) not supported by Google.
     $chart_definition['options']['legend']['title'] = $element['#legend_title'];
-    $chart_definition['options']['legend']['titleTextStyle']['bold'] = $element['#legend_title_font_weight'] === 'bold' ? TRUE : FALSE;
-    $chart_definition['options']['legend']['titleTextStyle']['italic'] = $element['#legend_title_font_style'] === 'italic' ? TRUE : FALSE;
+    $chart_definition['options']['legend']['titleTextStyle']['bold'] = $element['#legend_title_font_weight'] === 'bold';
+    $chart_definition['options']['legend']['titleTextStyle']['italic'] = $element['#legend_title_font_style'] === 'italic';
     $chart_definition['options']['legend']['titleTextStyle']['fontSize'] = $element['#legend_title_font_size'];
 
-    $chart_definition['options']['legend']['textStyle']['bold'] = $element['#legend_font_weight'] === 'bold' ? TRUE : FALSE;
-    $chart_definition['options']['legend']['textStyle']['italic'] = $element['#legend_font_style'] === 'italic' ? TRUE : FALSE;
+    $chart_definition['options']['legend']['textStyle']['bold'] = $element['#legend_font_weight'] === 'bold';
+    $chart_definition['options']['legend']['textStyle']['italic'] = $element['#legend_font_style'] === 'italic';
     $chart_definition['options']['legend']['textStyle']['fontSize'] = $element['#legend_font_size'];
-    $chart_definition['options']['width'] = $element['#width'] ? $element['#width'] : NULL;
-    $chart_definition['options']['height'] = $element['#height'] ? $element['#height'] : NULL;
-
+    $chart_definition['options']['width'] = $element['#width'] ?? NULL;
+    $chart_definition['options']['height'] = $element['#height'] ?? NULL;
+    // If your labels are truncated, you may need to add (try adjusting the %).
+    // $chart_definition['options']['chartArea']['height'] = '50%'.
     $chart_definition['options']['animation']['duration'] = 10000;
     $chart_definition['options']['animation']['easing'] = 'out';
 
@@ -151,23 +231,19 @@ class Google extends ChartBase {
    *   Return the chart definition.
    */
   public function chartsGooglePopulateChartAxes(array $element, array $chart_definition) {
-    /** @var \Drupal\Core\Render\ElementInfoManagerInterface $element_info */
-    $element_info = \Drupal::service('element_info');
-    /** @var \Drupal\charts\TypeManager $chart_type_plugin_manager */
-    $chart_type_plugin_manager = \Drupal::service('plugin.manager.charts_type');
     foreach (Element::children($element) as $key) {
       if ($element[$key]['#type'] === 'chart_xaxis' || $element[$key]['#type'] === 'chart_yaxis') {
         // Make sure defaults are loaded.
         if (empty($element[$key]['#defaults_loaded'])) {
-          $element[$key] += $element_info->getInfo($element[$key]['#type']);
+          $element[$key] += $this->elementInfo->getInfo($element[$key]['#type']);
         }
 
         // Populate the chart data.
         $axis = [];
-        $axis['title'] = $element[$key]['#title'] ? $element[$key]['#title'] : '';
+        $axis['title'] = $element[$key]['#title'] ?? '';
         $axis['titleTextStyle']['color'] = $element[$key]['#title_color'];
-        $axis['titleTextStyle']['bold'] = $element[$key]['#title_font_weight'] === 'bold' ? TRUE : FALSE;
-        $axis['titleTextStyle']['italic'] = $element[$key]['#title_font_style'] === 'italic' ? TRUE : FALSE;
+        $axis['titleTextStyle']['bold'] = $element[$key]['#title_font_weight'] === 'bold';
+        $axis['titleTextStyle']['italic'] = $element[$key]['#title_font_style'] === 'italic';
         $axis['titleTextStyle']['fontSize'] = $element[$key]['#title_font_size'];
         // In Google, the row column of data is used as labels.
         if ($element[$key]['#labels'] && $element[$key]['#type'] === 'chart_xaxis') {
@@ -176,8 +252,8 @@ class Google extends ChartBase {
           }
         }
         $axis['textStyle']['color'] = $element[$key]['#labels_color'];
-        $axis['textStyle']['bold'] = $element[$key]['#labels_font_weight'] === 'bold' ? TRUE : FALSE;
-        $axis['textStyle']['italic'] = $element[$key]['#labels_font_style'] === 'italic' ? TRUE : FALSE;
+        $axis['textStyle']['bold'] = $element[$key]['#labels_font_weight'] === 'bold';
+        $axis['textStyle']['italic'] = $element[$key]['#labels_font_style'] === 'italic';
         $axis['textStyle']['fontSize'] = $element[$key]['#labels_font_size'];
         $axis['slantedText'] = !empty($element[$key]['#labels_rotation']) ? TRUE : NULL;
         $axis['slantedTextAngle'] = $element[$key]['#labels_rotation'];
@@ -190,14 +266,20 @@ class Google extends ChartBase {
 
         // Merge in axis raw options.
         if (!empty($element[$key]['#raw_options'])) {
-          $axis = NestedArray::mergeDeepArray([$element[$key]['#raw_options'], $axis]);
+          $axis = NestedArray::mergeDeepArray([
+            $element[$key]['#raw_options'],
+            $axis,
+          ]);
         }
 
         // Multi-axis support only applies to the major axis in Google charts.
-        $chart_type = $chart_type_plugin_manager->getDefinition($element['#chart_type']);
+        $chart_type = $this->chartTypeManager->getDefinition($element['#chart_type']);
         $axis_index = $element[$key]['#opposite'] ? 1 : 0;
         if ($element[$key]['#type'] === 'chart_xaxis') {
-          $axis_keys = !$chart_type['axis_inverted'] ? ['hAxis'] : ['vAxes', $axis_index];
+          $axis_keys = !$chart_type['axis_inverted'] ? ['hAxis'] : [
+            'vAxes',
+            $axis_index,
+          ];
         }
         else {
           $axis_keys = !$chart_type['axis_inverted'] ? ['vAxes', $axis_index] : ['hAxis'];
@@ -225,12 +307,8 @@ class Google extends ChartBase {
    *   Return the chart definition.
    */
   public function chartsGooglePopulateChartData(array &$element, array $chart_definition) {
-    /** @var \Drupal\Core\Render\ElementInfoManagerInterface $element_info */
-    $element_info = \Drupal::service('element_info');
-    /** @var \Drupal\charts\TypeManager $chart_type_plugin_manager */
-    $chart_type_plugin_manager = \Drupal::service('plugin.manager.charts_type');
     $chart_definition['options']['series'] = [];
-    $chart_type = $chart_type_plugin_manager->getDefinition($element['#chart_type']);
+    $chart_type = $this->chartTypeManager->getDefinition($element['#chart_type']);
     $series_number = 0;
     foreach (Element::children($element) as $key) {
       if ($element[$key]['#type'] === 'chart_data') {
@@ -238,7 +316,7 @@ class Google extends ChartBase {
 
         // Make sure defaults are loaded.
         if (empty($element[$key]['#defaults_loaded'])) {
-          $element[$key] += $element_info->getInfo($element[$key]['#type']);
+          $element[$key] += $this->elementInfo->getInfo($element[$key]['#type']);
         }
 
         // Convert target named axis keys to integers.
@@ -264,7 +342,6 @@ class Google extends ChartBase {
             $chart_definition['data'][$label_index + 1][0] = $label;
           }
         }
-
         if ($element[$key]['#title']) {
           $chart_definition['data'][0][$series_number + 1] = $element[$key]['#title'];
         }
@@ -273,14 +350,32 @@ class Google extends ChartBase {
           // approach leaves columns empty in order to make arbitrary pairings.
           // See https://developers.google.com/chart/interactive/docs/gallery/scatterchart#Data_Format
           if (is_array($data_value)) {
-            $chart_definition['data'][] = [
-              0 => $data_value[0],
-              $series_number + 1 => $data_value[1],
-            ];
+            if ($chart_type['id'] === 'scatter') {
+              $chart_definition['data'][] = [
+                0 => $data_value[0],
+                $series_number + 1 => $data_value[1],
+              ];
+            }
+            elseif ($chart_type['id'] === 'bubble') {
+              $chart_definition['data'][] = [
+                0 => $data_value[0],
+                $series_number + 1 => $data_value[1],
+                $series_number + 2 => $data_value[2],
+              ];
+            }
+            else {
+              $chart_definition['data'][$index + 1] = $data_value;
+            }
           }
           // Most charts provide a single-dimension array of values.
           else {
-            $chart_definition['data'][$index + 1][$series_number + 1] = $data_value;
+            if ($chart_type['id'] === 'gauge') {
+              $data_value = [$element[$key]['#title'], $data_value];
+              $chart_definition['data'][$index + 1] = $data_value;
+            }
+            else {
+              $chart_definition['data'][$index + 1][$series_number + 1] = $data_value;
+            }
           }
         }
 
@@ -299,7 +394,7 @@ class Google extends ChartBase {
         $format = $prefix . '#' . $decimal_count . $suffix;
         $series['_format']['format'] = $format;
 
-        // TODO: Convert this from PHP's date format to ICU format.
+        // @todo Convert this from PHP's date format to ICU format.
         // See https://developers.google.com/chart/interactive/docs/reference#dateformatter.
         // $series['_format']['dateFormat'] = $element[$key]['#date_format'];
         // Conveniently only the axis that supports multiple axes is the one;
@@ -324,7 +419,10 @@ class Google extends ChartBase {
 
         // Merge in point raw options.
         if (!empty($data_item['#raw_options'])) {
-          $series = NestedArray::mergeDeepArray([$data_item['#raw_options'], $series]);
+          $series = NestedArray::mergeDeepArray([
+            $data_item['#raw_options'],
+            $series,
+          ]);
         }
 
         // Add the series to the main chart definition.
@@ -337,7 +435,7 @@ class Google extends ChartBase {
 
             // Make sure defaults are loaded.
             if (empty($element[$key][$sub_key]['#defaults_loaded'])) {
-              $element[$key][$sub_key] += $element_info->getInfo($element[$key][$sub_key]['#type']);
+              $element[$key][$sub_key] += $this->elementInfo->getInfo($element[$key][$sub_key]['#type']);
             }
 
             $data_item = $element[$key][$sub_key];
@@ -351,7 +449,9 @@ class Google extends ChartBase {
 
             // Merge in data point raw options.
             if (!empty($data_item['#raw_options'])) {
-              $chart_definition['_data'][$sub_key + 1][$series_number + 1] = NestedArray::mergeDeepArray([$data_item['#raw_options'], $chart_definition['_data'][$sub_key + 1][$series_number + 1]]);
+              $chart_definition['_data'][$sub_key + 1][$series_number + 1] = NestedArray::mergeDeepArray([
+                $data_item['#raw_options'], $chart_definition['_data'][$sub_key + 1][$series_number + 1],
+              ]);
             }
 
             ChartElement::trimArray($chart_definition['_data'][$sub_key + 1][$series_number + 1]);
@@ -368,10 +468,15 @@ class Google extends ChartBase {
 
     // Stub out corner value.
     $data[0][0] = isset($data[0][0]) ? $data[0][0] : 'x';
+    if ($element['#chart_type'] === 'bubble') {
+      $data[0][2] = 'bubble';
+    }
 
     // Ensure consistent column count.
     $column_count = count($data[0]);
+
     foreach ($data as $row => $values) {
+
       for ($n = 0; $n < $column_count; $n++) {
         $data[$row][$n] = isset($data[$row][$n]) ? $data[$row][$n] : NULL;
       }

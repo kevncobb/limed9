@@ -122,15 +122,18 @@ class EntityUrlGenerator extends EntityUrlGeneratorBase {
           if (!empty($bundle_settings['index'])) {
             $query = $entityTypeStorage->getQuery();
 
-            if (empty($keys['id'])) {
-              $query->sort($keys['id'], 'ASC');
-            }
-            if (!empty($keys['bundle'])) {
-              $query->condition($keys['bundle'], $bundle_name);
-            }
-            if (!empty($keys['status'])) {
-              $query->condition($keys['status'], 1);
-            }
+          if (!empty($keys['id'])) {
+            $query->sort($keys['id']);
+          }
+          if (!empty($keys['bundle'])) {
+            $query->condition($keys['bundle'], $bundle_name);
+          }
+          if (!empty($keys['published'])) {
+            $query->condition($keys['published'], 1);
+          }
+          elseif (!empty($keys['status'])) {
+            $query->condition($keys['status'], 1);
+          }
 
             // Shift access check to EntityUrlGeneratorBase for language
             // specific access.
@@ -217,7 +220,7 @@ class EntityUrlGenerator extends EntityUrlGeneratorBase {
     if (empty($path_data_sets = $this->processDataSet($data_set))) {
       return [];
     }
-    
+
     $url_variant_sets = [];
     foreach ($path_data_sets as $key => $path_data) {
       if (isset($path_data['url']) && $path_data['url'] instanceof Url) {

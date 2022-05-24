@@ -4,11 +4,12 @@ namespace Drupal\charts_blocks\Plugin\Block;
 
 use Drupal\charts\Element\Chart;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\charts\Services\ChartsSettingsService;
 
 /**
  * Provides a 'ChartsBlock' block.
@@ -21,19 +22,27 @@ use Drupal\charts\Services\ChartsSettingsService;
 class ChartsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The charts default settings.
+   * The config factory service.
    *
-   * @var array
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $chartsDefaultSettings;
+  protected $configFactory;
+
+  /**
+   * The UUID service.
+   *
+   * @var \Drupal\Component\Uuid\UuidInterface
+   */
+  protected $uuidService;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ChartsSettingsService $chartsSettings) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, UuidInterface $uuidService) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->setConfiguration($configuration);
-    $this->chartsDefaultSettings = $chartsSettings->getChartsSettings();
+    $this->configFactory = $config_factory;
+    $this->uuidService = $uuidService;
   }
 
   /**
@@ -44,7 +53,8 @@ class ChartsBlock extends BlockBase implements ContainerFactoryPluginInterface {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('charts.settings')
+      $container->get('config.factory'),
+      $container->get('uuid')
     );
   }
 
@@ -55,15 +65,11 @@ class ChartsBlock extends BlockBase implements ContainerFactoryPluginInterface {
     parent::blockForm($form, $form_state);
 
     $chart_block_configurations = !empty($this->configuration['chart']) ? $this->configuration['chart'] : [];
-    if (!empty($this->chartsDefaultSettings)) {
-      // Get the charts default settings.
-      $default_options = $this->chartsDefaultSettings;
-      // Merge the charts default settings with this block's configuration.
-      $defaults = NestedArray::mergeDeep($default_options, $chart_block_configurations);
-    }
-    else {
-      $defaults = $chart_block_configurations;
-    }
+
+    // Merge the charts default settings with this block's configuration.
+    $charts_settings = $this->configFactory->get('charts.settings');
+    $charts_default_settings = $charts_settings->get('charts_default_settings') ?? [];
+    $defaults = NestedArray::mergeDeep($charts_default_settings, $chart_block_configurations);
 
     $form['chart'] = [
       '#type' => 'details',
@@ -97,8 +103,7 @@ class ChartsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
     // Creates a UUID for the chart ID.
     $chart_id = 'charts_block__' . $this->configuration['id'];
-    $uuid_service = \Drupal::service('uuid');
-    $id = 'chart-' . $uuid_service->generate();
+    $id = 'chart-' . $this->uuidService->generate();
     $build = Chart::buildElement($chart_settings, $chart_id);
     $build['#id'] = $id;
     $build['#chart_id'] = $chart_id;

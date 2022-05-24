@@ -35,6 +35,7 @@ class Chartjs extends ChartBase {
         ]),
     ];
     $xaxis_configuration = $this->configuration['xaxis'] ?? [];
+    $yaxis_configuration = $this->configuration['yaxis'] ?? [];
     $form['xaxis'] = [
       '#title' => $this->t('X-Axis Settings'),
       '#type' => 'fieldset',
@@ -44,6 +45,31 @@ class Chartjs extends ChartBase {
       '#title' => $this->t('Enable autoskip'),
       '#type' => 'checkbox',
       '#default_value' => $xaxis_configuration['autoskip'] ?? 1,
+    ];
+    $form['xaxis']['horizontal_axis_title_align'] = [
+      '#title' => $this->t('Align horizontal axis title'),
+      '#type' => 'select',
+      '#options' => [
+        'start' => $this->t('Start'),
+        'center' => $this->t('Center'),
+        'end' => $this->t('End'),
+      ],
+      '#default_value' => $xaxis_configuration['horizontal_axis_title_align'] ?? '',
+    ];
+    $form['yaxis'] = [
+      '#title' => $this->t('Y-Axis Settings'),
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+    ];
+    $form['yaxis']['vertical_axis_title_align'] = [
+      '#title' => $this->t('Align vertical axis title'),
+      '#type' => 'select',
+      '#options' => [
+        'start' => $this->t('Start'),
+        'center' => $this->t('Center'),
+        'end' => $this->t('End'),
+      ],
+      '#default_value' => $yaxis_configuration['vertical_axis_title_align'] ?? '',
     ];
 
     return $form;
@@ -63,37 +89,8 @@ class Chartjs extends ChartBase {
     if (!$form_state->getErrors()) {
       $values = $form_state->getValue($form['#parents']);
       $this->configuration['xaxis'] = $values['xaxis'];
+      $this->configuration['yaxis'] = $values['yaxis'];
     }
-  }
-
-  /**
-   * Builds gauge options.
-   *
-   * @param array $options
-   *   The options.
-   *
-   * @return array
-   *   The scale color ranges.
-   */
-  protected function buildGaugeOptions(array $options) {
-    $scaleColorRanges = [];
-    $scaleColorRanges[0] = new \stdClass();
-    $scaleColorRanges[1] = new \stdClass();
-    $scaleColorRanges[2] = new \stdClass();
-    // Red.
-    $scaleColorRanges[0]->start = isset($options['display']['gauge']['red_from']) ? $options['display']['gauge']['red_from'] : '';
-    $scaleColorRanges[0]->end = isset($options['display']['gauge']['red_to']) ? $options['display']['gauge']['red_to'] : '';
-    $scaleColorRanges[0]->color = '#ff000c';
-    // Yellow.
-    $scaleColorRanges[1]->start = isset($options['display']['gauge']['yellow_from']) ? $options['display']['gauge']['yellow_from'] : '';
-    $scaleColorRanges[1]->end = isset($options['yellow_to']) ? $options['display']['gauge']['yellow_to'] : '';
-    $scaleColorRanges[1]->color = '#ffff00';
-    // Green.
-    $scaleColorRanges[2]->start = isset($options['display']['gauge']['green_from']) ? $options['display']['gauge']['green_from'] : '';
-    $scaleColorRanges[2]->end = isset($options['display']['gauge']['green_to']) ? $options['display']['gauge']['green_to'] : '';
-    $scaleColorRanges[2]->color = '#008000';
-
-    return $scaleColorRanges;
   }
 
   /**
@@ -106,15 +103,195 @@ class Chartjs extends ChartBase {
       $element['#id'] = Html::getUniqueId('chartjs-render');
     }
 
+    $chart_definition = $this->populateOptions($element, $chart_definition);
     $chart_definition = $this->populateCategories($element, $chart_definition);
     $chart_definition = $this->populateDatasets($element, $chart_definition);
-    $chart_definition = $this->populateOptions($element, $chart_definition);
+    $chart_definition = $this->populateAxes($element, $chart_definition);
+
+    // Merge in chart raw options.
+    if (!empty($element['#raw_options'])) {
+      $chart_definition = NestedArray::mergeDeepArray([
+        $chart_definition,
+        $element['#raw_options'],
+      ]);
+    }
 
     $element['#attached']['library'][] = 'charts_chartjs/chartjs';
     $element['#attributes']['class'][] = 'charts-chartjs';
     $element['#chart_definition'] = $chart_definition;
 
     return $element;
+  }
+
+  /**
+   * Populate chart axes.
+   *
+   * @param array $element
+   *   The element.
+   * @param array $chart_definition
+   *   The chart definition.
+   *
+   * @return array
+   *   Return the chart definition.
+   */
+  private function populateAxes(array $element, array $chart_definition) {
+    if (!empty($element['#stacking']) && $element['#stacking'] == 1) {
+      $stacking = TRUE;
+    }
+    else {
+      $stacking = FALSE;
+    }
+    $chart_type = $chart_definition['type'];
+    $children = Element::children($element);
+    /*
+     * Setting defaults based on what Views uses. However, API users may
+     * have different keys for their X and Y axes.
+     */
+    $x_axis_key = 'xaxis';
+    $y_axis_key = 'yaxis';
+    foreach ($children as $child) {
+      $type = $element[$child]['#type'];
+      if ($type === 'chart_xaxis') {
+        $x_axis_key = $child;
+        $xaxis_configuration = $this->configuration[$x_axis_key] ?? [];
+        if (!in_array($chart_type, ['pie', 'doughnut'])) {
+          if ($chart_type !== 'radar') {
+            $chart_definition['options']['scales']['x'] = [
+              'stacked' => $stacking,
+              'ticks' => [
+                'autoSkip' => $xaxis_configuration['autoskip'] ?? 1,
+                'maxRotation' => $element[$x_axis_key]['#labels_rotation'] ?? 0,
+                'minRotation' => $element[$x_axis_key]['#labels_rotation'] ?? 0,
+              ],
+            ];
+            if (!empty($element[$x_axis_key]['#title'])) {
+              $chart_definition['options']['scales']['x']['title']['display'] = TRUE;
+              $chart_definition['options']['scales']['x']['title']['text'] = $element[$x_axis_key]['#title'];
+              $chart_definition['options']['scales']['x']['title']['align'] = $xaxis_configuration['horizontal_axis_title_align'] ?? '';
+            }
+          }
+        }
+      }
+      if ($type === 'chart_yaxis') {
+        $y_axis_key = $child;
+      }
+    }
+
+    // Build array of axes info.
+    $axes_info = [
+      'x' => [
+        'element' => $element[$x_axis_key],
+        'config' => $this->configuration[$x_axis_key] ?? [],
+      ],
+      'y' => [
+        'element' => $element[$y_axis_key],
+        'config' => $this->configuration[$y_axis_key] ?? [],
+      ],
+    ];
+
+    // Build axes options in chart_definition.
+    if (!in_array($chart_type, ['pie', 'doughnut'])) {
+      if (!empty($element['#stacking']) && $element['#stacking'] == 1) {
+        $stacking = TRUE;
+      }
+      else {
+        $stacking = FALSE;
+      }
+      if ($chart_type !== 'radar') {
+        $chart_definition['options']['scales']['x'] = [
+          'stacked' => $stacking,
+          'ticks' => [
+            'autoSkip' => $axes_info['x']['config']['autoskip'] ?? 1,
+            'maxRotation' => $axes_info['x']['element']['#labels_rotation'] ?? 0,
+            'minRotation' => $axes_info['x']['element']['#labels_rotation'] ?? 0,
+          ],
+        ];
+        $chart_definition['options']['scales']['y'] = [
+          'ticks' => [
+            'beginAtZero' => NULL,
+            'maxRotation' => $axes_info['y']['element']['#labels_rotation'] ?? 0,
+            'minRotation' => $axes_info['y']['element']['#labels_rotation'] ?? 0,
+          ],
+          'maxTicksLimit' => 11,
+          'precision' => NULL,
+          'stepSize' => NULL,
+          'suggestedMax' => NULL,
+          'suggestedMin' => NULL,
+          'stacked' => $stacking,
+        ];
+
+        // Set configured values for each axis.
+        foreach ($axes_info as $axis_id => $axis_info) {
+          $axis_element = $axis_info['element'];
+          $axis_config = $axis_info['config'];
+
+          // Set the axis type.
+          if (!empty($axis_element['#axis_type'])) {
+            $chart_definition['options']['scales'][$axis_id]['type'] = $axis_element['#axis_type'];
+          }
+
+          // Set axis position.
+          if (!empty($axis_element['#opposite'])) {
+            $chart_definition['options']['scales'][$axis_id]['position'] = 'right';
+          }
+
+          // Set min and max values.
+          foreach (['min', 'max'] as $range_value) {
+            if (isset($axis_element["#$range_value"])) {
+              $chart_definition['options']['scales'][$axis_id][$range_value] = $axis_element["#$range_value"];
+            }
+          }
+
+          // Set title properties.
+          if (!empty($axis_element['#title'])) {
+            $chart_definition['options']['scales'][$axis_id]['title']['display'] = TRUE;
+            $chart_definition['options']['scales'][$axis_id]['title']['text'] = $axis_element['#title'];
+
+            if (!empty($axis_config['vertical_axis_title_align'])) {
+              $chart_definition['options']['scales'][$axis_id]['title']['align'] = $axis_config['vertical_axis_title_align'];
+            }
+          }
+
+          // Set title color.
+          if (!empty($axis_element['#title_color'])) {
+            $chart_definition['options']['scales'][$axis_id]['title']['color'] = $axis_element['#title_color'];
+          }
+
+          // Set title font.
+          foreach (['weight', 'style', 'size'] as $font_attribute) {
+            $config_name = "#title_font_$font_attribute";
+            if (!empty($axis_element[$config_name])) {
+              $chart_definition['options']['scales'][$axis_id]['title']['font'][$font_attribute] = $axis_element[$config_name];
+            }
+          }
+
+          // Set tick color.
+          foreach (['color', 'rotation'] as $tick_attribute) {
+            $config_name = "#labels_$tick_attribute";
+            if (!empty($axis_element[$config_name])) {
+              $chart_definition['options']['scales'][$axis_id]['ticks'][$tick_attribute] = $axis_element[$config_name];
+            }
+          }
+
+          // Set tick font.
+          foreach (['weight', 'style', 'size'] as $font_attribute) {
+            $config_name = "#labels_font_$font_attribute";
+            if (!empty($axis_element[$config_name])) {
+              $chart_definition['options']['scales'][$axis_id]['ticks']['font'][$font_attribute] = $axis_element[$config_name];
+            }
+          }
+          // Set grid line colors.
+          if (!empty($axis_element['#grid_line_color'])) {
+            $chart_definition['options']['scales'][$axis_id]['grid']['color'] = $axis_element['#grid_line_color'];
+          }
+          if (!empty($axis_element['#base_line_color'])) {
+            $chart_definition['options']['scales'][$axis_id]['grid']['borderColor'] = $axis_element['#base_line_color'];
+          }
+        }
+      }
+    }
+
+    return $chart_definition;
   }
 
   /**
@@ -131,53 +308,16 @@ class Chartjs extends ChartBase {
   private function populateOptions(array $element, array $chart_definition) {
     $chart_type = $this->populateChartType($element);
     $chart_definition['type'] = $chart_type;
-    $xaxis_configuration = isset($this->configuration['xaxis']) ? $this->configuration['xaxis'] : [];
 
-    if (!in_array($chart_type, ['pie', 'doughnut'])) {
-      if (!empty($element['#stacking']) && $element['#stacking'] == 1) {
-        $stacking = TRUE;
-      }
-      else {
-        $stacking = FALSE;
-      }
-      if ($chart_type !== 'radar') {
-        $chart_definition['options']['scales']['xAxes'][] = [
-          'stacked' => $stacking,
-          'ticks' => [
-            'autoSkip' => isset($xaxis_configuration['autoskip']) ? $xaxis_configuration['autoskip'] : 1,
-            'maxRotation' => $element['xaxis']['#labels_rotation'],
-            'minRotation' => $element['xaxis']['#labels_rotation'],
-          ]
-        ];
-        $chart_definition['options']['scales']['yAxes'][] = [
-          'ticks' => [
-            'beginAtZero' => NULL,
-            'maxRotation' => $element['yaxis']['#labels_rotation'],
-            'minRotation' => $element['yaxis']['#labels_rotation'],
-          ],
-          'maxTicksLimit' => 11,
-          'precision' => NULL,
-          'stepSize' => NULL,
-          'suggestedMax' => NULL,
-          'suggestedMin' => NULL,
-          'stacked' => $stacking,
-        ];
-      }
+    // Horizontal bar charts are configured by changing the bar chart indexAxis.
+    // See https://chartjs.org/docs/latest/charts/bar.html#horizontal-bar-chart.
+    if ($element['#chart_type'] === 'bar') {
+      $chart_definition['options']['indexAxis'] = 'y';
     }
 
-    $chart_definition['options']['title'] = $this->buildTitle($element);
-    $chart_definition['options']['tooltips']['enabled'] = $element['#tooltips'];
-    $chart_definition['options']['legend'] = $this->buildLegend($element);
-    $chart_definition['scaleColorRanges'] = NULL;
-    $chart_definition['range'] = NULL;
-
-    // Merge in chart raw options.
-    if (!empty($element['#raw_options'])) {
-      $chart_definition = NestedArray::mergeDeepArray([
-        $chart_definition,
-        $element['#raw_options'],
-      ]);
-    }
+    $chart_definition['options']['plugins']['title'] = $this->buildTitle($element);
+    $chart_definition['options']['plugins']['tooltip']['enabled'] = $element['#tooltips'];
+    $chart_definition['options']['plugins']['legend'] = $this->buildLegend($element);
 
     return $chart_definition;
   }
@@ -194,27 +334,21 @@ class Chartjs extends ChartBase {
    *   Return the chart definition.
    */
   private function populateCategories(array $element, array $chart_definition) {
-    $chart_type = $this->populateChartType($element);
+    $children = Element::children($element);
     $categories = [];
-    foreach (Element::children($element) as $key) {
-      if (in_array($chart_type, ['pie', 'doughnut'])) {
-        foreach ($element[$key]['#data'] as $index => $datum) {
-          $categories[] = $element[$key]['#data'][$index][0];
+    foreach ($children as $child) {
+      $type = $element[$child]['#type'];
+      if ($type === 'chart_xaxis' && isset($element[$child]['#labels'])) {
+        $categories = is_array($element[$child]['#labels']) ? array_map('strip_tags', $element[$child]['#labels']) : [];
+        // Merge in axis raw options.
+        if (!empty($element[$child]['#raw_options'])) {
+          $categories = NestedArray::mergeDeepArray([
+            $element[$child]['#raw_options'],
+            $categories,
+          ]);
         }
       }
-      else {
-        $categories = array_map('strip_tags', $element['xaxis']['#labels']);
-      }
-
-      // Merge in axis raw options.
-      if (!empty($element[$key]['#raw_options'])) {
-        $categories = NestedArray::mergeDeepArray([
-          $element[$key]['#raw_options'],
-          $categories,
-        ]);
-      }
     }
-
     $chart_definition['data']['labels'] = $categories;
 
     return $chart_definition;
@@ -232,15 +366,10 @@ class Chartjs extends ChartBase {
    *   Return the chart definition.
    */
   private function populateDatasets(array $element, array $chart_definition) {
-    $chart_type = $this->populateChartType($element);
+    $chart_type = $chart_definition['type'];
     $datasets = [];
     foreach (Element::children($element) as $key) {
       if ($element[$key]['#type'] === 'chart_data') {
-        if (in_array($chart_type, ['pie', 'doughnut'])) {
-          foreach ($element[$key]['#data'] as $index => $datum) {
-            array_shift($element[$key]['#data'][$index]);
-          }
-        }
         $series_data = [];
         $dataset = new \stdClass();
         // Populate the data.
@@ -249,18 +378,44 @@ class Chartjs extends ChartBase {
             $series_data[$data_index][] = $data;
           }
           else {
-            if ($chart_type && $chart_type === 'scatter') {
+            if ($chart_type === 'scatter') {
               $data = ['y' => $data[1], 'x' => $data[0]];
+            }
+            if ($chart_type === 'bubble') {
+              /*
+               * The radius is not scaled in Chart.js, so it can look very bad.
+               * For suggestions about how to deal with this, see:
+               * https://github.com/chartjs/Chart.js/issues/3355
+               */
+              $data = ['y' => $data[1], 'x' => $data[0], 'r' => $data[2]];
+            }
+            /*
+             * This is here to account for differences between Views and
+             * the API. Will change if someone can find a better way.
+             */
+            if (in_array($chart_type, ['pie', 'doughnut']) && !empty($data[1])) {
+              $data = $data[1];
             }
             $series_data[$data_index] = $data;
           }
         }
+        if (!empty($element[$key]['#target_axis'])) {
+          $dataset->yAxisID = $element[$key]['#target_axis'];
+        }
         $dataset->label = $element[$key]['#title'];
         $dataset->data = $series_data;
-        if (!in_array($chart_type, ['pie', 'doughnut'])) {
-          $dataset->borderColor = $element[$key]['#color'];
+
+        // Set the background and border color.
+        if (!empty($element[$key]['#color'])) {
+          if (!in_array($chart_type, ['pie', 'doughnut'])) {
+            $dataset->borderColor = $element[$key]['#color'];
+          }
+          $dataset->backgroundColor = $element[$key]['#color'];
         }
-        $dataset->backgroundColor = $element[$key]['#color'];
+        if (in_array($chart_type, ['pie', 'doughnut']) && !empty($element['#colors'])) {
+          $dataset->backgroundColor = $element['#colors'];
+        }
+
         $series_type = isset($element[$key]['#chart_type']) ? $this->populateChartType($element[$key]) : $chart_type;
         $dataset->type = $series_type;
         if (!empty($element[$key]['#chart_type']) && $element[$key]['#chart_type'] === 'area') {
@@ -274,15 +429,16 @@ class Chartjs extends ChartBase {
         else {
           $dataset->fill = FALSE;
         }
-        $datasets[] = $dataset;
-      }
 
-      // Merge in axis raw options.
-      if (!empty($element[$key]['#raw_options'])) {
-        $datasets = NestedArray::mergeDeepArray([
-          $datasets,
-          $element[$key]['#raw_options'],
-        ]);
+        // Merge in dataset raw options.
+        if (!empty($element[$key]['#raw_options'])) {
+          $dataset = NestedArray::mergeDeepArray([
+            $dataset,
+            $element[$key]['#raw_options'],
+          ]);
+        }
+
+        $datasets[] = $dataset;
       }
 
     }
@@ -304,8 +460,6 @@ class Chartjs extends ChartBase {
   protected function populateChartType(array $element) {
     switch ($element['#chart_type']) {
       case 'bar':
-        $type = 'horizontalBar';
-        break;
 
       case 'column':
         $type = 'bar';
@@ -322,8 +476,8 @@ class Chartjs extends ChartBase {
         break;
 
       case 'gauge':
-        // Setting this, but gauge is currently not supported by Chart.js.
-        $type = 'gauge';
+        // Gauge is currently not supported by Chart.js.
+        $type = 'donut';
         break;
 
       default:
@@ -348,14 +502,20 @@ class Chartjs extends ChartBase {
    */
   protected function buildLegend(array $element) {
     $legend = [];
+    // Configure the legend display.
+    $legend['display'] = (bool) $element['#legend'];
+
+    // Configure legend position.
     if (!empty($element['#legend_position'])) {
-      $legend['display'] = TRUE;
       $legend['position'] = $element['#legend_position'];
+      if (!empty($element['#legend_font_weight'])) {
+        $legend['labels']['font']['weight'] = $element['#legend_font_weight'];
+      }
       if (!empty($element['#legend_font_style'])) {
-        $legend['labels']['fontStyle'] = $element['#legend_font_style'];
+        $legend['labels']['font']['style'] = $element['#legend_font_style'];
       }
       if (!empty($element['#legend_font_size'])) {
-        $legend['labels']['fontSize'] = $element['#legend_font_size'];
+        $legend['labels']['font']['size'] = $element['#legend_font_size'];
       }
     }
 
@@ -387,13 +547,16 @@ class Chartjs extends ChartBase {
         }
       }
       if (!empty($element['#title_color'])) {
-        $title['fontColor'] = $element['#title_color'];
+        $title['color'] = $element['#title_color'];
+      }
+      if (!empty($element['#title_font_weight'])) {
+        $title['font']['weight'] = $element['#title_font_weight'];
       }
       if (!empty($element['#title_font_style'])) {
-        $title['fontStyle'] = $element['#title_font_style'];
+        $title['font']['style'] = $element['#title_font_style'];
       }
       if (!empty($element['#title_font_size'])) {
-        $title['fontSize'] = $element['#title_font_size'];
+        $title['font']['size'] = $element['#title_font_size'];
       }
     }
 
@@ -410,9 +573,12 @@ class Chartjs extends ChartBase {
    *   The color.
    */
   protected function getTranslucentColor($color) {
+    if (!$color) {
+      return '';
+    }
     $rgb = Color::hexToRgb($color);
-    return 'rgba(' . implode(",", $rgb) . ',' . 0.5 . ')';
 
+    return 'rgba(' . implode(",", $rgb) . ',' . 0.5 . ')';
   }
 
 }

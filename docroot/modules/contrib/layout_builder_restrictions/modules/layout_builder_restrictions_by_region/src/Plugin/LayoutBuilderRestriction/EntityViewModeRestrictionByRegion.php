@@ -129,7 +129,7 @@ class EntityViewModeRestrictionByRegion extends LayoutBuilderRestrictionBase {
                 $delta = $content_block_types_by_uuid[$uuid];
               }
             }
-            if (in_array($category, $restricted_categories[$region])) {
+            if (isset($restricted_categories[$region]) && in_array($category, $restricted_categories[$region])) {
               unset($definitions[$original_delta]);
             }
             elseif (isset($whitelisted_blocks[$region]) && in_array($category, array_keys($whitelisted_blocks[$region]))) {
@@ -222,10 +222,10 @@ class EntityViewModeRestrictionByRegion extends LayoutBuilderRestrictionBase {
         // the restriction will be removed, below.
         $has_restrictions = TRUE;
       }
-      if (in_array($category, array_values($restricted_categories[$region_to]))) {
+      if (isset($restricted_categories[$region_to]) && in_array($category, array_values($restricted_categories[$region_to]))) {
         $has_restrictions = TRUE;
       }
-      if (!isset($restricted_categories[$region_to][$category]) && !isset($blacklisted_blocks[$region_to][$category]) && !isset($whitelisted_blocks[$region_to][$category]) && !in_array($category, array_values($restricted_categories[$region_to])) && $category != "Custom blocks") {
+      elseif (!isset($restricted_categories[$region_to][$category]) && !isset($blacklisted_blocks[$region_to][$category]) && !isset($whitelisted_blocks[$region_to][$category]) && $category != "Custom blocks") {
         // No restrictions have been placed on this category.
         $has_restrictions = FALSE;
       }
@@ -343,6 +343,8 @@ class EntityViewModeRestrictionByRegion extends LayoutBuilderRestrictionBase {
       // Pre-load all reusable blocks by UUID to retrieve block type.
       $query = $this->database->select('block_content', 'b')
         ->fields('b', ['uuid', 'type']);
+      $query->join('block_content_field_data', 'bc', 'b.id = bc.id');
+      $query->condition('bc.reusable', 1);
       $results = $query->execute();
       return $results->fetchAllKeyed(0, 1);
     }

@@ -88,3 +88,53 @@ function varbase_security_install() {
   }
 
 }
+
+/**
+ * Add Flood Control module for login attempt limiting.
+ *
+ * And remove the Flood Unblock module as it will be
+ * discontinued by its maintainers.
+ */
+function varbase_security_update_9001() {
+
+  /** @var \Drupal\update_helper\Updater $updateHelper */
+  $updateHelper = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updateHelper->executeUpdate('varbase_core', 'varbase_security_update_9001');
+
+  // Output logged messages to related channel of update execution.
+  return $updateHelper->logger()->output();
+}
+
+/**
+ * Reinforce spam protection and enable "Honeypot" spam detection.
+ *
+ * Enabling protection on a wider array of forms and enabling time limit of 2 seconds.
+ */
+function varbase_security_update_9002() {
+  /** @var \Drupal\update_helper\Updater $updateHelper */
+  $updateHelper = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updateHelper->executeUpdate('varbase_core', 'varbase_security_update_9002');
+
+  // Output logged messages to related channel of update execution.
+  return $updateHelper->logger()->output();
+}
+
+/**
+ * Issue #3252064: Add Antibot module with config to Varbase Security.
+ *
+ * Reinforce spam protection via the "Antibot" spam detection mechanism.
+ */
+function varbase_security_update_9003() {
+  /** @var \Drupal\update_helper\Updater $updateHelper */
+  $updateHelper = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updateHelper->executeUpdate('varbase_core', 'varbase_security_update_9003');
+
+  // Output logged messages to related channel of update execution.
+  return $updateHelper->logger()->output();
+}

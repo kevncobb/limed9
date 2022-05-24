@@ -14,13 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ChartsConfigForm extends ConfigFormBase {
 
   /**
-   * The config data object.
-   *
-   * @var \Drupal\Core\Config\Config
-   */
-  protected $config;
-
-  /**
    * The cache tags invalidator.
    *
    * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
@@ -37,7 +30,6 @@ class ChartsConfigForm extends ConfigFormBase {
    */
   public function __construct(ConfigFactoryInterface $config_factory, CacheTagsInvalidatorInterface $cache_tags_invalidator) {
     parent::__construct($config_factory);
-    $this->config = $this->configFactory->getEditable('charts.settings');
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
   }
 
@@ -69,7 +61,7 @@ class ChartsConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $default_config = $this->config->get('charts_default_settings') ?: [];
+    $default_config = $this->config('charts.settings')->get('charts_default_settings') ?: [];
 
     $form['help'] = [
       '#type' => 'html_tag',
@@ -101,12 +93,18 @@ class ChartsConfigForm extends ConfigFormBase {
       unset($settings['defaults']);
     }
 
+    // Process the default colors to remove unneeded data.
+    foreach ($settings['display']['colors'] as $color_index => $color_item) {
+      $settings['display']['colors'][$color_index] = $color_item['color'];
+    }
+
     // Save the main settings.
-    $this->config->set('charts_default_settings', $settings);
-    $this->config->save();
+    $config = $this->config('charts.settings');
+    $config->set('charts_default_settings', $settings)
+      ->save();
 
     // Invalidate cache tags to refresh any view relying on this.
-    $this->cacheTagsInvalidator->invalidateTags($this->config->getCacheTags());
+    $this->cacheTagsInvalidator->invalidateTags($config->getCacheTags());
 
     parent::submitForm($form, $form_state);
   }

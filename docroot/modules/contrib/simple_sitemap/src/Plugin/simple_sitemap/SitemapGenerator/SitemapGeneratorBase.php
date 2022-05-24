@@ -6,7 +6,7 @@ use Drupal\Core\Url;
 use Drupal\simple_sitemap\Plugin\simple_sitemap\SimplesitemapPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Component\Datetime\Time;
 use Drupal\Core\Language\LanguageInterface;
@@ -32,7 +32,7 @@ abstract class SitemapGeneratorBase extends SimplesitemapPluginBase implements S
   protected $languageManager;
 
   /**
-   * @var \Drupal\Core\Extension\ModuleHandler
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
 
@@ -74,7 +74,7 @@ abstract class SitemapGeneratorBase extends SimplesitemapPluginBase implements S
    * @param string $plugin_id
    * @param mixed $plugin_definition
    * @param \Drupal\Core\Database\Connection $database
-   * @param \Drupal\Core\Extension\ModuleHandler $module_handler
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    * @param \Drupal\Component\Datetime\Time $time
    * @param \Drupal\simple_sitemap\Plugin\simple_sitemap\SitemapGenerator\SitemapWriter $sitemap_writer
@@ -84,7 +84,7 @@ abstract class SitemapGeneratorBase extends SimplesitemapPluginBase implements S
     $plugin_id,
     $plugin_definition,
     Connection $database,
-    ModuleHandler $module_handler,
+    ModuleHandlerInterface $module_handler,
     LanguageManagerInterface $language_manager,
     Time $time,
     SitemapWriter $sitemap_writer

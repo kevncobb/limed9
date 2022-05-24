@@ -26,8 +26,8 @@ use Drupal\paragraphs\Plugin\EntityReferenceSelection\ParagraphSelection;
  *
  * @FieldWidget(
  *   id = "entity_reference_paragraphs",
- *   label = @Translation("Paragraphs Classic"),
- *   description = @Translation("A paragraphs inline form widget."),
+ *   label = @Translation("Paragraphs Legacy"),
+ *   description = @Translation("The legacy paragraphs inline form widget."),
  *   field_types = {
  *     "entity_reference_revisions"
  *   }
@@ -651,6 +651,9 @@ class InlineParagraphsWidget extends WidgetBase {
         field_group_attach_groups($element['subform'], $context);
         if (method_exists(FormatterHelper::class, 'formProcess')) {
           $element['subform']['#process'][] = [FormatterHelper::class, 'formProcess'];
+        }
+        elseif (function_exists('field_group_form_pre_render')) {
+          $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
         }
         elseif (function_exists('field_group_form_process')) {
           $element['subform']['#process'][] = 'field_group_form_process';
@@ -1288,7 +1291,7 @@ class InlineParagraphsWidget extends WidgetBase {
     $non_remove_mode_item_count = $widget_state['real_item_count'] - $remove_mode_item_count;
 
     if ($elements['#required'] && $non_remove_mode_item_count < 1) {
-      $form_state->setError($elements, t('@name field is required.', ['@name' => $this->fieldDefinition->getLabel()]));
+      $form_state->setError($elements, $this->t('@name field is required.', ['@name' => $this->fieldDefinition->getLabel()]));
     }
 
     static::setWidgetState($elements['#field_parents'], $field_name, $form_state, $widget_state);

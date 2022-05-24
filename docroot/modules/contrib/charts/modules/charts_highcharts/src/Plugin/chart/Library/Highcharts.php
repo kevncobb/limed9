@@ -4,11 +4,15 @@ namespace Drupal\charts_highcharts\Plugin\chart\Library;
 
 use Drupal\charts\Element\Chart as ChartElement;
 use Drupal\charts\Plugin\chart\Library\ChartBase;
+use Drupal\charts\TypeManager;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a concrete class for a Highcharts.
@@ -18,7 +22,54 @@ use Drupal\Core\Url;
  *   name = @Translation("Highcharts")
  * )
  */
-class Highcharts extends ChartBase {
+class Highcharts extends ChartBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The element info manager.
+   *
+   * @var \Drupal\Core\Render\ElementInfoManagerInterface
+   */
+  protected $elementInfo;
+
+  /**
+   * The chart type manager.
+   *
+   * @var \Drupal\charts\TypeManager
+   */
+  protected $chartTypeManager;
+
+  /**
+   * Constructs a \Drupal\views\Plugin\Block\ViewsBlockBase object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Render\ElementInfoManagerInterface $element_info
+   *   The element info manager.
+   * @param \Drupal\charts\TypeManager $chart_type_manager
+   *   The chart type manager.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ElementInfoManagerInterface $element_info, TypeManager $chart_type_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->elementInfo = $element_info;
+    $this->chartTypeManager = $chart_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('element_info'),
+      $container->get('plugin.manager.charts_type')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -35,6 +86,7 @@ class Highcharts extends ChartBase {
           'overflow' => '',
         ],
       ],
+      'exporting_library' => TRUE,
     ] + parent::defaultConfiguration();
 
     return $configurations;
@@ -129,6 +181,12 @@ class Highcharts extends ChartBase {
       '#default_value' => $legend_configuration['item_style']['overflow'] ?? '',
     ];
 
+    $form['exporting_library'] = [
+      '#title' => $this->t('Enable Highcharts\' "Exporting" library'),
+      '#type' => 'checkbox',
+      '#default_value' => !empty($this->configuration['exporting_library']),
+    ];
+
     return $form;
   }
 
@@ -146,6 +204,7 @@ class Highcharts extends ChartBase {
     if (!$form_state->getErrors()) {
       $values = $form_state->getValue($form['#parents']);
       $this->configuration['legend'] = $values['legend'];
+      $this->configuration['exporting_library'] = $values['exporting_library'];
     }
   }
 
@@ -175,6 +234,9 @@ class Highcharts extends ChartBase {
     }
 
     $element['#attached']['library'][] = 'charts_highcharts/highcharts';
+    if (!empty($this->configuration['exporting_library'])) {
+      $element['#attached']['library'][] = 'charts_highcharts/highcharts_exporting';
+    }
     $element['#attributes']['class'][] = 'charts-highchart';
     $element['#chart_definition'] = $chart_definition;
 
@@ -194,32 +256,47 @@ class Highcharts extends ChartBase {
    */
   private function populateOptions(array $element, array $chart_definition) {
     $chart_type = $this->getType($element['#chart_type']);
-
-    $chart_definition['chart']['width'] = $element['#width'] ? $element['#width'] : NULL;
-    $chart_definition['chart']['height'] = $element['#height'] ? $element['#height'] : NULL;
+    $chart_definition['chart']['width'] = $element['#width'] ?? NULL;
+    $chart_definition['chart']['height'] = $element['#height'] ?? NULL;
     $chart_definition['chart']['type'] = $chart_type;
     $chart_definition['chart']['backgroundColor'] = $element['#background'];
     $chart_definition['chart']['polar'] = $element['#polar'] ?? NULL;
     $chart_definition['chart']['options3d']['enabled'] = $element['#three_dimensional'] ?? NULL;
     $chart_definition['credits']['enabled'] = FALSE;
-
-    $chart_definition['title']['text'] = $element['#title'] ? $element['#title'] : '';
+    $chart_definition['title']['text'] = $element['#title'] ?? '';
     $chart_definition['title']['style']['color'] = $element['#title_color'];
-
+    $chart_definition['title']['verticalAlign'] = $element['#title_position'] === 'in' ? 'top' : NULL;
+    $chart_definition['title']['y'] = $element['#title_position'] === 'in' ? 24 : NULL;
+    $chart_definition['colors'] = $element['#colors'];
     $chart_definition['title']['verticalAlign'] = $element['#title_position'] === 'in' ? 'top' : NULL;
     $chart_definition['title']['y'] = $element['#title_position'] === 'in' ? 24 : NULL;
     $chart_definition['colors'] = $element['#colors'];
 
-    $chart_definition['title']['verticalAlign'] = $element['#title_position'] === 'in' ? 'top' : NULL;
-    $chart_definition['title']['y'] = $element['#title_position'] === 'in' ? 24 : NULL;
+    $chart_definition['tooltip']['enabled'] = (bool) $element['#tooltips'];
+    $chart_definition['tooltip']['useHTML'] = (bool) $element['#tooltips_use_html'];
 
-    $chart_definition['colors'] = $element['#colors'];
+    $chart_definition['plotOptions']['series']['stacking'] = $element['#stacking'] ?? '';
+    $chart_definition['plotOptions']['series']['dataLabels']['enabled'] = (bool) $element['#data_labels'];
 
-    $chart_definition['tooltip']['enabled'] = $element['#tooltips'] ? TRUE : FALSE;
-    $chart_definition['tooltip']['useHTML'] = $element['#tooltips_use_html'] ? TRUE : FALSE;
-
-    $chart_definition['plotOptions']['series']['stacking'] = $element['#stacking'] ? $element['#stacking'] : '';
-    $chart_definition['plotOptions']['series']['dataLabels']['enabled'] = $element['#data_labels'] ? TRUE : FALSE;
+    if ($element['#chart_type'] === 'gauge') {
+      $chart_definition['yAxis']['plotBands'][] = [
+        'from' => $element['#gauge']['red_from'],
+        'to' => $element['#gauge']['red_to'],
+        'color' => 'red',
+      ];
+      $chart_definition['yAxis']['plotBands'][] = [
+        'from' => $element['#gauge']['yellow_from'],
+        'to' => $element['#gauge']['yellow_to'],
+        'color' => 'yellow',
+      ];
+      $chart_definition['yAxis']['plotBands'][] = [
+        'from' => $element['#gauge']['green_from'],
+        'to' => $element['#gauge']['green_to'],
+        'color' => 'green',
+      ];
+      $chart_definition['yAxis']['min'] = (int) $element['#gauge']['min'];
+      $chart_definition['yAxis']['max'] = (int) $element['#gauge']['max'];
+    }
 
     // These changes are for consistency with Google. Perhaps too specific?
     if ($element['#chart_type'] === 'pie') {
@@ -232,8 +309,11 @@ class Highcharts extends ChartBase {
 
     if ($element['#legend'] === TRUE) {
       $chart_definition['legend']['enabled'] = $element['#legend'];
-      if (in_array($element['#chart_type'], ['pie', 'donut', 'gauge'])) {
-        $chart_definition['plotOptions'][$element['#chart_type']]['showInLegend'] = TRUE;
+      if (in_array($element['#chart_type'], ['pie', 'donut'])) {
+        $chart_definition['plotOptions']['pie']['showInLegend'] = TRUE;
+      }
+      elseif ($element['#chart_type'] == 'gauge') {
+        $chart_definition['plotOptions']['gauge']['showInLegend'] = TRUE;
       }
       if (!empty($element['#legend_title'])) {
         $chart_definition['legend']['title']['text'] = $element['#legend_title'];
@@ -301,12 +381,14 @@ class Highcharts extends ChartBase {
    *   Return the chart definition.
    */
   private function populateData(array &$element, array $chart_definition) {
-    /** @var \Drupal\Core\Render\ElementInfoManagerInterface $element_info */
-    $element_info = \Drupal::service('element_info');
-
     $categories = [];
+    $chart_type = $this->getType($element['#chart_type']);
     foreach (Element::children($element) as $key) {
-      if ($element[$key]['#type'] === 'chart_xaxis') {
+      if ($element[$key]['#type'] === 'chart_xaxis' && !empty($element[$key]['#labels'])) {
+        if ($chart_type === 'pie') {
+          $categories = $element[$key]['#labels'];
+          break;
+        }
         $categories[] = $element[$key]['#labels'];
       }
     }
@@ -317,7 +399,7 @@ class Highcharts extends ChartBase {
 
         // Make sure defaults are loaded.
         if (empty($element[$key]['#defaults_loaded'])) {
-          $element[$key] += $element_info->getInfo($element[$key]['#type']);
+          $element[$key] += $this->elementInfo->getInfo($element[$key]['#type']);
         }
 
         // Convert target named axis keys to integers.
@@ -335,10 +417,18 @@ class Highcharts extends ChartBase {
           $series['yAxis'] = $axis_index;
         }
 
-        // Allow data to provide the labels. This will override the axis.
-        // settings.
-        if ($element[$key]['#labels'] && $element[$key]['#chart_type'] !== 'scatter') {
+        // Allow data to provide the labels.
+        // This will override the axis settings.
+        if ($element[$key]['#labels'] && !in_array($element[$key]['#chart_type'], [
+          'scatter',
+          'bubble',
+        ])) {
           foreach ($element[$key]['#labels'] as $label_index => $label) {
+            $series_data[$label_index][0] = $label;
+          }
+        }
+        elseif ($categories && $chart_type === 'pie') {
+          foreach ($categories as $label_index => $label) {
             $series_data[$label_index][0] = $label;
           }
         }
@@ -361,14 +451,6 @@ class Highcharts extends ChartBase {
         $series['name'] = $element[$key]['#title'];
         $series['color'] = $element[$key]['#color'];
 
-        // $series['marker']['radius'] = $element[$key]['#marker_radius'];
-        // $series['showInLegend'] = $element[$key]['#show_in_legend'];
-        // $series['connectNulls'] = TRUE;
-        // $series['tooltip']['valueDecimals'] = $element[$key].
-        // ['#decimal_count'];
-        // $series['tooltip']['xDateFormat'] = $element[$key]['#date_format'];
-        // $series['tooltip']['valuePrefix'] = $element[$key]['#prefix'];
-        // $series['tooltip']['valueSuffix'] = $element[$key]['#suffix'];
         if ($element[$key]['#prefix'] || $element[$key]['#suffix']) {
           $yaxis_index = isset($series['yAxis']) ? $series['yAxis'] : 0;
           // For axis formatting, we need to use a format string.
@@ -410,7 +492,7 @@ class Highcharts extends ChartBase {
           if ($element[$key][$sub_key]['#type'] === 'chart_data_item') {
             // Make sure defaults are loaded.
             if (empty($element[$key][$sub_key]['#defaults_loaded'])) {
-              $element[$key][$sub_key] += $element_info->getInfo($element[$key][$sub_key]['#type']);
+              $element[$key][$sub_key] += $this->elementInfo->getInfo($element[$key][$sub_key]['#type']);
             }
 
             $data_item = $element[$key][$sub_key];
@@ -450,7 +532,10 @@ class Highcharts extends ChartBase {
 
             // Merge in point raw options.
             if (!empty($data_item['#raw_options'])) {
-              $series_point = NestedArray::mergeDeepArray([$data_item['#raw_options'], $series_point]);
+              $series_point = NestedArray::mergeDeepArray([
+                $data_item['#raw_options'],
+                $series_point,
+              ]);
             }
           }
         }
@@ -472,16 +557,11 @@ class Highcharts extends ChartBase {
    *   Return the chart definition.
    */
   private function populateAxes(array $element, array $chart_definition) {
-    /** @var \Drupal\Core\Render\ElementInfoManagerInterface $element_info */
-    $element_info = \Drupal::service('element_info');
-    /** @var \Drupal\charts\TypeManager $chart_type_plugin_manager */
-    $chart_type_plugin_manager = \Drupal::service('plugin.manager.charts_type');
-
     foreach (Element::children($element) as $key) {
       if ($element[$key]['#type'] === 'chart_xaxis' || $element[$key]['#type'] === 'chart_yaxis') {
         // Make sure defaults are loaded.
         if (empty($element[$key]['#defaults_loaded'])) {
-          $element[$key] += $element_info->getInfo($element[$key]['#type']);
+          $element[$key] += $this->elementInfo->getInfo($element[$key]['#type']);
         }
 
         // Populate the chart data.
@@ -490,7 +570,9 @@ class Highcharts extends ChartBase {
         $axis['type'] = $element[$key]['#axis_type'];
         $axis['title']['text'] = $element[$key]['#title'];
         $axis['title']['style']['color'] = $element[$key]['#title_color'];
-        $axis['categories'] = $element[$key]['#labels'];
+        if (!empty($element[$key]['#labels'])) {
+          $axis['categories'] = $element[$key]['#labels'];
+        }
         $axis['labels']['style']['color'] = $element[$key]['#labels_color'];
         $axis['labels']['rotation'] = $element[$key]['#labels_rotation'];
         $axis['gridLineColor'] = $element[$key]['#grid_line_color'];
@@ -502,7 +584,7 @@ class Highcharts extends ChartBase {
         $axis['opposite'] = $element[$key]['#opposite'];
 
         if ($axis['labels']['rotation']) {
-          $chart_type = $chart_type_plugin_manager->getDefinition($element['#chart_type']);
+          $chart_type = $this->chartTypeManager->getDefinition($element['#chart_type']);
           if ($axis_type === 'xAxis' && !$chart_type['axis_inverted']) {
             $axis['labels']['align'] = 'left';
           }
@@ -513,7 +595,10 @@ class Highcharts extends ChartBase {
 
         // Merge in axis raw options.
         if (!empty($element[$key]['#raw_options'])) {
-          $axis = NestedArray::mergeDeepArray([$element[$key]['#raw_options'], $axis]);
+          $axis = NestedArray::mergeDeepArray([
+            $element[$key]['#raw_options'],
+            $axis,
+          ]);
         }
 
         $chart_definition[$axis_type][] = $axis;

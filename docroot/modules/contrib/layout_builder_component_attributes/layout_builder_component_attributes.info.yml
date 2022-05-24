@@ -1,7 +1,7 @@
 name: 'Layout Builder Component Attributes'
 description: 'Allows editors to add HTML attributes to Layout Builder components (blocks)'
 package: 'Layout Builder'
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9
 type: module
 
 dependencies:

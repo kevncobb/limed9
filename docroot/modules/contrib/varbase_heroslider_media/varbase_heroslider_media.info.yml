@@ -17,7 +17,7 @@ install:
   - advanced_text_formatter
   - maxlength
 
-# Information added by Drupal.org packaging script on 2021-10-09
-version: '9.0.1'
+# Information added by Drupal.org packaging script on 2022-04-21
+version: '9.0.4'
 project: 'varbase_heroslider_media'
-datestamp: 1633797228
+datestamp: 1650545505

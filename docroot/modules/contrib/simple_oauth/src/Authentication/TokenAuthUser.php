@@ -845,7 +845,7 @@ class TokenAuthUser implements TokenAuthUserInterface {
   /**
    * {@inheritdoc}
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     throw new \Exception('Invalid use of getIterator in token authentication.');
   }
 

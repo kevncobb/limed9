@@ -227,6 +227,10 @@ third_party_settings:
                   class: _none
               scroll_effects:
                 class: null
+              horizontal_alignment:
+                class: null
+              vertical_alignment:
+                class: null
           container_wrapper_bg_color_class: ""
           container_wrapper_bg_media: null
           container: container-fluid
@@ -355,6 +359,7 @@ third_party_settings:
         - "bootstrap_layout_builder:blb_col_3"
         - "bootstrap_layout_builder:blb_col_4"
         - "bootstrap_layout_builder:blb_col_6"
+      restricted_categories: {}
 id: taxonomy_term.tags.full
 targetEntityType: taxonomy_term
 bundle: tags
@@ -368,4 +373,5 @@ content:
     settings: {}
     third_party_settings: {}
 hidden:
+  langcode: true
   search_api_excerpt: true

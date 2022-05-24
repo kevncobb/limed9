@@ -37,7 +37,7 @@ install:
   - coffee
   - length_indicator
 
-# Information added by Drupal.org packaging script on 2021-10-09
-version: '9.0.9'
+# Information added by Drupal.org packaging script on 2022-01-23
+version: '9.0.14'
 project: 'varbase_core'
-datestamp: 1633798666
+datestamp: 1642948695
