@@ -185,14 +185,6 @@
     "composer-exit-on-patch-failure": true,
     "patchLevel": {
       "drupal/core": "-p2"
-    },
-    "patches": {
-      "drupal/content_moderation_notifications": {
-          "Add option to email revision author": "https://www.drupal.org/files/issues/2021-03-09/content-moderation-notifications-3133940-5.patch"
-      },
-      "drupal/ace_editor": {
-          "Regex in ace_editor_lib_path is too greedy cuasing warnings when installed alongside C3 library": "https://www.drupal.org/files/issues/2021-03-22/3204896.patch"
-      }
     }
   }
 }

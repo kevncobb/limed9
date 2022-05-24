@@ -770,9 +770,6 @@ class ParagraphsWidget extends WidgetBase {
         if (method_exists(FormatterHelper::class, 'formProcess')) {
           $element['subform']['#process'][] = [FormatterHelper::class, 'formProcess'];
         }
-        elseif (function_exists('field_group_form_pre_render')) {
-          $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
-        }
         elseif (function_exists('field_group_form_process')) {
           $element['subform']['#process'][] = 'field_group_form_process';
         }
@@ -2678,7 +2675,7 @@ class ParagraphsWidget extends WidgetBase {
    *   TRUE if we can allow reference changes, otherwise FALSE.
    */
   protected function allowReferenceChanges() {
-    return !$this->isTranslating;
+    return !$this->isTranslating || \Drupal::configFactory()->getEditable('paragraphs.settings')->get('allow_reference_changes');
   }
 
   /**

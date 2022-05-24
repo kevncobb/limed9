@@ -2341,9 +2341,6 @@
                             "package": "npm-asset/ace-builds"
                         }
                     ]
-                },
-                "patches_applied": {
-                    "Regex in ace_editor_lib_path is too greedy cuasing warnings when installed alongside C3 library": "https://www.drupal.org/files/issues/2021-03-22/3204896.patch"
                 }
             },
             "installation-source": "dist",
@@ -3632,7 +3629,8 @@
                 },
                 "patches_applied": {
                     "Issue #3192061: Have the option to use other admin themes like Claro or Gin": "https://www.drupal.org/files/issues/2021-02-03/bootstrap_styles-1-0-3--3192061-9.patch",
-                    "Issue #3230802: Fix Border styling with Bootstrap library hard overrides over borders": "https://www.drupal.org/files/issues/2021-09-01/3230802-4.patch"
+                    "Issue #3230802: Fix Border styling with Bootstrap library hard overrides over borders": "https://www.drupal.org/files/issues/2021-09-01/3230802-4.patch",
+                    "Issue #3213112: Add a specific class when having sections with background color, image, or video option": "https://www.drupal.org/files/issues/2021-10-23/bootstrap_styles-tag-1-0-3--3213112-15.patch"
                 }
             },
             "installation-source": "dist",
@@ -3978,6 +3976,9 @@
                     "services": {
                         "drush.services.yml": "^9"
                     }
+                },
+                "patches_applied": {
+                    "Issue #2900313: Add ability to embed tweets and other rich content in WYSIWYG": "https://www.drupal.org/files/issues/embed_rich_content_in_WYSIWYG-2900313-2.patch"
                 }
             },
             "installation-source": "dist",
@@ -5111,6 +5112,18 @@
                         "[web-root]/profiles/README.txt": "assets/scaffold/files/profiles.README.txt",
                         "[web-root]/themes/README.txt": "assets/scaffold/files/themes.README.txt"
                     }
+                },
+                "patches_applied": {
+                    "Issue #2869592: Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
+                    "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal": "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch",
+                    "Issue #3044656: Add a helper method to strip subdirectories from URL paths": "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
+                    "Issue #3101231: Fix multilingual site's layout edit context issue with TypeError: Argument 1 passed to UrlHelper::buildQuery() must be of the type array, null given": "https://www.drupal.org/files/issues/2019-12-19/3101231-19.patch",
+                    "Issue #2985882: Fix Error: Call to a member function getLabel() after enabling layout_builder": "https://www.drupal.org/files/issues/2020-01-20/2985882-53.patch",
+                    "Issue #2741877: Nested modals don't work: opening a modal from a modal closes the original": "https://www.drupal.org/files/issues/2021-04-29/2741877-77.patch",
+                    "Issue #3165435: Fix tour <front> route as route name when a selected node had been set as the front page for the site": "https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch",
+                    "Issue #3226791: Fix Validation error saving untranslatable Media reference field": "https://www.drupal.org/files/issues/2021-08-04/media_required_validation-3226791-2.patch",
+                    "Issue #3059955: It is possible to overflow the number of items allowed in Media Library": "https://www.drupal.org/files/issues/2020-11-16/3059955-107.patch",
+                    "Issue #3053881: Reverting entity revisions that contain custom blocks erroneously triggers EntityChangedConstraint": "https://www.drupal.org/files/issues/2021-10-29/3053881-60.patch"
                 }
             },
             "installation-source": "dist",
@@ -8469,7 +8482,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Issue #3143422: Allow to hide the Edit button in Complex widget": "https://www.drupal.org/files/issues/2020-05-28/optional_edit-3143422-2.patch"
+                    "Issue #3143422: Allow to hide the Edit button in Complex widget": "https://www.drupal.org/files/issues/2020-05-28/optional_edit-3143422-2.patch",
+                    "Issue #3136514: IEF complex widget: Re-ordering / weight sometimes not updated": "https://www.drupal.org/files/issues/2021-04-13/inline_entity_form-order-by-weight-inline-entities-3136514-02.patch"
                 }
             },
             "installation-source": "dist",
@@ -8478,6 +8492,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
@@ -8505,6 +8523,10 @@
                 {
                     "name": "oknate",
                     "homepage": "https://www.drupal.org/user/471638"
+                },
+                {
+                    "name": "ram4nd",
+                    "homepage": "https://www.drupal.org/user/601534"
                 },
                 {
                     "name": "rszrama",
@@ -11719,6 +11741,10 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Issue #2924774: Let Editors add/delete/clone paragraphs When [Editing a translation]": "https://www.drupal.org/files/issues/2018-06-03/2924774-29.patch",
+                    "Issue #3138609: Fixe Field group support broken": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch"
                 }
             },
             "installation-source": "dist",
@@ -12718,6 +12744,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Issue #3254806: Fix Invalid argument supplied for foreach() in reroute_email_check_email_by_permission() (line 316)": "https://git.drupalcode.org/project/reroute_email/-/commit/438a67caeb0b0cc47d1deb0cee50afda9a907dc8.diff"
                 }
             },
             "installation-source": "dist",
@@ -14735,7 +14764,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Issue #3184083: Fix invalid id passed to layout plugin": "https://www.drupal.org/files/issues/2020-11-22/3184083-1-styleguide-layout.patch"
+                    "Issue #3184083: Fix invalid id passed to layout plugin": "https://www.drupal.org/files/issues/2020-11-22/3184083-1-styleguide-layout.patch",
+                    "Issue #3258816: Fix [PHP 8.1] Deprecated function: strpos(): Passing null to parameter #1": "https://git.drupalcode.org/project/styleguide/-/merge_requests/5.diff"
                 }
             },
             "installation-source": "dist",
@@ -17446,6 +17476,9 @@
                     "services": {
                         "drush.services.yml": "^9 || ^10"
                     }
+                },
+                "patches_applied": {
+                    "Issue #3222477: Pager is broken when Items Per Page is exposed": "https://www.drupal.org/files/issues/2021-10-28/3222477-8.patch"
                 }
             },
             "installation-source": "dist",
@@ -18003,6 +18036,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Issue #3153137: Using Image Widget Crop in responsive images does not refresh webp image": "https://www.drupal.org/files/issues/2022-01-31/webp-support-image-crop-3153137-12.patch"
                 }
             },
             "installation-source": "dist",

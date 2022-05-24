@@ -14,9 +14,9 @@
 function ace_editor_lib_path() {
 
   $paths_to_check = [
-    '/libraries/ace',
-    '/' . drupal_get_path('module', 'ace_editor') . '/libraries/ace',
-    '/' . drupal_get_path('profile', \Drupal::installProfile()) . '/libraries/ace',
+    '/libraries',
+    '/' . drupal_get_path('module', 'ace_editor') . '/libraries/',
+    '/' . drupal_get_path('profile', \Drupal::installProfile()) . '/libraries/',
     ];
 
   foreach ($paths_to_check as $path) {
