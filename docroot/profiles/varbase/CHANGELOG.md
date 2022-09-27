@@ -1,3 +1,186 @@
+# 9.0.8
+
+### Highlighted important changes since Varbase 9.0.7:
+
+This is a patch (bugfix) release of Varbase 9 and is ready
+for use on production sites. Learn more about Varbase 9.
+
+* Issue [#3295950](https://www.drupal.org/i/3295950):
+        Changed the default `drush/drush` version
+        from `~10.0 || ~11.0` to `~11.0` in the `composer.json`
+        file for Varbase Profile and the Varbase Project Template
+* Issue [#3301451](https://www.drupal.org/i/3301451)
+        by [vacho](https://www.drupal.org/u/vacho)
+       : Have `drupal-scaffold` locations `web-root` for Varbase as `docroot`
+        to fix composer `web-root` folder in projects
+* Issue [#3302442](https://www.drupal.org/i/3302442):
+        Dropped support for Composer `~1.0` in Varbase profile
+        and only support Composer `~2.0` and later versions
+
+### Added since Varbase 9.0.7:
+* Issue [#3298632](https://www.drupal.org/i/3298632)
+        by [Alaa Jwiehan](https://www.drupal.org/u/alaa-jwiehan)
+       : Added Functional Automated Testing: Step Definition to validate if a checkbox input is checked or unchecked
+* Issue [#3300946](https://www.drupal.org/i/3300946):
+        Added max width `100%` to images in the Welcome
+        to Varbase message homepage default content
+
+### Changed since Varbase 9.0.7:
+* Issue [#3301364](https://www.drupal.org/i/3301364):
+        Changed `node_type` to `entity_bundle:node` for default
+         pathauto pattern configs for the Blog Post content type
+* Issue [#3301361](https://www.drupal.org/i/3301361):
+        Changed `node_type` to `entity_bundle:node` for default
+        pathauto pattern configs for the Basic Page content type
+* Issue [#3301363](https://www.drupal.org/i/3301363):
+        Changed `node_type` to `entity_bundle:node` for default
+        pathauto pattern configs for the Landing Page (Layout Builder) content type
+
+### Updates since Varbase 9.0.7:
+* Issue [#3298831](https://www.drupal.org/i/3298831):
+        Updated the Inline Entity Form module from `1.0-rc11` to `1.0-rc12`
+* Issue [#3298826](https://www.drupal.org/i/3298826):
+        Updated the Prevent Homepage Deletion module from `~1.0` to `~2.0`
+* Issue [#3300859](https://www.drupal.org/i/3300859):
+        Updated the Views Bootstrap module from `~4.0` to `~5.4.0`
+        on the `9.0.x` branch
+* Issue [#3298894](https://www.drupal.org/i/3298894):
+        Updated the Paragraphs module from `1.13` to `1.14`
+        and keep the not committed patches
+* Issue [#3298883](https://www.drupal.org/i/3298883):
+        Updated the Block Form Alter module from `~1.0` to `~2.0`
+* Issue [#3298556](https://www.drupal.org/i/3298556):
+        Updated Paragraphs Asymmetric Translation Widgets module
+        from `1.0-beta4` to `~1.0` and removed committed patches
+* Issue [#3303042](https://www.drupal.org/i/3303042):
+        Updated the CTools module from `3.11-rc1` to `3.11` stable ( `~3.0` )
+* Issue [#3290573](https://www.drupal.org/i/3290573)
+        by [Project Update Bot](https://www.drupal.org/u/project-update-bot)
+       : Automated Drupal 10 compatibility fixes for VMI on the 8.x-2.x-dev branch
+* Issue [#3290336](https://www.drupal.org/i/3290336)
+        by [Project Update Bot](https://www.drupal.org/u/project-update-bot)
+       : Automated Drupal 10 compatibility fixes for Vartheme BS4
+* Issue [#3290339](https://www.drupal.org/i/3290339)
+        by [Project Update Bot](https://www.drupal.org/u/project-update-bot)
+       : Automated Drupal 10 compatibility fixes for Vartheme Claro
+        admin theme on the `3.0.x` branch
+
+### Fixes since Varbase 9.0.7:
+* TEMP quick fix for Issue [#3302839](https://www.drupal.org/i/3302839):
+        Changed the CTools module from `~3.0 || ~4.0` to `3.11-rc1`
+        in `composer.json` as a TEMP quick fix until `3.11` stable releases
+* Issue [#3290804](https://www.drupal.org/i/3290804)
+        by [Odai Atieh](https://www.drupal.org/u/odai-atieh)
+       : Fixed pathauto's options of punctuation character for
+        left and right double quotation
+* Issue [#3253519](https://www.drupal.org/i/3253519)
+        by [Qusai Taha](https://www.drupal.org/u/qusai-taha)
+       : Fixed redirects from aliased paths aren't triggered
+* Issue [#3243604](https://www.drupal.org/i/3243604)
+        by [Odai Atieh](https://www.drupal.org/u/odai-atieh)
+       : Fixed Path field is required validation issue on adding url redirect
+
+
+-------------------------------------------------------------------------------
+
+# 9.0.7
+
+### Highlighted important changes since Varbase 9.0.5:
+This is a patch (bugfix) release of Varbase 9 and is ready
+ for use on production sites. Learn more about Varbase 9.
+
+### Added since Varbase 9.0.6:
+* Issue [#3277590](https://www.drupal.org/i/3277590)
+        by [Abdullah Yassin](https://www.drupal.org/u/abdullah-yassin)
+       : Have a Varbase installation requirement ( notification, not a blocker)
+* Issue [#3285082](https://www.drupal.org/i/3285082)
+        by [Alaa Jwiehan](https://www.drupal.org/u/alaa-jwiehan)
+       : Added Automated Testing Coverage For Varbase Tour Module
+* Issue [#3292847](https://www.drupal.org/i/3292847)
+        by [Alaa Jwiehan](https://www.drupal.org/u/alaa-jwiehan)
+       : Added `--with-all-dependencies` to automation testing readme file
+        on the drupal/drupal-extension package
+* Issue [#3293400](https://www.drupal.org/i/3293400)
+        by [Alaa Jwiehan](https://www.drupal.org/u/alaa-jwiehan)
+       : Added drevops/behat-screenshot Behat content to the installation
+        guide to automated testing readme file and Varbase default testing process
+* Issue [#3285361](https://www.drupal.org/i/3285361)
+        by [Mutasim Al-Shoura](https://www.drupal.org/u/mutasim-al-shoura)
+       : Added Bootstrap buttons (Light,Dark)
+
+### Changed since Varbase 9.0.6:
+* Issue [#3284419](https://www.drupal.org/i/3284419)
+        by [Abdullah Yassin](https://www.drupal.org/u/abdullah-yassin)
+       : Changed default Varbase Carousel option set from limited to infinity
+* Issue [#3284568](https://www.drupal.org/i/3284568)
+        by [Abdullah Yassin](https://www.drupal.org/u/abdullah-yassin)
+       , [Rajab Natshah](https://www.drupal.org/u/rajab-natshah)
+       : Hide media (image/video) field link title input
+* Issue [#3291994](https://www.drupal.org/i/3291994)
+        by [Odai Jaber](https://www.drupal.org/u/odai-jaber)
+        , [Omar Alahmed](https://www.drupal.org/u/omar-alahmed)
+         : Changed to conditionally attach only needed
+        local or remote video libraries
+* Issue [#3279038](https://www.drupal.org/i/3279038)
+       : Support Drupal 10 and update all use of deprecation in the Vartheme BS4 theme
+* Issue [#3278730](https://www.drupal.org/i/3278730)
+        : Switched to use Selenium Server Standalone 3.141.59 to follow with
+        Latest Chrome Browser and Chrome Driver options
+
+### Updates since Varbase 9.0.6:
+* Issue [#3284166](https://www.drupal.org/i/3284166)
+       : Updated the Update Helper module from `3.0.2` to `3.0.3` and updated
+        the enhancements patch
+* Issue [#3291333](https://www.drupal.org/i/3291333)
+       : Updated Content Planner module from `1.0-beta16` to `1.0-beta17 ( ~1.0 )`
+        and removed committed patches
+* Issue [#3293847](https://www.drupal.org/i/3293847)
+       : Updated Chaos Tool Suite (ctools) module from `~3.0` to `~3.0 || ~4.0`
+        in Varbase Core
+* Issue [#3293844](https://www.drupal.org/i/3293844)
+       : Updated Chaos Tool Suite (ctools) module from `~3.0` to `~3.0 || ~4.0`
+        in Varbase Carousels
+* Issue [#3288722](https://www.drupal.org/i/3288722)
+        by [NaheemSays](https://www.drupal.org/u/naheemsays)
+       : Updated the Image Optimize module from `~3.0` to `~4.0` (first stable release)
+* Issue [#3283336](https://www.drupal.org/i/3283336)
+       : Updated Blazy module from `2.12` to `2.13 ( ~2.0 )`
+        and removed committed patches
+* Issue [#3277642](https://www.drupal.org/i/3277642)
+       : Updated Flood Control module from `2.2.2` to `~2.0`
+        and remove committed patches
+* Issue [#3277648](https://www.drupal.org/i/3277648)
+       : Updated Menu Position module from `1.0-beta1` to `~1.0`
+        and removed committed patches
+
+### Fixes since Varbase 9.0.6:
+* Issue [#3280063](https://www.drupal.org/i/3280063)
+        by [Abdullah Yassin](https://www.drupal.org/u/abdullah-yassin)
+       , [Alaa Jwiehan](https://www.drupal.org/u/alaa-jwiehan)
+       : Fixed footer position bottom when page have a little content in Vartheme BS4
+* Issue [#3223852](https://www.drupal.org/i/3223852)
+        by [jedgar1mx](https://www.drupal.org/u/jedgar1mx)
+       , [yasmeensalah](https://www.drupal.org/u/yasmeensalah)
+       , [Qusai Taha](https://www.drupal.org/u/qusai-taha)
+       : Fixed preview in nodes with workflows
+* Issue [#3290890](https://www.drupal.org/i/3290890):
+        Fixed deprecation issue for the Content Planner module with mysql driver on Drupal 9.4.0
+* Issue [#3285612](https://www.drupal.org/i/3285612)
+        by [Mohammad Fayoumi](https://www.drupal.org/u/mohammad-fayoumi)
+       : Fixed deprecated PHP 8.1 function: strpos(): Passing null to parameter #1 ($haystack) of type string
+* Issue [#3277279](https://www.drupal.org/i/3277279)
+        by [Abdullah Yassin](https://www.drupal.org/u/abdullah-yassin)
+       : Fixed RTL style for media library menu popup
+* Issue [#3283172](https://www.drupal.org/i/3283172)
+        by [mohammad faqeh](https://www.drupal.org/u/mohammad-faqeh)
+       : Fixed Blazy issue after updating to 2.12 Error: Call to a member function get ()
+* Issue [#3277617](https://www.drupal.org/i/3277617)
+        by [paskainos](https://www.drupal.org/u/paskainos):
+        Fixed Style Guide issue on [PHP 8.1] Deprecated function: strpos(): Passing null to parameter
+
+
+-------------------------------------------------------------------------------
+
 # 9.0.6
 
 ### Highlighted important changes since Varbase 9.0.5:
@@ -77,6 +260,9 @@ This is a patch (bugfix) release of Varbase 9 and is ready
         by [mhawwari]()
        : Changed to optionally install the Views Infinite Scroll module
         instead of requiring it in dependencies
+* Issue [#3295313](https://www.drupal.org/i/3295313):
+        Removed enabling the Seven admin theme on new installations.
+        After Claro was sat as the default admin theme
 
 ### Updates since Varbase 9.0.5:
 * Issue [#3271463](https://www.drupal.org/i/3271463):

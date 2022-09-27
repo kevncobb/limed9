@@ -3,7 +3,7 @@ description: "A JSON:API implementation with authentication and authorization th
 type: module
 package: Varbase
 configure: varbase_api.settings
-core_version_requirement: ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - drupal:jsonapi
   - openapi:openapi
@@ -17,7 +17,7 @@ install:
   - jsonapi_extras
   - jsonapi_defaults
 
-# Information added by Drupal.org packaging script on 2022-04-21
-version: '9.0.5'
+# Information added by Drupal.org packaging script on 2022-08-09
+version: '9.0.6'
 project: 'varbase_api'
-datestamp: 1650527887
+datestamp: 1660068473

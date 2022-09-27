@@ -1,7 +1,7 @@
 name: Social Auth Facebook
 type: module
 description: 'Social Auth integration for Facebook.'
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8.8 || ^9 || ^10
 package: Social
 
 configure: social_auth_facebook.settings_form

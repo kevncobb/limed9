@@ -116,7 +116,13 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
     uasort($destinations, '\Drupal\login_destination\Entity\LoginDestination::sort');
 
     $path = $this->getCurrentPath();
-    $path_alias = mb_strtolower($this->aliasManager->getAliasByPath($path));
+    try {
+      $path_alias = mb_strtolower($this->aliasManager->getAliasByPath($path));
+    }
+    catch (\InvalidArgumentException $e) {
+      // Cannot match invalid paths.
+      $path_alias = NULL;
+    }
 
     // Get user roles.
     $user_roles = $account->getRoles();

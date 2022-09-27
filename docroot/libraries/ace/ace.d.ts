@@ -217,7 +217,7 @@ export namespace Ace {
     wrapBehavioursEnabled: boolean;
     enableAutoIndent: boolean;
     autoScrollEditorIntoView: boolean;
-    keyboardHandler: string;
+    keyboardHandler: string | null;
     placeholder: string;
     value: string;
     session: EditSession;
@@ -246,6 +246,7 @@ export namespace Ace {
     off(name: string, callback: Function): void;
     removeListener(name: string, callback: Function): void;
     removeEventListener(name: string, callback: Function): void;
+    removeAllListeners(name?: string): void;
   }
 
   export interface Point {
@@ -281,7 +282,7 @@ export namespace Ace {
   }
 
   export interface MarkerLike {
-    range: Range;
+    range?: Range;
     type: string;
     renderer?: MarkerRenderer;
     clazz: string;
@@ -454,17 +455,17 @@ export namespace Ace {
     setBreakpoint(row: number, className: string): void;
     clearBreakpoint(row: number): void;
     addMarker(range: Range,
-              clazz: string,
-              type: MarkerRenderer|string,
-              inFront: boolean): number;
+      className: string,
+      type: "fullLine" | "screenLine" | "text" | MarkerRenderer,
+      inFront?: boolean): number;
     addDynamicMarker(marker: MarkerLike, inFront: boolean): MarkerLike;
     removeMarker(markerId: number): void;
     getMarkers(inFront?: boolean): MarkerLike[];
     highlight(re: RegExp): void;
     highlightLines(startRow: number,
-                   endRow: number,
-                   clazz: string,
-                   inFront?: boolean): Range;
+      endRow: number,
+      className: string,
+      inFront?: boolean): Range;
     setAnnotations(annotations: Annotation[]): void;
     getAnnotations(): Annotation[];
     clearAnnotations(): void;
@@ -753,6 +754,7 @@ export namespace Ace {
     textInput: TextInput;
 
     on(name: 'blur', callback: (e: Event) => void): void;
+    on(name: 'input', callback: () => void): void;
     on(name: 'change', callback: (delta: Delta) => void): void;
     on(name: 'changeSelectionStyle', callback: (obj: { data: string }) => void): void;
     on(name: 'changeSession',
@@ -771,7 +773,7 @@ export namespace Ace {
     getOption<T extends keyof EditorOptions>(name: T): EditorOptions[T];
 
     setKeyboardHandler(keyboardHandler: string, callback?: () => void): void;
-    setKeyboardHandler(keyboardHandler: KeyboardHandler): void;
+    setKeyboardHandler(keyboardHandler: KeyboardHandler|null): void;
     getKeyboardHandler(): string;
     setSession(session: EditSession): void;
     getSession(): EditSession;
