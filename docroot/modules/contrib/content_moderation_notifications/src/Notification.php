@@ -200,6 +200,7 @@ class Notification implements NotificationInterface {
 
       // Force to BCC.
       $data['params']['headers']['Bcc'] = implode(',', $data['to']);
+
       $recipient = '';
       if (!$notification->disableSiteMail()) {
         $recipient = \Drupal::config('system.site')->get('mail');

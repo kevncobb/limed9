@@ -24,13 +24,6 @@ interface ContentModerationNotificationInterface extends ConfigEntityInterface {
    *   Returns TRUE if the notification should be sent to the entity author.
    */
   public function sendToAuthor();
-   /**
-    * Send the notification to the revision author.
-    *
-    * @return bool
-    *   Returns TRUE if the notification should be sent to the revision author.
-    */
-  public function sendToRevisionAuthor();
 
   /**
    * Send the notification to the site mail address.

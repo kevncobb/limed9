@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\content_moderation_notifications\Unit\Entity;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\content_moderation_notifications\Entity\ContentModerationNotification;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -19,6 +20,7 @@ use Drupal\Tests\UnitTestCase;
  */
 class ContentModerationNotificationTest extends UnitTestCase {
 
+  use ProphecyTrait;
   /**
    * Test fixture.
    *
@@ -48,7 +50,6 @@ class ContentModerationNotificationTest extends UnitTestCase {
       'format' => 'test_format',
     ],
     'author' => TRUE,
-    'revision_author' => TRUE,
     'emails' => 'foo@example.com',
   ];
 
@@ -66,13 +67,6 @@ class ContentModerationNotificationTest extends UnitTestCase {
    */
   public function testSendToAuthor() {
     $this->assertEquals(TRUE, $this->notification->sendToAuthor());
-  }
-
-  /**
-   * @covers ::sendToRevisionAuthor
-   */
-  public function testSendToRevisionAuthor() {
-    $this->assertEquals(TRUE, $this->notification->sendToRevisionAuthor());
   }
 
   /**

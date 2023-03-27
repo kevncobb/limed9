@@ -19,4 +19,14 @@ use Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase;
  */
 class Weight extends FieldPluginBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldFormatterMap() {
+    // The field formatter was renamed in the 8.x-1.x branch.
+    return [
+      'weight_integer' => 'default_weight',
+    ];
+  }
+
 }

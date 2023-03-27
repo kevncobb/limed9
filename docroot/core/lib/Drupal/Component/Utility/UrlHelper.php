@@ -73,7 +73,7 @@ class UrlHelper {
    * @param string $parent
    *   Internal use only. Used to build the $query array key for nested items.
    *
-   * @return
+   * @return array
    *   An array containing query parameters.
    */
   public static function filterQueryParameters(array $query, array $exclude = [], $parent = '') {
@@ -373,30 +373,6 @@ class UrlHelper {
       }
     } while ($before != $uri);
 
-    return $uri;
-  }
-
-  /**
-   * Strips subdirectories from a URI.
-   *
-   * URIs created by \Drupal\Core\Url::toString() always contain the
-   * subdirectories. When further processing needs to be done on a URI, the
-   * subdirectories need to be stripped before feeding the URI to
-   * \Drupal\Core\Url::fromUserInput().
-   *
-   * @param string $uri
-   *   A plain-text URI that might contain a subdirectory.
-   *
-   * @return string
-   *   A plain-text URI stripped of the subdirectories.
-   *
-   * @see \Drupal\Core\Url::fromUserInput()
-   */
-  public static function stripSubdirectories($uri) {
-    $current_request = \Drupal::requestStack()->getCurrentRequest();
-    if ($current_request && !empty($current_request->getBasePath()) && strpos($uri, $current_request->getBasePath()) === 0) {
-      return substr($uri, mb_strlen($current_request->getBasePath()));
-    }
     return $uri;
   }
 

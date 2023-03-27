@@ -15,11 +15,11 @@ class BlockContentEntityChangedConstraintValidator extends EntityChangedConstrai
    * {@inheritdoc}
    */
   public function validate($entity, Constraint $constraint) {
-    // Don't validate "inline" (i.e. non-reusable) block content entities
-    // as this prevents saving an update to the block form on a reverted host
-    // entity's layout in layout builder. This is safe because inline blocks
-    // are not actually saved until the whole layout is saved, in which case
-    // Layout Builder forces a new revision for the block.
+    // This prevents saving an update to the block via a host entity's form if
+    // the host entity has had other changes made via the API instead of the
+    // entity form, such as a revision revert. This is safe, for example, in the
+    // Layout Builder the inline blocks are not saved until the whole layout is
+    // saved, in which case Layout Builder forces a new revision for the block.
     // @see \Drupal\layout_builder\InlineBlockEntityOperations::handlePreSave.
     if ($entity instanceof BlockContentInterface && !$entity->isReusable()) {
       return;

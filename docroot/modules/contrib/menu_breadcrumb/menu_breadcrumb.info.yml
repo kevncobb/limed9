@@ -1,6 +1,5 @@
 name: Menu Breadcrumb
 type: module
 description: 'Create breadcrumbs from nested menu titles and/or taxonomy membership.'
-core: '8.x'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8.8 || ^9 || ^10
 configure: menu_breadcrumb.settings

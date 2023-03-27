@@ -4,6 +4,7 @@ namespace Drupal\content_planner\Plugin\DashboardBlock;
 
 use Drupal\content_planner\DashboardBlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @todo Plugin derivates should be used instead of a class hierarchy here.
  */
 abstract class CustomHTMLBlockBase extends DashboardBlockBase {
+  use StringTranslationTrait;
 
   /**
    * Builds the render array for the block.
@@ -20,6 +22,9 @@ abstract class CustomHTMLBlockBase extends DashboardBlockBase {
    *   The render array for the block.
    */
   public function build() {
+    if (!$this->currentUserHasRole()) {
+      return [];
+    }
 
     $build = [];
 
@@ -50,7 +55,6 @@ abstract class CustomHTMLBlockBase extends DashboardBlockBase {
     else {
       $default_value = '';
     }
-    
 
     $form['content'] = [
       '#type' => 'text_format',
@@ -58,6 +62,8 @@ abstract class CustomHTMLBlockBase extends DashboardBlockBase {
       '#format' => 'full_html',
       '#default_value' => $default_value,
     ];
+
+    $form['allowed_roles'] = $this->buildAllowedRolesSelectBox($block_configuration);
 
     return $form;
   }

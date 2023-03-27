@@ -163,22 +163,13 @@ class ContentModerationNotificationsFormBase extends EntityForm {
       '#description' => $this->t('Send notifications to all users with these roles.'),
     ];
 
-    // Send email to the original author?
+    // Send email to author?
     $form['author'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Email the original content author?'),
+      '#title' => $this->t('Email the author?'),
       '#default_value' => $content_moderation_notification->sendToAuthor(),
       '#description' => $this->t('Send notifications to the current author of the content.'),
     ];
-
-    // Send email to the revision author?
-    $form['revision_author'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Email the revision author?'),
-      '#default_value' => $content_moderation_notification->sendToRevisionAuthor(),
-       '#description' => $this->t('Send notifications to the current author of the content.'),
-     ];
-
     $form['site_mail'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Disable the site email address'),

@@ -51,7 +51,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *     "transitions",
  *     "roles",
  *     "author",
- *     "revision_author",
  *     "site_mail",
  *     "emails",
  *     "subject",
@@ -63,18 +62,11 @@ use Drupal\Core\Entity\EntityStorageInterface;
 class ContentModerationNotification extends ConfigEntityBase implements ContentModerationNotificationInterface {
 
   /**
-   * Send notification to the original author.
-   *
-   * @var bool
-   */
-  public $author = FALSE;
-
-  /**
    * Send notification to the revision author.
    *
    * @var bool
    */
-  public $revision_author = FALSE;
+  public $author = FALSE;
 
   /**
    * Disable notification to the site mail address.
@@ -191,13 +183,6 @@ class ContentModerationNotification extends ConfigEntityBase implements ContentM
    */
   public function sendToAuthor() {
     return $this->get('author');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function sendToRevisionAuthor() {
-    return $this->get('revision_author');
   }
 
   /**

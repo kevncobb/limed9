@@ -11,6 +11,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
  * Plugin implementation of the 'entityqueue_dragtable' widget.
@@ -140,7 +141,7 @@ class EntityqueueDragtableWidget extends EntityReferenceAutocompleteWidget {
       // Show a link to the edit form of the entity if the entity type is
       // editable.
       if ($this->getSetting('link_to_edit_form') && $referenced_entities[$delta]->getEntityType()->hasLinkTemplate('edit-form')) {
-        $element['_edit'] = $referenced_entities[$delta]->toLink($this->t('Edit'), 'edit-form', ['query' => ['destination' => \Drupal::service('path.current')->getPath()]])->toRenderable() + [
+        $element['_edit'] = $referenced_entities[$delta]->toLink($this->t('Edit'), 'edit-form', ['query' => ['destination' => \Drupal::urlGenerator()->generateFromRoute('<current>')]])->toRenderable() + [
           '#attributes' => ['class' => ['form-item', 'entityqueue-edit-item-link']],
         ];
         $element['#attached']['html_head'][] = [
@@ -154,6 +155,19 @@ class EntityqueueDragtableWidget extends EntityReferenceAutocompleteWidget {
     }
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function errorElement(array $element, ConstraintViolationInterface $violation, array $form, FormStateInterface $form_state) {
+    if ($button = $form_state->getTriggeringElement()) {
+      // If an item is being removed, do not check for reference validity.
+      if (end($button['#parents']) === '_remove' && $violation->getMessageTemplate() === 'This entity (%type: %id) cannot be referenced.') {
+        return FALSE;
+      }
+    }
+    return parent::errorElement($element, $violation, $form, $form_state);
   }
 
   /**
@@ -254,7 +268,7 @@ class EntityqueueDragtableWidget extends EntityReferenceAutocompleteWidget {
       '#cardinality_multiple' => TRUE,
       '#required' => $this->fieldDefinition->isRequired(),
       '#title' => $this->fieldDefinition->getLabel(),
-      '#description' => FieldFilteredMarkup::create(\Drupal::token()->replace($this->fieldDefinition->getDescription())),
+      '#description' => FieldFilteredMarkup::create(\Drupal::token()->replace((string) $this->fieldDefinition->getDescription())),
       '#max_delta' => count($items) - 1,
       '#prefix' => '<div id="' . $this->getWrapperId() . '">',
       '#suffix' => '</div>',
@@ -319,6 +333,12 @@ class EntityqueueDragtableWidget extends EntityReferenceAutocompleteWidget {
 
     // Go two levels up in the form, to the widgets container.
     $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -2));
+
+    // No value inserted on the input or empty value, we don't replace the
+    // 'items-wrapper' element, this will prevent adding empty values.
+    if ($element['add_more']['new_item']['target_id']['#value'] === '') {
+      return $element;
+    }
 
     // Remove the submitted value from the 'Add item' textfield.
     $element['add_more']['new_item']['target_id']['#value'] = NULL;

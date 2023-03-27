@@ -105,13 +105,14 @@ var supportedModes = {
     Assembly_x86: ["asm|a"],
     AutoHotKey: ["ahk"],
     BatchFile: ["bat|cmd"],
+    BibTeX: ["bib"],
     C_Cpp: ["cpp|c|cc|cxx|h|hh|hpp|ino"],
     C9Search: ["c9search_results"],
     Cirru: ["cirru|cr"],
     Clojure: ["clj|cljs"],
     Cobol: ["CBL|COB"],
     coffee: ["coffee|cf|cson|^Cakefile"],
-    ColdFusion: ["cfm"],
+    ColdFusion: ["cfm|cfc"],
     Crystal: ["cr"],
     CSharp: ["cs"],
     Csound_Document: ["csd"],
@@ -160,6 +161,7 @@ var supportedModes = {
     Jade: ["jade|pug"],
     Java: ["java"],
     JavaScript: ["js|jsm|jsx|cjs|mjs"],
+    JEXL: ["jexl"],
     JSON: ["json"],
     JSON5: ["json5"],
     JSONiq: ["jq"],
@@ -176,6 +178,7 @@ var supportedModes = {
     LiveScript: ["ls"],
     Log: ["log"],
     LogiQL: ["logic|lql"],
+    Logtalk: ["lgt"],
     LSL: ["lsl"],
     Lua: ["lua"],
     LuaPage: ["lp"],
@@ -202,9 +205,10 @@ var supportedModes = {
     Pascal: ["pas|p"],
     Perl: ["pl|pm"],
     pgSQL: ["pgsql"],
-    PHP_Laravel_blade: ["blade.php"],
     PHP: ["php|inc|phtml|shtml|php3|php4|php5|phps|phpt|aw|ctp|module"],
+    PHP_Laravel_blade: ["blade.php"],
     Pig: ["pig"],
+    PLSQL: ["plsql"],
     Powershell: ["ps1"],
     Praat: ["praat|praatscript|psc|proc"],
     Prisma: ["prisma"],
@@ -239,6 +243,7 @@ var supportedModes = {
     snippets: ["snippets"],
     Soy_Template: ["soy"],
     Space: ["space"],
+    SPARQL: ["rq"],
     SQL: ["sql"],
     SQLServer: ["sqlserver"],
     Stylus: ["styl|stylus"],
@@ -251,6 +256,7 @@ var supportedModes = {
     Textile: ["textile"],
     Toml: ["toml"],
     TSX: ["tsx"],
+    Turtle: ["ttl"],
     Twig: ["twig|swig"],
     Typescript: ["ts|typescript|str"],
     Vala: ["vala"],
@@ -549,6 +555,9 @@ var optionGroups = {
         },
         "Live Autocompletion": {
             path: "enableLiveAutocompletion"
+        },
+        "Custom scrollbar": {
+            path: "customScrollbar"
         }
     }
 };

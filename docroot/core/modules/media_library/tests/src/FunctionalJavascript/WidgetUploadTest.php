@@ -18,6 +18,11 @@ class WidgetUploadTest extends MediaLibraryTestBase {
   use TestFileCreationTrait;
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that uploads in the Media library's widget works as expected.
    */
   public function testWidgetUpload() {
@@ -136,8 +141,10 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     $this->waitForText($png_image->filename);
 
     // Remove the item.
+    $assert_session->elementTextContains('css', '.field--name-field-twin-media', $png_image->filename);
     $assert_session->elementExists('css', '.field--name-field-twin-media')->pressButton('Remove');
-    $this->waitForNoText($png_image->filename);
+    $this->waitForElementTextContains('#drupal-live-announce', $png_image->filename . ' has been removed');
+    $assert_session->elementTextNotContains('css', '.field--name-field-twin-media', $png_image->filename);
 
     $this->openMediaLibraryForField('field_twin_media');
     $this->switchToMediaType('Three');
@@ -197,8 +204,7 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     // Assert we can now only upload one more media item.
     $this->openMediaLibraryForField('field_twin_media');
     $this->switchToMediaType('Four');
-    // Despite the 'One file only' text, we don't limit the number of uploads.
-    $this->assertTrue($assert_session->fieldExists('Add file')->hasAttribute('multiple'));
+    $this->assertFalse($assert_session->fieldExists('Add file')->hasAttribute('multiple'));
     $assert_session->pageTextContains('One file only.');
 
     // Assert media type four should only allow jpg files by trying a png file
@@ -474,8 +480,10 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     $this->waitForText($png_image->filename);
 
     // Remove the item.
+    $assert_session->elementTextContains('css', '.field--name-field-twin-media', $png_image->filename);
     $assert_session->elementExists('css', '.field--name-field-twin-media')->pressButton('Remove');
-    $this->waitForNoText($png_image->filename);
+    $this->waitForElementTextContains('#drupal-live-announce', $png_image->filename . ' has been removed');
+    $assert_session->elementTextNotContains('css', '.field--name-field-twin-media', $png_image->filename);
 
     $this->openMediaLibraryForField('field_twin_media');
     $this->switchToMediaType('Three');
@@ -539,8 +547,7 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     // Assert we can now only upload one more media item.
     $this->openMediaLibraryForField('field_twin_media');
     $this->switchToMediaType('Four');
-    // Despite the 'One file only' text, we don't limit the number of uploads.
-    $this->assertTrue($assert_session->fieldExists('Add file')->hasAttribute('multiple'));
+    $this->assertFalse($assert_session->fieldExists('Add file')->hasAttribute('multiple'));
     $assert_session->pageTextContains('One file only.');
 
     // Assert media type four should only allow jpg files by trying a png file
@@ -611,9 +618,7 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     $selection_area = $this->getSelectionArea();
     $assert_session->checkboxChecked("Select $existing_media_name", $selection_area);
     $selection_area->uncheckField("Select $existing_media_name");
-    $page->waitFor(10, function () use ($page) {
-      return $page->find('hidden_field_selector', ['hidden_field', 'current_selection'])->getValue() === '';
-    });
+    $assert_session->hiddenFieldValueEquals('current_selection', '');
     // Close the details element so that clicking the Save and select works.
     // @todo Fix dialog or test so this is not necessary to prevent random
     //   fails. https://www.drupal.org/project/drupal/issues/3055648

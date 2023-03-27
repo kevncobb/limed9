@@ -3,10 +3,7 @@
 namespace Drupal\Tests\Component\Utility;
 
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\DependencyInjection\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @group Utility
@@ -85,7 +82,7 @@ class UrlHelperTest extends TestCase {
    * @covers ::isValid
    *
    * @param string $url
-   *   The url to test.
+   *   The URL to test.
    * @param string $scheme
    *   The scheme to test.
    */
@@ -116,7 +113,7 @@ class UrlHelperTest extends TestCase {
    * @covers ::isValid
    *
    * @param string $url
-   *   The url to test.
+   *   The URL to test.
    * @param string $scheme
    *   The scheme to test.
    */
@@ -150,7 +147,7 @@ class UrlHelperTest extends TestCase {
    * @covers ::isValid
    *
    * @param string $url
-   *   The url to test.
+   *   The URL to test.
    * @param string $prefix
    *   The prefix to test.
    */
@@ -181,7 +178,7 @@ class UrlHelperTest extends TestCase {
    * @covers ::isValid
    *
    * @param string $url
-   *   The url to test.
+   *   The URL to test.
    * @param string $prefix
    *   The prefix to test.
    */
@@ -233,7 +230,7 @@ class UrlHelperTest extends TestCase {
   }
 
   /**
-   * Tests url parsing.
+   * Tests URL parsing.
    *
    * @dataProvider providerTestParse
    * @covers ::parse
@@ -452,6 +449,8 @@ class UrlHelperTest extends TestCase {
    *   Expected escaped value.
    * @param array $protocols
    *   Protocols to allow.
+   *
+   * @runInSeparateProcess
    */
   public function testFilterBadProtocol($uri, $expected, $protocols) {
     UrlHelper::setAllowedProtocols($protocols);
@@ -479,45 +478,7 @@ class UrlHelperTest extends TestCase {
   }
 
   /**
-   * Tests subdirectories filtering.
-   */
-  public function testStripSubdirectories() {
-    $uri = 'test';
-    $subdirs = ['', '/subdir', '/subdir/another-subdir'];
-    foreach ($subdirs as $subdir) {
-      $server = [];
-      if ($subdir) {
-        // Setup a fake request which looks like a Drupal installed under the
-        // subdir "subdir" on the domain www.example.com.
-        // To reproduce the values install Drupal like that and use a debugger.
-        $root = dirname(dirname(substr(__DIR__, 0, -strlen(__NAMESPACE__))));
-        $server = [
-          'SCRIPT_NAME' => $subdir . '/index.php',
-          'SCRIPT_FILENAME' => $root . $subdir . '/index.php',
-          'SERVER_NAME' => 'http://www.example.com',
-        ];
-        $request = Request::create($subdir . '/');
-      }
-      else {
-        $request = Request::create('/');
-      }
-      $request->server->add($server);
-      $request_stack = new RequestStack();
-      $request_stack->push($request);
-
-      $container = new ContainerBuilder();
-      $container->set('request_stack', $request_stack);
-      \Drupal::setContainer($container);
-
-      $subdir_uri = $subdir . $uri;
-
-      $stripped_uri = UrlHelper::stripSubdirectories($subdir_uri);
-      $this->assertSame('test', $stripped_uri);
-    }
-  }
-
-  /**
-   * Tests dangerous url protocol filtering.
+   * Tests dangerous URL protocol filtering.
    *
    * @dataProvider providerTestStripDangerousProtocols
    * @covers ::setAllowedProtocols
@@ -529,6 +490,8 @@ class UrlHelperTest extends TestCase {
    *   Expected escaped value.
    * @param array $protocols
    *   Protocols to allow.
+   *
+   * @runInSeparateProcess
    */
   public function testStripDangerousProtocols($uri, $expected, $protocols) {
     UrlHelper::setAllowedProtocols($protocols);
@@ -597,12 +560,12 @@ class UrlHelperTest extends TestCase {
    * Tests detecting external urls that point to local resources.
    *
    * @param string $url
-   *   The external url to test.
+   *   The external URL to test.
    * @param string $base_url
-   *   The base url.
+   *   The base URL.
    * @param bool $expected
    *   TRUE if an external URL points to this installation as determined by the
-   *   base url.
+   *   base URL.
    *
    * @covers ::externalIsLocal
    * @dataProvider providerTestExternalIsLocal
@@ -612,7 +575,7 @@ class UrlHelperTest extends TestCase {
   }
 
   /**
-   * Provider for local external url detection.
+   * Provider for local external URL detection.
    *
    * @see \Drupal\Tests\Component\Utility\UrlHelperTest::testExternalIsLocal()
    */
@@ -649,12 +612,12 @@ class UrlHelperTest extends TestCase {
   }
 
   /**
-   * Tests invalid url arguments.
+   * Tests invalid URL arguments.
    *
    * @param string $url
-   *   The url to test.
+   *   The URL to test.
    * @param string $base_url
-   *   The base url.
+   *   The base URL.
    *
    * @covers ::externalIsLocal
    * @dataProvider providerTestExternalIsLocalInvalid
@@ -665,7 +628,7 @@ class UrlHelperTest extends TestCase {
   }
 
   /**
-   * Provides invalid argument data for local external url detection.
+   * Provides invalid argument data for local external URL detection.
    *
    * @see \Drupal\Tests\Component\Utility\UrlHelperTest::testExternalIsLocalInvalid()
    */

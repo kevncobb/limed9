@@ -63,7 +63,7 @@ class GdocFieldFormatter extends FileFormatterBase {
       $uri_scheme = StreamWrapperManager::getScheme($file_uri);
 
       if ($uri_scheme == 'public') {
-        $url = file_create_url($file->getFileUri());
+        $url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
         $elements[$delta] = [
           '#theme' => 'gdoc_field',
           '#url' => $url,

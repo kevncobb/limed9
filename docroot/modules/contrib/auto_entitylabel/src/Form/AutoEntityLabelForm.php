@@ -213,7 +213,8 @@ class AutoEntityLabelForm extends ConfigFormBase {
     $form['auto_entitylabel']['pattern'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Pattern for the label'),
-      '#description' => $this->t('Leave blank for using the per default generated label. Otherwise this string will be used as label. Use the syntax [token] if you want to insert a replacement pattern.'),
+      '#description' => $this->t('Leave blank for using the per default generated label. Otherwise this string will be used as label. Use the syntax [token] if you want to insert a replacement pattern.
+      <br>Pattern string can be translated via User interface translation by searching fot the string <b>@pattern</b>.'),
       '#default_value' => $config->get('pattern') ?: '',
       '#attributes' => ['class' => ['pattern-label']],
       '#states' => $invisible_state,
@@ -359,7 +360,7 @@ class AutoEntityLabelForm extends ConfigFormBase {
    *   An array with IDs.
    */
   public function getIds($entity_type, $bundle) {
-    $query = $this->entityTypeManager->getStorage($bundle)->getQuery();
+    $query = $this->entityTypeManager->getStorage($bundle)->getQuery()->accessCheck(TRUE);
     switch ($bundle) {
       case 'taxonomy_term':
         return $query->condition('vid', $entity_type, 'IN')->execute();

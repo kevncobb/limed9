@@ -15,7 +15,14 @@ class InlineBlockTest extends InlineBlockTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
+    'field_ui',
+  ];
 
   /**
    * Tests adding and editing of inline blocks.
@@ -675,11 +682,8 @@ class InlineBlockTest extends InlineBlockTestBase {
       'bypass node access',
       'create and edit custom blocks',
     ]));
-    $this->drupalPostForm(
-      static::FIELD_UI_PREFIX . '/display/default',
-      ['layout[enabled]' => TRUE, 'layout[allow_custom]' => TRUE],
-      'Save'
-    );
+    $display = \Drupal::service('entity_display.repository')->getViewDisplay('node', 'bundle_with_section_field');
+    $display->enableLayoutBuilder()->setOverridable()->save();
     $test_node = $this->createNode([
       'title' => 'test node',
       'type' => 'bundle_with_section_field',
@@ -694,7 +698,8 @@ class InlineBlockTest extends InlineBlockTestBase {
     $this->configureInlineBlock('original content', 'updated content');
     $this->assertSaveLayout();
 
-    $this->drupalPostForm("node/{$test_node->id()}/revisions/$original_content_revision_id/revert", [], 'Revert');
+    $this->drupalGet("node/{$test_node->id()}/revisions/$original_content_revision_id/revert");
+    $this->submitForm([], 'Revert');
     $this->drupalGet("node/{$test_node->id()}/layout");
     $this->configureInlineBlock('original content', 'second updated content');
     $this->assertSaveLayout();

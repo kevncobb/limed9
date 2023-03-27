@@ -1,15 +1,44 @@
-/*ace_editor.css*/
-/*
-styles = []
-for (var i = 1; i < 16; i++) {
-styles.push(".ace_br" + i + "{" + (
-["top-left", "top-right", "bottom-right", "bottom-left"]
-).map(function(x, j) {
-return i & (1<<j) ? "border-" + x + "-radius: 3px;" : "" 
-}).filter(Boolean).join(" ") + "}")
+/*ace_scrollbar.css*/
+.ace_editor>.ace_sb-v div, .ace_editor>.ace_sb-h div{
+position: absolute;
+background: rgba(128, 128, 128, 0.6);
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+border: 1px solid #bbb;
+border-radius: 2px;
+z-index: 8;
 }
-styles.join("\n")
-*/
+.ace_editor>.ace_sb-v, .ace_editor>.ace_sb-h {
+position: absolute;
+z-index: 6;
+background: none;
+overflow: hidden!important;
+}
+.ace_editor>.ace_sb-v {
+z-index: 6;
+right: 0;
+top: 0;
+width: 12px;
+}
+.ace_editor>.ace_sb-v div {
+z-index: 8;
+right: 0;
+width: 100%;
+}
+.ace_editor>.ace_sb-h {
+bottom: 0;
+left: 0;
+height: 12px;
+}
+.ace_editor>.ace_sb-h div {
+bottom: 0;
+height: 100%;
+}
+.ace_editor>.ace_sb_grabbed {
+z-index: 8;
+background: #000;
+}
+/*ace_editor.css*/
 .ace_br1 {border-top-left-radius    : 3px;}
 .ace_br2 {border-top-right-radius   : 3px;}
 .ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}
@@ -86,8 +115,15 @@ position: absolute;
 left: 0;
 right: 0;
 }
-.ace_scroller.ace_scroll-left {
+.ace_scroller.ace_scroll-left:after {
+content: "";
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
 box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;
+pointer-events: none;
 }
 .ace_gutter-cell {
 position: absolute;
@@ -501,6 +537,10 @@ transform-origin: left;
 white-space: pre;
 opacity: 0.7;
 margin: 0 10px;
+}
+.ace_ghost_text {
+opacity: 0.5;
+font-style: italic;
 }
 /*ace-tm*/
 .ace-tm .ace_gutter {

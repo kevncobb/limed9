@@ -4,8 +4,10 @@ namespace Drupal\content_planner\Plugin\DashboardBlock;
 
 use Drupal\content_planner\DashboardBlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Implements ViewBlockBase class.
@@ -13,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
  * @package Drupal\content_planner\Plugin\DashboardBlock
  */
 abstract class ViewBlockBase extends DashboardBlockBase {
+
+  use StringTranslationTrait;
 
   /**
    * ID for the block.
@@ -28,13 +32,17 @@ abstract class ViewBlockBase extends DashboardBlockBase {
    *   The render for the views block.
    */
   public function build() {
+    if (!$this->currentUserHasRole()) {
+      return [];
+    }
+
     $content = [];
     $config = $this->getConfiguration();
 
     // Get view from config.
     $view_config = $this->getCustomConfigByKey($config, $this->blockID);
     // Syntax is view_id.display_id.
-    $view_array = explode('.', $view_config);
+    $view_array = explode('.', $view_config ?? '');
 
     if ($view_array && is_array($view_array) && isset($view_array[0]) && isset($view_array[1])) {
       $view_id = $view_array[0];
@@ -42,7 +50,7 @@ abstract class ViewBlockBase extends DashboardBlockBase {
 
       $view = Views::getView($view_id);
 
-      if (is_object($view)) {
+      if ($view instanceof ViewExecutable && $view->access($view_display_id)) {
         $content = $view->render($view_display_id);
       }
     }
@@ -53,16 +61,14 @@ abstract class ViewBlockBase extends DashboardBlockBase {
   /**
    * {@inheritdoc}
    */
-  public function getConfigSpecificFormFields(FormStateInterface &$form_state,
-                                              Request &$request,
-                                              array $block_configuration) {
+  public function getConfigSpecificFormFields(FormStateInterface &$form_state, Request &$request, array $block_configuration) {
 
     $form = [];
 
     // View.
     $view_default_value = $this->getCustomConfigByKey($block_configuration, $this->blockID);
     $view_options = [];
-    $views = Views::getAllViews();
+    $views = Views::getEnabledViews();
     foreach ($views as $view) {
       $displays = $view->get('display');
 
@@ -80,6 +86,8 @@ abstract class ViewBlockBase extends DashboardBlockBase {
       '#required' => TRUE,
       '#default_value' => $view_default_value,
     ];
+
+    $form['allowed_roles'] = $this->buildAllowedRolesSelectBox($block_configuration);
 
     return $form;
   }

@@ -719,7 +719,7 @@ exports.importCssString = importCssString;
 exports.importCssStylsheet = function (uri, doc) {
     exports.buildDom(["link", { rel: "stylesheet", href: uri }], exports.getDocumentHead(doc));
 };
-exports.scrollbarWidth = function (document) {
+exports.scrollbarWidth = function (doc) {
     var inner = exports.createElement("ace_inner");
     inner.style.width = "100%";
     inner.style.minWidth = "0px";
@@ -735,12 +735,14 @@ exports.scrollbarWidth = function (document) {
     style.height = "150px";
     style.display = "block";
     outer.appendChild(inner);
-    var body = document.documentElement;
+    var body = (doc && doc.documentElement) || (document && document.documentElement);
+    if (!body)
+        return 0;
     body.appendChild(outer);
     var noScrollbar = inner.offsetWidth;
     style.overflow = "scroll";
     var withScrollbar = inner.offsetWidth;
-    if (noScrollbar == withScrollbar) {
+    if (noScrollbar === withScrollbar) {
         withScrollbar = outer.clientWidth;
     }
     body.removeChild(outer);
@@ -1130,13 +1132,14 @@ exports.setModuleUrl = function (name, subst) {
     return options.$moduleUrls[name] = subst;
 };
 var loader = function (moduleName, cb) {
-    if (moduleName == "ace/theme/textmate")
+    if (moduleName === "ace/theme/textmate" || moduleName === "./theme/textmate")
         return cb(null, require("./theme/textmate"));
     return console.error("loader is not configured");
 };
 exports.setLoader = function (cb) {
     loader = cb;
 };
+exports.dynamicModules = Object.create(null);
 exports.$loading = {};
 exports.loadModule = function (moduleName, onLoad) {
     var module, moduleType;
@@ -1144,31 +1147,49 @@ exports.loadModule = function (moduleName, onLoad) {
         moduleType = moduleName[0];
         moduleName = moduleName[1];
     }
-    try {
-        module = require(moduleName);
-    }
-    catch (e) { }
-    if (module && !exports.$loading[moduleName])
-        return onLoad && onLoad(module);
-    if (!exports.$loading[moduleName])
-        exports.$loading[moduleName] = [];
-    exports.$loading[moduleName].push(onLoad);
-    if (exports.$loading[moduleName].length > 1)
-        return;
-    var afterLoad = function () {
-        loader(moduleName, function (err, module) {
-            exports._emit("load.module", { name: moduleName, module: module });
-            var listeners = exports.$loading[moduleName];
-            exports.$loading[moduleName] = null;
-            listeners.forEach(function (onLoad) {
-                onLoad && onLoad(module);
+    var load = function (module) {
+        if (module && !exports.$loading[moduleName])
+            return onLoad && onLoad(module);
+        if (!exports.$loading[moduleName])
+            exports.$loading[moduleName] = [];
+        exports.$loading[moduleName].push(onLoad);
+        if (exports.$loading[moduleName].length > 1)
+            return;
+        var afterLoad = function () {
+            loader(moduleName, function (err, module) {
+                exports._emit("load.module", { name: moduleName, module: module });
+                var listeners = exports.$loading[moduleName];
+                exports.$loading[moduleName] = null;
+                listeners.forEach(function (onLoad) {
+                    onLoad && onLoad(module);
+                });
             });
-        });
+        };
+        if (!exports.get("packaged"))
+            return afterLoad();
+        net.loadScript(exports.moduleUrl(moduleName, moduleType), afterLoad);
+        reportErrorIfPathIsNotConfigured();
     };
-    if (!exports.get("packaged"))
-        return afterLoad();
-    net.loadScript(exports.moduleUrl(moduleName, moduleType), afterLoad);
-    reportErrorIfPathIsNotConfigured();
+    if (exports.dynamicModules[moduleName]) {
+        exports.dynamicModules[moduleName]().then(function (module) {
+            if (module.default) {
+                load(module.default);
+            }
+            else {
+                load(module);
+            }
+        });
+    }
+    else {
+        try {
+            module = require(moduleName);
+        }
+        catch (e) { }
+        load(module);
+    }
+};
+exports.setModuleLoader = function (moduleName, onLoad) {
+    exports.dynamicModules[moduleName] = onLoad;
 };
 var reportErrorIfPathIsNotConfigured = function () {
     if (!options.basePath && !options.workerPath
@@ -1178,7 +1199,7 @@ var reportErrorIfPathIsNotConfigured = function () {
         reportErrorIfPathIsNotConfigured = function () { };
     }
 };
-exports.version = "1.10.1";
+exports.version = "1.15.3";
 
 });
 
@@ -1216,6 +1237,10 @@ init(true);function init(packaged) {
     var currentScript = (document.currentScript || document._currentScript ); // native or polyfill
     var currentDocument = currentScript && currentScript.ownerDocument || document;
     
+    if (currentScript && currentScript.src) {
+        scriptUrl = currentScript.src.split(/[?#]/)[0].split("/").slice(0, -1).join("/") || "";
+    }
+    
     var scripts = currentDocument.getElementsByTagName("script");
     for (var i=0; i<scripts.length; i++) {
         var script = scripts[i];
@@ -1232,7 +1257,7 @@ init(true);function init(packaged) {
             }
         }
 
-        var m = src.match(/^(.*)\/ace(\-\w+)?\.js(\?|$)/);
+        var m = src.match(/^(.*)\/ace([\-.]\w+)?\.js(\?|$)/);
         if (m)
             scriptUrl = m[1];
     }
@@ -1356,6 +1381,7 @@ var Keys = (function () {
             219: '[', 220: '\\', 221: ']', 222: "'", 111: '/', 106: '*'
         }
     };
+    ret.PRINTABLE_KEYS[173] = '-';
     var name, i;
     for (i in ret.FUNCTION_KEYS) {
         name = ret.FUNCTION_KEYS[i].toLowerCase();
@@ -1371,7 +1397,6 @@ var Keys = (function () {
     ret.enter = ret["return"];
     ret.escape = ret.esc;
     ret.del = ret["delete"];
-    ret[173] = '-';
     (function () {
         var mods = ["cmd", "ctrl", "alt", "shift"];
         for (var i = Math.pow(2, mods.length); i--;) {
@@ -1962,6 +1987,22 @@ var TextInput = function (parentNode, host) {
         var isFocused = document.activeElement === text;
     }
     catch (e) { }
+    this.setAriaOptions = function (options) {
+        if (options.activeDescendant) {
+            text.setAttribute("aria-haspopup", "true");
+            text.setAttribute("aria-autocomplete", "list");
+            text.setAttribute("aria-activedescendant", options.activeDescendant);
+        }
+        else {
+            text.setAttribute("aria-haspopup", "false");
+            text.setAttribute("aria-autocomplete", "both");
+            text.removeAttribute("aria-activedescendant");
+        }
+        if (options.role) {
+            text.setAttribute("role", options.role);
+        }
+    };
+    this.setAriaOptions({ role: "textbox" });
     event.addListener(text, "blur", function (e) {
         if (ignoreFocusEvents)
             return;
@@ -2625,9 +2666,6 @@ function DefaultHandlers(mouseHandler) {
             editor.selection.moveToPosition(pos);
         if (!waitForClickSelection)
             this.select();
-        if (editor.renderer.scroller.setCapture) {
-            editor.renderer.scroller.setCapture();
-        }
         editor.setStyle("ace_selecting");
         this.setState("select");
     };
@@ -2689,9 +2727,6 @@ function DefaultHandlers(mouseHandler) {
                 this.selectByLinesEnd = function () {
                     this.$clickSelection = null;
                     this.editor.unsetStyle("ace_selecting");
-                    if (this.editor.renderer.scroller.releaseCapture) {
-                        this.editor.renderer.scroller.releaseCapture();
-                    }
                 };
     this.focusWait = function () {
         var distance = calcDistance(this.mousedownEvent.x, this.mousedownEvent.y, this.x, this.y);
@@ -4637,16 +4672,17 @@ var Selection = function (session) {
     this.getCursor = function () {
         return this.lead.getPosition();
     };
-    this.setSelectionAnchor = function (row, column) {
+    this.setAnchor = function (row, column) {
         this.$isEmpty = false;
         this.anchor.setPosition(row, column);
     };
-    this.getAnchor =
-        this.getSelectionAnchor = function () {
-            if (this.$isEmpty)
-                return this.getSelectionLead();
-            return this.anchor.getPosition();
-        };
+    this.setSelectionAnchor = this.setAnchor;
+    this.getAnchor = function () {
+        if (this.$isEmpty)
+            return this.getSelectionLead();
+        return this.anchor.getPosition();
+    };
+    this.getSelectionAnchor = this.getAnchor;
     this.getSelectionLead = function () {
         return this.lead.getPosition();
     };
@@ -6632,7 +6668,7 @@ var Document = function (textOrLines) {
     this.setValue = function (text) {
         var len = this.getLength() - 1;
         this.remove(new Range(0, 0, len, this.getLine(len).length));
-        this.insert({ row: 0, column: 0 }, text);
+        this.insert({ row: 0, column: 0 }, text || "");
     };
     this.getValue = function () {
         return this.getAllLines().join(this.getNewLineCharacter());
@@ -8121,11 +8157,11 @@ function Folding() {
             if (dir != 1) {
                 do {
                     token = iterator.stepBackward();
-                } while (token && re.test(token.type));
-                iterator.stepForward();
+                } while (token && re.test(token.type) && !/^comment.end/.test(token.type));
+                token = iterator.stepForward();
             }
             range.start.row = iterator.getCurrentTokenRow();
-            range.start.column = iterator.getCurrentTokenColumn() + 2;
+            range.start.column = iterator.getCurrentTokenColumn() + (/^comment.start/.test(token.type) ? token.value.length : 2);
             iterator = new TokenIterator(this, row, column);
             if (dir != -1) {
                 var lastRow = -1;
@@ -8139,13 +8175,16 @@ function Folding() {
                     else if (iterator.$row > lastRow) {
                         break;
                     }
-                } while (token && re.test(token.type));
+                } while (token && re.test(token.type) && !/^comment.start/.test(token.type));
                 token = iterator.stepBackward();
             }
             else
                 token = iterator.getCurrentToken();
             range.end.row = iterator.getCurrentTokenRow();
-            range.end.column = iterator.getCurrentTokenColumn() + token.value.length - 2;
+            range.end.column = iterator.getCurrentTokenColumn();
+            if (!/^comment.end/.test(token.type)) {
+                range.end.column += token.value.length - 2;
+            }
             return range;
         }
     };
@@ -8409,14 +8448,18 @@ function BracketMatch() {
         }
         return range;
     };
-    this.getMatchingBracketRanges = function (pos) {
+    this.getMatchingBracketRanges = function (pos, isBackwards) {
         var line = this.getLine(pos.row);
-        var chr = line.charAt(pos.column - 1);
-        var match = chr && chr.match(/([\(\[\{])|([\)\]\}])/);
+        var bracketsRegExp = /([\(\[\{])|([\)\]\}])/;
+        var chr = !isBackwards && line.charAt(pos.column - 1);
+        var match = chr && chr.match(bracketsRegExp);
         if (!match) {
-            chr = line.charAt(pos.column);
-            pos = { row: pos.row, column: pos.column + 1 };
-            match = chr && chr.match(/([\(\[\{])|([\)\]\}])/);
+            chr = (isBackwards === undefined || isBackwards) && line.charAt(pos.column);
+            pos = {
+                row: pos.row,
+                column: pos.column + 1
+            };
+            match = chr && chr.match(bracketsRegExp);
         }
         if (!match)
             return null;
@@ -8521,6 +8564,172 @@ function BracketMatch() {
             valueIndex = 0;
         }
         return null;
+    };
+    this.getMatchingTags = function (pos) {
+        var iterator = new TokenIterator(this, pos.row, pos.column);
+        var token = this.$findTagName(iterator);
+        if (!token)
+            return;
+        var prevToken = iterator.stepBackward();
+        if (prevToken.value === '<') {
+            return this.$findClosingTag(iterator, token);
+        }
+        else {
+            return this.$findOpeningTag(iterator, token);
+        }
+    };
+    this.$findTagName = function (iterator) {
+        var token = iterator.getCurrentToken();
+        var found = false;
+        var backward = false;
+        if (token && token.type.indexOf('tag-name') === -1) {
+            do {
+                if (backward)
+                    token = iterator.stepBackward();
+                else
+                    token = iterator.stepForward();
+                if (token) {
+                    if (token.value === "/>") {
+                        backward = true;
+                    }
+                    else if (token.type.indexOf('tag-name') !== -1) {
+                        found = true;
+                    }
+                }
+            } while (token && !found);
+        }
+        return token;
+    };
+    this.$findClosingTag = function (iterator, token) {
+        var prevToken;
+        var currentTag = token.value;
+        var tag = token.value;
+        var depth = 0;
+        var openTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
+        token = iterator.stepForward();
+        var openTagName = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + token.value.length);
+        var foundOpenTagEnd = false;
+        do {
+            prevToken = token;
+            token = iterator.stepForward();
+            if (token) {
+                if (token.value === '>' && !foundOpenTagEnd) {
+                    var openTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1); //Range for `>`
+                    foundOpenTagEnd = true;
+                }
+                if (token.type.indexOf('tag-name') !== -1) {
+                    currentTag = token.value;
+                    if (tag === currentTag) {
+                        if (prevToken.value === '<') {
+                            depth++;
+                        }
+                        else if (prevToken.value === '</') {
+                            depth--;
+                            if (depth < 0) { //found closing tag
+                                iterator.stepBackward();
+                                var closeTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 2); //Range for </
+                                token = iterator.stepForward();
+                                var closeTagName = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + token.value.length);
+                                token = iterator.stepForward();
+                                if (token && token.value === '>') {
+                                    var closeTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1); //Range for >
+                                }
+                                else {
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (tag === currentTag && token.value === '/>') { // self-closing tag
+                    depth--;
+                    if (depth < 0) { //found self-closing tag end
+                        var closeTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 2);
+                        var closeTagName = closeTagStart;
+                        var closeTagEnd = closeTagName;
+                        var openTagEnd = new Range(openTagName.end.row, openTagName.end.column, openTagName.end.row, openTagName.end.column + 1);
+                    }
+                }
+            }
+        } while (token && depth >= 0);
+        if (openTagStart && openTagEnd && closeTagStart && closeTagEnd && openTagName && closeTagName) {
+            return {
+                openTag: new Range(openTagStart.start.row, openTagStart.start.column, openTagEnd.end.row, openTagEnd.end.column),
+                closeTag: new Range(closeTagStart.start.row, closeTagStart.start.column, closeTagEnd.end.row, closeTagEnd.end.column),
+                openTagName: openTagName,
+                closeTagName: closeTagName
+            };
+        }
+    };
+    this.$findOpeningTag = function (iterator, token) {
+        var prevToken = iterator.getCurrentToken();
+        var tag = token.value;
+        var depth = 0;
+        var startRow = iterator.getCurrentTokenRow();
+        var startColumn = iterator.getCurrentTokenColumn();
+        var endColumn = startColumn + 2;
+        var closeTagStart = new Range(startRow, startColumn, startRow, endColumn); //Range for </
+        iterator.stepForward();
+        var closeTagName = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + token.value.length);
+        token = iterator.stepForward();
+        if (!token || token.value !== ">")
+            return;
+        var closeTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1); //Range for >
+        iterator.stepBackward();
+        iterator.stepBackward();
+        do {
+            token = prevToken;
+            startRow = iterator.getCurrentTokenRow();
+            startColumn = iterator.getCurrentTokenColumn();
+            endColumn = startColumn + token.value.length;
+            prevToken = iterator.stepBackward();
+            if (token) {
+                if (token.type.indexOf('tag-name') !== -1) {
+                    if (tag === token.value) {
+                        if (prevToken.value === '<') {
+                            depth++;
+                            if (depth > 0) { //found opening tag
+                                var openTagName = new Range(startRow, startColumn, startRow, endColumn);
+                                var openTagStart = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1); //Range for <
+                                do {
+                                    token = iterator.stepForward();
+                                } while (token && token.value !== '>');
+                                var openTagEnd = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn(), iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1); //Range for >
+                            }
+                        }
+                        else if (prevToken.value === '</') {
+                            depth--;
+                        }
+                    }
+                }
+                else if (token.value === '/>') { // self-closing tag
+                    var stepCount = 0;
+                    var tmpToken = prevToken;
+                    while (tmpToken) {
+                        if (tmpToken.type.indexOf('tag-name') !== -1 && tmpToken.value === tag) {
+                            depth--;
+                            break;
+                        }
+                        else if (tmpToken.value === '<') {
+                            break;
+                        }
+                        tmpToken = iterator.stepBackward();
+                        stepCount++;
+                    }
+                    for (var i = 0; i < stepCount; i++) {
+                        iterator.stepForward();
+                    }
+                }
+            }
+        } while (prevToken && depth <= 0);
+        if (openTagStart && openTagEnd && closeTagStart && closeTagEnd && openTagName && closeTagName) {
+            return {
+                openTag: new Range(openTagStart.start.row, openTagStart.start.column, openTagEnd.end.row, openTagEnd.end.column),
+                closeTag: new Range(closeTagStart.start.row, closeTagStart.start.column, closeTagEnd.end.row, closeTagEnd.end.column),
+                openTagName: openTagName,
+                closeTagName: closeTagName
+            };
+        }
     };
 }
 exports.BracketMatch = BracketMatch;
@@ -10201,11 +10410,12 @@ var Search = function () {
         }
         if (range) {
             var startColumn = range.start.column;
-            var endColumn = range.start.column;
+            var endColumn = range.end.column;
             var i = 0, j = ranges.length - 1;
-            while (i < j && ranges[i].start.column < startColumn && ranges[i].start.row == range.start.row)
+            while (i < j && ranges[i].start.column < startColumn && ranges[i].start.row == 0)
                 i++;
-            while (i < j && ranges[j].end.column > endColumn && ranges[j].end.row == range.end.row)
+            var endRow = range.end.row - range.start.row;
+            while (i < j && ranges[j].end.column > endColumn && ranges[j].end.row == endRow)
                 j--;
             ranges = ranges.slice(i, j + 1);
             for (i = 0, j = ranges.length; i < j; i++) {
@@ -10707,7 +10917,7 @@ exports.commands = [{
         description: "Go to next error",
         bindKey: bindKey("Alt-E", "F4"),
         exec: function (editor) {
-            config.loadModule("./ext/error_marker", function (module) {
+            config.loadModule("ace/ext/error_marker", function (module) {
                 module.showErrorMarker(editor, 1);
             });
         },
@@ -10718,7 +10928,7 @@ exports.commands = [{
         description: "Go to previous error",
         bindKey: bindKey("Alt-Shift-E", "Shift-F4"),
         exec: function (editor) {
-            config.loadModule("./ext/error_marker", function (module) {
+            config.loadModule("ace/ext/error_marker", function (module) {
                 module.showErrorMarker(editor, -1);
             });
         },
@@ -11416,6 +11626,10 @@ exports.commands = [{
         scrollIntoView: "cursor",
         readOnly: true
     }, {
+        name: "openlink",
+        bindKey: bindKey("Ctrl+F3", "F3"),
+        exec: function (editor) { editor.openLink(); }
+    }, {
         name: "joinlines",
         description: "Join lines",
         bindKey: bindKey(null, null),
@@ -11538,7 +11752,356 @@ for (var i = 1; i < 9; i++) {
 
 });
 
-ace.define("ace/editor",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/lib/useragent","ace/keyboard/textinput","ace/mouse/mouse_handler","ace/mouse/fold_handler","ace/keyboard/keybinding","ace/edit_session","ace/search","ace/range","ace/lib/event_emitter","ace/commands/command_manager","ace/commands/default_commands","ace/config","ace/token_iterator","ace/clipboard"], function(require, exports, module){"use strict";
+ace.define("ace/line_widgets",["require","exports","module","ace/lib/dom"], function(require, exports, module){"use strict";
+var dom = require("./lib/dom");
+function LineWidgets(session) {
+    this.session = session;
+    this.session.widgetManager = this;
+    this.session.getRowLength = this.getRowLength;
+    this.session.$getWidgetScreenLength = this.$getWidgetScreenLength;
+    this.updateOnChange = this.updateOnChange.bind(this);
+    this.renderWidgets = this.renderWidgets.bind(this);
+    this.measureWidgets = this.measureWidgets.bind(this);
+    this.session._changedWidgets = [];
+    this.$onChangeEditor = this.$onChangeEditor.bind(this);
+    this.session.on("change", this.updateOnChange);
+    this.session.on("changeFold", this.updateOnFold);
+    this.session.on("changeEditor", this.$onChangeEditor);
+}
+(function () {
+    this.getRowLength = function (row) {
+        var h;
+        if (this.lineWidgets)
+            h = this.lineWidgets[row] && this.lineWidgets[row].rowCount || 0;
+        else
+            h = 0;
+        if (!this.$useWrapMode || !this.$wrapData[row]) {
+            return 1 + h;
+        }
+        else {
+            return this.$wrapData[row].length + 1 + h;
+        }
+    };
+    this.$getWidgetScreenLength = function () {
+        var screenRows = 0;
+        this.lineWidgets.forEach(function (w) {
+            if (w && w.rowCount && !w.hidden)
+                screenRows += w.rowCount;
+        });
+        return screenRows;
+    };
+    this.$onChangeEditor = function (e) {
+        this.attach(e.editor);
+    };
+    this.attach = function (editor) {
+        if (editor && editor.widgetManager && editor.widgetManager != this)
+            editor.widgetManager.detach();
+        if (this.editor == editor)
+            return;
+        this.detach();
+        this.editor = editor;
+        if (editor) {
+            editor.widgetManager = this;
+            editor.renderer.on("beforeRender", this.measureWidgets);
+            editor.renderer.on("afterRender", this.renderWidgets);
+        }
+    };
+    this.detach = function (e) {
+        var editor = this.editor;
+        if (!editor)
+            return;
+        this.editor = null;
+        editor.widgetManager = null;
+        editor.renderer.off("beforeRender", this.measureWidgets);
+        editor.renderer.off("afterRender", this.renderWidgets);
+        var lineWidgets = this.session.lineWidgets;
+        lineWidgets && lineWidgets.forEach(function (w) {
+            if (w && w.el && w.el.parentNode) {
+                w._inDocument = false;
+                w.el.parentNode.removeChild(w.el);
+            }
+        });
+    };
+    this.updateOnFold = function (e, session) {
+        var lineWidgets = session.lineWidgets;
+        if (!lineWidgets || !e.action)
+            return;
+        var fold = e.data;
+        var start = fold.start.row;
+        var end = fold.end.row;
+        var hide = e.action == "add";
+        for (var i = start + 1; i < end; i++) {
+            if (lineWidgets[i])
+                lineWidgets[i].hidden = hide;
+        }
+        if (lineWidgets[end]) {
+            if (hide) {
+                if (!lineWidgets[start])
+                    lineWidgets[start] = lineWidgets[end];
+                else
+                    lineWidgets[end].hidden = hide;
+            }
+            else {
+                if (lineWidgets[start] == lineWidgets[end])
+                    lineWidgets[start] = undefined;
+                lineWidgets[end].hidden = hide;
+            }
+        }
+    };
+    this.updateOnChange = function (delta) {
+        var lineWidgets = this.session.lineWidgets;
+        if (!lineWidgets)
+            return;
+        var startRow = delta.start.row;
+        var len = delta.end.row - startRow;
+        if (len === 0) {
+        }
+        else if (delta.action == "remove") {
+            var removed = lineWidgets.splice(startRow + 1, len);
+            if (!lineWidgets[startRow] && removed[removed.length - 1]) {
+                lineWidgets[startRow] = removed.pop();
+            }
+            removed.forEach(function (w) {
+                w && this.removeLineWidget(w);
+            }, this);
+            this.$updateRows();
+        }
+        else {
+            var args = new Array(len);
+            if (lineWidgets[startRow] && lineWidgets[startRow].column != null) {
+                if (delta.start.column > lineWidgets[startRow].column)
+                    startRow++;
+            }
+            args.unshift(startRow, 0);
+            lineWidgets.splice.apply(lineWidgets, args);
+            this.$updateRows();
+        }
+    };
+    this.$updateRows = function () {
+        var lineWidgets = this.session.lineWidgets;
+        if (!lineWidgets)
+            return;
+        var noWidgets = true;
+        lineWidgets.forEach(function (w, i) {
+            if (w) {
+                noWidgets = false;
+                w.row = i;
+                while (w.$oldWidget) {
+                    w.$oldWidget.row = i;
+                    w = w.$oldWidget;
+                }
+            }
+        });
+        if (noWidgets)
+            this.session.lineWidgets = null;
+    };
+    this.$registerLineWidget = function (w) {
+        if (!this.session.lineWidgets)
+            this.session.lineWidgets = new Array(this.session.getLength());
+        var old = this.session.lineWidgets[w.row];
+        if (old) {
+            w.$oldWidget = old;
+            if (old.el && old.el.parentNode) {
+                old.el.parentNode.removeChild(old.el);
+                old._inDocument = false;
+            }
+        }
+        this.session.lineWidgets[w.row] = w;
+        return w;
+    };
+    this.addLineWidget = function (w) {
+        this.$registerLineWidget(w);
+        w.session = this.session;
+        if (!this.editor)
+            return w;
+        var renderer = this.editor.renderer;
+        if (w.html && !w.el) {
+            w.el = dom.createElement("div");
+            w.el.innerHTML = w.html;
+        }
+        if (w.text && !w.el) {
+            w.el = dom.createElement("div");
+            w.el.textContent = w.text;
+        }
+        if (w.el) {
+            dom.addCssClass(w.el, "ace_lineWidgetContainer");
+            if (w.className) {
+                dom.addCssClass(w.el, w.className);
+            }
+            w.el.style.position = "absolute";
+            w.el.style.zIndex = 5;
+            renderer.container.appendChild(w.el);
+            w._inDocument = true;
+            if (!w.coverGutter) {
+                w.el.style.zIndex = 3;
+            }
+            if (w.pixelHeight == null) {
+                w.pixelHeight = w.el.offsetHeight;
+            }
+        }
+        if (w.rowCount == null) {
+            w.rowCount = w.pixelHeight / renderer.layerConfig.lineHeight;
+        }
+        var fold = this.session.getFoldAt(w.row, 0);
+        w.$fold = fold;
+        if (fold) {
+            var lineWidgets = this.session.lineWidgets;
+            if (w.row == fold.end.row && !lineWidgets[fold.start.row])
+                lineWidgets[fold.start.row] = w;
+            else
+                w.hidden = true;
+        }
+        this.session._emit("changeFold", { data: { start: { row: w.row } } });
+        this.$updateRows();
+        this.renderWidgets(null, renderer);
+        this.onWidgetChanged(w);
+        return w;
+    };
+    this.removeLineWidget = function (w) {
+        w._inDocument = false;
+        w.session = null;
+        if (w.el && w.el.parentNode)
+            w.el.parentNode.removeChild(w.el);
+        if (w.editor && w.editor.destroy)
+            try {
+                w.editor.destroy();
+            }
+            catch (e) { }
+        if (this.session.lineWidgets) {
+            var w1 = this.session.lineWidgets[w.row];
+            if (w1 == w) {
+                this.session.lineWidgets[w.row] = w.$oldWidget;
+                if (w.$oldWidget)
+                    this.onWidgetChanged(w.$oldWidget);
+            }
+            else {
+                while (w1) {
+                    if (w1.$oldWidget == w) {
+                        w1.$oldWidget = w.$oldWidget;
+                        break;
+                    }
+                    w1 = w1.$oldWidget;
+                }
+            }
+        }
+        this.session._emit("changeFold", { data: { start: { row: w.row } } });
+        this.$updateRows();
+    };
+    this.getWidgetsAtRow = function (row) {
+        var lineWidgets = this.session.lineWidgets;
+        var w = lineWidgets && lineWidgets[row];
+        var list = [];
+        while (w) {
+            list.push(w);
+            w = w.$oldWidget;
+        }
+        return list;
+    };
+    this.onWidgetChanged = function (w) {
+        this.session._changedWidgets.push(w);
+        this.editor && this.editor.renderer.updateFull();
+    };
+    this.measureWidgets = function (e, renderer) {
+        var changedWidgets = this.session._changedWidgets;
+        var config = renderer.layerConfig;
+        if (!changedWidgets || !changedWidgets.length)
+            return;
+        var min = Infinity;
+        for (var i = 0; i < changedWidgets.length; i++) {
+            var w = changedWidgets[i];
+            if (!w || !w.el)
+                continue;
+            if (w.session != this.session)
+                continue;
+            if (!w._inDocument) {
+                if (this.session.lineWidgets[w.row] != w)
+                    continue;
+                w._inDocument = true;
+                renderer.container.appendChild(w.el);
+            }
+            w.h = w.el.offsetHeight;
+            if (!w.fixedWidth) {
+                w.w = w.el.offsetWidth;
+                w.screenWidth = Math.ceil(w.w / config.characterWidth);
+            }
+            var rowCount = w.h / config.lineHeight;
+            if (w.coverLine) {
+                rowCount -= this.session.getRowLineCount(w.row);
+                if (rowCount < 0)
+                    rowCount = 0;
+            }
+            if (w.rowCount != rowCount) {
+                w.rowCount = rowCount;
+                if (w.row < min)
+                    min = w.row;
+            }
+        }
+        if (min != Infinity) {
+            this.session._emit("changeFold", { data: { start: { row: min } } });
+            this.session.lineWidgetWidth = null;
+        }
+        this.session._changedWidgets = [];
+    };
+    this.renderWidgets = function (e, renderer) {
+        var config = renderer.layerConfig;
+        var lineWidgets = this.session.lineWidgets;
+        if (!lineWidgets)
+            return;
+        var first = Math.min(this.firstRow, config.firstRow);
+        var last = Math.max(this.lastRow, config.lastRow, lineWidgets.length);
+        while (first > 0 && !lineWidgets[first])
+            first--;
+        this.firstRow = config.firstRow;
+        this.lastRow = config.lastRow;
+        renderer.$cursorLayer.config = config;
+        for (var i = first; i <= last; i++) {
+            var w = lineWidgets[i];
+            if (!w || !w.el)
+                continue;
+            if (w.hidden) {
+                w.el.style.top = -100 - (w.pixelHeight || 0) + "px";
+                continue;
+            }
+            if (!w._inDocument) {
+                w._inDocument = true;
+                renderer.container.appendChild(w.el);
+            }
+            var top = renderer.$cursorLayer.getPixelPosition({ row: i, column: 0 }, true).top;
+            if (!w.coverLine)
+                top += config.lineHeight * this.session.getRowLineCount(w.row);
+            w.el.style.top = top - config.offset + "px";
+            var left = w.coverGutter ? 0 : renderer.gutterWidth;
+            if (!w.fixedWidth)
+                left -= renderer.scrollLeft;
+            w.el.style.left = left + "px";
+            if (w.fullWidth && w.screenWidth) {
+                w.el.style.minWidth = config.width + 2 * config.padding + "px";
+            }
+            if (w.fixedWidth) {
+                w.el.style.right = renderer.scrollBar.getWidth() + "px";
+            }
+            else {
+                w.el.style.right = "";
+            }
+        }
+    };
+}).call(LineWidgets.prototype);
+exports.LineWidgets = LineWidgets;
+
+});
+
+ace.define("ace/editor",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/lib/useragent","ace/keyboard/textinput","ace/mouse/mouse_handler","ace/mouse/fold_handler","ace/keyboard/keybinding","ace/edit_session","ace/search","ace/range","ace/lib/event_emitter","ace/commands/command_manager","ace/commands/default_commands","ace/config","ace/token_iterator","ace/line_widgets","ace/clipboard"], function(require, exports, module){"use strict";
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 var oop = require("./lib/oop");
 var dom = require("./lib/dom");
 var lang = require("./lib/lang");
@@ -11555,6 +12118,7 @@ var CommandManager = require("./commands/command_manager").CommandManager;
 var defaultCommands = require("./commands/default_commands").commands;
 var config = require("./config");
 var TokenIterator = require("./token_iterator").TokenIterator;
+var LineWidgets = require("./line_widgets").LineWidgets;
 var clipboard = require("./clipboard");
 var Editor = function (renderer, session, options) {
     this.$toDestroy = [];
@@ -11868,7 +12432,19 @@ Editor.$uid = 0;
                 });
                 session.$bracketHighlight = null;
             }
-            var ranges = session.getMatchingBracketRanges(self.getCursorPosition());
+            var pos = self.getCursorPosition();
+            var handler = self.getKeyboardHandler();
+            var isBackwards = handler && handler.$getDirectionForHighlight && handler.$getDirectionForHighlight(self);
+            var ranges = session.getMatchingBracketRanges(pos, isBackwards);
+            if (!ranges) {
+                var iterator = new TokenIterator(session, pos.row, pos.column);
+                var token = iterator.getCurrentToken();
+                if (token && /\b(?:tag-open|tag-name)/.test(token.type)) {
+                    var tagNamesRanges = session.getMatchingTags(pos);
+                    if (tagNamesRanges)
+                        ranges = [tagNamesRanges.openTagName, tagNamesRanges.closeTagName];
+                }
+            }
             if (!ranges && session.$mode.getMatching)
                 ranges = session.$mode.getMatching(self.session);
             if (!ranges) {
@@ -11899,109 +12475,6 @@ Editor.$uid = 0;
                 self.renderer.$textLayer.$highlightIndentGuide();
         }, 50);
     };
-    this.$highlightTags = function () {
-        if (this.$highlightTagPending)
-            return;
-        var self = this;
-        this.$highlightTagPending = true;
-        setTimeout(function () {
-            self.$highlightTagPending = false;
-            var session = self.session;
-            if (!session || session.destroyed)
-                return;
-            var pos = self.getCursorPosition();
-            var iterator = new TokenIterator(self.session, pos.row, pos.column);
-            var token = iterator.getCurrentToken();
-            if (!token || !/\b(?:tag-open|tag-name)/.test(token.type)) {
-                session.removeMarker(session.$tagHighlight);
-                session.$tagHighlight = null;
-                return;
-            }
-            if (token.type.indexOf("tag-open") !== -1) {
-                token = iterator.stepForward();
-                if (!token)
-                    return;
-            }
-            var tag = token.value;
-            var currentTag = token.value;
-            var depth = 0;
-            var prevToken = iterator.stepBackward();
-            if (prevToken.value === '<') {
-                do {
-                    prevToken = token;
-                    token = iterator.stepForward();
-                    if (token) {
-                        if (token.type.indexOf('tag-name') !== -1) {
-                            currentTag = token.value;
-                            if (tag === currentTag) {
-                                if (prevToken.value === '<') {
-                                    depth++;
-                                }
-                                else if (prevToken.value === '</') {
-                                    depth--;
-                                }
-                            }
-                        }
-                        else if (tag === currentTag && token.value === '/>') { // self closing tag
-                            depth--;
-                        }
-                    }
-                } while (token && depth >= 0);
-            }
-            else {
-                do {
-                    token = prevToken;
-                    prevToken = iterator.stepBackward();
-                    if (token) {
-                        if (token.type.indexOf('tag-name') !== -1) {
-                            if (tag === token.value) {
-                                if (prevToken.value === '<') {
-                                    depth++;
-                                }
-                                else if (prevToken.value === '</') {
-                                    depth--;
-                                }
-                            }
-                        }
-                        else if (token.value === '/>') { // self closing tag
-                            var stepCount = 0;
-                            var tmpToken = prevToken;
-                            while (tmpToken) {
-                                if (tmpToken.type.indexOf('tag-name') !== -1 && tmpToken.value === tag) {
-                                    depth--;
-                                    break;
-                                }
-                                else if (tmpToken.value === '<') {
-                                    break;
-                                }
-                                tmpToken = iterator.stepBackward();
-                                stepCount++;
-                            }
-                            for (var i = 0; i < stepCount; i++) {
-                                iterator.stepForward();
-                            }
-                        }
-                    }
-                } while (prevToken && depth <= 0);
-                iterator.stepForward();
-            }
-            if (!token) {
-                session.removeMarker(session.$tagHighlight);
-                session.$tagHighlight = null;
-                return;
-            }
-            var row = iterator.getCurrentTokenRow();
-            var column = iterator.getCurrentTokenColumn();
-            var range = new Range(row, column, row, column + token.value.length);
-            var sbm = session.$backMarkers[session.$tagHighlight];
-            if (session.$tagHighlight && sbm != undefined && range.compareRange(sbm.range) !== 0) {
-                session.removeMarker(session.$tagHighlight);
-                session.$tagHighlight = null;
-            }
-            if (!session.$tagHighlight)
-                session.$tagHighlight = session.addMarker(range, "ace_bracket", "text");
-        }, 50);
-    };
     this.focus = function () {
         this.textInput.focus();
     };
@@ -12030,7 +12503,6 @@ Editor.$uid = 0;
     this.$cursorChange = function () {
         this.renderer.updateCursor();
         this.$highlightBrackets();
-        this.$highlightTags();
         this.$updateHighlightActiveLine();
     };
     this.onDocumentChange = function (delta) {
@@ -12523,6 +12995,18 @@ Editor.$uid = 0;
         this.insert("\n");
         this.moveCursorToPosition(cursor);
     };
+    this.setGhostText = function (text, position) {
+        if (!this.session.widgetManager) {
+            this.session.widgetManager = new LineWidgets(this.session);
+            this.session.widgetManager.attach(this);
+        }
+        this.renderer.setGhostText(text, position);
+    };
+    this.removeGhostText = function () {
+        if (!this.session.widgetManager)
+            return;
+        this.renderer.removeGhostText();
+    };
     this.transposeLetters = function () {
         if (!this.selection.isEmpty()) {
             return;
@@ -12763,6 +13247,43 @@ Editor.$uid = 0;
             }
         }
     };
+    this.findLinkAt = function (row, column) {
+        var e_1, _a;
+        var line = this.session.getLine(row);
+        var wordParts = line.split(/((?:https?|ftp):\/\/[\S]+)/);
+        var columnPosition = column;
+        if (columnPosition < 0)
+            columnPosition = 0;
+        var previousPosition = 0, currentPosition = 0, match;
+        try {
+            for (var wordParts_1 = __values(wordParts), wordParts_1_1 = wordParts_1.next(); !wordParts_1_1.done; wordParts_1_1 = wordParts_1.next()) {
+                var item = wordParts_1_1.value;
+                currentPosition = previousPosition + item.length;
+                if (columnPosition >= previousPosition && columnPosition <= currentPosition) {
+                    if (item.match(/((?:https?|ftp):\/\/[\S]+)/)) {
+                        match = item.replace(/[\s:.,'";}\]]+$/, "");
+                        break;
+                    }
+                }
+                previousPosition = currentPosition;
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (wordParts_1_1 && !wordParts_1_1.done && (_a = wordParts_1.return)) _a.call(wordParts_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return match;
+    };
+    this.openLink = function () {
+        var cursor = this.selection.getCursor();
+        var url = this.findLinkAt(cursor.row, cursor.column);
+        if (url)
+            window.open(url, '_blank');
+        return url != null;
+    };
     this.removeLines = function () {
         var rows = this.$getSelectedRows();
         this.session.removeFullLines(rows.first, rows.last);
@@ -12959,6 +13480,10 @@ Editor.$uid = 0;
         var cursor = this.getCursorPosition();
         var iterator = new TokenIterator(this.session, cursor.row, cursor.column);
         var prevToken = iterator.getCurrentToken();
+        var tokenCount = 0;
+        if (prevToken && prevToken.type.indexOf('tag-name') !== -1) {
+            prevToken = iterator.stepBackward();
+        }
         var token = prevToken || iterator.stepForward();
         if (!token)
             return;
@@ -13007,7 +13532,7 @@ Editor.$uid = 0;
                 if (isNaN(depth[token.value])) {
                     depth[token.value] = 0;
                 }
-                if (prevToken.value === '<') {
+                if (prevToken.value === '<' && tokenCount > 1) {
                     depth[token.value]++;
                 }
                 else if (prevToken.value === '</') {
@@ -13020,6 +13545,7 @@ Editor.$uid = 0;
             }
             if (!found) {
                 prevToken = token;
+                tokenCount++;
                 token = iterator.stepForward();
                 i = 0;
             }
@@ -13032,43 +13558,33 @@ Editor.$uid = 0;
             if (!range) {
                 range = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + i - 1, iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + i - 1);
                 pos = range.start;
-                if (expand || pos.row === cursor.row && Math.abs(pos.column - cursor.column) < 2)
+                if (expand || pos.row === cursor.row && Math.abs(pos.column - cursor.column)
+                    < 2)
                     range = this.session.getBracketRange(pos);
             }
         }
         else if (matchType === 'tag') {
-            if (token && token.type.indexOf('tag-name') !== -1)
-                var tag = token.value;
-            else
+            if (!token || token.type.indexOf('tag-name') === -1)
                 return;
             range = new Range(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() - 2, iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() - 2);
             if (range.compare(cursor.row, cursor.column) === 0) {
-                found = false;
-                do {
-                    token = prevToken;
-                    prevToken = iterator.stepBackward();
-                    if (prevToken) {
-                        if (prevToken.type.indexOf('tag-close') !== -1) {
-                            range.setEnd(iterator.getCurrentTokenRow(), iterator.getCurrentTokenColumn() + 1);
-                        }
-                        if (token.value === tag && token.type.indexOf('tag-name') !== -1) {
-                            if (prevToken.value === '<') {
-                                depth[tag]++;
-                            }
-                            else if (prevToken.value === '</') {
-                                depth[tag]--;
-                            }
-                            if (depth[tag] === 0)
-                                found = true;
-                        }
+                var tagsRanges = this.session.getMatchingTags(cursor);
+                if (tagsRanges) {
+                    if (tagsRanges.openTag.contains(cursor.row, cursor.column)) {
+                        range = tagsRanges.closeTag;
+                        pos = range.start;
                     }
-                } while (prevToken && !found);
+                    else {
+                        range = tagsRanges.openTag;
+                        if (tagsRanges.closeTag.start.row === cursor.row && tagsRanges.closeTag.start.column
+                            === cursor.column)
+                            pos = range.end;
+                        else
+                            pos = range.start;
+                    }
+                }
             }
-            if (token && token.type.indexOf('tag-name')) {
-                pos = range.start;
-                if (pos.row == cursor.row && Math.abs(pos.column - cursor.column) < 2)
-                    pos = range.end;
-            }
+            pos = pos || range.start;
         }
         pos = range && range.cursor || pos;
         if (pos) {
@@ -13347,7 +13863,7 @@ Editor.$uid = 0;
     };
     this.prompt = function (message, options, callback) {
         var editor = this;
-        config.loadModule("./ext/prompt", function (module) {
+        config.loadModule("ace/ext/prompt", function (module) {
             module.prompt(editor, message, options, callback);
         });
     };
@@ -13461,6 +13977,7 @@ config.defineOptions(Editor.prototype, "editor", {
             this.$updatePlaceholder();
         }
     },
+    customScrollbar: "renderer",
     hScrollBarAlwaysVisible: "renderer",
     vScrollBarAlwaysVisible: "renderer",
     highlightGutterLine: "renderer",
@@ -14602,7 +15119,7 @@ var Marker = function (parentEl) {
         var selections = this.session.$bidiHandler.getSelections(range.start.column, range.end.column);
         selections.forEach(function (selection) {
             this.elt(clazz, "height:" + height + "px;" +
-                "width:" + selection.width + (extraLength || 0) + "px;" +
+                "width:" + (selection.width + (extraLength || 0)) + "px;" +
                 "top:" + top + "px;" +
                 "left:" + (padding + selection.left) + "px;" + (extraStyle || ""));
         }, this);
@@ -14998,6 +15515,8 @@ var Text = function (parentEl) {
             dir: undefined
         };
         var lines = this.session.doc.$lines;
+        if (!lines)
+            return;
         var cursor = this.session.selection.getCursor();
         var initialIndent = /^\s*/.exec(this.session.doc.getLine(cursor.row))[0].length;
         var elementIndentLevel = Math.floor(initialIndent / this.tabSize);
@@ -15056,8 +15575,10 @@ var Text = function (parentEl) {
         var line = this.session.doc.getLine(cell.row);
         if (line !== "") {
             var childNodes = cell.element.childNodes;
-            if (childNodes && childNodes[indentLevel - 1] && childNodes[indentLevel - 1].classList) {
-                childNodes[indentLevel - 1].classList.add("ace_indent-guide-active");
+            if (childNodes) {
+                var node = childNodes[indentLevel - 1];
+                if (node && node.classList && node.classList.contains("ace_indent-guide"))
+                    node.classList.add("ace_indent-guide-active");
             }
         }
     };
@@ -15577,6 +16098,227 @@ exports.HScrollBar = HScrollBar;
 
 });
 
+ace.define("ace/scrollbar_custom",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/event","ace/lib/event_emitter"], function(require, exports, module){"use strict";
+var oop = require("./lib/oop");
+var dom = require("./lib/dom");
+var event = require("./lib/event");
+var EventEmitter = require("./lib/event_emitter").EventEmitter;
+dom.importCssString(".ace_editor>.ace_sb-v div, .ace_editor>.ace_sb-h div{\n  position: absolute;\n  background: rgba(128, 128, 128, 0.6);\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  border: 1px solid #bbb;\n  border-radius: 2px;\n  z-index: 8;\n}\n.ace_editor>.ace_sb-v, .ace_editor>.ace_sb-h {\n  position: absolute;\n  z-index: 6;\n  background: none;\n  overflow: hidden!important;\n}\n.ace_editor>.ace_sb-v {\n  z-index: 6;\n  right: 0;\n  top: 0;\n  width: 12px;\n}\n.ace_editor>.ace_sb-v div {\n  z-index: 8;\n  right: 0;\n  width: 100%;\n}\n.ace_editor>.ace_sb-h {\n  bottom: 0;\n  left: 0;\n  height: 12px;\n}\n.ace_editor>.ace_sb-h div {\n  bottom: 0;\n  height: 100%;\n}\n.ace_editor>.ace_sb_grabbed {\n  z-index: 8;\n  background: #000;\n}", "ace_scrollbar.css", false);
+var ScrollBar = function (parent) {
+    this.element = dom.createElement("div");
+    this.element.className = "ace_sb" + this.classSuffix;
+    this.inner = dom.createElement("div");
+    this.inner.className = "";
+    this.element.appendChild(this.inner);
+    this.VScrollWidth = 12;
+    this.HScrollHeight = 12;
+    parent.appendChild(this.element);
+    this.setVisible(false);
+    this.skipEvent = false;
+    event.addMultiMouseDownListener(this.element, [500, 300, 300], this, "onMouseDown");
+};
+(function () {
+    oop.implement(this, EventEmitter);
+    this.setVisible = function (isVisible) {
+        this.element.style.display = isVisible ? "" : "none";
+        this.isVisible = isVisible;
+        this.coeff = 1;
+    };
+}).call(ScrollBar.prototype);
+var VScrollBar = function (parent, renderer) {
+    ScrollBar.call(this, parent);
+    this.scrollTop = 0;
+    this.scrollHeight = 0;
+    this.parent = parent;
+    this.width = this.VScrollWidth;
+    this.renderer = renderer;
+    this.inner.style.width = this.element.style.width = (this.width || 15) + "px";
+    this.$minWidth = 0;
+};
+oop.inherits(VScrollBar, ScrollBar);
+(function () {
+    this.classSuffix = '-v';
+    oop.implement(this, EventEmitter);
+    this.onMouseDown = function (eType, e) {
+        if (eType !== "mousedown")
+            return;
+        if (event.getButton(e) !== 0 || e.detail === 2) {
+            return;
+        }
+        if (e.target === this.inner) {
+            var self = this;
+            var mousePageY = e.clientY;
+            var onMouseMove = function (e) {
+                mousePageY = e.clientY;
+            };
+            var onMouseUp = function () {
+                clearInterval(timerId);
+            };
+            var startY = e.clientY;
+            var startTop = this.thumbTop;
+            var onScrollInterval = function () {
+                if (mousePageY === undefined)
+                    return;
+                var scrollTop = self.scrollTopFromThumbTop(startTop + mousePageY - startY);
+                if (scrollTop === self.scrollTop)
+                    return;
+                self._emit("scroll", { data: scrollTop });
+            };
+            event.capture(this.inner, onMouseMove, onMouseUp);
+            var timerId = setInterval(onScrollInterval, 20);
+            return event.preventDefault(e);
+        }
+        var top = e.clientY - this.element.getBoundingClientRect().top - this.thumbHeight / 2;
+        this._emit("scroll", { data: this.scrollTopFromThumbTop(top) });
+        return event.preventDefault(e);
+    };
+    this.getHeight = function () {
+        return this.height;
+    };
+    this.scrollTopFromThumbTop = function (thumbTop) {
+        var scrollTop = thumbTop * (this.pageHeight - this.viewHeight) / (this.slideHeight - this.thumbHeight);
+        scrollTop = scrollTop >> 0;
+        if (scrollTop < 0) {
+            scrollTop = 0;
+        }
+        else if (scrollTop > this.pageHeight - this.viewHeight) {
+            scrollTop = this.pageHeight - this.viewHeight;
+        }
+        return scrollTop;
+    };
+    this.getWidth = function () {
+        return Math.max(this.isVisible ? this.width : 0, this.$minWidth || 0);
+    };
+    this.setHeight = function (height) {
+        this.height = Math.max(0, height);
+        this.slideHeight = this.height;
+        this.viewHeight = this.height;
+        this.setScrollHeight(this.pageHeight, true);
+    };
+    this.setInnerHeight = this.setScrollHeight = function (height, force) {
+        if (this.pageHeight === height && !force)
+            return;
+        this.pageHeight = height;
+        this.thumbHeight = this.slideHeight * this.viewHeight / this.pageHeight;
+        if (this.thumbHeight > this.slideHeight)
+            this.thumbHeight = this.slideHeight;
+        if (this.thumbHeight < 15)
+            this.thumbHeight = 15;
+        this.inner.style.height = this.thumbHeight + "px";
+        if (this.scrollTop > (this.pageHeight - this.viewHeight)) {
+            this.scrollTop = (this.pageHeight - this.viewHeight);
+            if (this.scrollTop < 0)
+                this.scrollTop = 0;
+            this._emit("scroll", { data: this.scrollTop });
+        }
+    };
+    this.setScrollTop = function (scrollTop) {
+        this.scrollTop = scrollTop;
+        if (scrollTop < 0)
+            scrollTop = 0;
+        this.thumbTop = scrollTop * (this.slideHeight - this.thumbHeight) / (this.pageHeight - this.viewHeight);
+        this.inner.style.top = this.thumbTop + "px";
+    };
+}).call(VScrollBar.prototype);
+var HScrollBar = function (parent, renderer) {
+    ScrollBar.call(this, parent);
+    this.scrollLeft = 0;
+    this.scrollWidth = 0;
+    this.height = this.HScrollHeight;
+    this.inner.style.height = this.element.style.height = (this.height || 12) + "px";
+    this.renderer = renderer;
+};
+oop.inherits(HScrollBar, ScrollBar);
+(function () {
+    this.classSuffix = '-h';
+    oop.implement(this, EventEmitter);
+    this.onMouseDown = function (eType, e) {
+        if (eType !== "mousedown")
+            return;
+        if (event.getButton(e) !== 0 || e.detail === 2) {
+            return;
+        }
+        if (e.target === this.inner) {
+            var self = this;
+            var mousePageX = e.clientX;
+            var onMouseMove = function (e) {
+                mousePageX = e.clientX;
+            };
+            var onMouseUp = function () {
+                clearInterval(timerId);
+            };
+            var startX = e.clientX;
+            var startLeft = this.thumbLeft;
+            var onScrollInterval = function () {
+                if (mousePageX === undefined)
+                    return;
+                var scrollLeft = self.scrollLeftFromThumbLeft(startLeft + mousePageX - startX);
+                if (scrollLeft === self.scrollLeft)
+                    return;
+                self._emit("scroll", { data: scrollLeft });
+            };
+            event.capture(this.inner, onMouseMove, onMouseUp);
+            var timerId = setInterval(onScrollInterval, 20);
+            return event.preventDefault(e);
+        }
+        var left = e.clientX - this.element.getBoundingClientRect().left - this.thumbWidth / 2;
+        this._emit("scroll", { data: this.scrollLeftFromThumbLeft(left) });
+        return event.preventDefault(e);
+    };
+    this.getHeight = function () {
+        return this.isVisible ? this.height : 0;
+    };
+    this.scrollLeftFromThumbLeft = function (thumbLeft) {
+        var scrollLeft = thumbLeft * (this.pageWidth - this.viewWidth) / (this.slideWidth - this.thumbWidth);
+        scrollLeft = scrollLeft >> 0;
+        if (scrollLeft < 0) {
+            scrollLeft = 0;
+        }
+        else if (scrollLeft > this.pageWidth - this.viewWidth) {
+            scrollLeft = this.pageWidth - this.viewWidth;
+        }
+        return scrollLeft;
+    };
+    this.setWidth = function (width) {
+        this.width = Math.max(0, width);
+        this.element.style.width = this.width + "px";
+        this.slideWidth = this.width;
+        this.viewWidth = this.width;
+        this.setScrollWidth(this.pageWidth, true);
+    };
+    this.setInnerWidth = this.setScrollWidth = function (width, force) {
+        if (this.pageWidth === width && !force)
+            return;
+        this.pageWidth = width;
+        this.thumbWidth = this.slideWidth * this.viewWidth / this.pageWidth;
+        if (this.thumbWidth > this.slideWidth)
+            this.thumbWidth = this.slideWidth;
+        if (this.thumbWidth < 15)
+            this.thumbWidth = 15;
+        this.inner.style.width = this.thumbWidth + "px";
+        if (this.scrollLeft > (this.pageWidth - this.viewWidth)) {
+            this.scrollLeft = (this.pageWidth - this.viewWidth);
+            if (this.scrollLeft < 0)
+                this.scrollLeft = 0;
+            this._emit("scroll", { data: this.scrollLeft });
+        }
+    };
+    this.setScrollLeft = function (scrollLeft) {
+        this.scrollLeft = scrollLeft;
+        if (scrollLeft < 0)
+            scrollLeft = 0;
+        this.thumbLeft = scrollLeft * (this.slideWidth - this.thumbWidth) / (this.pageWidth - this.viewWidth);
+        this.inner.style.left = (this.thumbLeft) + "px";
+    };
+}).call(HScrollBar.prototype);
+exports.ScrollBar = VScrollBar; // backward compatibility
+exports.ScrollBarV = VScrollBar; // backward compatibility
+exports.ScrollBarH = HScrollBar; // backward compatibility
+exports.VScrollBar = VScrollBar;
+exports.HScrollBar = HScrollBar;
+
+});
+
 ace.define("ace/renderloop",["require","exports","module","ace/lib/event"], function(require, exports, module){"use strict";
 var event = require("./lib/event");
 var RenderLoop = function (onRender, win) {
@@ -15628,7 +16370,7 @@ var lang = require("../lib/lang");
 var event = require("../lib/event");
 var useragent = require("../lib/useragent");
 var EventEmitter = require("../lib/event_emitter").EventEmitter;
-var CHAR_COUNT = 256;
+var CHAR_COUNT = 512;
 var USE_OBSERVER = typeof ResizeObserver == "function";
 var L = 200;
 var FontMetrics = exports.FontMetrics = function (parentEl) {
@@ -15786,11 +16528,142 @@ var FontMetrics = exports.FontMetrics = function (parentEl) {
 
 });
 
-ace.define("ace/css/editor.css",["require","exports","module"], function(require, exports, module){module.exports = "/*\nstyles = []\nfor (var i = 1; i < 16; i++) {\n    styles.push(\".ace_br\" + i + \"{\" + (\n        [\"top-left\", \"top-right\", \"bottom-right\", \"bottom-left\"]\n    ).map(function(x, j) {\n        return i & (1<<j) ? \"border-\" + x + \"-radius: 3px;\" : \"\" \n    }).filter(Boolean).join(\" \") + \"}\")\n}\nstyles.join(\"\\n\")\n*/\n.ace_br1 {border-top-left-radius    : 3px;}\n.ace_br2 {border-top-right-radius   : 3px;}\n.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}\n.ace_br4 {border-bottom-right-radius: 3px;}\n.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}\n.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}\n.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}\n.ace_br8 {border-bottom-left-radius : 3px;}\n.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}\n.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}\n.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}\n.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}\n.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}\n.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}\n.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}\n\n\n.ace_editor {\n    position: relative;\n    overflow: hidden;\n    padding: 0;\n    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;\n    direction: ltr;\n    text-align: left;\n    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n}\n\n.ace_scroller {\n    position: absolute;\n    overflow: hidden;\n    top: 0;\n    bottom: 0;\n    background-color: inherit;\n    -ms-user-select: none;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    cursor: text;\n}\n\n.ace_content {\n    position: absolute;\n    box-sizing: border-box;\n    min-width: 100%;\n    contain: style size layout;\n    font-variant-ligatures: no-common-ligatures;\n}\n\n.ace_dragging .ace_scroller:before{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    content: '';\n    background: rgba(250, 250, 250, 0.01);\n    z-index: 1000;\n}\n.ace_dragging.ace_dark .ace_scroller:before{\n    background: rgba(0, 0, 0, 0.01);\n}\n\n.ace_gutter {\n    position: absolute;\n    overflow : hidden;\n    width: auto;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    cursor: default;\n    z-index: 4;\n    -ms-user-select: none;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    contain: style size layout;\n}\n\n.ace_gutter-active-line {\n    position: absolute;\n    left: 0;\n    right: 0;\n}\n\n.ace_scroller.ace_scroll-left {\n    box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;\n}\n\n.ace_gutter-cell {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    padding-left: 19px;\n    padding-right: 6px;\n    background-repeat: no-repeat;\n}\n\n.ace_gutter-cell.ace_error {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==\");\n    background-repeat: no-repeat;\n    background-position: 2px center;\n}\n\n.ace_gutter-cell.ace_warning {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==\");\n    background-position: 2px center;\n}\n\n.ace_gutter-cell.ace_info {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=\");\n    background-position: 2px center;\n}\n.ace_dark .ace_gutter-cell.ace_info {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC\");\n}\n\n.ace_scrollbar {\n    contain: strict;\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    z-index: 6;\n}\n\n.ace_scrollbar-inner {\n    position: absolute;\n    cursor: text;\n    left: 0;\n    top: 0;\n}\n\n.ace_scrollbar-v{\n    overflow-x: hidden;\n    overflow-y: scroll;\n    top: 0;\n}\n\n.ace_scrollbar-h {\n    overflow-x: scroll;\n    overflow-y: hidden;\n    left: 0;\n}\n\n.ace_print-margin {\n    position: absolute;\n    height: 100%;\n}\n\n.ace_text-input {\n    position: absolute;\n    z-index: 0;\n    width: 0.5em;\n    height: 1em;\n    opacity: 0;\n    background: transparent;\n    -moz-appearance: none;\n    appearance: none;\n    border: none;\n    resize: none;\n    outline: none;\n    overflow: hidden;\n    font: inherit;\n    padding: 0 1px;\n    margin: 0 -1px;\n    contain: strict;\n    -ms-user-select: text;\n    -moz-user-select: text;\n    -webkit-user-select: text;\n    user-select: text;\n    /*with `pre-line` chrome inserts &nbsp; instead of space*/\n    white-space: pre!important;\n}\n.ace_text-input.ace_composition {\n    background: transparent;\n    color: inherit;\n    z-index: 1000;\n    opacity: 1;\n}\n.ace_composition_placeholder { color: transparent }\n.ace_composition_marker { \n    border-bottom: 1px solid;\n    position: absolute;\n    border-radius: 0;\n    margin-top: 1px;\n}\n\n[ace_nocontext=true] {\n    transform: none!important;\n    filter: none!important;\n    clip-path: none!important;\n    mask : none!important;\n    contain: none!important;\n    perspective: none!important;\n    mix-blend-mode: initial!important;\n    z-index: auto;\n}\n\n.ace_layer {\n    z-index: 1;\n    position: absolute;\n    overflow: hidden;\n    /* workaround for chrome bug https://github.com/ajaxorg/ace/issues/2312*/\n    word-wrap: normal;\n    white-space: pre;\n    height: 100%;\n    width: 100%;\n    box-sizing: border-box;\n    /* setting pointer-events: auto; on node under the mouse, which changes\n        during scroll, will break mouse wheel scrolling in Safari */\n    pointer-events: none;\n}\n\n.ace_gutter-layer {\n    position: relative;\n    width: auto;\n    text-align: right;\n    pointer-events: auto;\n    height: 1000000px;\n    contain: style size layout;\n}\n\n.ace_text-layer {\n    font: inherit !important;\n    position: absolute;\n    height: 1000000px;\n    width: 1000000px;\n    contain: style size layout;\n}\n\n.ace_text-layer > .ace_line, .ace_text-layer > .ace_line_group {\n    contain: style size layout;\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n}\n\n.ace_hidpi .ace_text-layer,\n.ace_hidpi .ace_gutter-layer,\n.ace_hidpi .ace_content,\n.ace_hidpi .ace_gutter {\n    contain: strict;\n    will-change: transform;\n}\n.ace_hidpi .ace_text-layer > .ace_line, \n.ace_hidpi .ace_text-layer > .ace_line_group {\n    contain: strict;\n}\n\n.ace_cjk {\n    display: inline-block;\n    text-align: center;\n}\n\n.ace_cursor-layer {\n    z-index: 4;\n}\n\n.ace_cursor {\n    z-index: 4;\n    position: absolute;\n    box-sizing: border-box;\n    border-left: 2px solid;\n    /* workaround for smooth cursor repaintng whole screen in chrome */\n    transform: translatez(0);\n}\n\n.ace_multiselect .ace_cursor {\n    border-left-width: 1px;\n}\n\n.ace_slim-cursors .ace_cursor {\n    border-left-width: 1px;\n}\n\n.ace_overwrite-cursors .ace_cursor {\n    border-left-width: 0;\n    border-bottom: 1px solid;\n}\n\n.ace_hidden-cursors .ace_cursor {\n    opacity: 0.2;\n}\n\n.ace_hasPlaceholder .ace_hidden-cursors .ace_cursor {\n    opacity: 0;\n}\n\n.ace_smooth-blinking .ace_cursor {\n    transition: opacity 0.18s;\n}\n\n.ace_animate-blinking .ace_cursor {\n    animation-duration: 1000ms;\n    animation-timing-function: step-end;\n    animation-name: blink-ace-animate;\n    animation-iteration-count: infinite;\n}\n\n.ace_animate-blinking.ace_smooth-blinking .ace_cursor {\n    animation-duration: 1000ms;\n    animation-timing-function: ease-in-out;\n    animation-name: blink-ace-animate-smooth;\n}\n    \n@keyframes blink-ace-animate {\n    from, to { opacity: 1; }\n    60% { opacity: 0; }\n}\n\n@keyframes blink-ace-animate-smooth {\n    from, to { opacity: 1; }\n    45% { opacity: 1; }\n    60% { opacity: 0; }\n    85% { opacity: 0; }\n}\n\n.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {\n    position: absolute;\n    z-index: 3;\n}\n\n.ace_marker-layer .ace_selection {\n    position: absolute;\n    z-index: 5;\n}\n\n.ace_marker-layer .ace_bracket {\n    position: absolute;\n    z-index: 6;\n}\n\n.ace_marker-layer .ace_error_bracket {\n    position: absolute;\n    border-bottom: 1px solid #DE5555;\n    border-radius: 0;\n}\n\n.ace_marker-layer .ace_active-line {\n    position: absolute;\n    z-index: 2;\n}\n\n.ace_marker-layer .ace_selected-word {\n    position: absolute;\n    z-index: 4;\n    box-sizing: border-box;\n}\n\n.ace_line .ace_fold {\n    box-sizing: border-box;\n\n    display: inline-block;\n    height: 11px;\n    margin-top: -2px;\n    vertical-align: middle;\n\n    background-image:\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII=\"),\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=\");\n    background-repeat: no-repeat, repeat-x;\n    background-position: center center, top left;\n    color: transparent;\n\n    border: 1px solid black;\n    border-radius: 2px;\n\n    cursor: pointer;\n    pointer-events: auto;\n}\n\n.ace_dark .ace_fold {\n}\n\n.ace_fold:hover{\n    background-image:\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII=\"),\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC\");\n}\n\n.ace_tooltip {\n    background-color: #FFF;\n    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));\n    border: 1px solid gray;\n    border-radius: 1px;\n    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n    color: black;\n    max-width: 100%;\n    padding: 3px 4px;\n    position: fixed;\n    z-index: 999999;\n    box-sizing: border-box;\n    cursor: default;\n    white-space: pre;\n    word-wrap: break-word;\n    line-height: normal;\n    font-style: normal;\n    font-weight: normal;\n    letter-spacing: normal;\n    pointer-events: none;\n}\n\n.ace_folding-enabled > .ace_gutter-cell {\n    padding-right: 13px;\n}\n\n.ace_fold-widget {\n    box-sizing: border-box;\n\n    margin: 0 -12px 0 1px;\n    display: none;\n    width: 11px;\n    vertical-align: top;\n\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==\");\n    background-repeat: no-repeat;\n    background-position: center;\n\n    border-radius: 3px;\n    \n    border: 1px solid transparent;\n    cursor: pointer;\n}\n\n.ace_folding-enabled .ace_fold-widget {\n    display: inline-block;   \n}\n\n.ace_fold-widget.ace_end {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==\");\n}\n\n.ace_fold-widget.ace_closed {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==\");\n}\n\n.ace_fold-widget:hover {\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    background-color: rgba(255, 255, 255, 0.2);\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);\n}\n\n.ace_fold-widget:active {\n    border: 1px solid rgba(0, 0, 0, 0.4);\n    background-color: rgba(0, 0, 0, 0.05);\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);\n}\n/**\n * Dark version for fold widgets\n */\n.ace_dark .ace_fold-widget {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC\");\n}\n.ace_dark .ace_fold-widget.ace_end {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==\");\n}\n.ace_dark .ace_fold-widget.ace_closed {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==\");\n}\n.ace_dark .ace_fold-widget:hover {\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);\n    background-color: rgba(255, 255, 255, 0.1);\n}\n.ace_dark .ace_fold-widget:active {\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);\n}\n\n.ace_inline_button {\n    border: 1px solid lightgray;\n    display: inline-block;\n    margin: -1px 8px;\n    padding: 0 5px;\n    pointer-events: auto;\n    cursor: pointer;\n}\n.ace_inline_button:hover {\n    border-color: gray;\n    background: rgba(200,200,200,0.2);\n    display: inline-block;\n    pointer-events: auto;\n}\n\n.ace_fold-widget.ace_invalid {\n    background-color: #FFB4B4;\n    border-color: #DE5555;\n}\n\n.ace_fade-fold-widgets .ace_fold-widget {\n    transition: opacity 0.4s ease 0.05s;\n    opacity: 0;\n}\n\n.ace_fade-fold-widgets:hover .ace_fold-widget {\n    transition: opacity 0.05s ease 0.05s;\n    opacity:1;\n}\n\n.ace_underline {\n    text-decoration: underline;\n}\n\n.ace_bold {\n    font-weight: bold;\n}\n\n.ace_nobold .ace_bold {\n    font-weight: normal;\n}\n\n.ace_italic {\n    font-style: italic;\n}\n\n\n.ace_error-marker {\n    background-color: rgba(255, 0, 0,0.2);\n    position: absolute;\n    z-index: 9;\n}\n\n.ace_highlight-marker {\n    background-color: rgba(255, 255, 0,0.2);\n    position: absolute;\n    z-index: 8;\n}\n\n.ace_mobile-menu {\n    position: absolute;\n    line-height: 1.5;\n    border-radius: 4px;\n    -ms-user-select: none;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    background: white;\n    box-shadow: 1px 3px 2px grey;\n    border: 1px solid #dcdcdc;\n    color: black;\n}\n.ace_dark > .ace_mobile-menu {\n    background: #333;\n    color: #ccc;\n    box-shadow: 1px 3px 2px grey;\n    border: 1px solid #444;\n\n}\n.ace_mobile-button {\n    padding: 2px;\n    cursor: pointer;\n    overflow: hidden;\n}\n.ace_mobile-button:hover {\n    background-color: #eee;\n    opacity:1;\n}\n.ace_mobile-button:active {\n    background-color: #ddd;\n}\n\n.ace_placeholder {\n    font-family: arial;\n    transform: scale(0.9);\n    transform-origin: left;\n    white-space: pre;\n    opacity: 0.7;\n    margin: 0 10px;\n}";
+ace.define("ace/css/editor.css",["require","exports","module"], function(require, exports, module){/*
+styles = []
+for (var i = 1; i < 16; i++) {
+    styles.push(".ace_br" + i + "{" + (
+        ["top-left", "top-right", "bottom-right", "bottom-left"]
+    ).map(function(x, j) {
+        return i & (1<<j) ? "border-" + x + "-radius: 3px;" : ""
+    }).filter(Boolean).join(" ") + "}")
+}
+styles.join("\\n")
+*/
+module.exports = "\n.ace_br1 {border-top-left-radius    : 3px;}\n.ace_br2 {border-top-right-radius   : 3px;}\n.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}\n.ace_br4 {border-bottom-right-radius: 3px;}\n.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}\n.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}\n.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}\n.ace_br8 {border-bottom-left-radius : 3px;}\n.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}\n.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}\n.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}\n.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}\n.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}\n.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}\n.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}\n\n\n.ace_editor {\n    position: relative;\n    overflow: hidden;\n    padding: 0;\n    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;\n    direction: ltr;\n    text-align: left;\n    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n}\n\n.ace_scroller {\n    position: absolute;\n    overflow: hidden;\n    top: 0;\n    bottom: 0;\n    background-color: inherit;\n    -ms-user-select: none;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    cursor: text;\n}\n\n.ace_content {\n    position: absolute;\n    box-sizing: border-box;\n    min-width: 100%;\n    contain: style size layout;\n    font-variant-ligatures: no-common-ligatures;\n}\n\n.ace_dragging .ace_scroller:before{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    content: '';\n    background: rgba(250, 250, 250, 0.01);\n    z-index: 1000;\n}\n.ace_dragging.ace_dark .ace_scroller:before{\n    background: rgba(0, 0, 0, 0.01);\n}\n\n.ace_gutter {\n    position: absolute;\n    overflow : hidden;\n    width: auto;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    cursor: default;\n    z-index: 4;\n    -ms-user-select: none;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    contain: style size layout;\n}\n\n.ace_gutter-active-line {\n    position: absolute;\n    left: 0;\n    right: 0;\n}\n\n.ace_scroller.ace_scroll-left:after {\n    content: \"\";\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;\n    pointer-events: none;\n}\n\n.ace_gutter-cell {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    padding-left: 19px;\n    padding-right: 6px;\n    background-repeat: no-repeat;\n}\n\n.ace_gutter-cell.ace_error {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==\");\n    background-repeat: no-repeat;\n    background-position: 2px center;\n}\n\n.ace_gutter-cell.ace_warning {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==\");\n    background-position: 2px center;\n}\n\n.ace_gutter-cell.ace_info {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=\");\n    background-position: 2px center;\n}\n.ace_dark .ace_gutter-cell.ace_info {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC\");\n}\n\n.ace_scrollbar {\n    contain: strict;\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    z-index: 6;\n}\n\n.ace_scrollbar-inner {\n    position: absolute;\n    cursor: text;\n    left: 0;\n    top: 0;\n}\n\n.ace_scrollbar-v{\n    overflow-x: hidden;\n    overflow-y: scroll;\n    top: 0;\n}\n\n.ace_scrollbar-h {\n    overflow-x: scroll;\n    overflow-y: hidden;\n    left: 0;\n}\n\n.ace_print-margin {\n    position: absolute;\n    height: 100%;\n}\n\n.ace_text-input {\n    position: absolute;\n    z-index: 0;\n    width: 0.5em;\n    height: 1em;\n    opacity: 0;\n    background: transparent;\n    -moz-appearance: none;\n    appearance: none;\n    border: none;\n    resize: none;\n    outline: none;\n    overflow: hidden;\n    font: inherit;\n    padding: 0 1px;\n    margin: 0 -1px;\n    contain: strict;\n    -ms-user-select: text;\n    -moz-user-select: text;\n    -webkit-user-select: text;\n    user-select: text;\n    /*with `pre-line` chrome inserts &nbsp; instead of space*/\n    white-space: pre!important;\n}\n.ace_text-input.ace_composition {\n    background: transparent;\n    color: inherit;\n    z-index: 1000;\n    opacity: 1;\n}\n.ace_composition_placeholder { color: transparent }\n.ace_composition_marker { \n    border-bottom: 1px solid;\n    position: absolute;\n    border-radius: 0;\n    margin-top: 1px;\n}\n\n[ace_nocontext=true] {\n    transform: none!important;\n    filter: none!important;\n    clip-path: none!important;\n    mask : none!important;\n    contain: none!important;\n    perspective: none!important;\n    mix-blend-mode: initial!important;\n    z-index: auto;\n}\n\n.ace_layer {\n    z-index: 1;\n    position: absolute;\n    overflow: hidden;\n    /* workaround for chrome bug https://github.com/ajaxorg/ace/issues/2312*/\n    word-wrap: normal;\n    white-space: pre;\n    height: 100%;\n    width: 100%;\n    box-sizing: border-box;\n    /* setting pointer-events: auto; on node under the mouse, which changes\n        during scroll, will break mouse wheel scrolling in Safari */\n    pointer-events: none;\n}\n\n.ace_gutter-layer {\n    position: relative;\n    width: auto;\n    text-align: right;\n    pointer-events: auto;\n    height: 1000000px;\n    contain: style size layout;\n}\n\n.ace_text-layer {\n    font: inherit !important;\n    position: absolute;\n    height: 1000000px;\n    width: 1000000px;\n    contain: style size layout;\n}\n\n.ace_text-layer > .ace_line, .ace_text-layer > .ace_line_group {\n    contain: style size layout;\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n}\n\n.ace_hidpi .ace_text-layer,\n.ace_hidpi .ace_gutter-layer,\n.ace_hidpi .ace_content,\n.ace_hidpi .ace_gutter {\n    contain: strict;\n    will-change: transform;\n}\n.ace_hidpi .ace_text-layer > .ace_line, \n.ace_hidpi .ace_text-layer > .ace_line_group {\n    contain: strict;\n}\n\n.ace_cjk {\n    display: inline-block;\n    text-align: center;\n}\n\n.ace_cursor-layer {\n    z-index: 4;\n}\n\n.ace_cursor {\n    z-index: 4;\n    position: absolute;\n    box-sizing: border-box;\n    border-left: 2px solid;\n    /* workaround for smooth cursor repaintng whole screen in chrome */\n    transform: translatez(0);\n}\n\n.ace_multiselect .ace_cursor {\n    border-left-width: 1px;\n}\n\n.ace_slim-cursors .ace_cursor {\n    border-left-width: 1px;\n}\n\n.ace_overwrite-cursors .ace_cursor {\n    border-left-width: 0;\n    border-bottom: 1px solid;\n}\n\n.ace_hidden-cursors .ace_cursor {\n    opacity: 0.2;\n}\n\n.ace_hasPlaceholder .ace_hidden-cursors .ace_cursor {\n    opacity: 0;\n}\n\n.ace_smooth-blinking .ace_cursor {\n    transition: opacity 0.18s;\n}\n\n.ace_animate-blinking .ace_cursor {\n    animation-duration: 1000ms;\n    animation-timing-function: step-end;\n    animation-name: blink-ace-animate;\n    animation-iteration-count: infinite;\n}\n\n.ace_animate-blinking.ace_smooth-blinking .ace_cursor {\n    animation-duration: 1000ms;\n    animation-timing-function: ease-in-out;\n    animation-name: blink-ace-animate-smooth;\n}\n    \n@keyframes blink-ace-animate {\n    from, to { opacity: 1; }\n    60% { opacity: 0; }\n}\n\n@keyframes blink-ace-animate-smooth {\n    from, to { opacity: 1; }\n    45% { opacity: 1; }\n    60% { opacity: 0; }\n    85% { opacity: 0; }\n}\n\n.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {\n    position: absolute;\n    z-index: 3;\n}\n\n.ace_marker-layer .ace_selection {\n    position: absolute;\n    z-index: 5;\n}\n\n.ace_marker-layer .ace_bracket {\n    position: absolute;\n    z-index: 6;\n}\n\n.ace_marker-layer .ace_error_bracket {\n    position: absolute;\n    border-bottom: 1px solid #DE5555;\n    border-radius: 0;\n}\n\n.ace_marker-layer .ace_active-line {\n    position: absolute;\n    z-index: 2;\n}\n\n.ace_marker-layer .ace_selected-word {\n    position: absolute;\n    z-index: 4;\n    box-sizing: border-box;\n}\n\n.ace_line .ace_fold {\n    box-sizing: border-box;\n\n    display: inline-block;\n    height: 11px;\n    margin-top: -2px;\n    vertical-align: middle;\n\n    background-image:\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII=\"),\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=\");\n    background-repeat: no-repeat, repeat-x;\n    background-position: center center, top left;\n    color: transparent;\n\n    border: 1px solid black;\n    border-radius: 2px;\n\n    cursor: pointer;\n    pointer-events: auto;\n}\n\n.ace_dark .ace_fold {\n}\n\n.ace_fold:hover{\n    background-image:\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII=\"),\n        url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC\");\n}\n\n.ace_tooltip {\n    background-color: #FFF;\n    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));\n    border: 1px solid gray;\n    border-radius: 1px;\n    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n    color: black;\n    max-width: 100%;\n    padding: 3px 4px;\n    position: fixed;\n    z-index: 999999;\n    box-sizing: border-box;\n    cursor: default;\n    white-space: pre;\n    word-wrap: break-word;\n    line-height: normal;\n    font-style: normal;\n    font-weight: normal;\n    letter-spacing: normal;\n    pointer-events: none;\n}\n\n.ace_folding-enabled > .ace_gutter-cell {\n    padding-right: 13px;\n}\n\n.ace_fold-widget {\n    box-sizing: border-box;\n\n    margin: 0 -12px 0 1px;\n    display: none;\n    width: 11px;\n    vertical-align: top;\n\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==\");\n    background-repeat: no-repeat;\n    background-position: center;\n\n    border-radius: 3px;\n    \n    border: 1px solid transparent;\n    cursor: pointer;\n}\n\n.ace_folding-enabled .ace_fold-widget {\n    display: inline-block;   \n}\n\n.ace_fold-widget.ace_end {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==\");\n}\n\n.ace_fold-widget.ace_closed {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==\");\n}\n\n.ace_fold-widget:hover {\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    background-color: rgba(255, 255, 255, 0.2);\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);\n}\n\n.ace_fold-widget:active {\n    border: 1px solid rgba(0, 0, 0, 0.4);\n    background-color: rgba(0, 0, 0, 0.05);\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);\n}\n/**\n * Dark version for fold widgets\n */\n.ace_dark .ace_fold-widget {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC\");\n}\n.ace_dark .ace_fold-widget.ace_end {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==\");\n}\n.ace_dark .ace_fold-widget.ace_closed {\n    background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==\");\n}\n.ace_dark .ace_fold-widget:hover {\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);\n    background-color: rgba(255, 255, 255, 0.1);\n}\n.ace_dark .ace_fold-widget:active {\n    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);\n}\n\n.ace_inline_button {\n    border: 1px solid lightgray;\n    display: inline-block;\n    margin: -1px 8px;\n    padding: 0 5px;\n    pointer-events: auto;\n    cursor: pointer;\n}\n.ace_inline_button:hover {\n    border-color: gray;\n    background: rgba(200,200,200,0.2);\n    display: inline-block;\n    pointer-events: auto;\n}\n\n.ace_fold-widget.ace_invalid {\n    background-color: #FFB4B4;\n    border-color: #DE5555;\n}\n\n.ace_fade-fold-widgets .ace_fold-widget {\n    transition: opacity 0.4s ease 0.05s;\n    opacity: 0;\n}\n\n.ace_fade-fold-widgets:hover .ace_fold-widget {\n    transition: opacity 0.05s ease 0.05s;\n    opacity:1;\n}\n\n.ace_underline {\n    text-decoration: underline;\n}\n\n.ace_bold {\n    font-weight: bold;\n}\n\n.ace_nobold .ace_bold {\n    font-weight: normal;\n}\n\n.ace_italic {\n    font-style: italic;\n}\n\n\n.ace_error-marker {\n    background-color: rgba(255, 0, 0,0.2);\n    position: absolute;\n    z-index: 9;\n}\n\n.ace_highlight-marker {\n    background-color: rgba(255, 255, 0,0.2);\n    position: absolute;\n    z-index: 8;\n}\n\n.ace_mobile-menu {\n    position: absolute;\n    line-height: 1.5;\n    border-radius: 4px;\n    -ms-user-select: none;\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    background: white;\n    box-shadow: 1px 3px 2px grey;\n    border: 1px solid #dcdcdc;\n    color: black;\n}\n.ace_dark > .ace_mobile-menu {\n    background: #333;\n    color: #ccc;\n    box-shadow: 1px 3px 2px grey;\n    border: 1px solid #444;\n\n}\n.ace_mobile-button {\n    padding: 2px;\n    cursor: pointer;\n    overflow: hidden;\n}\n.ace_mobile-button:hover {\n    background-color: #eee;\n    opacity:1;\n}\n.ace_mobile-button:active {\n    background-color: #ddd;\n}\n\n.ace_placeholder {\n    font-family: arial;\n    transform: scale(0.9);\n    transform-origin: left;\n    white-space: pre;\n    opacity: 0.7;\n    margin: 0 10px;\n}\n\n.ace_ghost_text {\n    opacity: 0.5;\n    font-style: italic;\n}";
 
 });
 
-ace.define("ace/virtual_renderer",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/config","ace/layer/gutter","ace/layer/marker","ace/layer/text","ace/layer/cursor","ace/scrollbar","ace/scrollbar","ace/renderloop","ace/layer/font_metrics","ace/lib/event_emitter","ace/css/editor.css","ace/lib/useragent"], function(require, exports, module){"use strict";
+ace.define("ace/layer/decorators",["require","exports","module","ace/lib/dom","ace/lib/oop","ace/lib/event_emitter"], function(require, exports, module){"use strict";
+var dom = require("../lib/dom");
+var oop = require("../lib/oop");
+var EventEmitter = require("../lib/event_emitter").EventEmitter;
+var Decorator = function (parent, renderer) {
+    this.canvas = dom.createElement("canvas");
+    this.renderer = renderer;
+    this.pixelRatio = 1;
+    this.maxHeight = renderer.layerConfig.maxHeight;
+    this.lineHeight = renderer.layerConfig.lineHeight;
+    this.canvasHeight = parent.parent.scrollHeight;
+    this.heightRatio = this.canvasHeight / this.maxHeight;
+    this.canvasWidth = parent.width;
+    this.minDecorationHeight = (2 * this.pixelRatio) | 0;
+    this.halfMinDecorationHeight = (this.minDecorationHeight / 2) | 0;
+    this.canvas.width = this.canvasWidth;
+    this.canvas.height = this.canvasHeight;
+    this.canvas.style.top = 0 + "px";
+    this.canvas.style.right = 0 + "px";
+    this.canvas.style.zIndex = 7 + "px";
+    this.canvas.style.position = "absolute";
+    this.colors = {};
+    this.colors.dark = {
+        "error": "rgba(255, 18, 18, 1)",
+        "warning": "rgba(18, 136, 18, 1)",
+        "info": "rgba(18, 18, 136, 1)"
+    };
+    this.colors.light = {
+        "error": "rgb(255,51,51)",
+        "warning": "rgb(32,133,72)",
+        "info": "rgb(35,68,138)"
+    };
+    parent.element.appendChild(this.canvas);
+};
+(function () {
+    oop.implement(this, EventEmitter);
+    this.$updateDecorators = function (config) {
+        var colors = (this.renderer.theme.isDark === true) ? this.colors.dark : this.colors.light;
+        if (config) {
+            this.maxHeight = config.maxHeight;
+            this.lineHeight = config.lineHeight;
+            this.canvasHeight = config.height;
+            var allLineHeight = (config.lastRow + 1) * this.lineHeight;
+            if (allLineHeight < this.canvasHeight) {
+                this.heightRatio = 1;
+            }
+            else {
+                this.heightRatio = this.canvasHeight / this.maxHeight;
+            }
+        }
+        var ctx = this.canvas.getContext("2d");
+        function compare(a, b) {
+            if (a.priority < b.priority)
+                return -1;
+            if (a.priority > b.priority)
+                return 1;
+            return 0;
+        }
+        var annotations = this.renderer.session.$annotations;
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if (annotations) {
+            var priorities = {
+                "info": 1,
+                "warning": 2,
+                "error": 3
+            };
+            annotations.forEach(function (item) {
+                item.priority = priorities[item.type] || null;
+            });
+            annotations = annotations.sort(compare);
+            var foldData = this.renderer.session.$foldData;
+            for (var i = 0; i < annotations.length; i++) {
+                var row = annotations[i].row;
+                var compensateFold = this.compensateFoldRows(row, foldData);
+                var currentY = Math.round((row - compensateFold) * this.lineHeight * this.heightRatio);
+                var y1 = Math.round(((row - compensateFold) * this.lineHeight * this.heightRatio));
+                var y2 = Math.round((((row - compensateFold) * this.lineHeight + this.lineHeight) * this.heightRatio));
+                var height = y2 - y1;
+                if (height < this.minDecorationHeight) {
+                    var yCenter = ((y1 + y2) / 2) | 0;
+                    if (yCenter < this.halfMinDecorationHeight) {
+                        yCenter = this.halfMinDecorationHeight;
+                    }
+                    else if (yCenter + this.halfMinDecorationHeight > this.canvasHeight) {
+                        yCenter = this.canvasHeight - this.halfMinDecorationHeight;
+                    }
+                    y1 = Math.round(yCenter - this.halfMinDecorationHeight);
+                    y2 = Math.round(yCenter + this.halfMinDecorationHeight);
+                }
+                ctx.fillStyle = colors[annotations[i].type] || null;
+                ctx.fillRect(0, currentY, this.canvasWidth, y2 - y1);
+            }
+        }
+        var cursor = this.renderer.session.selection.getCursor();
+        if (cursor) {
+            var compensateFold = this.compensateFoldRows(cursor.row, foldData);
+            var currentY = Math.round((cursor.row - compensateFold) * this.lineHeight * this.heightRatio);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.fillRect(0, currentY, this.canvasWidth, 2);
+        }
+    };
+    this.compensateFoldRows = function (row, foldData) {
+        var compensateFold = 0;
+        if (foldData && foldData.length > 0) {
+            for (var j = 0; j < foldData.length; j++) {
+                if (row > foldData[j].start.row && row < foldData[j].end.row) {
+                    compensateFold += row - foldData[j].start.row;
+                }
+                else if (row >= foldData[j].end.row) {
+                    compensateFold += foldData[j].end.row - foldData[j].start.row;
+                }
+            }
+        }
+        return compensateFold;
+    };
+}.call(Decorator.prototype));
+exports.Decorator = Decorator;
+
+});
+
+ace.define("ace/virtual_renderer",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/config","ace/layer/gutter","ace/layer/marker","ace/layer/text","ace/layer/cursor","ace/scrollbar","ace/scrollbar","ace/scrollbar_custom","ace/scrollbar_custom","ace/renderloop","ace/layer/font_metrics","ace/lib/event_emitter","ace/css/editor.css","ace/layer/decorators","ace/lib/useragent"], function(require, exports, module){"use strict";
 var oop = require("./lib/oop");
 var dom = require("./lib/dom");
 var config = require("./config");
@@ -15800,10 +16673,13 @@ var TextLayer = require("./layer/text").Text;
 var CursorLayer = require("./layer/cursor").Cursor;
 var HScrollBar = require("./scrollbar").HScrollBar;
 var VScrollBar = require("./scrollbar").VScrollBar;
+var HScrollBarCustom = require("./scrollbar_custom").HScrollBar;
+var VScrollBarCustom = require("./scrollbar_custom").VScrollBar;
 var RenderLoop = require("./renderloop").RenderLoop;
 var FontMetrics = require("./layer/font_metrics").FontMetrics;
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var editorCss = require("./css/editor.css");
+var Decorator = require("./layer/decorators").Decorator;
 var useragent = require("./lib/useragent");
 var HIDE_TEXTAREA = useragent.isIE;
 dom.importCssString(editorCss, "ace_editor.css", false);
@@ -16026,6 +16902,9 @@ var VirtualRenderer = function (container, theme) {
         if (this.resizing)
             this.resizing = 0;
         this.scrollBarH.scrollLeft = this.scrollBarV.scrollTop = null;
+        if (this.$customScrollbar) {
+            this.$updateCustomScrollbar(true);
+        }
     };
     this.$updateCachedSize = function (force, gutterWidth, width, height) {
         height -= (this.$extraHeight || 0);
@@ -16043,6 +16922,7 @@ var VirtualRenderer = function (container, theme) {
             size.scrollerHeight = size.height;
             if (this.$horizScroll)
                 size.scrollerHeight -= this.scrollBarH.getHeight();
+            this.scrollBarV.setHeight(size.scrollerHeight);
             this.scrollBarV.element.style.bottom = this.scrollBarH.getHeight() + "px";
             changes = changes | this.CHANGE_SCROLL;
         }
@@ -16060,6 +16940,7 @@ var VirtualRenderer = function (container, theme) {
             dom.setStyle(this.scrollBarH.element.style, "right", right);
             dom.setStyle(this.scroller.style, "right", right);
             dom.setStyle(this.scroller.style, "bottom", this.scrollBarH.getHeight());
+            this.scrollBarH.setWidth(size.scrollerWidth);
             if (this.session && this.session.getUseWrapMode() && this.adjustWrapLimit() || force) {
                 changes |= this.CHANGE_FULL;
             }
@@ -16354,6 +17235,9 @@ var VirtualRenderer = function (container, theme) {
             this.$textLayer.update(config);
             if (this.$showGutter)
                 this.$gutterLayer.update(config);
+            if (this.$customScrollbar) {
+                this.$scrollDecorator.$updateDecorators(config);
+            }
             this.$markerBack.update(config);
             this.$markerFront.update(config);
             this.$cursorLayer.update(config);
@@ -16373,6 +17257,9 @@ var VirtualRenderer = function (container, theme) {
                 else
                     this.$gutterLayer.scrollLines(config);
             }
+            if (this.$customScrollbar) {
+                this.$scrollDecorator.$updateDecorators(config);
+            }
             this.$markerBack.update(config);
             this.$markerFront.update(config);
             this.$cursorLayer.update(config);
@@ -16385,18 +17272,30 @@ var VirtualRenderer = function (container, theme) {
             this.$textLayer.update(config);
             if (this.$showGutter)
                 this.$gutterLayer.update(config);
+            if (this.$customScrollbar) {
+                this.$scrollDecorator.$updateDecorators(config);
+            }
         }
         else if (changes & this.CHANGE_LINES) {
             if (this.$updateLines() || (changes & this.CHANGE_GUTTER) && this.$showGutter)
                 this.$gutterLayer.update(config);
+            if (this.$customScrollbar) {
+                this.$scrollDecorator.$updateDecorators(config);
+            }
         }
         else if (changes & this.CHANGE_TEXT || changes & this.CHANGE_GUTTER) {
             if (this.$showGutter)
                 this.$gutterLayer.update(config);
+            if (this.$customScrollbar) {
+                this.$scrollDecorator.$updateDecorators(config);
+            }
         }
         else if (changes & this.CHANGE_CURSOR) {
             if (this.$highlightGutterLine)
                 this.$gutterLayer.updateLineHighlight(config);
+            if (this.$customScrollbar) {
+                this.$scrollDecorator.$updateDecorators(config);
+            }
         }
         if (changes & this.CHANGE_CURSOR) {
             this.$cursorLayer.update(config);
@@ -16577,34 +17476,43 @@ var VirtualRenderer = function (container, theme) {
         if (this.$size.scrollerHeight === 0)
             return;
         var pos = this.$cursorLayer.getPixelPosition(cursor);
-        var left = pos.left;
-        var top = pos.top;
+        var newLeft = pos.left;
+        var newTop = pos.top;
         var topMargin = $viewMargin && $viewMargin.top || 0;
         var bottomMargin = $viewMargin && $viewMargin.bottom || 0;
-        var scrollTop = this.$scrollAnimation ? this.session.getScrollTop() : this.scrollTop;
-        if (scrollTop + topMargin > top) {
-            if (offset && scrollTop + topMargin > top + this.lineHeight)
-                top -= offset * this.$size.scrollerHeight;
-            if (top === 0)
-                top = -this.scrollMargin.top;
-            this.session.setScrollTop(top);
+        if (this.$scrollAnimation) {
+            this.$stopAnimation = true;
         }
-        else if (scrollTop + this.$size.scrollerHeight - bottomMargin < top + this.lineHeight) {
-            if (offset && scrollTop + this.$size.scrollerHeight - bottomMargin < top - this.lineHeight)
-                top += offset * this.$size.scrollerHeight;
-            this.session.setScrollTop(top + this.lineHeight + bottomMargin - this.$size.scrollerHeight);
+        var currentTop = this.$scrollAnimation ? this.session.getScrollTop() : this.scrollTop;
+        if (currentTop + topMargin > newTop) {
+            if (offset && currentTop + topMargin > newTop + this.lineHeight)
+                newTop -= offset * this.$size.scrollerHeight;
+            if (newTop === 0)
+                newTop = -this.scrollMargin.top;
+            this.session.setScrollTop(newTop);
         }
-        var scrollLeft = this.scrollLeft;
-        if (scrollLeft > left) {
-            if (left < this.$padding + 2 * this.layerConfig.characterWidth)
-                left = -this.scrollMargin.left;
-            this.session.setScrollLeft(left);
+        else if (currentTop + this.$size.scrollerHeight - bottomMargin < newTop + this.lineHeight) {
+            if (offset && currentTop + this.$size.scrollerHeight - bottomMargin < newTop - this.lineHeight)
+                newTop += offset * this.$size.scrollerHeight;
+            this.session.setScrollTop(newTop + this.lineHeight + bottomMargin - this.$size.scrollerHeight);
         }
-        else if (scrollLeft + this.$size.scrollerWidth < left + this.characterWidth) {
-            this.session.setScrollLeft(Math.round(left + this.characterWidth - this.$size.scrollerWidth));
+        var currentLeft = this.scrollLeft;
+        var twoCharsWidth = 2 * this.layerConfig.characterWidth;
+        if (newLeft - twoCharsWidth < currentLeft) {
+            newLeft -= twoCharsWidth;
+            if (newLeft < this.$padding + twoCharsWidth) {
+                newLeft = -this.scrollMargin.left;
+            }
+            this.session.setScrollLeft(newLeft);
         }
-        else if (scrollLeft <= this.$padding && left - scrollLeft < this.characterWidth) {
-            this.session.setScrollLeft(0);
+        else {
+            newLeft += twoCharsWidth;
+            if (currentLeft + this.$size.scrollerWidth < newLeft + this.characterWidth) {
+                this.session.setScrollLeft(Math.round(newLeft + this.characterWidth - this.$size.scrollerWidth));
+            }
+            else if (currentLeft <= this.$padding && newLeft - currentLeft < this.characterWidth) {
+                this.session.setScrollLeft(0);
+            }
         }
     };
     this.getScrollTop = function () {
@@ -16673,7 +17581,17 @@ var VirtualRenderer = function (container, theme) {
         clearInterval(this.$timer);
         _self.session.setScrollTop(steps.shift());
         _self.session.$scrollTop = toValue;
+        function endAnimation() {
+            _self.$timer = clearInterval(_self.$timer);
+            _self.$scrollAnimation = null;
+            _self.$stopAnimation = false;
+            callback && callback();
+        }
         this.$timer = setInterval(function () {
+            if (_self.$stopAnimation) {
+                endAnimation();
+                return;
+            }
             if (!_self.session)
                 return clearInterval(_self.$timer);
             if (steps.length) {
@@ -16686,9 +17604,7 @@ var VirtualRenderer = function (container, theme) {
                 toValue = null;
             }
             else {
-                _self.$timer = clearInterval(_self.$timer);
-                _self.$scrollAnimation = null;
-                callback && callback();
+                endAnimation();
             }
         }, 10);
     };
@@ -16809,6 +17725,40 @@ var VirtualRenderer = function (container, theme) {
         this.$composition = null;
         this.$cursorLayer.element.style.display = "";
     };
+    this.setGhostText = function (text, position) {
+        var cursor = this.session.selection.cursor;
+        var insertPosition = position || { row: cursor.row, column: cursor.column };
+        this.removeGhostText();
+        var textLines = text.split("\n");
+        this.addToken(textLines[0], "ghost_text", insertPosition.row, insertPosition.column);
+        this.$ghostText = {
+            text: text,
+            position: {
+                row: insertPosition.row,
+                column: insertPosition.column
+            }
+        };
+        if (textLines.length > 1) {
+            this.$ghostTextWidget = {
+                text: textLines.slice(1).join("\n"),
+                row: insertPosition.row,
+                column: insertPosition.column,
+                className: "ace_ghost_text"
+            };
+            this.session.widgetManager.addLineWidget(this.$ghostTextWidget);
+        }
+    };
+    this.removeGhostText = function () {
+        if (!this.$ghostText)
+            return;
+        var position = this.$ghostText.position;
+        this.removeExtraToken(position.row, position.column);
+        if (this.$ghostTextWidget) {
+            this.session.widgetManager.removeLineWidget(this.$ghostTextWidget);
+            this.$ghostTextWidget = null;
+        }
+        this.$ghostText = null;
+    };
     this.addToken = function (text, type, row, column) {
         var session = this.session;
         session.bgTokenizer.lines[row] = null;
@@ -16897,6 +17847,43 @@ var VirtualRenderer = function (container, theme) {
         this.$cursorLayer.destroy();
         this.removeAllListeners();
         this.container.textContent = "";
+    };
+    this.$updateCustomScrollbar = function (val) {
+        var _self = this;
+        this.$horizScroll = this.$vScroll = null;
+        this.scrollBarV.element.remove();
+        this.scrollBarH.element.remove();
+        if (this.$scrollDecorator) {
+            delete this.$scrollDecorator;
+        }
+        if (val === true) {
+            this.scrollBarV = new VScrollBarCustom(this.container, this);
+            this.scrollBarH = new HScrollBarCustom(this.container, this);
+            this.scrollBarV.setHeight(this.$size.scrollerHeight);
+            this.scrollBarH.setWidth(this.$size.scrollerWidth);
+            this.scrollBarV.addEventListener("scroll", function (e) {
+                if (!_self.$scrollAnimation)
+                    _self.session.setScrollTop(e.data - _self.scrollMargin.top);
+            });
+            this.scrollBarH.addEventListener("scroll", function (e) {
+                if (!_self.$scrollAnimation)
+                    _self.session.setScrollLeft(e.data - _self.scrollMargin.left);
+            });
+            this.$scrollDecorator = new Decorator(this.scrollBarV, this);
+            this.$scrollDecorator.$updateDecorators();
+        }
+        else {
+            this.scrollBarV = new VScrollBar(this.container, this);
+            this.scrollBarH = new HScrollBar(this.container, this);
+            this.scrollBarV.addEventListener("scroll", function (e) {
+                if (!_self.$scrollAnimation)
+                    _self.session.setScrollTop(e.data - _self.scrollMargin.top);
+            });
+            this.scrollBarH.addEventListener("scroll", function (e) {
+                if (!_self.$scrollAnimation)
+                    _self.session.setScrollLeft(e.data - _self.scrollMargin.left);
+            });
+        }
     };
 }).call(VirtualRenderer.prototype);
 config.defineOptions(VirtualRenderer.prototype, "renderer", {
@@ -17036,6 +18023,12 @@ config.defineOptions(VirtualRenderer.prototype, "renderer", {
             this.$gutterLayer.$fixedWidth = !!val;
             this.$loop.schedule(this.CHANGE_GUTTER);
         }
+    },
+    customScrollbar: {
+        set: function (val) {
+            this.$updateCustomScrollbar(val);
+        },
+        initialValue: false
     },
     theme: {
         set: function (val) { this.setTheme(val); },
@@ -17646,7 +18639,7 @@ exports.defaultCommands = [{
         readOnly: true
     }, {
         name: "toggleSplitSelectionIntoLines",
-        description: "Split into lines",
+        description: "Split selection into lines",
         exec: function (editor) {
             if (editor.multiSelect.rangeCount > 1)
                 editor.multiSelect.joinSelections();
@@ -18477,337 +19470,6 @@ var FoldMode = exports.FoldMode = function () { };
         return Range.fromPoints(start, end);
     };
 }).call(FoldMode.prototype);
-
-});
-
-ace.define("ace/line_widgets",["require","exports","module","ace/lib/dom"], function(require, exports, module){"use strict";
-var dom = require("./lib/dom");
-function LineWidgets(session) {
-    this.session = session;
-    this.session.widgetManager = this;
-    this.session.getRowLength = this.getRowLength;
-    this.session.$getWidgetScreenLength = this.$getWidgetScreenLength;
-    this.updateOnChange = this.updateOnChange.bind(this);
-    this.renderWidgets = this.renderWidgets.bind(this);
-    this.measureWidgets = this.measureWidgets.bind(this);
-    this.session._changedWidgets = [];
-    this.$onChangeEditor = this.$onChangeEditor.bind(this);
-    this.session.on("change", this.updateOnChange);
-    this.session.on("changeFold", this.updateOnFold);
-    this.session.on("changeEditor", this.$onChangeEditor);
-}
-(function () {
-    this.getRowLength = function (row) {
-        var h;
-        if (this.lineWidgets)
-            h = this.lineWidgets[row] && this.lineWidgets[row].rowCount || 0;
-        else
-            h = 0;
-        if (!this.$useWrapMode || !this.$wrapData[row]) {
-            return 1 + h;
-        }
-        else {
-            return this.$wrapData[row].length + 1 + h;
-        }
-    };
-    this.$getWidgetScreenLength = function () {
-        var screenRows = 0;
-        this.lineWidgets.forEach(function (w) {
-            if (w && w.rowCount && !w.hidden)
-                screenRows += w.rowCount;
-        });
-        return screenRows;
-    };
-    this.$onChangeEditor = function (e) {
-        this.attach(e.editor);
-    };
-    this.attach = function (editor) {
-        if (editor && editor.widgetManager && editor.widgetManager != this)
-            editor.widgetManager.detach();
-        if (this.editor == editor)
-            return;
-        this.detach();
-        this.editor = editor;
-        if (editor) {
-            editor.widgetManager = this;
-            editor.renderer.on("beforeRender", this.measureWidgets);
-            editor.renderer.on("afterRender", this.renderWidgets);
-        }
-    };
-    this.detach = function (e) {
-        var editor = this.editor;
-        if (!editor)
-            return;
-        this.editor = null;
-        editor.widgetManager = null;
-        editor.renderer.off("beforeRender", this.measureWidgets);
-        editor.renderer.off("afterRender", this.renderWidgets);
-        var lineWidgets = this.session.lineWidgets;
-        lineWidgets && lineWidgets.forEach(function (w) {
-            if (w && w.el && w.el.parentNode) {
-                w._inDocument = false;
-                w.el.parentNode.removeChild(w.el);
-            }
-        });
-    };
-    this.updateOnFold = function (e, session) {
-        var lineWidgets = session.lineWidgets;
-        if (!lineWidgets || !e.action)
-            return;
-        var fold = e.data;
-        var start = fold.start.row;
-        var end = fold.end.row;
-        var hide = e.action == "add";
-        for (var i = start + 1; i < end; i++) {
-            if (lineWidgets[i])
-                lineWidgets[i].hidden = hide;
-        }
-        if (lineWidgets[end]) {
-            if (hide) {
-                if (!lineWidgets[start])
-                    lineWidgets[start] = lineWidgets[end];
-                else
-                    lineWidgets[end].hidden = hide;
-            }
-            else {
-                if (lineWidgets[start] == lineWidgets[end])
-                    lineWidgets[start] = undefined;
-                lineWidgets[end].hidden = hide;
-            }
-        }
-    };
-    this.updateOnChange = function (delta) {
-        var lineWidgets = this.session.lineWidgets;
-        if (!lineWidgets)
-            return;
-        var startRow = delta.start.row;
-        var len = delta.end.row - startRow;
-        if (len === 0) {
-        }
-        else if (delta.action == "remove") {
-            var removed = lineWidgets.splice(startRow + 1, len);
-            if (!lineWidgets[startRow] && removed[removed.length - 1]) {
-                lineWidgets[startRow] = removed.pop();
-            }
-            removed.forEach(function (w) {
-                w && this.removeLineWidget(w);
-            }, this);
-            this.$updateRows();
-        }
-        else {
-            var args = new Array(len);
-            if (lineWidgets[startRow] && lineWidgets[startRow].column != null) {
-                if (delta.start.column > lineWidgets[startRow].column)
-                    startRow++;
-            }
-            args.unshift(startRow, 0);
-            lineWidgets.splice.apply(lineWidgets, args);
-            this.$updateRows();
-        }
-    };
-    this.$updateRows = function () {
-        var lineWidgets = this.session.lineWidgets;
-        if (!lineWidgets)
-            return;
-        var noWidgets = true;
-        lineWidgets.forEach(function (w, i) {
-            if (w) {
-                noWidgets = false;
-                w.row = i;
-                while (w.$oldWidget) {
-                    w.$oldWidget.row = i;
-                    w = w.$oldWidget;
-                }
-            }
-        });
-        if (noWidgets)
-            this.session.lineWidgets = null;
-    };
-    this.$registerLineWidget = function (w) {
-        if (!this.session.lineWidgets)
-            this.session.lineWidgets = new Array(this.session.getLength());
-        var old = this.session.lineWidgets[w.row];
-        if (old) {
-            w.$oldWidget = old;
-            if (old.el && old.el.parentNode) {
-                old.el.parentNode.removeChild(old.el);
-                old._inDocument = false;
-            }
-        }
-        this.session.lineWidgets[w.row] = w;
-        return w;
-    };
-    this.addLineWidget = function (w) {
-        this.$registerLineWidget(w);
-        w.session = this.session;
-        if (!this.editor)
-            return w;
-        var renderer = this.editor.renderer;
-        if (w.html && !w.el) {
-            w.el = dom.createElement("div");
-            w.el.innerHTML = w.html;
-        }
-        if (w.el) {
-            dom.addCssClass(w.el, "ace_lineWidgetContainer");
-            w.el.style.position = "absolute";
-            w.el.style.zIndex = 5;
-            renderer.container.appendChild(w.el);
-            w._inDocument = true;
-            if (!w.coverGutter) {
-                w.el.style.zIndex = 3;
-            }
-            if (w.pixelHeight == null) {
-                w.pixelHeight = w.el.offsetHeight;
-            }
-        }
-        if (w.rowCount == null) {
-            w.rowCount = w.pixelHeight / renderer.layerConfig.lineHeight;
-        }
-        var fold = this.session.getFoldAt(w.row, 0);
-        w.$fold = fold;
-        if (fold) {
-            var lineWidgets = this.session.lineWidgets;
-            if (w.row == fold.end.row && !lineWidgets[fold.start.row])
-                lineWidgets[fold.start.row] = w;
-            else
-                w.hidden = true;
-        }
-        this.session._emit("changeFold", { data: { start: { row: w.row } } });
-        this.$updateRows();
-        this.renderWidgets(null, renderer);
-        this.onWidgetChanged(w);
-        return w;
-    };
-    this.removeLineWidget = function (w) {
-        w._inDocument = false;
-        w.session = null;
-        if (w.el && w.el.parentNode)
-            w.el.parentNode.removeChild(w.el);
-        if (w.editor && w.editor.destroy)
-            try {
-                w.editor.destroy();
-            }
-            catch (e) { }
-        if (this.session.lineWidgets) {
-            var w1 = this.session.lineWidgets[w.row];
-            if (w1 == w) {
-                this.session.lineWidgets[w.row] = w.$oldWidget;
-                if (w.$oldWidget)
-                    this.onWidgetChanged(w.$oldWidget);
-            }
-            else {
-                while (w1) {
-                    if (w1.$oldWidget == w) {
-                        w1.$oldWidget = w.$oldWidget;
-                        break;
-                    }
-                    w1 = w1.$oldWidget;
-                }
-            }
-        }
-        this.session._emit("changeFold", { data: { start: { row: w.row } } });
-        this.$updateRows();
-    };
-    this.getWidgetsAtRow = function (row) {
-        var lineWidgets = this.session.lineWidgets;
-        var w = lineWidgets && lineWidgets[row];
-        var list = [];
-        while (w) {
-            list.push(w);
-            w = w.$oldWidget;
-        }
-        return list;
-    };
-    this.onWidgetChanged = function (w) {
-        this.session._changedWidgets.push(w);
-        this.editor && this.editor.renderer.updateFull();
-    };
-    this.measureWidgets = function (e, renderer) {
-        var changedWidgets = this.session._changedWidgets;
-        var config = renderer.layerConfig;
-        if (!changedWidgets || !changedWidgets.length)
-            return;
-        var min = Infinity;
-        for (var i = 0; i < changedWidgets.length; i++) {
-            var w = changedWidgets[i];
-            if (!w || !w.el)
-                continue;
-            if (w.session != this.session)
-                continue;
-            if (!w._inDocument) {
-                if (this.session.lineWidgets[w.row] != w)
-                    continue;
-                w._inDocument = true;
-                renderer.container.appendChild(w.el);
-            }
-            w.h = w.el.offsetHeight;
-            if (!w.fixedWidth) {
-                w.w = w.el.offsetWidth;
-                w.screenWidth = Math.ceil(w.w / config.characterWidth);
-            }
-            var rowCount = w.h / config.lineHeight;
-            if (w.coverLine) {
-                rowCount -= this.session.getRowLineCount(w.row);
-                if (rowCount < 0)
-                    rowCount = 0;
-            }
-            if (w.rowCount != rowCount) {
-                w.rowCount = rowCount;
-                if (w.row < min)
-                    min = w.row;
-            }
-        }
-        if (min != Infinity) {
-            this.session._emit("changeFold", { data: { start: { row: min } } });
-            this.session.lineWidgetWidth = null;
-        }
-        this.session._changedWidgets = [];
-    };
-    this.renderWidgets = function (e, renderer) {
-        var config = renderer.layerConfig;
-        var lineWidgets = this.session.lineWidgets;
-        if (!lineWidgets)
-            return;
-        var first = Math.min(this.firstRow, config.firstRow);
-        var last = Math.max(this.lastRow, config.lastRow, lineWidgets.length);
-        while (first > 0 && !lineWidgets[first])
-            first--;
-        this.firstRow = config.firstRow;
-        this.lastRow = config.lastRow;
-        renderer.$cursorLayer.config = config;
-        for (var i = first; i <= last; i++) {
-            var w = lineWidgets[i];
-            if (!w || !w.el)
-                continue;
-            if (w.hidden) {
-                w.el.style.top = -100 - (w.pixelHeight || 0) + "px";
-                continue;
-            }
-            if (!w._inDocument) {
-                w._inDocument = true;
-                renderer.container.appendChild(w.el);
-            }
-            var top = renderer.$cursorLayer.getPixelPosition({ row: i, column: 0 }, true).top;
-            if (!w.coverLine)
-                top += config.lineHeight * this.session.getRowLineCount(w.row);
-            w.el.style.top = top - config.offset + "px";
-            var left = w.coverGutter ? 0 : renderer.gutterWidth;
-            if (!w.fixedWidth)
-                left -= renderer.scrollLeft;
-            w.el.style.left = left + "px";
-            if (w.fullWidth && w.screenWidth) {
-                w.el.style.minWidth = config.width + 2 * config.padding + "px";
-            }
-            if (w.fixedWidth) {
-                w.el.style.right = renderer.scrollBar.getWidth() + "px";
-            }
-            else {
-                w.el.style.right = "";
-            }
-        }
-    };
-}).call(LineWidgets.prototype);
-exports.LineWidgets = LineWidgets;
 
 });
 

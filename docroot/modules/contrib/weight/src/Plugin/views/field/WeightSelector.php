@@ -97,7 +97,7 @@ class WeightSelector extends FieldPluginBase {
 
     // At this point the query already run, so we can access the results.
     foreach ($this->view->result as $row_index => $row) {
-      $entity = $row->_entity;
+      $entity = $this->getEntity($row);
       $field_langcode = $entity->getEntityTypeId() . '__' . $this->field . '_langcode';
 
       $form[$this->options['id']][$row_index]['weight'] = [

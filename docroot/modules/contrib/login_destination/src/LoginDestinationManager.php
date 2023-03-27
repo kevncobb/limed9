@@ -185,11 +185,7 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
     if ($config->get('preserve_destination')) {
       // Get current destination value.
       $drupal_destination = $this->requestStack->getCurrentRequest()->query->get('destination');
-      if (UrlHelper::isExternal($drupal_destination)) {
-        $drupal_destination = NULL;
-      }
-      // Determine if a destination exist in the URL.
-      if (!empty($drupal_destination)) {
+      if ($drupal_destination && !UrlHelper::isExternal($drupal_destination)) {
         return;
       }
     }
